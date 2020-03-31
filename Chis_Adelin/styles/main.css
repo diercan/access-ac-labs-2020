@@ -1,0 +1,13 @@
+body{
+    height: 100%;
+}
+#content{
+    width: 100%;
+    background-color: aquamarine;
+    /* flex-grow: 1; */
+    height:500px;
+}
+footer{
+    background-color: bisque;
+    height:100px;
+}
