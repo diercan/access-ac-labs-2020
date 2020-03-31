@@ -1,0 +1,1 @@
+<div class="col-12 col-md-6 col-xl-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="bounce"><img _ngcontent-iswint-website-c5="" class="image position-relative ng-lazyloaded" src="assets/images/image2.jpg"></div>

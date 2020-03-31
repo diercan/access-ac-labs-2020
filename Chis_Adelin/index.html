@@ -1,63 +1,135 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Access Labs</title>
-        <link href="./styles/main.css" rel="stylesheet">
-        <!-- bootstrap -->
-        <link
-        rel="stylesheet" 
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
-        crossorigin="anonymous">
-        <script 
-        src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
+
+<head>
+    <title>Access Labs</title>
+    <link href="./styles/main.css" rel="stylesheet">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-        <script 
-        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-        <script 
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <div class="container flex-container">
-            <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="">
-                        <svg class="bi bi-bootstrap" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M12 1H4a3 3 0 00-3 3v8a3 3 0 003 3h8a3 3 0 003-3V4a3 3 0 00-3-3zM4 0a4 4 0 00-4 4v8a4 4 0 004 4h8a4 4 0 004-4V4a4 4 0 00-4-4H4z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M8.537 12H5.062V3.545h3.399c1.587 0 2.543.809 2.543 2.11 0 .884-.65 1.675-1.483 1.816v.1c1.143.117 1.904.931 1.904 2.033 0 1.488-1.084 2.396-2.888 2.396zM6.375 4.658v2.467h1.558c1.16 0 1.764-.428 1.764-1.23 0-.78-.569-1.237-1.541-1.237H6.375zm1.898 6.229H6.375V8.162h1.822c1.236 0 1.887.463 1.887 1.348 0 .896-.627 1.377-1.811 1.377z" clip-rule="evenodd"/>
-                        </svg>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Something here </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Something 2</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Something 3</a>
-                            </li>
-                      </ul>
-                </nav>
-            </header>
-            <div id="content">
-                content area
+</head>
+
+<body>
+    <header id="background">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="">
+                <img src="assets/img/nav-gif.gif" width="50px" class="ml-5">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav ml-auto mr-5">
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="#restaurants">Restaurante</a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href=""></a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="#">Cum comanzi?</a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+        </nav>
+        <div class="row">
+            <div class="col text-center">
+                <h1 id="description-text" class="text-center">Acum poti comanda in restaurantul tau favorit<br> chiar de
+                    aici!</h1>
+                <a href="#restaurants">
+                    <button type="button" class="btn btn-dark">Selecteaza restaurantul tau !</button>
+                </a>
             </div>
         </div>
-        <footer class="page-footer font-small blue">
-            <div class="container-fluid text-center">
-                <p>footer</p>
+
+    </header>
+    <div class="container">
+        <section id="restaurants" class="m-5">
+            <p class="main-text text-center">Alege restaurantul: </p>
+            <div class="row mt-5">
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3 mt-3">
+                    <!--imaginea mai are un scris alb, placeholder-->
+                    <a href="napoleon.html">
+                        <img class="img-restaurant" src="assets/img/logo-napoleon.png" alt="Pizzeria Napoleon">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                    <a href="merlot.html">
+                        <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
+                    </a>
+                </div>
             </div>
-        </footer>
-        <script src="./scripts/main.js" type="text/javascript"></script>
-    </body>
+    </div>
+    </section>
+    </div>
+    <footer class="page-footer font-small blue" id="contact">
+        <div class="container-fluid text-center">
+            <p>contact data</p>
+        </div>
+    </footer>
+    <script src="./scripts/main.js" type="text/javascript"></script>
+</body>
+
 </html>

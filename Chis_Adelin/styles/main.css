@@ -1,13 +1,63 @@
-body{
+@font-face {
+    font-family: Montserrat;
+    src: url(./../assets/fonts/Montserrat/Montserrat/Montserrat-Black.ttf);
+    src: local('./../assets/fonts/Montserrat/Montserrat');
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
     height: 100%;
+    font-family: Montserrat, sans-serif;
 }
-#content{
-    width: 100%;
-    background-color: aquamarine;
-    /* flex-grow: 1; */
-    height:500px;
+
+#description-text {
+    padding: 10px;
+    color: #e9e9e9;
+    font-size: 50px;
+    font-weight: lighter;
+    margin-top: 150px;
+    line-height: 80px;
 }
-footer{
+
+.btn {
+    margin: 30px
+}
+
+a>button:hover {
+    opacity: 0.3;
+}
+
+li {
+    font-weight: bold;
+}
+
+#background {
+    height: 700px;
+    background-image: url(./../assets/img/main-image.jpg);
+    background-position: 50% 100%;
+    background-size: cover;
+}
+
+.main-text {
+    font-size: 40px;
+    font-weight: thin;
+}
+
+.img-restaurant {
+    width: auto;
+    height: 70px;
+    transition: all .3s ease-in-out;
+}
+
+.img-restaurant:hover {
+    transform: scale(1.2);
+}
+
+footer {
     background-color: bisque;
-    height:100px;
+    height: 100px;
+    bottom: 0;
 }
