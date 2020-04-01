@@ -4,6 +4,8 @@
 <head>
     <title>Access Labs</title>
     <link href="./styles/main.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -44,79 +46,77 @@
                     </li>
                 </ul>
         </nav>
-        <div class="row">
-            <div class="col text-center">
-                <h1 id="description-text" class="text-center">Acum poti comanda in restaurantul tau favorit<br> chiar de
-                    aici!</h1>
-                <a href="#restaurants">
-                    <button type="button" class="btn btn-dark">Selecteaza restaurantul tau !</button>
-                </a>
-            </div>
-        </div>
+        <section class="d-flex justify-content-center align-items-center" id="description">
+            <p class="text-center">Acum poti comanda in restaurantul tau favorit<br> chiar de
+                aici!</p>
+            <a href="#restaurants">
+                <button type="button" class="btn-sm btn-dark mt-5">Selecteaza restaurantul tau !</button>
+            </a>
+        </section>
 
     </header>
     <div class="container">
-        <section id="restaurants" class="m-5">
+        <section id="restaurants">
             <p class="main-text text-center">Alege restaurantul: </p>
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3 mt-3">
                     <!--imaginea mai are un scris alb, placeholder-->
-                    <a href="napoleon.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-napoleon.png" alt="Pizzeria Napoleon">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 p-3">
-                    <a href="merlot.html">
+                    <a href="restaurant-page.html">
                         <img class="img-restaurant" src="assets/img/logo-merlot.jpeg" alt="Restaurant Merlot">
                     </a>
                 </div>
@@ -124,9 +124,9 @@
     </div>
     </section>
     </div>
-    <footer class="page-footer font-small blue" id="contact">
-        <div class="container-fluid text-center">
-            <p>contact data</p>
+    <footer class="page-footer font-small d-flex align-items-center p-2" id="contact">
+        <div class="container">
+            <p>Copyright © Let's Eat . All right reserved.</p>
         </div>
     </footer>
     <script src="./scripts/main.js" type="text/javascript"></script>
