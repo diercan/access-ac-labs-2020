@@ -1,0 +1,37 @@
+
+footer{
+    padding-top: 20px;
+    width: 100%;
+}
+
+.pureBlack{
+    border-color: black;
+}
+
+.ptr{
+    cursor: pointer;
+    max-width: fit-content;
+}
+.ptr:hover{
+    color:#e68a00;
+}
+.blueText{
+    color:blue;
+}
+.noBullet{
+    list-style-type: none;
+}
+.orangeText{
+    color:orange;
+}
+nav a{
+    color:white !important;
+}
+
+.testButton{
+    border:none;
+    width: 100%;
+}
+.testCB{
+border:none;
+}

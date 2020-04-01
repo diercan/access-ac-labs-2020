@@ -1,0 +1,26 @@
+.emptyItem { grid-area: empty; }
+.comboBoxItem1 { grid-area: combobox1; }
+.comboBoxItem2{grid-area:combobox2;}
+.descriptionItem { grid-area: description; }
+.ratingItem { grid-area: rating; }
+.restaurantItem { grid-area: restaurant; }
+.mapItem{grid-area:map;}
+
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'map map combobox1 combobox2 empty'
+    'map map restaurant restaurant rating'
+    'map map description description description';
+  grid-gap: 10px;
+  /*background-color: #2196F3; */
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
