@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Restaurant App
+    </title>
+    <link rel="icon"
+        href="https://previews.123rf.com/images/nadianb/nadianb1802/nadianb180200183/95259531-food-background-with-cooking-ingredients-top-view-.jpg">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/indexGrid.css">
+    <link rel="stylesheet" type="text/css" href="css/darkMode.css">
+    <link rel="stylesheet" type="text/css" href="css/fancyTextBox.css">
+    <link rel="stylesheet" type="text/css" href="css/fancyButton.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/fancyTextBox.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="js/main.js"></script>
+    <script src="js/darkMode.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark ">
+            <a class="navbar-brand" href="#">Restaurants</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="#">Order History </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <em style="color:white !important;">Light Mode &ensp; </em>
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" onclick="myFunction()" />
+                            <div class="slider round"></div>
+                        </label>
+                        <em style="color:white !important;">Dark Mode</em>
+                    </div>
+                </form>
+
+        </nav>
+
+
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+    <section id="switchable" align="justify" style="padding-top: 20px;">
+        <h2>
+            <center>Please choose one of the following restaurants</center>
+        </h2><br>
+        <div class="row container" style="padding-bottom:20px">
+            <div class="col-md-11 offset-1">
+                <table>
+                    <tr>
+                        <td>
+                        <td style="width:100%;">
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Search restaurant" name="name"
+                                    id='name' required style="color:black !important" />
+                                <label for="name" class="form__label">Search restaurant</label>
+                            </div>
+                        </td>
+                        <td align="right" style="min-width: 100px;">
+                            <a href="https://yourpalnurav.blogspot.com/" class="brk-btn">
+                                Filter
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="container row d-flex justify-content-center"
+            style="color: black !important;padding-top: 20px;min-width: 100%;">
+
+            <div class="col-md-4" style="padding-bottom:20px">
+                <div class="card">
+                    <div class="card-header">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td valign="middle">
+                                    McDonalds
+                                </td>
+                                <td align="right">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="card-body" style="padding:0px !important;">
+
+                        <a href="#"> <img
+                                src="https://enviar-curriculum.com/wp-content/uploads/2019/10/MCDONALDS-1-800x400.jpg"
+                                style="position: relative;z-index: 1;width: 100%;height: 100%;">
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" style="padding-bottom:20px">
+                <div class="card">
+                    <div class="card-header">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td valign="middle">
+                                    KFC
+                                </td>
+                                <td align="right">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="card-body" style="padding:0px !important;">
+
+                        <a href="#"> <img
+                                src="https://cobrareview.com/wp-content/uploads/2019/04/kfc-brandspur-ng-800x400.jpg"
+                                style="position: relative;z-index: 1;width: 100%;height: 100%;">
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding-bottom:20px">
+                <div class="card">
+                    <div class="card-header">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td valign="middle">
+                                    Pizza Hut
+                                </td>
+                                <td align="right">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="card-body" style="padding:0px !important;">
+
+                        <a href="#"> <img src="https://a.storyblok.com/f/49069/800x400/48230ea89a/blog-800x400-7.png"
+                                style="position: relative;z-index: 1;width: 100%;height: 100%;">
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding-bottom:20px">
+                <div class="card">
+                    <div class="card-header">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td valign="middle">
+                                    McDonalds
+                                </td>
+                                <td align="right">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="card-body" style="padding:0px !important;">
+
+                        <a href="#"> <img
+                                src="https://enviar-curriculum.com/wp-content/uploads/2019/10/MCDONALDS-1-800x400.jpg"
+                                style="position: relative;z-index: 1;width: 100%;height: 100%;">
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding-bottom:20px">
+                <div class="card">
+                    <div class="card-header">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td valign="middle">
+                                    McDonalds
+                                </td>
+                                <td align="right">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                    <img src="images/star.png" width="30px">
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="card-body" style="padding:0px !important;">
+
+                        <a href="#"> <img
+                                src="https://enviar-curriculum.com/wp-content/uploads/2019/10/MCDONALDS-1-800x400.jpg"
+                                style="position: relative;z-index: 1;width: 100%;height: 100%;">
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="pureBlack">
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer style="padding-bottom: 50px;">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" align="justify">
+
+                    <div>About us<br>
+                        <div class="card-header">
+                            <span class="d-inline-block ">
+                                <img src="images/logo.png" width="50px">
+                                Insert company description here that is really really really really long and
+                                does not
+                                fit under any
+                                circumstance in only one single short line.
+                            </span>
+
+                        </div>
+
+                    </div>
+                    <div>Contact us</div>
+                    <div class="card-header">
+                        <span class="d-inline-block">
+                            <img src="images/icons/phone-call.svg">
+                            0123456789</span>
+
+                    </div>
+                    <div class="card-header">
+                        <span class="d-inline-block">
+                            <img src="images/icons/mail.svg">
+                            email@email.email</span>
+
+                    </div>
+                    <div class="card-header">
+                        <span class="d-inline-block">
+                            <img src="images/icons/map-pin.svg">
+                            Street here that can also be longer than one line without complications and the text
+                            should
+                            have a justify align aswell</span>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blueText" id="InformationToggle"><b>Information</b></div>
+                    <ul class="noBullet">
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Info1
+                        </li>
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Info2
+                        </li>
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Info3
+                        </li>
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Info4
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <div class="blueText" id="SupportToggle"><b>Support</b></div>
+                    <ul class="noBullet">
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Support1
+                        </li>
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Support2
+                        </li>
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Support3
+                        </li>
+                        <li onmousedown="redirectTo('#')" class="ptr">
+                            Support4
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-center">Follow us on &ensp;&ensp;
+            <a href="http://www.facebook.com"><img src="images/icons/facebook.svg"></a>&ensp;
+            <a href="http://www.instagram.com"><img src="images/icons/instagram.svg"></a>&ensp;
+            <a href="http://www.github.com"> <img src="images/icons/github.svg"></a>
+
+
+
+        </div>
+
+    </footer>
+    <script src="js/darkMode.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
