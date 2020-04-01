@@ -10,7 +10,6 @@ document.getElementById("dailyMenuName").innerHTML = dailyMenu.Name;
 document.getElementById('dailyMenuIngredients').innerHTML = dailyMenu.Ingredients;
 document.getElementById('dailyMenuAllergens').innerHTML = dailyMenu.Allergens;
 document.getElementById('dailyMenuPrice').innerHTML = dailyMenu.Price;
-document.getElementById('dailyMenuisOrdered').innerHTML = "Comanda";
 function Order() {
     if (dailyMenu.isOrdered) {
         document.getElementById('dailyMenuisOrdered').innerHTML = "Anuleaza comanda";
@@ -21,3 +20,4 @@ function Order() {
         dailyMenu.isOrdered = true;
     }
 }
+Order();
