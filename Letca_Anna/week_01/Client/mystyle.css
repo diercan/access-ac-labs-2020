@@ -1,0 +1,11 @@
+.jumbotron-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 0;
+}
+
+.card {
+  padding: 2%;
+  margin: 1%;
+}
