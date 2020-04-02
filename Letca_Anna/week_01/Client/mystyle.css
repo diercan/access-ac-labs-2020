@@ -5,7 +5,11 @@
   margin-bottom: 0;
 }
 
-.card {
-  padding: 2%;
-  margin: 1%;
+body {
+  padding-bottom: 20px;
+}
+
+
+.quantity-box{
+  width: 55pt
 }
