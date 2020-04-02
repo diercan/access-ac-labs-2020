@@ -1,0 +1,32 @@
+.red-nav{
+  background-color: #FF5733;
+}
+.red-nav * {
+  color: white;
+}
+.red-nav .nav-link:hover, .nav-link.active{
+  color: black;
+}
+
+.btn.btn-primary, .btn.btn-primary:hover, .btn.btn-primary:focus{
+  background-color: #FF5733;
+  border: 1px solid black;
+  outline: none;
+}
+
+.articles-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+}
+
+.buffer{
+  height: 5rem;
+}
+
+@media screen and (min-width: 1200px){
+  .articles-container{
+    grid-template-columns: 1fr 1fr;
+  }
+}
