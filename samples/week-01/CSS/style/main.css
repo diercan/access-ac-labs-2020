@@ -1,0 +1,79 @@
+﻿html
+{
+    background: #eeeeee;
+}
+
+body
+{
+    margin: 0px auto 0px auto;
+    max-width: 970px;
+    min-width: 480px;
+    border: 1px solid black;
+    background: #ffffff;
+}
+
+header
+{
+    width: 100%;
+    background: #ff6a00;
+}
+
+    header h1
+    {
+        margin-top: 0px;
+    }
+
+nav
+{
+    background: #000;
+}
+
+    nav ul
+    {
+        padding-left: 0px;
+        text-align: right;
+    }
+
+        nav ul li
+        {
+            display:inline;
+            margin-right: 10px;
+        }
+
+            nav ul li a
+            {
+                color: white;
+            }
+
+                nav ul li a:hover
+                {
+                    color: white;
+                }
+
+article
+{
+    float: left;
+    width: 66%;
+}
+
+section
+{
+    margin-right: auto;
+    margin-left: auto;
+    width: 90%;
+    border: 1px, solid, black;
+    background: #eeeeee;
+}
+
+aside
+{
+    float: left;
+    width: 33%;
+}
+
+footer
+{
+    clear: both;
+    width: 100%;
+    background: #ff6a00;
+}
