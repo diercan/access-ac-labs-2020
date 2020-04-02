@@ -35,27 +35,3 @@ nav a{
 .testCB{
 border:none;
 }
-.paddingleft10{
-    padding-left: 10%;
-}
-
-
-.whiteFilter{
-    position: absolute;
-    z-index: 5;
-    opacity: 0.5;
-}
-.redBackground{
-    background-color: #cf2f23;
-    
-}
-
-input[type=text], select, textarea{
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: vertical;
-  }
-
-
