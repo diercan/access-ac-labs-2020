@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo HTML 5 new semantics elements</title>
+</head>
+<body>
+    <header>
+        <hgroup>
+            <h1><mark>header</mark></h1>
+            <h2>title, navigation bar can pe put in the header</h2>
+        </hgroup>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <article>
+        <mark>article</mark> - main content of the page
+        
+        <section>
+            <p>This is a section that contains a meter and a progress.</p>
+            <div>
+                Meter is:
+                <meter value="5" min="1" max="10">5 out of 10</meter>
+            </div>
+            <div>
+                Progress is:
+                <progress value="50" max="100">50%</progress>
+            </div>
+        </section>
+
+        <br />
+
+        <section>
+            This is a section that contains a figure.
+                <div>
+                    <figure>
+                        <img src="img/apuseni.jpg" alt="Cetatile Ponorului (Apuseni)" />
+                        <figcaption>Cetatile Ponorului (M-tii Apuseni)</figcaption>
+                    </figure>
+                </div>
+        </section>
+
+    </article>
+
+    <aside>
+        <mark>aside</mark> - extra information about the content of the page
+            <details>
+                <summary>Extra information</summary>
+                <p>This is some extra information to better understand the content of this page.</p>
+            </details>
+    </aside>
+
+    <footer>
+        <mark>footer</mark> - publish date: <time datetime="2012-12-31" pubdate>2012-12-31</time>
+    </footer>
+</body>
+</html>
