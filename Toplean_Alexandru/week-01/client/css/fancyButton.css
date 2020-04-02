@@ -58,3 +58,12 @@
 .brk-btn:hover::after {
   left: 80%;
 }
+
+
+
+.clickButton{
+  border:none;
+  width: 100%;
+  background-color:red;
+  font-weight: bold;
+}
