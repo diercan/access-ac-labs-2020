@@ -1,0 +1,103 @@
+/* Coolors Exported Palette - coolors.co/fefeff-d6efff-fed18c-fed99b-fe654f */
+
+/* RGB */
+$color1: rgba(254, 254, 255, 1);
+$color2: rgb(149, 215, 255);
+$color3: rgba(254, 209, 140, 1);
+$color4: rgba(254, 217, 155, 1);
+$color5: rgba(254, 101, 79, 1); 
+
+// $color1: rgba(30, 30, 36, 1);
+// $color2: rgba(198, 13, 0, 1);
+// $color3: rgba(255, 255, 255, 1);
+// $color4: rgba(255, 207, 153, 1);
+// $color5: rgba(17, 29, 74, 1);
+
+$page-font:'Roboto', sans-serif;
+$title-font:'Merriweather', cursive;
+// $title-font:'Merriweather', serif;
+
+.mano-nav-title{
+    font-family: $title-font;
+    color: $color3;
+    font-size: 3rem;
+    margin: 0.7rem;
+    &:hover{
+        color: $color3;
+        text-decoration: none;
+    }
+}
+
+html,body{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+nav{
+    background-color: $color5;
+}
+
+.content{
+    flex:1 0 auto;
+    background-color: $color5;
+    height:100vh;
+    h1{
+        color: $color1;
+        font-family: $title-font;
+        font-size: 6rem;
+        text-align: center;
+        padding-top: 6rem;
+    }
+    h3{
+        color: $color1;
+        font-family: $title-font;
+        font-size: 2rem;
+        text-align: center;
+        padding-top: 3rem;
+    }
+}
+
+.content-1{
+    flex:1 0 auto;
+    background-color: $color1;
+}
+
+.card-deck{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer{
+    display: flex;
+    background-color: $color3;
+    .mano-footer-title{
+        font-family: $title-font;
+        color: $color1;
+        font-size: 3rem;
+        margin: 0.7rem;
+        &:hover{
+            color: black;
+            text-decoration: none;
+            transition: .2s;
+        }
+    }
+    .footer-links{
+        font-family: $title-font;
+        color:$color1;
+        font-size: 1rem;
+        &:hover{
+            color: black;
+            text-decoration: none;
+            transition: .2s;
+        }
+    }
+}
+
+.transition-anchor{
+    scroll-behavior: smooth;
+    transition: 0.3s;
+}
