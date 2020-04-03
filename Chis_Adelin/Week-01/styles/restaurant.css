@@ -1,0 +1,30 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(./../assets/fonts/Montserrat/Montserrat/Montserrat-Black.ttf);
+    src: local('./../assets/fonts/Montserrat/Montserrat');
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 100%;
+    font-family: Montserrat, sans-serif;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dailyMenu {
+    margin-top: 100px;
+}
+
+footer {
+    background-color: #d9d9d9;
+    height: 100px;
+    bottom: 0;
+}
