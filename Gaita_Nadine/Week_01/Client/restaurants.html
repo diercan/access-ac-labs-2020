@@ -11,31 +11,32 @@
   <!-- Site custom css -->
   <link rel="stylesheet" href="./main.css">
 
+  <!--Icons-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
   <title>Order & Pay</title>
 </head>
 <body>
-
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="./restaurants.html">Order & Pay</a>
+    <a class="navbar-brand" href="#">Order & Pay</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarsExample04">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="./index.html">Menu</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./order.html">Current Order</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="./history.html">History</a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="text" placeholder="Search">
+      <form class="form-inline my-2 my-md-0 ml-auto">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search">
       </form>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <!--<li class="nav-item" inactive>-->
+            <h5 class="text-secondary mt-2">/</h5>
+         <!----</li>-->
+        <li class="nav-item">
+          <a class="nav-link" href="signup.html">Signup</a>
+        </li>
+       </ul>
     </div>
   </nav>
   <main role="main">
@@ -44,15 +45,13 @@
         <div class="col-md-4">
           <div class="card mb-4 box-shadow">
             <h5 class="card-header">Gratarul cu Staif</h5>
-            <img class="card-img-top img-style" src="./images/img1.jpg" alt="Gratarul cu Staif">
+            <img class="card-img-top" src="./images/img1.jpg" alt="Gratarul cu Staif">
             <div class="card-body">
-              <div class="d-flex flex-column">
-                <div class="p-1 mb-1 bg-light text-secondary">2 x Texas BBQ Burger</div>
-                <div class="p-1 mb-1 bg-light text-secondary">1 x Pizza Calzone</div>
-                <div class="p-1 bg-light text-secondary">1 x Pui Shangai</div>
+              <div class="d-flex justify-content-center mt-3">
+                <a href="./index.html" class="btn btn-outline-secondary">See Menu</a>
               </div>
-              <div class="d-flex justify-content-end mt-3" >
-                <h4><span class="badge badge-secondary">200 LEI</span></h4>
+              <div class="d-flex justify-content-center mt-3" >
+                <h4><span class="badge badge-light">4.5<i class='fas fa-star pl-2'></i></span></h4>
               </div>
             </div>
           </div>
@@ -60,32 +59,29 @@
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
               <h5 class="card-header">Homemade</h5>
-              <img class="card-img-top img-style" src="./images/img2.jpg" alt="Homemade">
+              <img class="card-img-top" src="./images/img2.jpg" alt="Homemade">
               <div class="card-body">
-                <div class="d-flex flex-column">
-                  <div class="p-1 mb-1 bg-light text-secondary">2 x Texas BBQ Burger</div>
-                  <div class="p-1 mb-1 bg-light text-secondary">1 x Pizza Calzone</div>
-                  <div class="p-1 bg-light text-secondary">1 x Pui Shangai</div>
-                </div>
-                <div class="d-flex justify-content-end mt-3" >
-                  <h4><span class="badge badge-secondary">200 LEI</span></h4>
-                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="./index.html" class="btn btn-outline-secondary">See Menu</a>
+                  </div>
+                  <div class="d-flex justify-content-center mt-3" >
+                    <h4><span class="badge badge-light">4.2<i class='fas fa-star pl-2'></i></span></h4>
+                  </div>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
               <h5 class="card-header">Berarescu</h5>
-              <img class="card-img-top img-style" src="./images/img3.jpg" alt="Berarescu">
+              <img class="card-img-top" src="./images/img3.jpg" alt="Berarescu">
               <div class="card-body">
                 <div class="d-flex flex-column">
-                  <div class="p-1 mb-1 bg-light text-secondary">2 x Texas BBQ Burger</div>
-                  <div class="p-1 mb-1 bg-light text-secondary">1 x Pizza Calzone</div>
-                  <div class="p-1 bg-light text-secondary">1 x Pui Shangai</div>
-                </div>
-                <div class="d-flex justify-content-end mt-3" >
-                  <h4><span class="badge badge-secondary">200 LEI</span></h4>
-                </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <a href="./index.html" class="btn btn-outline-secondary">See Menu</a>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3" >
+                        <h4><span class="badge badge-light">4.5<i class='fas fa-star pl-2'></i></span></h4>
+                    </div>
               </div>
             </div>
           </div>

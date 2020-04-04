@@ -9,3 +9,8 @@ body {
 .quantity-box{
   width: 55pt
 }
+
+.img-style {
+  width: 180px;
+  height: 130px;
+}
