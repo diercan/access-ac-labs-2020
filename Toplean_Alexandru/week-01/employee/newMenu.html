@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Restaurant App
+    </title>
+    <link rel="icon"
+        href="https://previews.123rf.com/images/nadianb/nadianb1802/nadianb180200183/95259531-food-background-with-cooking-ingredients-top-view-.jpg">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/darkMode.css">
+    <link rel="stylesheet" type="text/css" href="css/fancyTextBox.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark ">
+            <a class="navbar-brand active" href="index.html">Orders</a>
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="menus.html">Menus </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orderHistory.html">Order History </a>
+                    </li>
+
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <em style="color:white !important;">Light Mode &ensp; </em>
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" onclick="myFunction()" />
+                            <div class="slider round"></div>
+                        </label>
+                        <em style="color:white !important;">Dark Mode</em>
+                    </div>
+                </form>
+
+        </nav>
+
+
+    </header>
+
+    
+
+    <section style="padding-top: 20px;">
+        <center>
+            <h1>Create a new menu</h1>
+        </center>
+    </section>
+    <section id="switchable" align="justify" style="padding-top: 20px;color: black !important;">
+
+
+
+        <div class='card'>
+        
+        <div class='card-body' align='justify'>
+        
+        <div class="row" style="padding-top: 20px;margin-right: 0px;margin-left: 0px;">
+            <div class="col-md-12">
+             
+            <form>
+              
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationDefault01">Menu name<font color = "red">*</font></label>
+                    <input type="text" class="form-control" id="validationDefault01" placeholder="Stew"  required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationDefault01">Price<font color = "red">*</font></label>
+                    <input type="text" class="form-control" id="validationDefault01" placeholder="$7.99"  required>
+                  </div>
+                  
+                </div>
+                
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Ingredients<font color = "red">*</font></label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Alergens</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="validatedCustomFile">
+                    <label class="custom-file-label" for="validatedCustomFile">Upload image...</label>
+                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                  </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">
+                      Agree to terms and conditions<br>
+                     
+                    </label>
+                  </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit form</button> <font color = "red">*</font> - Required
+              </form>
+            </div>
+        </div>
+    </div>
+        </div>
+        <hr class="pureBlack">
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer style="padding-bottom: 50px;">
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+        <script src="js/main.js"></script>
+        <script src="js/darkMode.js"></script>
+    </footer>
+
+</body>
+
+</html>

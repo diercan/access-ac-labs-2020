@@ -118,3 +118,13 @@ input[type=radio] {
     
 }
 
+.tableVerticalLines{
+    border-left:1px solid #ccc;
+}
+.tableBottomLine{
+     border-bottom: 1px solid #ccc;
+}
+.whiteText{
+    color:white;
+    font-weight: bold;
+}
