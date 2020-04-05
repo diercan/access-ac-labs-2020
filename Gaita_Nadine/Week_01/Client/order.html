@@ -75,6 +75,12 @@
         <h5 class="p-2 align-self-baseline">10 Lei</h5>
       </div>
 
+      <hr>
+
+      <div class="d-flex justify-content-end mb-2">
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">Add Extra Requests</button>
+      </div>
+
       <div class="d-flex bg-secondary text-light">
         <h5 class="mr-auto p-2 align-self-baseline">Total</h5>
 
@@ -82,10 +88,35 @@
       </div>
       <br/>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-sm btn-primary">Order</button>
+        <button class="btn btn-md btn-primary">Order</button>
       </div>
     </div>
   </main>
+
+  <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Special Requests to your Command</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="comment">Requests:</label>
+          <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
