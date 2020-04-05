@@ -110,6 +110,10 @@ input[type=text], select, textarea{
 .blueBG{
     background-color: #189AD3 !important;
 }
+.greenBG{
+    background-color: green !important;
+}
+
 
 input[type=radio] {
     border: 0px;

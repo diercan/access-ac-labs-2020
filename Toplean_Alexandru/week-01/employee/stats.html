@@ -55,72 +55,36 @@
 
     </header>
 
-    
-
-    <section style="padding-top: 20px;">
-        <center>
-            <h1>Create a new menu</h1>
-        </center>
-    </section>
-    <section id="switchable" align="justify" style="padding-top: 20px;color: black !important;">
 
 
 
-        <div class='card'>
-        
-        <div class='card-body' align='justify'>
-        
-        <div class="row" style="padding-top: 20px;margin-right: 0px;margin-left: 0px;">
-            <div class="col-md-12">
-             
-            <form>
-              
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationDefault01">Menu name<font color = "red">*</font></label>
-                    <input type="text" class="form-control" id="validationDefault01" placeholder="Stew"  required>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationDefault01">Price<font color = "red">*</font></label>
-                    <input type="text" class="form-control" id="validationDefault01" placeholder="$7.99"  required>
-                  </div>
-                  
-                </div>
+
+
+
+
+
+
+
+
+    <section id="switchable" align="justify" style="padding-top: 20px;">
+        <div class="row" style="margin-left: 0px;margin-right: 0px;">
+           
+            
+            <div class='col-md-12' style="padding-bottom: 20px;"><center><h1>Menu ordering graph</h1></center></div>
+                <div class='col-md-12' style="padding-bottom: 20px;"><div id="chartdiv" style="width: 100%; height: 400px; background-color: #282828;" ></div></div>
+                <div class='col-md-12' style="padding-bottom: 20px;"><center><h1>This year review</h1></center></div>
+                <div class='col-md-12'><div id="monthDiv" style="width: 100%; height: 400px; background-color: #282828;" ></div></div>
                 
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Ingredients<font color = "red">*</font></label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Alergens</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="validatedCustomFile">
-                    <label class="custom-file-label" for="validatedCustomFile">Upload image...</label>
-                    <div class="invalid-feedback">Example invalid custom file feedback</div>
-                  </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                    <label class="form-check-label" for="invalidCheck2">
-                      Agree to terms and conditions<br>
-                     
-                    </label>
-                  </div>
-                </div>
-                <button class="btn btn-primary" type="submit">Submit form</button> <font color = "red">*</font> - Required
-              </form>
-            </div>
-        </div>
-    </div>
+          
+
+
         </div>
         <hr class="pureBlack">
     </section>
 
+    
 
-
-
+   
 
 
 
@@ -148,6 +112,11 @@
         </script>
         <script src="js/main.js"></script>
         <script src="js/darkMode.js"></script>
+        <!-- amCharts javascript sources -->
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/pie.js"></script>
+        <script type="text/javascript" src="https://www.amcharts.com/lib/3/themes/chalk.js"></script>
+        <script type="text/javascript" src="js/chart.js"></script>
     </footer>
 
 </body>

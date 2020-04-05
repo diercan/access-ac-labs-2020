@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Restaurant App
+    </title>
+    <link rel="icon"
+        href="https://previews.123rf.com/images/nadianb/nadianb1802/nadianb180200183/95259531-food-background-with-cooking-ingredients-top-view-.jpg">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/darkMode.css">
+    <link rel="stylesheet" type="text/css" href="css/fancyTextBox.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark ">
+            <a class="navbar-brand active" href="index.html">Orders</a>
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="menus.html">Menus </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">Statistics </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="userComments.html">User Feedback </a>
+                    </li>
+
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <em style="color:white !important;">Light Mode &ensp; </em>
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" onclick="myFunction()" />
+                            <div class="slider round"></div>
+                        </label>
+                        <em style="color:white !important;">Dark Mode</em>
+                    </div>
+                </form>
+
+        </nav>
+
+
+    </header>
+
+
+
+
+    <section style="padding-top: 20px;">
+        <center>
+            <h1>User Feedback - Unanswered</h1>
+        </center>
+    </section>
+
+
+
+
+
+
+
+    <section id="switchable" align="justify" style="padding-top: 20px;color:black !important">
+        <div class="row" style="margin-left: 0px;margin-right: 0px;">
+
+            <div class='col-md-12' style="padding-bottom: 20px;">
+                <div class='card'>
+                    <div class='card-header blueBG'>
+                        <p class="whiteText">Pizza pepperoni</p>
+                    </div>
+                    <div class='card-body' align='justify'>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <= </div>
+                                    <div class="col-md-3" align="right">
+                                    <button class="btn btn-primary blueBG"
+                                        style="padding-left: 20px;padding-right: 20px;" type="button"
+                                        data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false"
+                                        aria-controls="collapseExample1">
+                                        Answer
+                                    </button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseExample1">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                John Doe: Keep up the good work! => 2th February, 19:48, 5 stars <= </div> <div
+                                    class="col-md-3" align="right">
+                                    <button class="btn btn-primary blueBG"
+                                        style="padding-left: 20px;padding-right: 20px;" type="button"
+                                        data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false"
+                                        aria-controls="collapseExample2">
+                                        Answer
+                                    </button>
+                            </div>
+                        </div>
+
+
+                        <div class="collapse" id="collapseExample2">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-12' style="padding-bottom: 20px;">
+                <div class='card'>
+                    <div class='card-header blueBG'>
+                        <p class="whiteText">Pizza pepperoni</p>
+                    </div>
+                    <div class='card-body' align='justify'>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <= </div>
+                                    <div class="col-md-3" align="right">
+                                    <button class="btn btn-primary blueBG"
+                                        style="padding-left: 20px;padding-right: 20px;" type="button"
+                                        data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false"
+                                        aria-controls="collapseExample3">
+                                        Answer
+                                    </button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseExample3">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                John Doe: Keep up the good work! => 2th February, 19:48, 5 stars <= </div> <div
+                                    class="col-md-3" align="right">
+                                    <button class="btn btn-primary blueBG"
+                                        style="padding-left: 20px;padding-right: 20px;" type="button"
+                                        data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false"
+                                        aria-controls="collapseExample4">
+                                        Answer
+                                    </button>
+                            </div>
+                        </div>
+
+
+                        <div class="collapse" id="collapseExample4">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-12' style="padding-bottom: 20px;">
+                <div class='card'>
+                    <div class='card-header blueBG'>
+                        <p class="whiteText">Pizza pepperoni</p>
+                    </div>
+                    <div class='card-body' align='justify'>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <= </div>
+                                    <div class="col-md-3" align="right">
+                                    <button class="btn btn-primary blueBG"
+                                        style="padding-left: 20px;padding-right: 20px;" type="button"
+                                        data-toggle="collapse" data-target="#collapseExample5" aria-expanded="false"
+                                        aria-controls="collapseExample5">
+                                        Answer
+                                    </button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseExample5">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                John Doe: Keep up the good work! => 2th February, 19:48, 5 stars <= </div> <div
+                                    class="col-md-3" align="right">
+                                    <button class="btn btn-primary blueBG"
+                                        style="padding-left: 20px;padding-right: 20px;" type="button"
+                                        data-toggle="collapse" data-target="#collapseExample6" aria-expanded="false"
+                                        aria-controls="collapseExample6">
+                                        Answer
+                                    </button>
+                            </div>
+                        </div>
+
+
+                        <div class="collapse" id="collapseExample6">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <hr class="pureBlack">
+    </section>
+
+
+    <section>
+       <center> <h1>User Feedback Answered</h1></center>
+    </section>
+    <section id="switchable" align="justify" style="padding-top: 20px;color:black !important">
+        <div class="row" style="margin-left: 0px;margin-right: 0px;">
+
+            <div class='col-md-12' style="padding-bottom: 20px;">
+                <div class='card'>
+                    <div class='card-header greenBG'>
+                        <p class="whiteText">Pizza pepperoni</p>
+                    </div>
+                    <div class='card-body' align='justify'>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <=<br>
+                                    Waiter Steve: Thank you for your support!
+                                    <hr class="pureBlack">
+
+                            </div>
+                            <div class="col-md-3" align="right">
+                                <button class="btn btn-primary blueBG" style="padding-left: 20px;padding-right: 20px;"
+                                    type="button" data-toggle="collapse" data-target="#collapseExample7"
+                                    aria-expanded="false" aria-controls="collapseExample7">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseExample7">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <=<br>
+                                    Waiter Steve: Thank you!
+                                    <hr class="pureBlack">
+
+                            </div>
+                           
+                            <div class="col-md-3" align="right">
+                                <button class="btn btn-primary blueBG" style="padding-left: 20px;padding-right: 20px;"
+                                    type="button" data-toggle="collapse" data-target="#collapseExample8"
+                                    aria-expanded="false" aria-controls="collapseExample8">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+
+                        <div align="right"></div>
+                        <div class="collapse" id="collapseExample8">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-12' style="padding-bottom: 20px;">
+                <div class='card'>
+                    <div class='card-header greenBG'>
+                        <p class="whiteText">Pizza pepperoni</p>
+                    </div>
+                    <div class='card-body' align='justify'>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <=<br>
+                                    Waiter Steve: Thank you for your support!
+                                    <hr class="pureBlack">
+
+                            </div>
+                            <div class="col-md-3" align="right">
+                                <button class="btn btn-primary blueBG" style="padding-left: 20px;padding-right: 20px;"
+                                    type="button" data-toggle="collapse" data-target="#collapseExample9"
+                                    aria-expanded="false" aria-controls="collapseExample9">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div align="right"></div>
+                        <div class="collapse" id="collapseExample9">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-12' style="padding-bottom: 20px;">
+                <div class='card'>
+                    <div class='card-header greenBG'>
+                        <p class="whiteText">Meniul zilei</p>
+                    </div>
+                    <div class='card-body' align='justify'>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <=<br>
+                                    Waiter Steve: Thank you for your support!
+                                    <hr class="pureBlack">
+
+                            </div>
+                            <div class="col-md-3" align="right">
+                                <button class="btn btn-primary blueBG" style="padding-left: 20px;padding-right: 20px;"
+                                    type="button" data-toggle="collapse" data-target="#collapseExample"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:20px">
+                            <div class="col-md-9">
+                                Jane Doe: I Really liked the menu. Cheers! => 2th February, 19:48, 5 stars <=<br>
+                                    Waiter Steve: Thank you!
+                                    <hr class="pureBlack">
+
+                            </div>
+                            <div class="col-md-3" align="right">
+                                <button class="btn btn-primary blueBG" style="padding-left: 20px;padding-right: 20px;"
+                                    type="button" data-toggle="collapse" data-target="#collapseExample"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+
+                        <div align="right"></div>
+                        <div class="collapse" id="collapseExample">
+
+                            <form style="padding-top: 20px;">
+                                <div class="form-group">
+
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Response...">
+                                    <div style="padding-top:20px" align="right">
+                                        <button type="submit" class="btn btn-primary blueBG"
+                                            style="padding-left: 20px;padding-right: 20px;">Submit</button></div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <hr class="pureBlack">
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer style="padding-bottom: 50px;">
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+        <script src="js/main.js"></script>
+        <script src="js/darkMode.js"></script>
+    </footer>
+
+</body>
+
+</html>
