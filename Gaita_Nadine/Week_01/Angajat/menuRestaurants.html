@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Site custom css -->
+  <link rel="stylesheet" href="./main.css">
+
+  <!--Icons-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+  <title>Order & Pay</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="./restaurants.html">Order & Pay</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="./menuRestaurants.html">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./orders.html">Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Reviews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Statistics</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+  <main role="main">
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <h5 class="card-header">Gratarul cu Staif</h5>
+            <img class="card-img-top" src="./images/img1.jpg" alt="Gratarul cu Staif">
+            <div class="card-body">
+              <div class="d-flex justify-content-center mt-3">
+                <a href="./modifyMenu.html" class="btn btn-outline-secondary">Modify Menu</a>
+              </div>
+              <div class="d-flex justify-content-center mt-3" >
+                <h4><span class="badge badge-light">4.5<i class='fas fa-star pl-2'></i></span></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <h5 class="card-header">Homemade</h5>
+              <img class="card-img-top" src="./images/img2.jpg" alt="Homemade">
+              <div class="card-body">
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="./modifyMenu.html" class="btn btn-outline-secondary">Modify Menu</a>
+                  </div>
+                  <div class="d-flex justify-content-center mt-3" >
+                    <h4><span class="badge badge-light">4.2<i class='fas fa-star pl-2'></i></span></h4>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <h5 class="card-header">Berarescu</h5>
+              <img class="card-img-top" src="./images/img3.jpg" alt="Berarescu">
+              <div class="card-body">
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-center mt-3">
+                        <a href="./modifyMenu.html" class="btn btn-outline-secondary">Modify Menu</a>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3" >
+                        <h4><span class="badge badge-light">4.5<i class='fas fa-star pl-2'></i></span></h4>
+                    </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold text-secondary">Login</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5 d-flex">
+          <i class="fas fa-envelope text-secondary mr-2 mt-2"></i>
+          <input type="email" id="defaultForm-email" class="form-control validate" placeholder="Email">
+        </div>
+        <div class="md-form mb-5 d-flex">
+          <i class="fas fa-lock text-secondary mr-2 mt-2"></i>
+          <input type="password" id="defaultForm-pass" class="form-control validate" placeholder="Password">
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-secondary width">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold text-secondary">Sign up</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5 d-flex">
+          <i class="fas fa-user text-secondary mr-2 mt-2"></i>
+          <input type="text" id="orangeForm-name" class="form-control validate" placeholder="Name">
+        </div>
+        <div class="md-form mb-5 d-flex">
+          <i class="fas fa-envelope text-secondary mr-2 mt-2"></i>
+          <input type="email" id="orangeForm-email" class="form-control validate" placeholder="Email">
+        </div>
+        <div class="md-form mb-4 d-flex">
+          <i class="fas fa-lock text-secondary mr-2 mt-2"></i>
+          <input type="password" id="orangeForm-pass" class="form-control validate" placeholder="Password">
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-secondary width">Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>   
+</body>
+</html>
