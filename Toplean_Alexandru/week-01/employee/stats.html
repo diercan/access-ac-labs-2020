@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Restaurant App
+    </title>
+    <link rel="icon"
+        href="https://previews.123rf.com/images/nadianb/nadianb1802/nadianb180200183/95259531-food-background-with-cooking-ingredients-top-view-.jpg">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/darkMode.css">
+    <link rel="stylesheet" type="text/css" href="css/fancyTextBox.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark ">
+            <a class="navbar-brand active" href="index.html">Orders</a>
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="menus.html">Menus </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">Statistics </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="userComments.html">User Feedback </a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <em style="color:white !important;">Light Mode &ensp; </em>
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" onclick="myFunction()" />
+                            <div class="slider round"></div>
+                        </label>
+                        <em style="color:white !important;">Dark Mode</em>
+                    </div>
+                </form>
+
+        </nav>
+
+
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+    <section id="switchable" align="justify" style="padding-top: 20px;">
+        <div class="row" style="margin-left: 0px;margin-right: 0px;">
+           
+            
+            <div class='col-md-12' style="padding-bottom: 20px;"><center><h1>Menu ordering graph</h1></center></div>
+                <div class='col-md-12' style="padding-bottom: 20px;"><div id="chartdiv" style="width: 100%; height: 400px; background-color: #282828;" ></div></div>
+                <div class='col-md-12' style="padding-bottom: 20px;"><center><h1>This year review</h1></center></div>
+                <div class='col-md-12'><div id="monthDiv" style="width: 100%; height: 400px; background-color: #282828;" ></div></div>
+                
+          
+
+
+        </div>
+        <hr class="pureBlack">
+    </section>
+
+    
+
+   
+
+
+
+
+
+
+
+
+
+
+
+    <footer style="padding-bottom: 50px;">
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+        <script src="js/main.js"></script>
+        <script src="js/darkMode.js"></script>
+        <!-- amCharts javascript sources -->
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/pie.js"></script>
+        <script type="text/javascript" src="https://www.amcharts.com/lib/3/themes/chalk.js"></script>
+        <script type="text/javascript" src="js/chart.js"></script>
+    </footer>
+
+</body>
+
+</html>

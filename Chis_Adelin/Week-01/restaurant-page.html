@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Access Labs</title>
+    <link href="./styles/restaurant.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<header class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="assets/img/nav-gif.gif" width="50px" class="ml-5">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ml-auto mr-5">
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="index.html#restaurants">Restaurante</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#dailyMenu">Meniul zilei</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#catalog">Catalog</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#yourOrder">Comanda ta</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="Employee.html">Cont</a>
+                </li>
+            </ul>
+    </nav>
+    <h1 class="text-center m-5">Pizzeria Napoleon</h1>
+</header>
+<main class="container mb-5">
+    <section id="dailyMenu">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <img src="assets/img/meniul-zilei.jpg" width="70%">
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h2 class="text-center">Meniul zilei</h2>
+                <strong>
+                    <h4 id="dailyMenuName" class="text-center mt-3"></h4>
+                </strong>
+                <h5>Ingrediente:</h5>
+                <p id="dailyMenuIngredients"></p>
+                <h5>Alergeni:</h5>
+                <p id="dailyMenuAllergens"></p>
+                <h5>Pret:</h5>
+                <p id="dailyMenuPrice"></p>
+                <div class="btn-group">
+                    <input type="number" class="form-control quantity-box" value="1" placeholder="Qty."
+                        aria-label="Input group example" aria-describedby="btnGroupAddon">
+                    <button type="button" class="btn btn-primary" onclick="Order()">
+                        <p id="dailyMenuisOrdered"></p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row" style="margin-top: 150px;" id="catalog">
+        <div class="col-lg-4 col-sm-6 col-sm-12 mb-5">
+            <div class="card mx-auto" style="width: 18em;">
+                <img src="assets/img/pizza.jpg" class="card-img-top" style="height: 200px;">
+                <div class="card-body">
+                    <h5 class="card-title">Pizza carbonara</h5>
+                    <p class="card-text">Sos de pizza, șunculița, mozzarella, ciuperci champignon, salam italian,
+                        pește anchois, măsline, capere aromate, oregano parfumat</p>
+                    <div class="btn-group">
+                        <input type="number" class="form-control quantity-box" value="1" placeholder="Qty."
+                            aria-label="Input group example" aria-describedby="btnGroupAddon">
+                        <button type="button" class="btn btn-primary">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-sm-12 mb-5">
+            <div class="card mx-auto" style="width: 18em;">
+                <img src="assets/img/pizza.jpg" class="card-img-top" style="height: 200px;">
+                <div class="card-body">
+                    <h5 class="card-title">Pizza carbonara</h5>
+                    <p class="card-text">Sos de pizza, șunculița, mozzarella, ciuperci champignon, salam italian,
+                        pește anchois, măsline, capere aromate, oregano parfumat</p>
+                    <div class="btn-group">
+                        <input type="number" class="form-control quantity-box" value="1" placeholder="Qty."
+                            aria-label="Input group example" aria-describedby="btnGroupAddon">
+                        <button type="button" class="btn btn-primary">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-sm-12 mb-5">
+            <div class="card mx-auto" style="width: 18em;">
+                <img src="assets/img/pizza.jpg" class="card-img-top" style="height: 200px;">
+                <div class="card-body">
+                    <h5 class="card-title">Pizza carbonara</h5>
+                    <p class="card-text">Sos de pizza, șunculița, mozzarella, ciuperci champignon, salam italian,
+                        pește anchois, măsline, capere aromate, oregano parfumat</p>
+                    <div class="btn-group">
+                        <input type="number" class="form-control quantity-box" value="1" placeholder="Qty."
+                            aria-label="Input group example" aria-describedby="btnGroupAddon">
+                        <button type="button" class="btn btn-primary">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="col-12 mt-5 mb-5" id="yourOrder">
+        <h1>Comanda ta</h1>
+        <div class="p-5">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Pizza Prosciutto x2 - <strong>40,00 RON</strong></li>
+                <li class="list-group-item">Pizza Carbonara - <strong>25,00 RON</strong></li>
+                <li class="list-group-item">Paste - <strong>20,00 RON</strong></li>
+            </ul>
+        </div>
+        <button class="btn btn-primary" type="button">Trimite comanda</button>
+    </section>
+    <section class="col-12 mt-5 mb-5">
+        <a class="btn btn-primary" data-toggle="collapse" href="#history" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            Istoric comenzi
+        </a>
+        <div class="collapse" id="history">
+            <div class="card card-body">
+                <div class="p-5">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">28/03/2020 14:13 Pizza Prosciutto x2 - <strong>40,00 RON</strong>
+                        </li>
+                        <li class="list-group-item">14/03/2020 12:29 Pizza Carbonara - <strong>25,00 RON</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="page-footer font-small d-flex align-items-center p-2" id="contact">
+    <div class="container">
+        <p>Copyright © Let's Eat . All right reserved.</p>
+    </div>
+</footer>
+<script src="./scripts/restaurant.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

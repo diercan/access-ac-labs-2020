@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- Site custom css -->
+	<link rel="stylesheet" href="./main.css">
+
+	<title>Order & Pay</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Order & Pay</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExample04">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="./index.html">Menu</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./order.html">Current Order</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./history.html">History</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Review</a>
+				</li>	
+			</ul>
+			<form class="form-inline my-2 my-md-0">	
+				<div class="form-group">
+					<input class="form-control" type="text" placeholder="Search...">
+				</div>		
+				<div class="btn-group">
+					<button type="button" class="btn btn-light">Search</button>
+					<a href="#" class="btn btn-link" role="button" aria-pressed="true" style="color: white;">Log In</a>
+				</div> 
+			</form>
+		</div>
+	</nav>
+
+	<main role="main">
+		<div class="container">
+		<form>
+			<div class="form-group black-border-focus">
+				<label for="exampleFormControlTextarea5"><h5>Leave comment</h5></label>
+				<textarea class="form-control" id="exampleFormControlTextarea5"></textarea>
+				<br/>
+				<button type="button" class="btn btn-sm btn-dark" aria-pressed="true" style="float:right;">Add review</button>
+			</div>
+		</form>
+		<br/>
+		<hr>
+		<label for="allReviews"><h5>All reviews</h5></label>
+		<div class="row" id="allReviews">		
+			<div class="col-md-5">
+				<div class="card mb-5 box-shadow">
+					<h6 class="card-header">User1</h6>
+					<div class="card-body">
+						<p class="card-text">Review1</p>              
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="card mb-5 box-shadow">
+					<h6 class="card-header">User2</h6>
+					<div class="card-body">
+						<p class="card-text">Review2</p>             
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="card mb-5 box-shadow">
+					<h6 class="card-header">User3</h6>
+					<div class="card-body">
+						<p class="card-text">Review3</p>             
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</main>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
