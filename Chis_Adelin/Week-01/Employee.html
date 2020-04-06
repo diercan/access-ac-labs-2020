@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Access Labs</title>
+    <link href="./styles/restaurant.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<header class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="assets/img/nav-gif.gif" width="50px" class="ml-5">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ml-auto mr-5">
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="index.html#restaurants">Restaurante</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="restaurant-page.html">Restaurantul meu</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#orders">Comenzi</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="#add">Adauga o oferta</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" href="">Cont</a>
+                </li>
+            </ul>
+    </nav>
+    <h1 class="text-center m-5">Pizzeria Napoleon</h1>
+</header>
+<main class="container">
+    <section class="col-12 mt-5 m-5" id="orders">
+        <h1>Comenzi</h1>
+        <div class="p-5">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Comanda <strong>18</strong> : Pizza Prosciutto e Funghi x 2. 
+                    <p class="font-italic">Comanda se serveste in restaurant.</p>
+                </li>
+                <li class="list-group-item">
+                    Comanda <strong>19</strong> : Paste carbonara x 2. 
+                    <p class="font-italic">Comanda se serveste in restaurant.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section id="add" class="m-5">
+        <h1 class="mb-5">Adauga un meniu</h1>
+        <form>
+            <div class="form-group">
+              <label for="menuName">Numele meniului</label>
+              <input type="text" class="form-control" id="menuName" placeholder="Introdu numele meniului">
+            </div>
+            <div class="form-group">
+                <label for="menuIngredients">Ingrediente</label>
+                <textarea class="form-control" id="menuIngredients" rows="2" placeholder="Introdu ingredientele meniului"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="menuName">Numele meniului</label>
+                <input type="text" class="form-control" id="menuName" placeholder="Introdu numele meniului">
+              </div>
+              <div class="form-group">
+                <label for="menuAllergens">Alege imaginea alergenilor</label>
+                <input type="file" class="form-control-file" id="menuAllergens">
+              </div>
+              <div class="form-group">
+                <label for="menuPrice">Pret ( RON ) </label>
+                <input type="number" class="form-control" id="menuPrice" placeholder="Price">
+              </div>
+            <button type="submit" class="btn btn-primary">Salveaza</button>
+          </form>
+    </section>
+</main>
+<footer class="page-footer font-small d-flex align-items-center p-2" id="contact">
+    <div class="container">
+        <p>Copyright © Let's Eat . All right reserved.</p>
+    </div>
+</footer>
+<script src="./scripts/restaurant.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+</html>

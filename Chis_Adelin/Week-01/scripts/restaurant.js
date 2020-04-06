@@ -12,7 +12,7 @@ document.getElementById('dailyMenuAllergens').innerHTML = dailyMenu.Allergens;
 document.getElementById('dailyMenuPrice').innerHTML = dailyMenu.Price;
 function Order() {
     if (dailyMenu.isOrdered) {
-        document.getElementById('dailyMenuisOrdered').innerHTML = "Anuleaza comanda";
+        document.getElementById('dailyMenuisOrdered').innerHTML = "Anuleaza";
         dailyMenu.isOrdered = false;
     }
     else {
