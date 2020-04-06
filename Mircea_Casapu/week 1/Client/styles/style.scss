@@ -41,7 +41,18 @@ nav{
     background-color: $color5;
 }
 
-.content{
+.jumbotron{
+    background-color: $color5;
+    text-align: center;
+    // color: $color1;
+}
+
+.see-more-button{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.content-index{
     flex:1 0 auto;
     background-color: $color5;
     height:100vh;
@@ -59,6 +70,10 @@ nav{
         text-align: center;
         padding-top: 3rem;
     }
+}
+
+.content-comanda{
+    margin-top: 3rem;
 }
 
 .content-1{

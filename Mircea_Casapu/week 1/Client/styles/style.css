@@ -30,7 +30,17 @@ nav {
   background-color: #fe654f;
 }
 
-.content {
+.jumbotron {
+  background-color: #fe654f;
+  text-align: center;
+}
+
+.see-more-button {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.content-index {
   -webkit-box-flex: 1;
       -ms-flex: 1 0 auto;
           flex: 1 0 auto;
@@ -38,7 +48,7 @@ nav {
   height: 100vh;
 }
 
-.content h1 {
+.content-index h1 {
   color: #fefeff;
   font-family: "Merriweather", cursive;
   font-size: 6rem;
@@ -46,12 +56,16 @@ nav {
   padding-top: 6rem;
 }
 
-.content h3 {
+.content-index h3 {
   color: #fefeff;
   font-family: "Merriweather", cursive;
   font-size: 2rem;
   text-align: center;
   padding-top: 3rem;
+}
+
+.content-comanda {
+  margin-top: 3rem;
 }
 
 .content-1 {
