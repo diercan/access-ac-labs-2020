@@ -1,3 +1,8 @@
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
 .red-nav{
   background-color: #FF5733;
 }
@@ -6,6 +11,10 @@
 }
 .red-nav .nav-link:hover, .nav-link.active{
   color: black;
+}
+.bg-red{
+  background-color: #FF5733;
+  color: white;
 }
 
 .btn.btn-primary, .btn.btn-primary:hover, .btn.btn-primary:focus{
@@ -22,7 +31,51 @@
 }
 
 .buffer{
-  height: 5rem;
+  height: 4rem;
+}
+
+.justify-self-start{
+  justify-self: start;
+}
+.justify-self-end{
+  justify-self: end;
+}
+.d-grid{
+  display: grid;
+}
+
+input[type="number"]{
+  max-width: 5rem;
+}
+
+#restaurantList li.list-group-item{
+  display: grid;
+  grid-template-columns: auto 80px;
+}
+#orderList li.list-group-item{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+}
+
+#mapContainer{
+  width: 100%;
+  height: 50vh;
+}
+#restaurantList{
+  margin-top: 2rem;
+}
+#orderList{
+
+}
+#scanContainer{
+  width: 100vw;
+  height: 100vh;
+  background-color: lightgrey;
+  z-index: 0;
+  display: grid;
+  grid-template-rows: auto 100px 70px;
+  grid-template-columns: 100%;
 }
 
 @media screen and (min-width: 1200px){
