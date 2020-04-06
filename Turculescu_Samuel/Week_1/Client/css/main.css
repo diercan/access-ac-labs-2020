@@ -1,0 +1,176 @@
+.container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* ------------------------------------------ Style for index.html --------------------------------------------*/
+.w-100 {
+    height: 40em;
+}
+
+#slides .carousel-caption {
+    text-shadow: 1px 1px 3px black;
+}
+
+#account {
+    display: flex;
+    align-items: center;
+}
+
+/* ------------------------------------------ Style for login.html ------------------------------------------ */
+#login-form {
+    padding: 5em;
+    text-align: center;
+}
+
+
+#login-form .form-group .form-control {
+    width: 20em;
+    margin: auto;
+    
+}
+
+@media only screen and (max-width: 600px) {
+    #login-form {
+      background-color: lightblue;
+      padding: 60px;
+    }
+}
+
+/* ------------------------------------------ Style for user.html ------------------------------------------ */  
+#navbar-username {
+    margin-right: 0.5em;
+}
+
+#search-bar {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    text-align: center;
+    margin: 2em;  
+}
+
+#search-bar .text-primary {
+    font-size: 1.5em;
+}
+
+
+#search-bar .form-inline .form-control {
+    width: 50em;
+}
+
+#restaurants {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-row-gap: 1em;
+    margin: 2em;   
+}
+
+#restaurants .card {
+    margin: auto;
+}
+
+@media only screen and (max-width: 1300px) {
+    #search-bar .form-inline .form-control {
+        width: 25em;
+    }
+
+    #restaurants {
+        grid-template-columns: auto auto auto;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #restaurants {
+        grid-template-columns: auto auto;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #search-bar .form-inline .form-control {
+        width: 20em;
+    }
+
+    #restaurants {
+        grid-template-columns: auto;
+    }
+    
+}
+
+/* ------------------------------------------ Style for restaurant.html ------------------------------------------ */
+#welcome-message {
+    text-align: center;
+}
+
+/* ------------------------------------------ Style for menu.html ------------------------------------------ */
+#menu {
+    margin: 2rem;
+}
+
+#menu .quantity-box{
+  width: 4.5rem;
+}
+
+#menu .card {
+    margin-bottom: 1rem;
+}
+
+#menu .card .row {
+    display: flex;
+}
+
+#menu .row .col-md-8 {
+    border: solid;
+    border-radius: 0.2rem;
+    border-color: rgb(243, 243, 243);
+}
+
+#menu .row .col-md-4 {
+    align-self: center;
+}
+
+
+/* ------------------------------------------ Style for order.html ------------------------------------------ */
+#order-list {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+#order-list .row {
+    align-items: center;
+    margin: auto;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+#order-list #total{
+    background-color: rgb(128, 128, 143);
+    color: white;
+}
+
+#order-list form #order-button {
+    text-align: right;
+}
+
+
+@media only screen and (max-width: 767px) {
+    #order-list .row {
+        text-align: center;
+    }
+}
+
+
+/* ------------------------------------------ Style for history.html ------------------------------------------ */
+#history-orders {
+    margin-bottom: 1em;
+}
+
+#history-orders .card .btn {
+    text-align: left;
+} 
+
+#history-orders .card .badge {
+    float: right;
+}

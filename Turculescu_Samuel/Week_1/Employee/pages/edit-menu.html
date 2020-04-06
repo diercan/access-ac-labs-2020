@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+    <link rel="stylesheet" href="../css/main.css">
+
+    <title>Order & Pay</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mb-0 h1" href="./restaurant.html">Order & Pay Web</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="./restaurant.html">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link active" href="./menu.html">Menu</a>
+          <a class="nav-item nav-link" href="./orders.html">Orders</a>
+        </div>     
+      </div>
+      <div id="account">
+        <div id="navbar-username">
+          User Name
+        </div>
+        <a href="../index.html"><button type="button" class="btn btn-danger">Log Out</button></a>
+      </div>
+    </nav>
+    <main role="main">
+      <div class="container">
+        <div id="setting-info">
+          <h2>Edit restaurant's menu</h2>
+          <p>This is your current menu list. If you want to remove some elements just click on Remove button.</p>
+        </div>
+        <div id="main-menu-elements">
+          <!--Table with main menu elements-->
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">MENU</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Menu of the day</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+              <tr>
+                <td>Breakfast</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+              <tr>
+                <td>Soups</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+              <tr>
+                <td>Main course</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+              <tr>
+                <td>Pasta</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+              <tr>
+                <td>Pizza</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+              <tr>
+                <td>Desserts</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+              <tr>
+                <td>Drinks</td>
+                <td><button class="btn btn-danger" type="submit">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="setting-info">
+          <p>If you want to add / remove / modify some items from meniu (title, ingredients, price, image, allergens), select a category of food below and then click on 'Edit' Button (to edit existent item) or click on 'Add' Button to add new item to menu.</p>
+        </div>
+        <div id="list-menu">
+          <div class="accordion" id="accordionExample">
+
+            <!-- Category #01 -->
+            <div class="card">
+              <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-01" aria-expanded="false" aria-controls="collapse-01">
+                <h4 class="mb-0">
+                  Menu of the day 
+                </h4>
+              </button>
+              <div id="collapse-01" class="collapse" data-parent="#accordionExample">              
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Menu of the day</h5>
+                      <div class="card-body">
+                        <ul>
+                          <li class="card-text">Cicken soup</li>
+                          <li class="card-text">Chicken Curry with rice</li>
+                          <li class="card-text">Dessert: Cheesecake</li>
+                          <li class="card-text">Mineral water (0.5 l)</li>                            
+                        </ul>                          
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">15.99 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+
+            <!-- Category #02 -->
+            <div class="card">
+              <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-02" aria-expanded="false" aria-controls="collapse-02">
+                <h4 class="mb-0">
+                  Breakfast 
+                </h4>
+              </button>
+              <div id="collapse-02" class="collapse" data-parent="#accordionExample">              
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Breakfast 1</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingredients list.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">12 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+
+            <!-- Category #03 -->
+            <div class="card">
+              <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-03" aria-expanded="false" aria-controls="collapse-03">
+                <h4 class="mb-0">
+                  Soups
+                </h4>
+              </button>
+              <div id="collapse-03" class="collapse" data-parent="#accordionExample">              
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Chicken Soup</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingredients list.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">16 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Item #2 -->
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Beef Soup</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingredients list.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">17 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+
+            <!-- Category #04 -->          
+            <div class="card">
+              <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-04" aria-expanded="false" aria-controls="collapse-04">
+                <h4 class="mb-0">
+                  Main course
+                </h4>
+              </button>
+              <div id="collapse-04" class="collapse" data-parent="#accordionExample">
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Chicken Schnitzel</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingredients list.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">20 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category #05 -->          
+              <div class="card">
+                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-05" aria-expanded="false" aria-controls="collapse-05">
+                  <h4 class="mb-0">
+                    Pasta
+                  </h4>
+                </button>
+                <div id="collapse-05" class="collapse" data-parent="#accordionExample">
+                  <!-- Item #1 -->
+                  <div class="card">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img src="../images/slide3.jpg" class="card-img" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <h5 class="card-header">Carbonara</h5>
+                        <div class="card-body">
+                          <p class="card-text">Spaghetti, eggs, parmezan, unsalted butter, carbonara sauce.</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                              <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                              <button type="button" class="btn btn-sm btn-primary">Add</button>
+                            </div>
+                            <span class="badge badge-info">19 Lei</span>
+                          </div>
+                          <div class = "setting-option">
+                            <button class="btn btn-primary" type="button"> Edit </button>
+                            <button class="btn btn-danger" type="button"> Remove </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Item #2 -->
+                  <div class="card">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img src="../images/slide3.jpg" class="card-img" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <h5 class="card-header">Spaghetti Bolognese</h5>
+                        <div class="card-body">
+                          <p class="card-text">Spaghetti, eggs, parmezan, unsalted butter, bolognese sauce.</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                              <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                              <button type="button" class="btn btn-sm btn-primary">Add</button>
+                            </div>
+                            <span class="badge badge-info">18 Lei</span>
+                          </div>
+                          <div class = "setting-option">
+                            <button class="btn btn-primary" type="button"> Edit </button>
+                            <button class="btn btn-danger" type="button"> Remove </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Item #3 -->
+                  <div class="card">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img src="../images/slide3.jpg" class="card-img" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <h5 class="card-header">Lasagna</h5>
+                        <div class="card-body">
+                          <p class="card-text">Pasta, meats, tomato sauce and other vegetables, cheese.</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                              <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                              <button type="button" class="btn btn-sm btn-primary">Add</button>
+                            </div>
+                            <span class="badge badge-info">27 Lei</span>
+                          </div>
+                          <div class = "setting-option">
+                            <button class="btn btn-primary" type="button"> Edit </button>
+                            <button class="btn btn-danger" type="button"> Remove </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category #06 -->          
+              <div class="card">
+                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-06" aria-expanded="false" aria-controls="collapse-06">
+                  <h4 class="mb-0">
+                    Pizza
+                  </h4>
+                </button>
+                <div id="collapse-06" class="collapse" data-parent="#accordionExample">
+                <!-- Item #1 -->
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Quatro Stagioni</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingredients list.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">25 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>   
+              </div>
+            </div>
+                  
+            <!-- Category #07 -->
+            <div class="card">
+              <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-07" aria-expanded="false" aria-controls="collapse-07">
+                <h4 class="mb-0">
+                  Dessert
+                </h4>
+              </button>
+              <div id="collapse-07" class="collapse" data-parent="#accordionExample">
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Cheesecake</h5>
+                      <div class="card-body">
+                        <p class="card-text">Ingredients list.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">30 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Category #08 -->
+            <div class="card">
+              <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapse-08" aria-expanded="false" aria-controls="collapse-08">
+                <h4 class="mb-0">
+                  Drinks
+                </h4>
+              </button>
+              <div id="collapse-08" class="collapse" data-parent="#accordionExample">
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/slide3.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-header">Coca Cola</h5>
+                      <div class="card-body">
+                        <p class="card-text">0.5 l</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <input type="number" class="form-control quantity-box" value="1" placeholder="Qty." aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <button type="button" class="btn btn-sm btn-primary">Add</button>
+                          </div>
+                          <span class="badge badge-info">25 Lei</span>
+                        </div>
+                        <div class = "setting-option">
+                          <button class="btn btn-primary" type="button"> Edit </button>
+                          <button class="btn btn-danger" type="button"> Remove </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="setting-info">
+          <p>If you want to add a new category of food in menu list, please complete the empty field with a title and then click on 'Add New' button.</p>
+        </div>
+        <div id="add-to-main-menu">
+          <form class="form-inline">
+            <div>
+              <input type="text" class="form-control" placeholder="New Food Category">
+              
+              <button type="submit" class="btn btn-primary">Add New</button>
+          </form>
+        </div>
+      </div>
+    </main>
+      
+    <footer>
+      <div class="card text-center">
+        <div class="card-footer text-muted">
+          &#169 Order & Pay 2020
+        </div>
+      </div>        
+    </footer>
+    <!-- jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>    
+</html>
