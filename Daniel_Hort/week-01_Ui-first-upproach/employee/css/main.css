@@ -1,0 +1,74 @@
+.navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(221,87,76)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.nav-link:hover{
+  color: rgb(221,87,76);
+}
+.nav-link.active{
+  color: rgb(221,87,76);
+}
+
+.grid-container{
+  display: grid;
+  grid-gap: 0 0;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "navbar main"
+}
+
+.navbar{
+  grid-area: navbar;
+}
+
+.container-fluid{
+  grid-area: main;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+li.order{
+  display: grid;
+  grid-template-columns: auto 7rem;
+  grid-column-gap: 2rem;
+}
+
+.align-self-end{
+  align-self: end;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+.c-r, .c-r *{color: rgb(221,87,76);}
+.c-g, .c-g *{color: rgb(126,174,170);}
+.c-b, .c-b *{color: rgb(70,86,86);}
+.c-w, .c-w *{color: white;}
+
+.bg-r{background-color: rgb(221,87,76);}
+.bg-g{background-color: rgb(126,174,170);}
+.bg-b{background-color: rgb(70,86,86);}
+.bg-w{background-color: white;}
+
+.b-r{border-color: rgb(221,87,76);}
+.b-g{border-color: rgb(126,174,170);}
+.b-b{border-color: rgb(70,86,86);}
+.b-w{border-color: white;}
+
+@media screen and (max-width: 767px) {
+  .grid-container{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "navbar"
+      "main"
+  }
+
+  body{
+    overflow-y: hidden;
+  }
+}
