@@ -165,36 +165,39 @@
                         </center>
                     </div>
                     <div class='card-body' align='justify'>
-                        <form>
-                            <div class="form-group">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" placeholder="John Doe">
 
+                        <form>
+                            <div class="form-row">
+                              <div class="col-md-6">
+                                <label for="validationDefault01">First name</label>
+                                <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark" required>
+                              </div>
+                              <div class="col-md-6">
+                                <label for="validationDefault02">Last name</label>
+                                <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required>
+                              </div>
+                             
+                            </div>
+                            <div class="form-row" style="padding-top: 20px;">
+                              <div class="col-md-12">
+                                <label for="validationDefault03">Table Number</label>
+                                <input type="text" class="form-control" id="validationDefault03" placeholder="Table Number" required>
+                              </div>
+                             
                             </div>
                             <div class="form-group">
-                                <label for="tableNumber">Table Number</label>
-                                <input type="text" class="form-control" id="tableNumber" placeholder="0">
-                            </div>
-                            <label>How would you like to pay?</label><br>
-                            <div class="form-check col-md-4">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                  Cash
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                                <label class="form-check-label" for="invalidCheck2">
+                                  Agree to terms and conditions
                                 </label>
                               </div>
+                            </div>
+                            <button class="btn btn-primary blueBG" type="submit">Confirm</button>
+                          </form>
 
-                            <div class="form-check col-md-4">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                    value="option1">
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Credit Card
-                                </label>
-                            </div>
-                            <div class="row col-md-3 offset-8">
-                                <button type="submit" class="blueBtn" >Submit</button>
-                            </div>
-                            
-                        </form>
+
+                        
                     </div>
                 </div>
             </div>

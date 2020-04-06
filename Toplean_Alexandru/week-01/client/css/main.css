@@ -1,0 +1,128 @@
+
+footer{
+    padding-top: 20px;
+    width: 100%;
+}
+
+.pureBlack{
+    border-color: black;
+}
+
+.ptr{
+    cursor: pointer;
+    max-width: fit-content;
+}
+.ptr:hover{
+    color:#e68a00;
+}
+.blueText{
+    color:blue;
+}
+.noBullet{
+    list-style-type: none;
+}
+.orangeText{
+    color:orange;
+}
+nav a{
+    color:white !important;
+}
+
+.testButton{
+    border:none;
+    width: 100%;
+}
+.testCB{
+border:none;
+}
+.paddingleft10{
+    padding-left: 10%;
+}
+
+
+.whiteFilter{
+    position: absolute;
+    z-index: 5;
+    opacity: 0.5;
+}
+.redBackground{
+    background-color: #cf2f23;
+    
+}
+
+input[type=text], select, textarea{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.handWrite{
+    font-family: 'Dancing Script', cursive;
+}
+.expand{
+    width:300px;
+    transition:width 1s;
+    }
+    .shrink{
+    width: 0px;
+    transition: width 1s ease;
+    }
+    .normal{
+        width: 100px;
+        transition: width 1s ease;
+    }
+
+.checkoutBtn{
+    background-color: red;
+    color:black !important;
+    font-weight: bold;
+    border:none;
+    height:50px;
+    width: 250px;
+}
+
+.blueBtn{
+    background-color: #189AD3;
+    color:white !important;
+    font-weight: bold;
+    border:none;
+    height:50px;
+    width: 250px;
+}
+.blueBtnFull{
+    background-color: #189AD3;
+    color:white !important;
+    font-weight: bold;
+    border:none;
+    height:50px;
+    width: 100%;
+}
+
+.blue{
+    background-color: #189AD3;
+    color:white !important;
+    font-weight: bold;
+    border:none;
+}
+
+.blueBG{
+    background-color: #189AD3 !important;
+}
+
+input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 1em;
+    
+}
+
+.tableVerticalLines{
+    border-left:1px solid #ccc;
+}
+.tableBottomLine{
+     border-bottom: 1px solid #ccc;
+}
+
+

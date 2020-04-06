@@ -10,21 +10,17 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/darkMode.css">
     <link rel="stylesheet" type="text/css" href="css/fancyTextBox.css">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-
-    
 
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark ">
-            <a class="navbar-brand" href="index.html">Restaurants</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            <a class="navbar-brand active" href="index.html">Orders</a>
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,13 +28,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="checkout.html">Checkout </a>
+                        <a class="nav-link" href="menus.html">Menus </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="orderHistory.html">Order History </a>
-                    </li>
-                   
                     
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">Statistics </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="userComments.html">User Feedback </a>
+                    </li>
 
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -57,21 +55,24 @@
 
     </header>
 
+    <section style="padding-top: 20px; color:black !important">
+        <a href="newMenu.html" class="btn btn-primary btn-lg btn-block" style="background-color:#189AD3 !important"><img src="images/icons/plus-square.svg"> &ensp;Add New Menu</a>
 
 
 
+    </section>
 
-    <section style="background-color: #000000;">
-        <center><img
-                src="images/caruso.jpg" width="500px">
+
+    <section style="padding-top: 20px;">
+        <center>
+            <h1>Existing menus</h1>
         </center>
     </section>
-    <center>
-        <H1>Caruso</H1>
-    </center>
+    <section id="switchable" align="justify" style="padding-top: 20px;color: black !important;">
 
-    <section style="color:black !important;">
-        
+
+
+
         <div class="row" style="padding-top: 20px;margin-right: 0px;margin-left: 0px;">
             <div class="col-md-4" style="padding-top: 20px;">
                 <div class="card">
@@ -83,11 +84,7 @@
                                 </td>
 
                                 <td align="right">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px"><br>4.88/5
+                                    <button type="button" class="btn btn-primary">Edit</button>
 
                                 </td>
                             </tr>
@@ -98,8 +95,8 @@
 
                         <b>
                             <div align="center">
-                               
-                                
+
+
                             </div>
                             <div class="row" style="padding-top: 20px;padding-right: 0px;">
 
@@ -127,36 +124,12 @@
                                         </tr>
                                     </table>
 
-                                    <hr class="pureBlack">
-                                    <div class="row">
 
-                                        <div class="col-md-6">
-                                            Quantity
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" name="menu1Numeric" id="menu1Numeric">
-
-                                            <div id="result1"></div>
-
-
-
-
-                                        </div>
-                                    </div>
-                                    <div class="row" style="padding-top: 10px;">
-                                        <div class="col-md-6">
-                                            Customize?
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text">
-
-                                        </div>
-                                    </div>
 
                                 </div>
 
 
-                                <div class="collapse" id="collapseExample" style="width: 100%;">
+                                <div class="collapse" id="collapseExample5" style="width: 100%;">
                                     <hr class="pureBlack">
                                     <div class="row col-md-12">
                                         List of major allergens:
@@ -191,9 +164,9 @@
                                 <div
                                     style="padding-top: 20px;padding-left: 0px !important; padding-right: 0px !important; width: 100%;">
                                     <button class="blueBtnFull" type="button" data-toggle="collapse"
-                                        data-target="#collapseExample" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        View alergens
+                                        data-target="#collapseExample5" aria-expanded="false"
+                                        aria-controls="collapseExample5">
+                                        Edit alergens
                                     </button>
                                 </div>
                             </div>
@@ -211,11 +184,7 @@
                                 </td>
 
                                 <td align="right">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px"><br>4.88/5
+                                    <button type="button" class="btn btn-primary">Edit</button>
 
                                 </td>
                             </tr>
@@ -226,8 +195,8 @@
 
                         <b>
                             <div align="center">
-                               
-                                
+
+
                             </div>
                             <div class="row" style="padding-top: 20px;padding-right: 0px;">
 
@@ -255,36 +224,11 @@
                                         </tr>
                                     </table>
 
-                                    <hr class="pureBlack">
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            Quantity
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" name="menu2Numeric" id="menu2Numeric">
-
-                                            <div id="result2"></div>
-
-
-
-
-                                        </div>
-                                    </div>
-                                    <div class="row" style="padding-top: 10px;">
-                                        <div class="col-md-6">
-                                            Customize?
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text">
-
-                                        </div>
-                                    </div>
 
                                 </div>
 
 
-                                <div class="collapse" id="collapseExample" style="width: 100%;">
+                                <div class="collapse" id="collapseExample4" style="width: 100%;">
                                     <hr class="pureBlack">
                                     <div class="row col-md-12">
                                         List of major allergens:
@@ -319,9 +263,9 @@
                                 <div
                                     style="padding-top: 20px;padding-left: 0px !important; padding-right: 0px !important; width: 100%;">
                                     <button class="blueBtnFull" type="button" data-toggle="collapse"
-                                        data-target="#collapseExample" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        View alergens
+                                        data-target="#collapseExample4" aria-expanded="false"
+                                        aria-controls="collapseExample4">
+                                        Edit alergens
                                     </button>
                                 </div>
                             </div>
@@ -339,11 +283,7 @@
                                 </td>
 
                                 <td align="right">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px"><br>4.88/5
+                                    <button type="button" class="btn btn-primary">Edit</button>
 
                                 </td>
                             </tr>
@@ -354,8 +294,8 @@
 
                         <b>
                             <div align="center">
-                               
-                                
+
+
                             </div>
                             <div class="row" style="padding-top: 20px;padding-right: 0px;">
 
@@ -383,36 +323,13 @@
                                         </tr>
                                     </table>
 
-                                    <hr class="pureBlack">
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            Quantity
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" name="menu1Numeric" id="menu1Numeric">
-
-                                            <div id="result1"></div>
 
 
-
-
-                                        </div>
-                                    </div>
-                                    <div class="row" style="padding-top: 10px;">
-                                        <div class="col-md-6">
-                                            Customize?
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text">
-
-                                        </div>
-                                    </div>
 
                                 </div>
 
 
-                                <div class="collapse" id="collapseExample" style="width: 100%;">
+                                <div class="collapse" id="collapseExample3" style="width: 100%;">
                                     <hr class="pureBlack">
                                     <div class="row col-md-12">
                                         List of major allergens:
@@ -447,9 +364,9 @@
                                 <div
                                     style="padding-top: 20px;padding-left: 0px !important; padding-right: 0px !important; width: 100%;">
                                     <button class="blueBtnFull" type="button" data-toggle="collapse"
-                                        data-target="#collapseExample" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        View alergens
+                                        data-target="#collapseExample3" aria-expanded="false"
+                                        aria-controls="collapseExample3">
+                                        Edit alergens
                                     </button>
                                 </div>
                             </div>
@@ -467,11 +384,7 @@
                                 </td>
 
                                 <td align="right">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px"><br>4.88/5
+                                    <button type="button" class="btn btn-primary">Edit</button>
 
                                 </td>
                             </tr>
@@ -482,8 +395,8 @@
 
                         <b>
                             <div align="center">
-                               
-                                
+
+
                             </div>
                             <div class="row" style="padding-top: 20px;padding-right: 0px;">
 
@@ -511,36 +424,12 @@
                                         </tr>
                                     </table>
 
-                                    <hr class="pureBlack">
-                                    <div class="row">
 
-                                        <div class="col-md-6">
-                                            Quantity
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" name="menu1Numeric" id="menu1Numeric">
-
-                                            <div id="result1"></div>
-
-
-
-
-                                        </div>
-                                    </div>
-                                    <div class="row" style="padding-top: 10px;">
-                                        <div class="col-md-6">
-                                            Customize?
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text">
-
-                                        </div>
-                                    </div>
 
                                 </div>
 
 
-                                <div class="collapse" id="collapseExample" style="width: 100%;">
+                                <div class="collapse" id="collapseExample2" style="width: 100%;">
                                     <hr class="pureBlack">
                                     <div class="row col-md-12">
                                         List of major allergens:
@@ -575,9 +464,9 @@
                                 <div
                                     style="padding-top: 20px;padding-left: 0px !important; padding-right: 0px !important; width: 100%;">
                                     <button class="blueBtnFull" type="button" data-toggle="collapse"
-                                        data-target="#collapseExample" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        View alergens
+                                        data-target="#collapseExample2" aria-expanded="false"
+                                        aria-controls="collapseExample2">
+                                        Edit alergens
                                     </button>
                                 </div>
                             </div>
@@ -595,12 +484,7 @@
                                 </td>
 
                                 <td align="right">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px">
-                                    <img src="images/star.png" width="30px"><br>4.88/5
-
+                                    <button type="button" class="btn btn-primary">Edit</button>
                                 </td>
                             </tr>
                         </table>
@@ -610,8 +494,8 @@
 
                         <b>
                             <div align="center">
-                               
-                                
+
+
                             </div>
                             <div class="row" style="padding-top: 20px;padding-right: 0px;">
 
@@ -639,36 +523,12 @@
                                         </tr>
                                     </table>
 
-                                    <hr class="pureBlack">
-                                    <div class="row">
 
-                                        <div class="col-md-6">
-                                            Quantity
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" name="menu1Numeric" id="menu1Numeric">
-
-                                            <div id="result1"></div>
-
-
-
-
-                                        </div>
-                                    </div>
-                                    <div class="row" style="padding-top: 10px;">
-                                        <div class="col-md-6">
-                                            Customize?
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text">
-
-                                        </div>
-                                    </div>
 
                                 </div>
 
 
-                                <div class="collapse" id="collapseExample" style="width: 100%;">
+                                <div class="collapse" id="collapseExample1" style="width: 100%;">
                                     <hr class="pureBlack">
                                     <div class="row col-md-12">
                                         List of major allergens:
@@ -703,9 +563,9 @@
                                 <div
                                     style="padding-top: 20px;padding-left: 0px !important; padding-right: 0px !important; width: 100%;">
                                     <button class="blueBtnFull" type="button" data-toggle="collapse"
-                                        data-target="#collapseExample" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        View alergens
+                                        data-target="#collapseExample1" aria-expanded="false"
+                                        aria-controls="collapseExample1">
+                                        Edit alergens
                                     </button>
                                 </div>
                             </div>
@@ -714,16 +574,7 @@
                 </div>
             </div>
         </div>
-    </section>
-    <hr class="pureBlack">
-    <section>
-        <div class="row" style="margin-left: 0px;margin-right: 0px; width: 100%;">
-            <div class='col-md-12' style="width: 100%;">
-                <center>
-                <button class="blueBtnFull" onclick="(function(){window.location.href='checkout.html'})();">Proceed to Checkout</button></center>
-            </div>
-            
-            </div>
+        <hr class="pureBlack">
     </section>
 
 
@@ -739,102 +590,12 @@
 
 
 
-
-    <hr class="pureBlack">
 
     <footer style="padding-bottom: 50px;">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4" align="justify">
-
-                    <div>About us<br>
-                        <div class="card-header">
-                            <span class="d-inline-block ">
-                                <img src="images/logo.png" width="50px">
-                                Insert company description here that is really really really really long and
-                                does not
-                                fit under any
-                                circumstance in only one single short line.
-                            </span>
-
-                        </div>
-
-                    </div>
-                    <div>Contact us</div>
-                    <div class="card-header">
-                        <span class="d-inline-block">
-                            <img src="images/icons/phone-call.svg">
-                            0123456789</span>
-
-                    </div>
-                    <div class="card-header">
-                        <span class="d-inline-block">
-                            <img src="images/icons/mail.svg">
-                            email@email.email</span>
-
-                    </div>
-                    <div class="card-header">
-                        <span class="d-inline-block">
-                            <img src="images/icons/map-pin.svg">
-                            Street here that can also be longer than one line without complications and the text
-                            should
-                            have a justify align aswell</span>
-
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="blueText" id="InformationToggle"><b>Information</b></div>
-                    <ul class="noBullet">
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Info1
-                        </li>
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Info2
-                        </li>
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Info3
-                        </li>
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Info4
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <div class="blueText" id="SupportToggle"><b>Support</b></div>
-                    <ul class="noBullet">
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Support1
-                        </li>
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Support2
-                        </li>
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Support3
-                        </li>
-                        <li onmousedown="redirectTo('#')" class="ptr">
-                            Support4
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="d-flex justify-content-center">Follow us on &ensp;&ensp;
-            <a href="http://www.facebook.com"><img src="images/icons/facebook.svg"></a>&ensp;
-            <a href="http://www.instagram.com"><img src="images/icons/instagram.svg"></a>&ensp;
-            <a href="http://www.github.com"> <img src="images/icons/github.svg"></a>
 
 
 
-        </div>
-        <center> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
-                href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-        </center>
-        <script src="js/main.js"></script>
-        
-        <script src="js/darkMode.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
         </script>
@@ -844,8 +605,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
         </script>
+        <script src="js/main.js"></script>
+        <script src="js/darkMode.js"></script>
     </footer>
-  
+
 </body>
 
 </html>
