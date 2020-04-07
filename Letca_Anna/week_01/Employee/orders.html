@@ -52,12 +52,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="menu.html">Current Menu</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="orders.html"
-              >Orders<span class="badge badge-light">(4)</span></a
+              >Orders<span class="badge badge-light">(1)</span></a
             >
           </li>
           <li class="nav-item">
@@ -69,7 +69,7 @@
           <input
             class="form-control mr-sm-2"
             type="search"
-            placeholder="Search recipe"
+            placeholder="Search order"
             aria-label="Search"
           />
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
@@ -105,23 +105,19 @@
       </div>
     </nav>
 
-    <div class="d-flex justify-content-center m-4">
-      <button type="button" class="btn btn-success">Add item</button>
-    </div>
-
     <div
       class="modal"
-      id="menuEditorModal"
+      id="orderDetailsModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="menuEditorLabel"
+      aria-labelledby="orderDetailsLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="menuEditorTitle">
-              Paste carbonara
+            <h5 class="modal-title" id="orderDetailsTitle">
+              Table #5 - Order Details
             </h5>
             <button
               type="button"
@@ -133,16 +129,18 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="input-group mb-3">
-              <input type="number" class="form-control" aria-label="price in lei" placeholder="price">
-            </div>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" aria-label="comma separated ingredients" placeholder="ingredients">
-            </div>
+            <ul>
+              <li>
+                mojito x 1
+              </li>
+              <li>
+                wine x 1
+              </li>
+            </ul>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary">
-              Save
+              Send confirmation
             </button>
           </div>
         </div>
@@ -151,93 +149,65 @@
 
     <main role="main">
       <div class="container mb-4 pb-2">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <h5 class="card-header">Paste carbonara</h5>
+        <div class="row justify-content-center">
+          <div class="col-8">
+            <div class="card border-success m-2">
               <div class="card-body">
-                <p class="card-text">
-                  Spaghete, ou, smantana, ulei de masline, usturoi, parmezan.
-                </p>
-                <hr>
-                Price: 30 lei
-                <hr>
+                <span class="badge badge-success">New</span>
+                <h5 class="card-title">Table #4</h5>
+                <p class="card-text">Placed at 20:35</p>
+                <hr />
                 <div class="d-flex justify-content-between align-items-center">
-                  <button type="button" class="btn btn-danger btn-sm">
-                    Remove
+                  <button
+                    type="button"
+                    class="btn btn-outline-info"
+                    data-toggle="modal"
+                    data-target="#orderDetailsModal"
+                  >
+                    Details
                   </button>
-                  <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                  data-target="#menuEditorModal">
-                    Edit
+                  <button type="button" class="btn btn-outline-success">
+                    Done
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <h5 class="card-header">Paste arabiata</h5>
+            <div class="card m-2">
               <div class="card-body">
-                <p class="card-text">
-                  Spaghete, ulei de masline, sos arabiata, parmezan.
-                </p>
-                <hr>
-                Price: 30 lei
-                <hr>
+                <h5 class="card-title">Table #1</h5>
+                <p class="card-text">Placed at 20:35</p>
+                <hr />
                 <div class="d-flex justify-content-between align-items-center">
-                  <button type="button" class="btn btn-danger btn-sm">
-                    Remove
+                  <button
+                    type="button"
+                    class="btn btn-outline-info"
+                    data-toggle="modal"
+                    data-target="#orderDetailsModal"
+                  >
+                    Details
                   </button>
-                  <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                  data-target="#menuEditorModal">
-                    Edit
+                  <button type="button" class="btn btn-outline-success">
+                    Done
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <h5 class="card-header">Paste arabiata</h5>
+            <div class="card m-2">
               <div class="card-body">
-                <p class="card-text">
-                  Spaghete, ulei de masline, sos arabiata, parmezan.
-                </p>
-                <hr>
-                Price: 30 lei
-                <hr>
+                <h5 class="card-title">Table #2</h5>
+                <p class="card-text">Placed at 20:35</p>
+                <hr />
                 <div class="d-flex justify-content-between align-items-center">
-                  <button type="button" class="btn btn-danger btn-sm">
-                    Remove
+                  <button
+                    type="button"
+                    class="btn btn-outline-info"
+                    data-toggle="modal"
+                    data-target="#orderDetailsModal"
+                  >
+                    Details
                   </button>
-                  <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                  data-target="#menuEditorModal">
-                    Edit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <h5 class="card-header">Paste arabiata</h5>
-              <div class="card-body">
-                <p class="card-text">
-                  Spaghete, ulei de masline, sos arabiata, parmezan.
-                </p>
-                <hr>
-                Price: 30 lei
-                <hr>
-                <div class="d-flex justify-content-between align-items-center">
-                  <button type="button" class="btn btn-danger btn-sm">
-                    Remove
-                  </button>
-                  <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                  data-target="#menuEditorModal">
-                    Edit
+                  <button type="button" class="btn btn-outline-success">
+                    Done
                   </button>
                 </div>
               </div>
