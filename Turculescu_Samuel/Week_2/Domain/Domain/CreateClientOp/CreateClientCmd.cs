@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.CreateClientOp
 {
-    public struct CreateRestaurantCmd
+    public struct CreateClientCmd
     {
         public string Name { get; }
-
-        public CreateRestaurantCmd(string name)
+        
+        public CreateClientCmd(string name)
         {
             Name = name;
         }

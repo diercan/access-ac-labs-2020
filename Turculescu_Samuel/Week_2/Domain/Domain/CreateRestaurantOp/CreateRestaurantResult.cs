@@ -5,7 +5,7 @@ using CSharp.Choices.Attributes;
 using Domain.Models;
 using System.Threading.Tasks;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.CreateRestaurantOp
 {
     [AsChoice]
     public static partial class CreateRestaurantResult

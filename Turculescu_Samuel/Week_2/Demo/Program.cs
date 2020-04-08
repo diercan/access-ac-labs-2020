@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Domain;
-using Domain.Domain.CreateRestauratOp;
+using Domain.Domain.CreateRestaurantOp;
 using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
-using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.CreateRestaurantOp.CreateRestaurantResult;
 
 namespace Demo
 {

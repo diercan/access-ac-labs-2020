@@ -6,9 +6,9 @@ using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using LanguageExt.ClassInstances.Pred;
-using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.CreateRestaurantOp.CreateRestaurantResult;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.CreateRestaurantOp
 {
     public class CreateRestaurantOp : OpInterpreter<CreateRestaurantCmd, CreateRestaurantResult.ICreateRestaurantResult, Unit>
     {
