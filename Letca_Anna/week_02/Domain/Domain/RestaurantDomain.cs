@@ -10,6 +10,8 @@ using static IOExt;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using Domain.Domain.CreateMenuItemOp;
+using static Domain.Domain.AddMenuItemOp.AddMenuItemResult;
+using Domain.Domain.AddMenuItemOp;
 
 namespace Domain.Domain
 {
@@ -22,7 +24,10 @@ namespace Domain.Domain
             MenuType menuType)
             => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
 
-        public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, string name, double price)
-            => NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name, price));
+        public static IO<ICreateMenuItemResult> CreateMenuItem(string name, double price)
+            => NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(name, price));
+
+        public static IO<IAddMenuItemResult> AddMenuItem(Menu menu, MenuItem menuItem)
+            => NewIO<AddMenuItemCmd, IAddMenuItemResult>(new AddMenuItemCmd(menuItem, menu));
     }
 }
