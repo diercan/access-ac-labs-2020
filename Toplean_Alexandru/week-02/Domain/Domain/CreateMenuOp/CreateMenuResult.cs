@@ -22,6 +22,14 @@ namespace Domain.Domain.CreateMenuOp
             }
         }
 
-        public class MenuNotCreated : ICreateMenuResult { }
+        public class MenuNotCreated : ICreateMenuResult
+        {
+            public MenuErrorCode Reason { get; }
+
+            public MenuNotCreated(MenuErrorCode error)
+            {
+                Reason = error;
+            }
+        }
     }
 }

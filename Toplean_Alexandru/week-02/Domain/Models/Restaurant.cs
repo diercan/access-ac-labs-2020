@@ -19,6 +19,7 @@ namespace Domain.Models
         public string Name { get; }
         public Menu Menu { get; set; }
 
+        public List<Menu> Menus { get; set; } = new List<Menu>();
         public List<Employee> Employees { get; set; }
 
         public Restaurant(string name)

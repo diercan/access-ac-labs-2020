@@ -17,5 +17,31 @@ namespace Domain.Domain.CreateMenuOp
             Name = name;
             MenuType = menuType;
         }
+
+        public (bool, MenuErrorCode) IsValid()
+        {
+            try
+            {
+                return HasIllegalCharacters(Name) ? (false, MenuErrorCode.IllegalCharacter) :
+                    NameTooShort(Name) ? (false, MenuErrorCode.EmptyField) :
+                    (true, MenuErrorCode.None);
+            }
+            catch
+            {
+                return (false, MenuErrorCode.UnknownError);
+            }
+        }
+
+        public bool NameTooShort(String name) => name.Length > 0 ? false : true;
+
+        public bool HasIllegalCharacters(String name)
+        {
+            foreach (char c in name)
+            {
+                if ((int)c < 0x20 || (int)c > 0x7E)
+                    return true;
+            }
+            return false;
+        }
     }
 }

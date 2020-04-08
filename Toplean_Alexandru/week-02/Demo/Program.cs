@@ -22,56 +22,70 @@ namespace Demo
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            // from restaurantResult in RestaurantDomain.CreateRestaurant(null) //Exception -> RestaurantErrorCode.IllegalCharacters
+            // from restaurantResult in RestaurantDomain.CreateRestaurant(null) //Exception -> RestaurantErrorCode.UnknownError
             // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds") //Exception -> RestaurantErrorCode.RestaurantExists
             // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds►") //Exception -> RestaurantErrorCode.IllegalCharacters
             // from restaurantResult in RestaurantDomain.CreateRestaurant("") //Exception -> RestaurantErrorCode.EmptyField
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
+                from restaurantResult in RestaurantDomain.CreateRestaurant("Mcdonalds")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            // dynamic keyword needed to get the result type, error otherwise
-            dynamic resultType = result.GetType();
+            var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
+            if (finalResult is RestaurantCreated)
+            {
+                AllHardcodedValues.HarcodedVals.Restaurants.Add((finalResult as RestaurantCreated).Restaurant.Name);
 
-            // If the restaurant was successfully created
-            if (resultType.Name == "RestaurantCreated")
-            {
-                // Restaurant was successfully created
-                var resultClass = result as RestaurantCreated;
-            } // End RestaurantCreated If
-            else
-            {
-                // Treating all the possible errors
-                //var resultClass = result as RestaurantNotCreated;
-                //Console.Write("Error! Restaurant was not created because the ");
-                //switch (resultClass.Reason)
-                //{
-                //    case RestaurantErrorCode.NameTooLong:
-                //        {
-                //            Console.WriteLine($"restaurant name was too long. Please use a name shorter than 256 characters! Error code {resultClass.Reason}");
-                //            break;
-                //        }
-                //    case RestaurantErrorCode.IllegalCharacters:
-                //        {
-                //            Console.WriteLine($"restaurant name had illegal characters. Error code {resultClass.Reason}");
-                //            break;
-                //        }
-                //    case RestaurantErrorCode.RestaurantExists:
-                //        {
-                //            Console.WriteLine($"restaurant already exists in the system. Error code {resultClass.Reason}");
-                //            break;
-                //        }
-                //    case RestaurantErrorCode.EmptyField:
-                //        {
-                //            Console.WriteLine($"restaurant name was empty. Error code {resultClass.Reason}");
-                //            break;
-                //        }
-                //}
+                var menuExpr =
+                from menuRes in RestaurantDomain.CreateMenu((finalResult as RestaurantCreated).Restaurant, "mc", MenuType.Meat)
+                let menu = (menuRes as MenuCreated)?.Menu
+                select menuRes;
+
+                var menuResult = await interpreter.Interpret(menuExpr, Unit.Default);
+                var finalMenu = menuResult.Match(OnMenuCreate, OnMenuNotCreate);
             }
+
+            // dynamic keyword needed to get the result type, error otherwise
+            //dynamic resultType = result.GetType();
+
+            //// If the restaurant was successfully created
+            //if (resultType.Name == "RestaurantCreated")
+            //{
+            //    // Restaurant was successfully created
+            //    var resultClass = result as RestaurantCreated;
+            //} // End RestaurantCreated If
+            //else
+            //{
+            //    // Treating all the possible errors
+            //    //var resultClass = result as RestaurantNotCreated;
+            //    //Console.Write("Error! Restaurant was not created because the ");
+            //    //switch (resultClass.Reason)
+            //    //{
+            //    //    case RestaurantErrorCode.NameTooLong:
+            //    //        {
+            //    //            Console.WriteLine($"restaurant name was too long. Please use a name shorter than 256 characters! Error code {resultClass.Reason}");
+            //    //            break;
+            //    //        }
+            //    //    case RestaurantErrorCode.IllegalCharacters:
+            //    //        {
+            //    //            Console.WriteLine($"restaurant name had illegal characters. Error code {resultClass.Reason}");
+            //    //            break;
+            //    //        }
+            //    //    case RestaurantErrorCode.RestaurantExists:
+            //    //        {
+            //    //            Console.WriteLine($"restaurant already exists in the system. Error code {resultClass.Reason}");
+            //    //            break;
+            //    //        }
+            //    //    case RestaurantErrorCode.EmptyField:
+            //    //        {
+            //    //            Console.WriteLine($"restaurant name was empty. Error code {resultClass.Reason}");
+            //    //            break;
+            //    //        }
+            //    //}
+            //}
 
             // var restaurantCreated = result as RestaurantCreated; // Assuming we have the createdRestaurant or using an existing restaurant
 
@@ -105,9 +119,6 @@ namespace Demo
             //{
             //    //Employee could not be created. TODO - Cover all the exceptions
             //}
-
-            var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
-            //.True(finalResult);
 
             Console.WriteLine("Hello World!");
         }
@@ -147,6 +158,31 @@ namespace Demo
 
         private static ICreateRestaurantResult OnRestaurantCreated(RestaurantCreated arg)
         {
+            return arg;
+        }
+
+        private static ICreateMenuResult OnMenuCreate(MenuCreated arg) => arg;
+
+        private static ICreateMenuResult OnMenuNotCreate(MenuNotCreated arg)
+        {
+            switch (arg.Reason)
+            {
+                case MenuErrorCode.EmptyField:
+                    {
+                        Console.WriteLine($"text field is empty. Please use a name shorter than 256 characters! Error code {arg.Reason}");
+                        break;
+                    }
+                case MenuErrorCode.UnknownError:
+                    {
+                        Console.WriteLine($"Unknown reason. Error code {arg.Reason}");
+                        break;
+                    }
+                case MenuErrorCode.ExistentMenu:
+                    {
+                        Console.WriteLine($"menu already exists in the system. Error code {arg.Reason}");
+                        break;
+                    }
+            }
             return arg;
         }
     }

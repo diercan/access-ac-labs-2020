@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Domain
 {
-    internal class AllHardcodedValues
+    public class AllHardcodedValues
     {
         public static AllHardcodedValues HarcodedVals = new AllHardcodedValues();
 

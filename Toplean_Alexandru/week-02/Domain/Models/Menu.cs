@@ -4,6 +4,14 @@ using System.Text;
 
 namespace Domain.Models
 {
+    public enum MenuErrorCode
+    {
+        None,
+        ExistentMenu,
+        UnknownError,
+        EmptyField,
+        IllegalCharacter
+    }
 
     public enum MenuType
     {
