@@ -15,9 +15,11 @@ namespace Domain.Domain.CreateMenuItemOp
         public class MenuItemCreated : ICreateMenuItemResult
         {
             public MenuItem MenuItem;
-            public MenuItemCreated(MenuItem menuItem)
+            public Menu Menu;
+            public MenuItemCreated(MenuItem menuItem, Menu menu)
             {
                 MenuItem = menuItem;
+                Menu = menu;
             }
         }
 

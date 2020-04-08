@@ -17,8 +17,9 @@ namespace Domain.Domain.CreateMenuItemOp
                 return Task.FromResult((ICreateMenuItemResult)new MenuItemNotCreated("price too high!"));
             else
             {
-                Op.Menu.MenuItem = new MenuItem(Op.Name, Op.Price);
-                return Task.FromResult((ICreateMenuItemResult)new MenuItemCreated(Op.Menu.MenuItem));
+                var menuItem = new MenuItem(Op.Name, Op.Price);
+                Op.Menu.AddMenuItem(menuItem);
+                return Task.FromResult((ICreateMenuItemResult)new MenuItemCreated(menuItem, Op.Menu));
             }
         }
     }
