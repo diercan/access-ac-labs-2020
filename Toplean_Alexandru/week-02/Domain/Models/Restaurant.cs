@@ -8,10 +8,12 @@ namespace Domain.Models
     {
         public enum RestaurantErrorCode
         {
+            None,
             RestaurantExists,
             IllegalCharacters,
             NameTooLong,
-            EmptyField
+            EmptyField,
+            UnknownError
         };
 
         public string Name { get; }

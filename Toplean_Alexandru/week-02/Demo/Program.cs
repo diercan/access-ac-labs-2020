@@ -22,12 +22,12 @@ namespace Demo
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-
+            // from restaurantResult in RestaurantDomain.CreateRestaurant(null) //Exception -> RestaurantErrorCode.IllegalCharacters
             // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds") //Exception -> RestaurantErrorCode.RestaurantExists
             // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds►") //Exception -> RestaurantErrorCode.IllegalCharacters
             // from restaurantResult in RestaurantDomain.CreateRestaurant("") //Exception -> RestaurantErrorCode.EmptyField
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds")
+                from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 select restaurantResult;
 
@@ -134,6 +134,11 @@ namespace Demo
                 case RestaurantErrorCode.EmptyField:
                     {
                         Console.WriteLine($"restaurant name was empty. Error code {arg.Reason}");
+                        break;
+                    }
+                case RestaurantErrorCode.UnknownError:
+                    {
+                        Console.WriteLine($"an unknown error occured. Error code {arg.Reason}");
                         break;
                     }
             }

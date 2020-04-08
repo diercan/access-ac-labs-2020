@@ -18,27 +18,11 @@ namespace Domain.Domain.CreateRestauratOp
             //validate
 
             return Exists(Op.Name) ?
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(RestaurantErrorCode.RestaurantExists)) :
-                HasIllegalCharacters(Op.Name) ? Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(RestaurantErrorCode.IllegalCharacters)) :
-                NameTooLong(Op.Name) ? Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(RestaurantErrorCode.NameTooLong)) :
-                NameTooShort(Op.Name) ? Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(RestaurantErrorCode.EmptyField)) :
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name)));
+                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(RestaurantErrorCode.RestaurantExists)) : // Name already exists
+                Op.IsValid().Item1 ? Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name))) : // Restaurant is valid
+                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(Op.IsValid().Item2)); // Restaurant is not valid for any reason
         }
 
         public bool Exists(string name) => AllHardcodedValues.HarcodedVals.Restaurants.Contains(name);
-
-        public bool NameTooLong(String name) => name.Length > 256 ? true : false;
-
-        public bool NameTooShort(String name) => name.Length > 0 ? false : true;
-
-        public bool HasIllegalCharacters(String name)
-        {
-            foreach (char c in name)
-            {
-                if ((int)c < 0x20 || (int)c > 0x7E)
-                    return true;
-            }
-            return false;
-        }
     }
 }
