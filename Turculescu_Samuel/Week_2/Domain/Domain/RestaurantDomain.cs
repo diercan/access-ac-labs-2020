@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Domain.Domain.CreateMenuOp;
-using Domain.Domain.CreateRestauratOp;
+using Domain.Domain.CreateRestaurantOp;
 using Domain.Models;
 using Infra.Free;
 using LanguageExt.ClassInstances;
 using static IOExt;
-using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.CreateRestaurantOp.CreateRestaurantResult;
 
 namespace Domain.Domain
 {
@@ -18,6 +18,6 @@ namespace Domain.Domain
 
         public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName,
             MenuType menuType)
-            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
+            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));       
     }
 }
