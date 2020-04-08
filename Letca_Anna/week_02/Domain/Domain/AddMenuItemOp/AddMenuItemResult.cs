@@ -5,27 +5,31 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Domain.CreateMenuItemOp
+namespace Domain.Domain.AddMenuItemOp
+
 {
     [AsChoice]
-    public static partial class CreateMenuItemResult
+    public static partial class AddMenuItemResult
     {
-        public interface ICreateMenuItemResult { };
+        public interface IAddMenuItemResult { };
 
-        public class MenuItemCreated : ICreateMenuItemResult
+        public class MenuItemAdded : IAddMenuItemResult
         {
             public MenuItem MenuItem;
-            public MenuItemCreated(MenuItem menuItem)
+            public Menu Menu;
+            public MenuItemAdded(MenuItem menuItem, Menu menu)
             {
+                Menu = menu;
                 MenuItem = menuItem;
+                Menu.AddMenuItem(MenuItem);
             }
         }
 
-        public class MenuItemNotCreated : ICreateMenuItemResult
+        public class MenuItemNotAdded : IAddMenuItemResult
         {
             public string Reason { get; }
 
-            public MenuItemNotCreated(string reason)
+            public MenuItemNotAdded(string reason)
             {
                 Reason = reason;
                 Console.WriteLine(reason);

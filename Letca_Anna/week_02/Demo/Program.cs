@@ -8,6 +8,7 @@ using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
+using static Domain.Domain.AddMenuItemOp.AddMenuItemResult;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
@@ -27,15 +28,16 @@ namespace Demo
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuResult in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu
-                //from menuItemResult in RestaurantDomain.CreateMenuItem(menu, "carbonara",50)
-                from menuItemResult in RestaurantDomain.CreateMenuItem(menu, "carbonara", 20)
-                select menuItemResult;
+                from menuItemResult in RestaurantDomain.CreateMenuItem("carbonara", 20)
+                let menuItem = (menuItemResult as MenuItemCreated)?.MenuItem
+                from menuAddedResult in RestaurantDomain.AddMenuItem(menu, menuItem)
+                select menuAddedResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
 
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            var finalResult = result.Match<bool>(OnMenuItemCreated, OnMenuItemNotCreated);
+            var finalResult = result.Match<bool>(OnMenuItemAdded, OnMenuItemNotAdded);
             //Assert.False(finalResult);
             Assert.True(finalResult);
 
@@ -58,6 +60,16 @@ namespace Demo
         }
 
         private static bool OnMenuItemCreated(MenuItemCreated arg)
+        {
+            return true;
+        }
+
+        private static bool OnMenuItemNotAdded(MenuItemNotAdded arg)
+        {
+            return false;
+        }
+
+        private static bool OnMenuItemAdded(MenuItemAdded arg)
         {
             Console.WriteLine(arg.Menu.ToString());
             return true;
