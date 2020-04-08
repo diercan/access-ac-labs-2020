@@ -8,5 +8,10 @@
             Price = price;
             Name = name;
         }
+
+        public override string ToString()
+        {
+            return "MenuItem name: " + Name + ", price: " + Price + "\n";
+        }
     }
 }

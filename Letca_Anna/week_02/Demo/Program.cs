@@ -27,8 +27,8 @@ namespace Demo
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuResult in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu
-                from menuItemResult in RestaurantDomain.CreateMenuItem(menu, "carbonara",50)
-                //from menuItemResult in RestaurantDomain.CreateMenuItem(menu, "carbonara", 20)
+                //from menuItemResult in RestaurantDomain.CreateMenuItem(menu, "carbonara",50)
+                from menuItemResult in RestaurantDomain.CreateMenuItem(menu, "carbonara", 20)
                 select menuItemResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
@@ -36,8 +36,8 @@ namespace Demo
             var result = await interpreter.Interpret(expr, Unit.Default);
 
             var finalResult = result.Match<bool>(OnMenuItemCreated, OnMenuItemNotCreated);
-            Assert.False(finalResult);
-            //Assert.True(finalResult);
+            //Assert.False(finalResult);
+            Assert.True(finalResult);
 
             Console.WriteLine("Hello World!");
         }
@@ -59,6 +59,7 @@ namespace Demo
 
         private static bool OnMenuItemCreated(MenuItemCreated arg)
         {
+            Console.WriteLine(arg.Menu.ToString());
             return true;
         }
 
