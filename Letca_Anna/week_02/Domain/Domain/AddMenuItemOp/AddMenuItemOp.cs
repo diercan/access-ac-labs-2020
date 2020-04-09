@@ -14,9 +14,11 @@ namespace Domain.Domain.AddMenuItemOp
     {
         public override Task<IAddMenuItemResult> Work(AddMenuItemCmd Op, Unit state)
         {
-            return Exists(Op.MenuItem, Op.Menu) ?
-                 Task.FromResult((IAddMenuItemResult)new MenuItemNotAdded($"{Op.MenuItem.Name} already exists in {Op.Menu.Name} menu!")) :
-                 Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem,Op.Menu));
+            return (Op.MenuItem == null) ?
+                Task.FromResult((IAddMenuItemResult)new MenuItemNotAdded($"Null menu item cant be added to menu")) :
+                Exists(Op.MenuItem, Op.Menu) ?
+                Task.FromResult((IAddMenuItemResult)new MenuItemNotAdded($"{Op.MenuItem.Name} already exists in {Op.Menu.Name} menu!")) :
+                Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem, Op.Menu));
         }
 
         public bool Exists(MenuItem menuItem, Menu menu)

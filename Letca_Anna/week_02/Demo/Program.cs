@@ -28,15 +28,9 @@ namespace Demo
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuResult in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu
-                from menuItemResult in RestaurantDomain.CreateMenuItem("carbonara", 20)
-                from menuItemResult1 in RestaurantDomain.CreateMenuItem("carbonara", 25)
-                from menuItemResult2 in RestaurantDomain.CreateMenuItem("conpesto", 20)
-                let menuItem = (menuItemResult as MenuItemCreated)?.MenuItem
-                let menuItem1 = (menuItemResult1 as MenuItemCreated)?.MenuItem
-                let menuItem2 = (menuItemResult2 as MenuItemCreated)?.MenuItem
-                from menuAddedResult in RestaurantDomain.AddMenuItem(menu, menuItem)
-                from menuAddedResult2 in RestaurantDomain.AddMenuItem(menu, menuItem1)
-                from menuAddedResult3 in RestaurantDomain.AddMenuItem(menu, menuItem2)
+                from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
+                from menuItemResult1 in RestaurantDomain.CreateAndAddMenuItem("carbonara", 25, menu)
+                from menuItemResult2 in RestaurantDomain.CreateAndAddMenuItem("conpesto", 20, menu)
                 select restaurantResult;
 
             Console.WriteLine(expr);
