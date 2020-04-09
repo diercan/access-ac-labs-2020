@@ -15,7 +15,7 @@ namespace Domain.Domain.AddMenuItemOp
         public override Task<IAddMenuItemResult> Work(AddMenuItemCmd Op, Unit state)
         {
             return Exists(Op.MenuItem, Op.Menu) ?
-                 Task.FromResult((IAddMenuItemResult)new MenuItemNotAdded($"<{Op.MenuItem.Name}> already exists in <{Op.Menu.Name}> menu!")) :
+                 Task.FromResult((IAddMenuItemResult)new MenuItemNotAdded($"<{Op.MenuItem.Name}> already exists in <{Op.Menu.Name}> menu!", Op.Menu)) :
                  Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem,Op.Menu));
         }
 
