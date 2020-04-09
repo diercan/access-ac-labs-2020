@@ -9,6 +9,7 @@ namespace Domain.Models
         None,
         ExistentMenu,
         UnknownError,
+        NullRestaurant,
         EmptyField,
         IllegalCharacter
     }

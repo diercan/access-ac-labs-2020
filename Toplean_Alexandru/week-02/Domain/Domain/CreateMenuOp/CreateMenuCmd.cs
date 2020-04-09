@@ -18,12 +18,16 @@ namespace Domain.Domain.CreateMenuOp
             MenuType = menuType;
         }
 
+        // Returns a tuple. If everything is valid, the function will return true and the MenuErrorCode will be None.
+        // If it is not valid, then the function will return false with the known reason.
+        // Try-Catch block also added in case there is an unknown error and it will return false.
         public (bool, MenuErrorCode) IsValid()
         {
             try
             {
                 return HasIllegalCharacters(Name) ? (false, MenuErrorCode.IllegalCharacter) :
                     NameTooShort(Name) ? (false, MenuErrorCode.EmptyField) :
+                    Restaurant == null ? (false, MenuErrorCode.NullRestaurant) :
                     (true, MenuErrorCode.None);
             }
             catch

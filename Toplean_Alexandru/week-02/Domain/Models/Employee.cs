@@ -10,7 +10,8 @@ namespace Domain.Models
         {
             EmptyField,
             IncorrectInputType,
-            NameExists
+            NameExists,
+            None
         }
 
         public enum JobRoles
