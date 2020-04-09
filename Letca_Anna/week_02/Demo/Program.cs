@@ -33,6 +33,8 @@ namespace Demo
                 from menuAddedResult in RestaurantDomain.AddMenuItem(menu, menuItem)
                 select menuAddedResult;
 
+            Console.WriteLine(expr);
+
             var interpreter = new LiveInterpreterAsync(serviceProvider);
 
             var result = await interpreter.Interpret(expr, Unit.Default);
