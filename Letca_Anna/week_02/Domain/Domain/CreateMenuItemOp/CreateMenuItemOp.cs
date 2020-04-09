@@ -14,7 +14,7 @@ namespace Domain.Domain.CreateMenuItemOp
         public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
         {
             if (Op.Price > 30)
-                return Task.FromResult((ICreateMenuItemResult)new MenuItemNotCreated("price too high!"));
+                return Task.FromResult((ICreateMenuItemResult)new MenuItemNotCreated($"{Op.Name}'s price too high!"));
             else
                 return Task.FromResult((ICreateMenuItemResult)new MenuItemCreated(new MenuItem(Op.Name, Op.Price)));
         }

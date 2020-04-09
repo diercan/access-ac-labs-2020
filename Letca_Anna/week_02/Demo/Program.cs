@@ -37,7 +37,7 @@ namespace Demo
                 from menuAddedResult in RestaurantDomain.AddMenuItem(menu, menuItem)
                 from menuAddedResult2 in RestaurantDomain.AddMenuItem(menu, menuItem1)
                 from menuAddedResult3 in RestaurantDomain.AddMenuItem(menu, menuItem2)
-                select menuAddedResult3;
+                select restaurantResult;
 
             Console.WriteLine(expr);
 
@@ -45,11 +45,9 @@ namespace Demo
 
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            var finalResult = result.Match<bool>(OnMenuItemAdded, OnMenuItemNotAdded);
-            //Assert.False(finalResult);
+            var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated);
             Assert.True(finalResult);
 
-            Console.WriteLine("Hello World!");
         }
 
         private static bool OnRestaurantNotCreated(RestaurantNotCreated arg)
@@ -59,28 +57,7 @@ namespace Demo
 
         private static bool OnRestaurantCreated(RestaurantCreated arg)
         {
-            return true;
-        }
-
-        private static bool OnMenuItemNotCreated(MenuItemNotCreated arg)
-        {
-            return false;
-        }
-
-        private static bool OnMenuItemCreated(MenuItemCreated arg)
-        {
-            return true;
-        }
-
-        private static bool OnMenuItemNotAdded(MenuItemNotAdded arg)
-        {
-            Console.WriteLine(arg.Menu.ToString());
-            return false;
-        }
-
-        private static bool OnMenuItemAdded(MenuItemAdded arg)
-        {
-            Console.WriteLine(arg.Menu.ToString());
+            Console.WriteLine(arg.Restaurant.ToString());
             return true;
         }
 
