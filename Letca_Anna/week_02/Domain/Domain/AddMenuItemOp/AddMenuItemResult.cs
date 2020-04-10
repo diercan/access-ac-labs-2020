@@ -28,7 +28,6 @@ namespace Domain.Domain.AddMenuItemOp
         public class MenuItemNotAdded : IAddMenuItemResult
         {
             public string Reason { get; }
-
             public MenuItemNotAdded(string reason)
             {
                 Reason = reason;

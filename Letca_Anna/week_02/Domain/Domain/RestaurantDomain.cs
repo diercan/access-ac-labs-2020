@@ -29,5 +29,11 @@ namespace Domain.Domain
 
         public static IO<IAddMenuItemResult> AddMenuItem(Menu menu, MenuItem menuItem)
             => NewIO<AddMenuItemCmd, IAddMenuItemResult>(new AddMenuItemCmd(menuItem, menu));
+
+        public static IO<IAddMenuItemResult> CreateAndAddMenuItem(string name, double price, Menu menu)
+            => from createMenuItemResult in CreateMenuItem(name, price)
+               let createdMenuItem = (createMenuItemResult as MenuItemCreated)?.MenuItem
+               from addMenuItemResult in AddMenuItem(menu, createdMenuItem)
+               select addMenuItemResult;
     }
 }

@@ -28,20 +28,20 @@ namespace Demo
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuResult in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu
-                from menuItemResult in RestaurantDomain.CreateMenuItem("carbonara", 20)
-                let menuItem = (menuItemResult as MenuItemCreated)?.MenuItem
-                from menuAddedResult in RestaurantDomain.AddMenuItem(menu, menuItem)
-                select menuAddedResult;
+                from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
+                from menuItemResult1 in RestaurantDomain.CreateAndAddMenuItem("carbonara", 25, menu)
+                from menuItemResult2 in RestaurantDomain.CreateAndAddMenuItem("conpesto", 20, menu)
+                select restaurantResult;
+
+            Console.WriteLine(expr);
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
 
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            var finalResult = result.Match<bool>(OnMenuItemAdded, OnMenuItemNotAdded);
-            //Assert.False(finalResult);
+            var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated);
             Assert.True(finalResult);
 
-            Console.WriteLine("Hello World!");
         }
 
         private static bool OnRestaurantNotCreated(RestaurantNotCreated arg)
@@ -51,27 +51,7 @@ namespace Demo
 
         private static bool OnRestaurantCreated(RestaurantCreated arg)
         {
-            return true;
-        }
-
-        private static bool OnMenuItemNotCreated(MenuItemNotCreated arg)
-        {
-            return false;
-        }
-
-        private static bool OnMenuItemCreated(MenuItemCreated arg)
-        {
-            return true;
-        }
-
-        private static bool OnMenuItemNotAdded(MenuItemNotAdded arg)
-        {
-            return false;
-        }
-
-        private static bool OnMenuItemAdded(MenuItemAdded arg)
-        {
-            Console.WriteLine(arg.Menu.ToString());
+            Console.WriteLine(arg.Restaurant.ToString());
             return true;
         }
 

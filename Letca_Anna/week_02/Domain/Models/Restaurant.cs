@@ -12,5 +12,10 @@ namespace Domain.Models
         {
             Name = name;
         }
+
+        public override string ToString()
+        {
+            return $"{Name}'s menu is : \n" + Menu.ToString();
+        }
     }
 }
