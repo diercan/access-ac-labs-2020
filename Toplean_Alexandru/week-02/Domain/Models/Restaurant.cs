@@ -20,7 +20,8 @@ namespace Domain.Models
         public Menu Menu { get; set; }
 
         public List<Menu> Menus { get; set; } = new List<Menu>();
-        public List<Employee> Employees { get; set; }
+        public List<Employee> Employees { get; set; } = new List<Employee>();
+        public List<Order> Orders { get; set; } = new List<Order>();
 
         public Restaurant(string name)
         {

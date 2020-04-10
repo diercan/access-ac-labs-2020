@@ -32,12 +32,20 @@ namespace Domain.Domain.CreateEmployeeOp
 
         public (bool, EmployeeErrorCode) IsValid()
         {
-            return EmptyField(Name) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - Name
-                EmptyField(Salary.ToString()) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - Salary
-                EmptyField(TelephoneNumber) ? (false, EmployeeErrorCode.EmptyField) : // Empty Strinng - Telephone
-                EmptyField(IBAN) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - IBAN
-                IncorectInputType(Salary, typeof(float)) ? (false, EmployeeErrorCode.IncorrectInputType) : // Salary value other than float
-                (true, EmployeeErrorCode.None);
+            try
+            {
+                return EmptyField(Name) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - Name
+                    EmptyField(Salary.ToString()) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - Salary
+                    EmptyField(TelephoneNumber) ? (false, EmployeeErrorCode.EmptyField) : // Empty Strinng - Telephone
+                    EmptyField(IBAN) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - IBAN
+                    this.Restaurant == null ? (false, EmployeeErrorCode.NullRestaurant) : // Restaurant doesn't exist
+                    IncorectInputType(Salary, typeof(float)) ? (false, EmployeeErrorCode.IncorrectInputType) : // Salary value other than float
+                    (true, EmployeeErrorCode.None);
+            }
+            catch
+            {
+                return (false, EmployeeErrorCode.UnknownError);
+            }
         }
 
         public bool IncorectInputType(dynamic value, Type expectedType) => value.GetType() != expectedType ? true : false;  // Checks if a variable is the correct type

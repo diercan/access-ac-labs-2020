@@ -15,12 +15,10 @@ namespace Domain.Domain.CreateEmployeeOp
         public class EmployeeCreated : ICreateEmployeeResult // Employee successfully created
         {
             public Employee Employee { get; }
-            public Restaurant Restaurant { get; }
 
-            public EmployeeCreated(Employee emp, Restaurant restaurant)
+            public EmployeeCreated(Employee emp)
             {
                 Employee = emp;
-                Restaurant = restaurant;
             }
         }
 

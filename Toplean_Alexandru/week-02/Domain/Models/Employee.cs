@@ -11,7 +11,9 @@ namespace Domain.Models
             EmptyField,
             IncorrectInputType,
             NameExists,
-            None
+            None,
+            UnknownError,
+            NullRestaurant
         }
 
         public enum JobRoles
@@ -31,7 +33,9 @@ namespace Domain.Models
         public JobRoles JobRole { get; }
         public String IBAN { get; }
 
-        public Employee(String name, int age, String address, String telephone, float salary, JobRoles role, String iban)
+        public Restaurant Restaurant { get; }
+
+        public Employee(String name, int age, String address, String telephone, float salary, JobRoles role, String iban, Restaurant restaurant)
         {
             this.Name = name;
             this.Age = age;
@@ -40,6 +44,7 @@ namespace Domain.Models
             this.Salary = salary;
             this.JobRole = role;
             this.IBAN = iban;
+            this.Restaurant = restaurant;
         }
     }
 }

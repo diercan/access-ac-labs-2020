@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 using static Domain.Models.Restaurant;
 
@@ -31,6 +32,10 @@ namespace Demo
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuRes in RestaurantDomain.CreateMenu(restaurant, "mc", MenuType.Meat)
                 let menu = (menuRes as MenuCreated)?.Menu
+                from employeeRes in RestaurantDomain.CreateEmployee("1", 2, "3", "4", 5, Employee.JobRoles.Cashier, "6", restaurant)
+                let employee = (employeeRes as EmployeeCreated)?.Employee
+                from orderRes in RestaurantDomain.CreateOrder(0, 1, null, "waiter", 4F, restaurant)
+                let order = (orderRes as OrderCreated)?.Order
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
