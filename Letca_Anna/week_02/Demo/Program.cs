@@ -39,7 +39,7 @@ namespace Demo
 
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated, OnEmptyNameRestaurantNotCreated);
+            var finalResult = result.Match<bool>(OnRestaurantCreated, OnEmptyNameRestaurantNotCreated);
             Assert.False(finalResult);
 
         }
@@ -49,10 +49,6 @@ namespace Demo
             return false;
         }
 
-        private static bool OnRestaurantNotCreated(RestaurantNotCreated arg)
-        {
-            return false;
-        }
 
         private static bool OnRestaurantCreated(RestaurantCreated arg)
         {
