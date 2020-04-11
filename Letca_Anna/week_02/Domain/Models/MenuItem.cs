@@ -16,12 +16,9 @@
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-                return false;
-            var objAsMenuItem = obj as MenuItem;
-            if (objAsMenuItem == null)
-                return false;
-            return objAsMenuItem.Name.Equals(this.Name) ? true : false;
+            return (!(obj is MenuItem objAsMenuItem)) ? false :
+            objAsMenuItem.Name.Equals(this.Name) ? true : 
+            false;
         }
     }
 }

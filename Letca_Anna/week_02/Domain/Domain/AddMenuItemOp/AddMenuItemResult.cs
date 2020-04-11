@@ -25,10 +25,20 @@ namespace Domain.Domain.AddMenuItemOp
             }
         }
 
-        public class MenuItemNotAdded : IAddMenuItemResult
+        public class MenuItemNotAddedToNullMenu : IAddMenuItemResult
         {
             public string Reason { get; }
-            public MenuItemNotAdded(string reason)
+            public MenuItemNotAddedToNullMenu(string reason)
+            {
+                Reason = reason;
+                Console.WriteLine(reason);
+            }
+        }
+
+        public class NullItemNotAdded : IAddMenuItemResult
+        {
+            public string Reason { get; }
+            public NullItemNotAdded(string reason)
             {
                 Reason = reason;
                 Console.WriteLine(reason);

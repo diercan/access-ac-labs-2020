@@ -31,5 +31,15 @@ namespace Domain.Domain.CreateRestauratOp
                 Reason = reason;
             }
         }
+
+        public class EmptyNameRestaurantNotCreated : ICreateRestaurantResult
+        {
+            public string Reason { get; }
+
+            public EmptyNameRestaurantNotCreated(string reason)
+            {
+                Reason = reason;
+            }
+        }
     }
 }

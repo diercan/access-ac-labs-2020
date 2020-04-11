@@ -22,6 +22,24 @@ namespace Domain.Domain.CreateMenuOp
             }
         }
 
-        public class MenuNotCreated : ICreateMenuResult { }
+        public class MenuForNullRestaurantNotCreated : ICreateMenuResult
+        {
+            public string Reason { get; }
+            public MenuForNullRestaurantNotCreated(string reason)
+            {
+                Console.WriteLine(reason);
+                Reason = reason;
+            }
+        }
+
+        public class ShortNamedMenuNotCreated : ICreateMenuResult
+        {
+            public string Reason { get; }
+            public ShortNamedMenuNotCreated(string reason)
+            {
+                Console.WriteLine(reason);
+                Reason = reason;
+            }
+        }
     }
 }

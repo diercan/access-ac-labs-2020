@@ -14,11 +14,18 @@ namespace Domain.Domain.AddMenuItemOp
     {
         public override Task<IAddMenuItemResult> Work(AddMenuItemCmd Op, Unit state)
         {
-            return (Op.MenuItem == null) ?
-                Task.FromResult((IAddMenuItemResult)new MenuItemNotAdded($"Null menu item cant be added to menu")) :
-                Exists(Op.MenuItem, Op.Menu) ?
-                Task.FromResult((IAddMenuItemResult)new MenuItemNotAdded($"{Op.MenuItem.Name} already exists in {Op.Menu.Name} menu!")) :
-                Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem, Op.Menu));
+
+            var (valid, validationResults) = Op.Validate();
+
+            var menuIsInvalid = !valid ? validationResults.Exists(x => x.MemberNames.Exists(x => x.Equals("Menu"))) : false;
+            var itemIsInvalid = !valid ? validationResults.Exists(x => x.MemberNames.Exists(x => x.Equals("MenuItem"))) : false;
+
+            if (menuIsInvalid)
+                return Task.FromResult((IAddMenuItemResult)new MenuItemNotAddedToNullMenu($"{Op.MenuItem.Name} cant be added to NULL menu")) ;
+            else if (itemIsInvalid)
+                return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded("NULL menu item cant be added to menu"));
+
+            return Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem, Op.Menu));
         }
 
         public bool Exists(MenuItem menuItem, Menu menu)
