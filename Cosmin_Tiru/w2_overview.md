@@ -46,7 +46,7 @@ public struct BuyBreadCmd
 
 Now our command is a little more restrictive. First of all, the Amount field cannot be negative. The data type to model that simply doesn't allow negative input, therefore the validity of the usage will be enforced at compile time. If you get really creative, you can avoid that, but it will usually express itself as a runtime exception, and your operation will never get to a point to execute something. Finding those workarounds it's not encouraged and those usually are bad design smells. If we want to restrict it even more, we can model the currency and the amount in a custom data type to replace uint. Feel free to take this modeling exercise on your own.
 
-If I'd have to give an example from a math perspective, think of it this way. If I'd have to express the "money" function from the previous example, the initial sample would be expressed in this way with an identity function: f : Z -> Z. But since we are modeling a business domain, a Z value domain doesn't actually make sense. What we did was to narrow it to a positive range (i.e. f : N -> N). Any product type/data type can be translated into a domain. That's actually a part of your business domain model. **If you business domain does not allow it, your code shouldn't allow it either. Period.**
+If I'd have to give an example from a math perspective, think of it this way. If I'd have to express the "money" function from the previous example, the initial sample would be expressed in this way with an identity function: f : Z -> Z. But since we are modeling a business domain, a Z value domain doesn't actually make sense. What we did was to narrow it to a positive range (i.e. f : N -> N). Any product type/data type can be translated into a domain. That's actually a part of your business domain model. **If your business domain does not allow it, your code shouldn't allow it either. Period.**
 
 Topic to expand: unit tests over this, specifications, etc. If anyone is interested, feel free to take a look over [fscheck](https://github.com/fscheck/FsCheck) (works with C# as well).
 
@@ -78,7 +78,7 @@ The commands and the results are simply the two main components for a function. 
 
 Now that we've defined that overview function above, and follow the same example, we can say that given the result from the identity function (the one defined in the command paragraph) as an input, we can extrapolate 2,3, n possible outcomes for my function (i.e. BuyBread function). Whenever I want to buy bread I can:
 
-1. Try to scam the vendor and provide them Monopoly money. (i.e. ButBreadNotAllowed)
+1. Try to scam the vendor and provide them Monopoly money. (i.e. BuyBreadNotAllowed)
 2. Try to beg for free bread (i.e. BuyBreadNoGiveways)
 3. Be an honest citizen (i.e. BuyBreadSucceeded)
 4. Feel free to expand if you find other possible scenarios.
