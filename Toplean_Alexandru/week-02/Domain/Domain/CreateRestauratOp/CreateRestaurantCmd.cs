@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static Domain.Models.Restaurant;
 
@@ -17,18 +18,24 @@ namespace Domain.Domain.CreateRestauratOp
         // Returns a tuple. If everything is valid, the function will return true and the RestaurantErrorCode will be None.
         // If it is not valid, then the function will return false with the known reason.
         // Try-Catch block also added in case there is an unknown error and it will return false.
-        public (bool, RestaurantErrorCode) IsValid()
+        public (bool, String) IsValid()
         {
             try
             {
-                return HasIllegalCharacters(Name) ? (false, RestaurantErrorCode.IllegalCharacters) :
-                    NameTooLong(Name) ? (false, RestaurantErrorCode.NameTooLong) :
-                    NameTooShort(Name) ? (false, RestaurantErrorCode.EmptyField) :
-                    (true, RestaurantErrorCode.None);
+                if (HasIllegalCharacters(Name))
+                    return (false, "The name field contains a character that is illegal");
+
+                if (NameTooLong(Name))
+                    return (false, "Name field is too long. Maximum length is 255");
+
+                if (NameTooShort(Name))
+                    return (false, "Name field is empty");
+
+                return (true, "None");
             }
-            catch
+            catch (Exception exp)
             {
-                return (false, RestaurantErrorCode.UnknownError);
+                return (false, exp.ToString());
             }
         }
 
@@ -36,14 +43,6 @@ namespace Domain.Domain.CreateRestauratOp
 
         public bool NameTooShort(String name) => name.Length > 0 ? false : true;
 
-        public bool HasIllegalCharacters(String name)
-        {
-            foreach (char c in name)
-            {
-                if ((int)c < 0x20 || (int)c > 0x7E)
-                    return true;
-            }
-            return false;
-        }
+        public bool HasIllegalCharacters(String name) => name.Any(c => (int)c < 0x20 || (int)c > 0x7E);
     }
 }

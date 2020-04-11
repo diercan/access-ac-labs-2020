@@ -16,10 +16,12 @@ namespace Domain.Domain.CreateMenuOp
         public override Task<ICreateMenuResult> Work(CreateMenuCmd Op, Unit state)
         {
             if (Exists(Op.Name))
-                return Task.FromResult<ICreateMenuResult>(new MenuNotCreated(MenuErrorCode.ExistentMenu)); // Menu already exists
+                return Task.FromResult<ICreateMenuResult>(new MenuNotCreated($"There already is a menu with the name {Op.Name}")); // Menu already exists
             else
             {
-                if (Op.IsValid().Item1)
+                (bool CommandIsValid, String ErrorCode) = Op.IsValid();
+
+                if (CommandIsValid)
                 {
                     Op.Restaurant.Menus.Add(new Menu(Op.Name, Op.MenuType));
                     // Op.Restaurant.Menu = new Menu(Op.Name, Op.MenuType);
@@ -27,7 +29,7 @@ namespace Domain.Domain.CreateMenuOp
                 }
                 else
                 {
-                    return Task.FromResult<ICreateMenuResult>(new MenuNotCreated(Op.IsValid().Item2)); // Menu not created for many reasons
+                    return Task.FromResult<ICreateMenuResult>(new MenuNotCreated(ErrorCode)); // Menu not created for many reasons
                 }
             }
         }

@@ -24,9 +24,9 @@ namespace Domain.Domain.CreateEmployeeOp
 
         public class EmployeeNotCreated : ICreateEmployeeResult // Employee not created
         {
-            public EmployeeErrorCode Error { get; }
+            public String Error { get; }
 
-            public EmployeeNotCreated(EmployeeErrorCode code)
+            public EmployeeNotCreated(String code)
             {
                 Error = code;
             }

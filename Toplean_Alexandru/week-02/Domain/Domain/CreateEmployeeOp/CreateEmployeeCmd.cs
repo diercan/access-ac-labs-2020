@@ -30,21 +30,33 @@ namespace Domain.Domain.CreateEmployeeOp
             this.Restaurant = restaurant;
         }
 
-        public (bool, EmployeeErrorCode) IsValid()
+        public (bool, String) IsValid()
         {
             try
             {
-                return EmptyField(Name) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - Name
-                    EmptyField(Salary.ToString()) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - Salary
-                    EmptyField(TelephoneNumber) ? (false, EmployeeErrorCode.EmptyField) : // Empty Strinng - Telephone
-                    EmptyField(IBAN) ? (false, EmployeeErrorCode.EmptyField) : // Empty String - IBAN
-                    this.Restaurant == null ? (false, EmployeeErrorCode.NullRestaurant) : // Restaurant doesn't exist
-                    IncorectInputType(Salary, typeof(float)) ? (false, EmployeeErrorCode.IncorrectInputType) : // Salary value other than float
-                    (true, EmployeeErrorCode.None);
+                if (EmptyField(Name))
+                    return (false, "Name field is empty!");
+
+                if (EmptyField(Salary.ToString()))
+                    return (false, "Salary field is empty!");
+
+                if (EmptyField(TelephoneNumber))
+                    return (false, "Telephone number field is empty");
+
+                if (EmptyField(IBAN))
+                    return (false, "IBAN field is empty");
+
+                if (Restaurant == null)
+                    return (false, "No restaurant provided. Restaurant is null");
+
+                if (IncorectInputType(Salary, typeof(float)))
+                    return (false, "Salary should be of type float");
+
+                return (true, "None");
             }
-            catch
+            catch (Exception exp)
             {
-                return (false, EmployeeErrorCode.UnknownError);
+                return (false, exp.ToString());
             }
         }
 

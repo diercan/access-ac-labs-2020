@@ -13,7 +13,8 @@ namespace Domain.Models
             IllegalCharacters,
             NameTooLong,
             EmptyField,
-            UnknownError
+            UnknownError,
+            RestaurantDoesNotExist
         };
 
         public string Name { get; }

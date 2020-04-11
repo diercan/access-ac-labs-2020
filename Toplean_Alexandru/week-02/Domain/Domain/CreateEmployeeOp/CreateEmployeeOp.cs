@@ -15,10 +15,12 @@ namespace Domain.Domain.CreateEmployeeOp
         public override Task<ICreateEmployeeResult> Work(CreateEmployeeCmd Op, Unit state)
         {
             if (Exists(Op.Name))
-                return Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated(EmployeeErrorCode.NameExists)); // Employee already exists
+                return Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated($"There already is an employee with the name {Op.Name}")); // Employee already exists
             else
             {
-                if (Op.IsValid().Item1)
+                (bool CommandIsValid, String error) = Op.IsValid();
+
+                if (CommandIsValid)
                 {
                     Employee emp = new Employee(Op.Name, Op.Age, Op.Address, Op.TelephoneNumber, Op.Salary, Op.JobRole, Op.IBAN, Op.Restaurant);
                     Op.Restaurant.Employees.Add(emp);
@@ -26,7 +28,7 @@ namespace Domain.Domain.CreateEmployeeOp
                     return Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(emp));// Employee created
                 }
                 else
-                    return Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated(Op.IsValid().Item2));
+                    return Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated(error));
             }
         }
 

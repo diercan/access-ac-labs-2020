@@ -26,9 +26,9 @@ namespace Domain.Domain.CreateOrderOp
 
         public class OrderNotCreated : ICreateOrderResult
         {
-            public OrderErrorCodes Reason;
+            public String Reason;
 
-            public OrderNotCreated(OrderErrorCodes error)
+            public OrderNotCreated(String error)
             {
                 Reason = error;
             }

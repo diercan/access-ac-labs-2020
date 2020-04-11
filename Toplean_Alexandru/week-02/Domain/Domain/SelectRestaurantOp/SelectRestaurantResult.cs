@@ -1,10 +1,35 @@
-﻿using System;
+﻿using CSharp.Choices.Attributes;
+using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using static Domain.Models.Restaurant;
 
 namespace Domain.Domain.SelectRestaurantOp
 {
-    class SelectRestaurantResult
+    [AsChoice]
+    public static partial class SelectRestaurantResult
     {
+        public interface ISelectRestaurantResult { }
+
+        public class RestaurantSelected : ISelectRestaurantResult
+        {
+            public Restaurant Restaurant { get; }
+
+            public RestaurantSelected(Restaurant restaurant)
+            {
+                Restaurant = restaurant;
+            }
+        }
+
+        public class RestaurantNotSelected : ISelectRestaurantResult
+        {
+            public String Reason { get; }
+
+            public RestaurantNotSelected(String error)
+            {
+                Reason = error;
+            }
+        }
     }
 }

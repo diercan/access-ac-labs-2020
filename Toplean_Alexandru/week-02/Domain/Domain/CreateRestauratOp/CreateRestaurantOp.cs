@@ -17,10 +17,23 @@ namespace Domain.Domain.CreateRestauratOp
         {
             //validate
 
-            return Exists(Op.Name) ?
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(RestaurantErrorCode.RestaurantExists)) : // Name already exists
-                Op.IsValid().Item1 ? Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name))) : // Restaurant is valid
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(Op.IsValid().Item2)); // Restaurant is not valid for any reason
+            if (Exists(Op.Name))
+            {
+                return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated($"There already is a restaurant with the name {Op.Name}"));
+            }
+            else
+            {
+                (bool CommandIsValid, String ErrorCode) = Op.IsValid();
+
+                if (CommandIsValid)
+                {
+                    Restaurant restaurant = new Restaurant(Op.Name);
+                    AllHardcodedValues.HarcodedVals.RestaurantList.Add(restaurant);
+                    return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(restaurant));  // Restaurant is valid
+                }
+                else
+                    return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(ErrorCode)); // Restaurant is not valid for any reason
+            }
         }
 
         public bool Exists(string name) => AllHardcodedValues.HarcodedVals.Restaurants.Contains(name);

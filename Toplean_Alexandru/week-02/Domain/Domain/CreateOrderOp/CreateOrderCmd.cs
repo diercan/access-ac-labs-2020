@@ -30,11 +30,22 @@ namespace Domain.Domain.CreateOrderOp
             Restaurant = restaurant;
         }
 
-        public (bool, OrderErrorCodes) IsValid()
+        public (bool, String) IsValid()
         {
-            return IncorectInputType(OrderID, typeof(int)) ? (false, OrderErrorCodes.IncorrectType) : // TODO: Continue the checks
-                Restaurant == null ? (false, OrderErrorCodes.NullRestaurant) :
-                (true, OrderErrorCodes.None);
+            try
+            {
+                if (IncorectInputType(OrderID, typeof(int)))
+                    return (false, "Order id field should be type of int");
+
+                if (Restaurant == null)
+                    return (false, "No restaurant provided. Restaurant is null");
+
+                return (true, "None");
+            }
+            catch (Exception exp)
+            {
+                return (false, exp.ToString());
+            }
         }
 
         public bool IncorectInputType(dynamic value, Type expectedType) => value.GetType() != expectedType ? true : false;  // Checks if a variable is the correct type

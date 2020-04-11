@@ -25,9 +25,9 @@ namespace Domain.Domain.CreateRestauratOp
 
         public class RestaurantNotCreated : ICreateRestaurantResult
         {
-            public RestaurantErrorCode Reason { get; }
+            public String Reason { get; }
 
-            public RestaurantNotCreated(RestaurantErrorCode reason)
+            public RestaurantNotCreated(String reason)
             {
                 Reason = reason;
             }

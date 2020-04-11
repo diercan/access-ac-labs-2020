@@ -13,6 +13,8 @@ using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
 using static Domain.Models.Employee;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using Domain.Domain.CreateOrderOp;
+using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
+using Domain.Domain.SelectRestaurantOp;
 
 namespace Domain.Domain
 {
@@ -33,5 +35,8 @@ namespace Domain.Domain
 
         public static IO<ICreateOrderResult> CreateOrder(int id, int tableNumber, List<MenuItem> items, String waiter, float price, Restaurant restaurant) =>
             NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(id, tableNumber, items, waiter, price, restaurant));
+
+        public static IO<ISelectRestaurantResult> SelectRestaurant(String name) =>
+            NewIO<SelectRestaurantCmd, ISelectRestaurantResult>(new SelectRestaurantCmd(name));
     }
 }
