@@ -13,7 +13,7 @@ namespace Domain.Domain.CreateUserOp
         {
             return !UserNameExist(Op.UserName) ?
                 Task.FromResult<CreateUserResult.ICreateUserResult>
-                    (new CreateUserResult.UserNotCreated("This username i already taken")) :
+                    (new CreateUserResult.UserNotCreated("This username is already taken")) :
                 Task.FromResult<CreateUserResult.ICreateUserResult>
                     (new CreateUserResult.UserCreated(new Models.User("Mikey", "myPass", 23)));
         }
