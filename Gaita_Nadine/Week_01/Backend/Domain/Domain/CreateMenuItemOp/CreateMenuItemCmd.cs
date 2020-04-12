@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Domain.Models
+namespace Domain.Domain.CreateMenuItemOp
 {
-    public class MenuItem
+    public struct CreateMenuItemCmd
     {
         public Menu Menu { get; }
         public string Name { get; }
         public double Price { get; }
         public List<Ingredient> Ingredients { get; }
-        public MenuItem(Menu menu, string name, double price, List<Ingredient> ingredients) {
+        public CreateMenuItemCmd(Menu menu, string name, double price, List<Ingredient> ingredients)
+        {
             Menu = menu;
             Name = name;
             Price = price;
