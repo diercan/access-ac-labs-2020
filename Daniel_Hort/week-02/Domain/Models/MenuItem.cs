@@ -2,6 +2,12 @@
 {
     public class MenuItem
     {
-        public MenuItem() { }
+        public uint Price { get; }
+        public string Name { get; }
+
+        public MenuItem(string name, uint price) {
+            Name = name;
+            Price = price;
+        }
     }
 }
