@@ -24,9 +24,9 @@ namespace Demo
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
+                from restaurantResult in RestaurantDomain.CreateRestaurant("")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from menuResult in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
+                from menuResult in RestaurantDomain.CreateMenu(restaurant, "paste", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu
                 from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
                 from menuItemResult1 in RestaurantDomain.CreateAndAddMenuItem("carbonara", 25, menu)
@@ -39,15 +39,16 @@ namespace Demo
 
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated);
-            Assert.True(finalResult);
+            var finalResult = result.Match<bool>(OnRestaurantCreated, OnEmptyNameRestaurantNotCreated);
+            Assert.False(finalResult);
 
         }
 
-        private static bool OnRestaurantNotCreated(RestaurantNotCreated arg)
+        private static bool OnEmptyNameRestaurantNotCreated(EmptyNameRestaurantNotCreated arg)
         {
             return false;
         }
+
 
         private static bool OnRestaurantCreated(RestaurantCreated arg)
         {

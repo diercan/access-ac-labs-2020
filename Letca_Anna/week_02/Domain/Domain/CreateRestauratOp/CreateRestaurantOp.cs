@@ -14,17 +14,10 @@ namespace Domain.Domain.CreateRestauratOp
     {
         public override Task<ICreateRestaurantResult> Work(CreateRestaurantCmd Op, Unit state)
         {
-            //validate
+            if (!Op.Validate().Item1)
+                return Task.FromResult<ICreateRestaurantResult>(new EmptyNameRestaurantNotCreated("Cant create an empty name restaurant!"));
 
-            return !Exists(Op.Name) ? 
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated("restaurant already exists")) : 
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name)));
-        }
-
-
-        public bool Exists(string name)
-        {
-            return true;
+            return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name)));
         }
     }
 }
