@@ -12,6 +12,8 @@ using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using Domain.Domain.CreateMenuItemOp;
 using static Domain.Domain.AddMenuItemOp.AddMenuItemResult;
 using Domain.Domain.AddMenuItemOp;
+using static Domain.Domain.CreateClientOp.CreateClientResult;
+using Domain.Domain.CreateClientOp;
 
 namespace Domain.Domain
 {
@@ -35,5 +37,8 @@ namespace Domain.Domain
                let createdMenuItem = (createMenuItemResult as MenuItemCreated)?.MenuItem
                from addMenuItemResult in AddMenuItem(menu, createdMenuItem)
                select addMenuItemResult;
+
+        public static IO<ICreateClientResult> CreateClient(string uid)
+           => NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(uid));
     }
 }

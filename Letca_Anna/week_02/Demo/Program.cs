@@ -31,7 +31,13 @@ namespace Demo
                 from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
                 from menuItemResult1 in RestaurantDomain.CreateAndAddMenuItem("carbonara", 25, menu)
                 from menuItemResult2 in RestaurantDomain.CreateAndAddMenuItem("conpesto", 20, menu)
+                from clientResult in RestaurantDomain.CreateClient("gucdg34u6trgfh")
                 select restaurantResult;
+
+            //create client(nume)
+            //add item to client cart(item, client.cart)
+            //remove item from cart(item, client.cart)
+            //create and place order(restaurant)
 
             Console.WriteLine(expr);
 

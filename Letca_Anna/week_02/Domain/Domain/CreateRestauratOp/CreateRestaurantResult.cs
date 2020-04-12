@@ -22,15 +22,6 @@ namespace Domain.Domain.CreateRestauratOp
             }
         }
 
-        public class RestaurantNotCreated : ICreateRestaurantResult
-        {
-            public string Reason { get; }
-
-            public RestaurantNotCreated(string reason)
-            {
-                Reason = reason;
-            }
-        }
 
         public class EmptyNameRestaurantNotCreated : ICreateRestaurantResult
         {
