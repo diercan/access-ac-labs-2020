@@ -8,16 +8,22 @@ using Infra.Free;
 using LanguageExt.ClassInstances;
 using static IOExt;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+using static Domain.Domain.CreateIngredientOp.CreateIngredientResult;
+using Domain.Domain.CreateIngredientOp;
 
 namespace Domain.Domain
 {
     public static class RestaurantDomain
     {
+
         public static IO<ICreateRestaurantResult> CreateRestaurant(string name) =>
             NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
 
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName,
-            MenuType menuType)
-            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
+        public static IO<ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName,MenuType menuType) => 
+            NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
+
+        public static IO<ICreateIngredientResult> CreateIngredient(string ingredientName) =>
+            NewIO<CreateIngredientCmd, ICreateIngredientResult>(new CreateIngredientCmd(ingredientName));
     }
 }

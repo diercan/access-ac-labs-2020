@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Models
 {
-    class Ingredient
+    public class Ingredient
     {
         public string Name { get; }
         public Ingredient(string name)
