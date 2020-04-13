@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Domain;
@@ -8,6 +9,7 @@ using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
+using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 
 namespace Demo
@@ -19,11 +21,19 @@ namespace Demo
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
+            
+            Ingredient mozarella = new Ingredient("mozarella");
+            Ingredient bacon = new Ingredient("bacon");
+            List<Ingredient> ingredients = new List<Ingredient>();
+            ingredients.Add(mozarella);
+            ingredients.Add(bacon);
 
             var expr =
                 from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from newMenu in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
+                from newMenuResult in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
+                let newMenu= (newMenuResult as MenuCreated)?.Menu
+                from menuItemResult in RestaurantDomain.CreateMenuItem(newMenu, "Paste Carbonara", 30, ingredients)
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
