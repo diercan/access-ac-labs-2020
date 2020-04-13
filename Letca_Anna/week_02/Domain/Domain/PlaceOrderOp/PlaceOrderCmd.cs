@@ -1,19 +1,24 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.PlaceOrderOp
 {
-    public class CreateRestaurantCmd
+    public class PlaceOrderCmd
     {
-        [StringLength(100,MinimumLength = 1)]
-        public string Name { get; }
+        [Required]
+        public Order Order { get; }
+        [Required]
+        public Restaurant Restaurant { get; }
 
-        public CreateRestaurantCmd(string name)
+        public PlaceOrderCmd(Order order, Restaurant restaurant)
         {
-            Name = name;
+            Order = order;
+            Restaurant = restaurant;
         }
+
         public (bool, string) Validate()
         {
             var validationResults = new List<ValidationResult>();

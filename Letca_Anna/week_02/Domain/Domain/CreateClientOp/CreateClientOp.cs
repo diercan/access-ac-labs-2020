@@ -6,6 +6,7 @@ using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using static Domain.Domain.CreateClientOp.CreateClientResult;
+using LanguageExt.ClassInstances.Pred;
 
 namespace Domain.Domain.CreateClientOp
 {

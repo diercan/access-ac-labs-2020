@@ -1,19 +1,23 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.AddItemToCartOp
 {
-    public class CreateRestaurantCmd
+    public class AddItemToCartCmd
     {
-        [StringLength(100,MinimumLength = 1)]
-        public string Name { get; }
-
-        public CreateRestaurantCmd(string name)
+        [Required]
+        public MenuItem MenuItem;
+        [Required]
+        public Client Client;
+        public AddItemToCartCmd(MenuItem menuItem, Client client)
         {
-            Name = name;
+            MenuItem = menuItem;
+            Client = client;
         }
+
         public (bool, string) Validate()
         {
             var validationResults = new List<ValidationResult>();

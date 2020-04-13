@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
+
 namespace Domain.Domain.CreateClientOp
 {
     public class CreateClientCmd

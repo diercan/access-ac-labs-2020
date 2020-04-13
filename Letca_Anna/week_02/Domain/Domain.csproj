@@ -22,11 +22,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Infra\Infra.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\CreateOrderOp\" />
-    <Folder Include="Domain\AddItemToCartOp\" />
-    <Folder Include="Domain\PlaceOrderOp\" />
-  </ItemGroup>
   <!--End - Use these statements to enable codegen-->
 </Project>

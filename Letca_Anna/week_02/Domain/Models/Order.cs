@@ -12,5 +12,10 @@ namespace Domain.Models
         {
             Initiator = initiator;
         }
+
+        public override string ToString()
+        {
+            return Initiator.Cart.ToString();
+        }
     }
 }

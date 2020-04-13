@@ -23,11 +23,11 @@ namespace Domain.Domain.CreateRestauratOp
         }
 
 
-        public class EmptyNameRestaurantNotCreated : ICreateRestaurantResult
+        public class RestaurantNotCreated : ICreateRestaurantResult
         {
             public string Reason { get; }
 
-            public EmptyNameRestaurantNotCreated(string reason)
+            public RestaurantNotCreated(string reason)
             {
                 Reason = reason;
             }

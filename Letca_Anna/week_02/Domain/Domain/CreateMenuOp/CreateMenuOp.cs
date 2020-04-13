@@ -14,15 +14,10 @@ namespace Domain.Domain.CreateMenuOp
     {
         public override Task<ICreateMenuResult> Work(CreateMenuCmd Op, Unit state)
         {
-            var (valid, validationResults) = Op.Validate();
+            var (valid, validationMessage) = Op.Validate();
 
-            var restaurantIsInvalid = !valid ? validationResults.Exists(x => x.MemberNames.Exists(x => x.Equals("Restaurant"))) : false;
-            var nameIsInvalid = !valid ? validationResults.Exists(x => x.MemberNames.Exists(x => x.Equals("Name"))) : false;
-
-            if (restaurantIsInvalid)
-                return Task.FromResult((ICreateMenuResult)new MenuForNullRestaurantNotCreated("can't add menu into a null restaurant!"));
-            else if(nameIsInvalid)
-                return Task.FromResult((ICreateMenuResult)new ShortNamedMenuNotCreated("menu name should be not empty!"));
+            if (!valid)
+                return Task.FromResult((ICreateMenuResult)new MenuNotCreated(validationMessage));
 
             Op.Restaurant.Menu = new Menu(Op.Name, Op.MenuType);
             return Task.FromResult((ICreateMenuResult)new MenuCreated(Op.Restaurant.Menu));

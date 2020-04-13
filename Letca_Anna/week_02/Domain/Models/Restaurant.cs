@@ -23,6 +23,7 @@ namespace Domain.Models
         public void AddToIncomingOrders(Order order)
         {
             IncomingOrders.Add(order);
+            Console.WriteLine($"New order added to {Name} restaurant: " + order.ToString());
         }
     }
 }

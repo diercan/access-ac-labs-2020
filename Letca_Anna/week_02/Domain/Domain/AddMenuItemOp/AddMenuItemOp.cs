@@ -10,20 +10,16 @@ using static Domain.Domain.AddMenuItemOp.AddMenuItemResult;
 
 namespace Domain.Domain.AddMenuItemOp
 {
-    class AddMenuItemOp : OpInterpreter<AddMenuItemCmd, IAddMenuItemResult, Unit>
+    public class AddMenuItemOp : OpInterpreter<AddMenuItemCmd, IAddMenuItemResult, Unit>
     {
         public override Task<IAddMenuItemResult> Work(AddMenuItemCmd Op, Unit state)
         {
 
-            var (valid, validationResults) = Op.Validate();
+            var (valid, validationMessage) = Op.Validate();
 
-            var menuIsInvalid = !valid ? validationResults.Exists(x => x.MemberNames.Exists(x => x.Equals("Menu"))) : false;
-            var itemIsInvalid = !valid ? validationResults.Exists(x => x.MemberNames.Exists(x => x.Equals("MenuItem"))) : false;
 
-            if (menuIsInvalid)
-                return Task.FromResult((IAddMenuItemResult)new MenuItemNotAddedToNullMenu($"{Op.MenuItem.Name} cant be added to NULL menu")) ;
-            else if (itemIsInvalid)
-                return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded("NULL menu item cant be added to menu"));
+            if (!valid)
+                return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded(validationMessage));
 
             return Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem, Op.Menu));
         }

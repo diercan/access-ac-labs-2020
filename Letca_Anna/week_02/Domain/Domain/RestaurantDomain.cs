@@ -14,6 +14,12 @@ using static Domain.Domain.AddMenuItemOp.AddMenuItemResult;
 using Domain.Domain.AddMenuItemOp;
 using static Domain.Domain.CreateClientOp.CreateClientResult;
 using Domain.Domain.CreateClientOp;
+using static Domain.Domain.AddItemToCartOp.AddItemToCartResult;
+using Domain.Domain.AddItemToCartOp;
+using static Domain.Domain.PlaceOrderOp.PlaceOrderResult;
+using Domain.Domain.PlaceOrderOp;
+using Domain.Domain.CreateOrderOp;
+using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 
 namespace Domain.Domain
 {
@@ -40,5 +46,21 @@ namespace Domain.Domain
 
         public static IO<ICreateClientResult> CreateClient(string uid)
            => NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(uid));
+
+        public static IO<IAddItemToCartResult> AddItemToCart(MenuItem menuItem, Client client)
+           => NewIO<AddItemToCartCmd, IAddItemToCartResult>(new AddItemToCartCmd(menuItem, client));
+
+
+        public static IO<ICreateOrderResult> CreateOder(Client client)
+            => NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(client));
+
+        public static IO<IPlaceOrderResult> PlaceOrder(Order order, Restaurant restaurant)
+            => NewIO<PlaceOrderCmd, IPlaceOrderResult>(new PlaceOrderCmd(order, restaurant));
+
+        public static IO<IPlaceOrderResult> CreateAndPlaceOrder(Client client, Restaurant restaurant)
+            => from createOrderResult in CreateOder(client)
+               let createdOrder = (createOrderResult as OrderCreated)?.Order
+               from placeOrderResult in PlaceOrder(createdOrder, restaurant)
+               select placeOrderResult;
     }
 }

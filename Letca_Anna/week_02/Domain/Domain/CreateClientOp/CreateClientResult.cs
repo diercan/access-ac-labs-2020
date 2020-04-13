@@ -1,19 +1,21 @@
-﻿using CSharp.Choices.Attributes;
-using Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CSharp.Choices.Attributes;
+using Domain.Models;
+using System.Threading.Tasks;
 
 namespace Domain.Domain.CreateClientOp
 {
-    public class CreateClientResult
+    [AsChoice]
+    public static partial class CreateClientResult
     {
-        [AsChoice]
+        
         public interface ICreateClientResult { };
 
         public class ClientCreated : ICreateClientResult
         {
-            Client Client;
+            public Client Client { get; }
             public ClientCreated(Client client)
             {
                 Console.WriteLine("client created");
