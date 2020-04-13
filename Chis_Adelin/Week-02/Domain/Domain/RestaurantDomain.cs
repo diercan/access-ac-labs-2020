@@ -8,6 +8,9 @@ using Infra.Free;
 using LanguageExt.ClassInstances;
 using static IOExt;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using System.Threading.Tasks;
+using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
+using Domain.Domain.CreateMenuItemOp;
 
 namespace Domain.Domain
 {
@@ -16,12 +19,11 @@ namespace Domain.Domain
         public static IO<ICreateRestaurantResult> CreateRestaurant(string name) =>
             NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
 
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName,
-            MenuType menuType)
-            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
-        public static IO<CreateMenuItemResult.ICreateMenuItemResult> CreateMenuItem(Menu menu, string name,
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName)
+            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName));
+        public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, string name,
             string ingredients, string allergens, uint price) 
-            => NewIO<CreateMenuItemCmd, CreateMenuItemResult.ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name,
+            => NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name,
                 ingredients, allergens, price));
     }
 }

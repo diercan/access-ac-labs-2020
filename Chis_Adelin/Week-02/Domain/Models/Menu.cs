@@ -17,10 +17,9 @@ namespace Domain.Models
         public string Name { get; }
         public MenuType MenuType { get; }
         public List<MenuItem> MenuItems { get; set; }
-        public Menu(string name, List<MenuType> menuType)
+        public Menu(string name)
         {
             Name = name;
-            MenuType = menuType;
         }
     }
 }

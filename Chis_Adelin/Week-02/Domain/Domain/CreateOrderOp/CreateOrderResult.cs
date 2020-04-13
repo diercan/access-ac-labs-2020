@@ -3,12 +3,13 @@ using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Domain.CreateOrderOp
 {
+    [AsChoice]
     public static partial class CreateOrderResult
     {
-        [AsChoice]
         public interface ICreateOrderResult { }
         public class OrderCreated : ICreateOrderResult
         {
