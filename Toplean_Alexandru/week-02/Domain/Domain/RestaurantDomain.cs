@@ -15,6 +15,10 @@ using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using Domain.Domain.CreateOrderOp;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using Domain.Domain.SelectRestaurantOp;
+using static Domain.Domain.DeleteRestaurantOp.DeleteRestaurantResult;
+using Domain.Domain.DeleteRestaurantOp;
+using static Domain.Domain.CreateMenuItem.CreateMenuItemResult;
+using Domain.Domain.CreateMenuItem;
 
 namespace Domain.Domain
 {
@@ -25,8 +29,7 @@ namespace Domain.Domain
             NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
 
         // Menu
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName,
-            MenuType menuType)
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName, MenuType menuType)
             => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
 
         // Employee
@@ -38,5 +41,11 @@ namespace Domain.Domain
 
         public static IO<ISelectRestaurantResult> SelectRestaurant(String name) =>
             NewIO<SelectRestaurantCmd, ISelectRestaurantResult>(new SelectRestaurantCmd(name));
+
+        public static IO<IDeleteRestaurantResult> DeleteRestaurant(String name) =>
+            NewIO<DeleteRestaurantCmd, IDeleteRestaurantResult>(new DeleteRestaurantCmd(name));
+
+        public static IO<ICreateMenuItemResult> CreateMenuItem(String name, float price, List<String> alergens, List<String> ingredients, String imageData, Menu menu) =>
+            NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(name, price, alergens, ingredients, imageData, menu));
     }
 }

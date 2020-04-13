@@ -23,9 +23,9 @@ namespace Domain.Domain.CreateMenuOp
 
                 if (CommandIsValid)
                 {
-                    Op.Restaurant.Menus.Add(new Menu(Op.Name, Op.MenuType));
-                    // Op.Restaurant.Menu = new Menu(Op.Name, Op.MenuType);
-                    return Task.FromResult<ICreateMenuResult>(new MenuCreated(new Menu(Op.Name, Op.MenuType))); // Creates the menu
+                    Menu menu = new Menu(Op.Name, Op.MenuType);
+                    Op.Restaurant.Menus.Add(menu);
+                    return Task.FromResult<ICreateMenuResult>(new MenuCreated(menu)); // Creates the menu
                 }
                 else
                 {

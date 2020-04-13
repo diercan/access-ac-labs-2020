@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Domain;
@@ -10,9 +11,11 @@ using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
+using static Domain.Domain.CreateMenuItem.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.DeleteRestaurantOp.DeleteRestaurantResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using static Domain.Models.Restaurant;
 
@@ -30,14 +33,20 @@ namespace Demo
             // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds►") //Exception -> RestaurantErrorCode.IllegalCharacters
             // from restaurantResult in RestaurantDomain.CreateRestaurant("") //Exception -> RestaurantErrorCode.EmptyField
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds")
-                let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from menuRes in RestaurantDomain.CreateMenu(restaurant, null, MenuType.Meat)
+                from restaurantResult in RestaurantDomain.SelectRestaurant("McDonalds")
+                let restaurant = (restaurantResult as RestaurantSelected)?.Restaurant
+                from menuRes in RestaurantDomain.CreateMenu(restaurant, "Chicken", MenuType.Meat)
                 let menu = (menuRes as MenuCreated)?.Menu
                 from employeeRes in RestaurantDomain.CreateEmployee("1", 2, "3", "4", 5, Employee.JobRoles.Cashier, "6", restaurant)
                 let employee = (employeeRes as EmployeeCreated)?.Employee
                 from orderRes in RestaurantDomain.CreateOrder(0, 1, null, "waiter", 4F, restaurant)
                 let order = (orderRes as OrderCreated)?.Order
+                from addMenuItemRes in RestaurantDomain.CreateMenuItem("McChicken", 20, null, new List<string> { "McChicken", "Cartofi prajiti", "Coca Cola" }, null, menu)
+                let firstMenuItem = (addMenuItemRes as MenuItemCreated)?.MenuItem
+                from addMenuItemRes2 in RestaurantDomain.CreateMenuItem("Cheeseburger", 20, null, new List<string> { "Cheeseburger", "Cartofi prajiti", "Coca Cola" }, null, menu)
+                let secondMenuItem = (addMenuItemRes2 as MenuItemCreated)?.MenuItem
+                from deleteRestaurantRes in RestaurantDomain.DeleteRestaurant("KFC")
+                let dlt = (deleteRestaurantRes as RestaurantDeleted)?.Ok
                 select restaurantResult;
 
             //var expr =
@@ -48,7 +57,8 @@ namespace Demo
             var interpreter = new LiveInterpreterAsync(serviceProvider);
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
+            //var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
+            var finalResult = result.Match(OnRestaurantSelected, OnRestaurantNotSelected);
 
             Console.WriteLine("Hello World!");
         }
