@@ -9,13 +9,10 @@ namespace Domain.Domain.CreateMenuOp
     {
         public Restaurant Restaurant { get; }
         public string Name { get; }
-        public MenuType MenuType { get; }
-
-        public CreateMenuCmd(Restaurant restaurant, string name, MenuType menuType)
+        public CreateMenuCmd(Restaurant restaurant, string name)
         {
             Restaurant = restaurant;
             Name = name;
-            MenuType = menuType;
         }
     }
 }

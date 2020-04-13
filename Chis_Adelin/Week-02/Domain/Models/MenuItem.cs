@@ -5,8 +5,8 @@
         public string Name { get; }
         public string Ingredients { get; }
         public string Allergens { get; }
-        public double Price { get; }
-        public MenuItem(string name, string ingredients, string allergens, double price)
+        public uint Price { get; }
+        public MenuItem(string name, string ingredients, string allergens, uint price)
         {
             Name = name;
             Ingredients = ingredients;

@@ -13,15 +13,9 @@ namespace Domain.Domain.CreateMenuItemOp
     {
         public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
         {
-            return !Exists(Op.Name) ?
-               Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated("Menu item already exists")) :
-               Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(new MenuItem(Op.Name,Op.Ingredients,Op.Allergens,Op.Price)));
-        }
-
-
-        public bool Exists(string name)
-        {
-            return true;
+            var menuItem = new MenuItem(Op.Name,Op.Ingredients,Op.Allergens, Op.Price);
+            Op.Menu.MenuItems.Add(menuItem);
+            return Task.FromResult((ICreateMenuItemResult)new MenuItemCreated(menuItem));
         }
     }
 }

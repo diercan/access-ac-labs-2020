@@ -9,6 +9,7 @@ using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 
 namespace Demo
 {
@@ -21,15 +22,20 @@ namespace Demo
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
-                let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from newMenu in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
-                select restaurantResult;
+            from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
+            let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
+            from menuRes1 in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
+            let menu1 = (menuRes1 as MenuCreated)?.Menu
+            from menuItemRes1 in RestaurantDomain.CreateMenuItem(menu1, "Tasty", 13)
+            from menuItemRes2 in RestaurantDomain.CreateMenuItem(menu1, "Chicken", 5)
+            from menuRes2 in RestaurantDomain.CreateMenu(restaurant, "Drinks", MenuType.Beverages)
+            let menu2 = (menuRes2 as MenuCreated)?.Menu
+            from menuItemRes3 in RestaurantDomain.CreateMenuItem(menu2, "Pepsi","ingredients bla bla", "allergens", 10)
+            from menuItemRes4 in RestaurantDomain.CreateMenuItem(menu2, "Fanta", "ingredients bla bla", "allergens", 12)
+            select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
-
             var result = await interpreter.Interpret(expr, Unit.Default);
-
             var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated);
             Assert.True(finalResult);
 
