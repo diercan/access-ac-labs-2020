@@ -21,22 +21,11 @@ namespace Domain.Domain.CreateMenuItemOp
             }
         }
 
-        public class MenuItemWithInvalidPriceNotCreated : ICreateMenuItemResult
+        public class MenuItemNotCreated : ICreateMenuItemResult
         {
             public string Reason { get; }
 
-            public MenuItemWithInvalidPriceNotCreated(string reason)
-            {
-                Reason = reason;
-                Console.WriteLine(reason);
-            }
-        }
-
-        public class MenuItemWithEmptyNameNotCreated : ICreateMenuItemResult
-        {
-            public string Reason { get; }
-
-            public MenuItemWithEmptyNameNotCreated(string reason)
+            public MenuItemNotCreated(string reason)
             {
                 Reason = reason;
                 Console.WriteLine(reason);

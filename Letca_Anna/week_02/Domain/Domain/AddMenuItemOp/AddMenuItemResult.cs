@@ -25,15 +25,6 @@ namespace Domain.Domain.AddMenuItemOp
             }
         }
 
-        public class MenuItemNotAddedToNullMenu : IAddMenuItemResult
-        {
-            public string Reason { get; }
-            public MenuItemNotAddedToNullMenu(string reason)
-            {
-                Reason = reason;
-                Console.WriteLine(reason);
-            }
-        }
 
         public class NullItemNotAdded : IAddMenuItemResult
         {

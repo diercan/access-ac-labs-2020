@@ -17,16 +17,15 @@ namespace Domain.Models
         public string Name { get; }
         public MenuType MenuType { get; }
 
-        public List<MenuItem> MenuItems { get; }
+        public List<MenuItem> MenuItems { get; } = new List<MenuItem>();
 
         public Menu(string name, MenuType menuType)
         {
             Name = name;
             MenuType = menuType;
-            MenuItems = new List<MenuItem>();
         }
 
-        internal void AddMenuItem(MenuItem menuItem)
+        public void AddMenuItem(MenuItem menuItem)
         {
             MenuItems.Add(menuItem);
         }

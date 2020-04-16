@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Domain.Models;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.CreateOrderOp
 {
-    public class CreateRestaurantCmd
+    public class CreateOrderCmd
     {
-        [StringLength(100,MinimumLength = 1)]
-        public string Name { get; }
+        [Required]
+        public Client Client { get; }
 
-        public CreateRestaurantCmd(string name)
+        public CreateOrderCmd(Client client)
         {
-            Name = name;
+            Client = client;
         }
         public (bool, string) Validate()
         {

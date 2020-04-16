@@ -1,19 +1,22 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace Domain.Domain.CreateRestauratOp
+
+namespace Domain.Domain.CreateClientOp
 {
-    public class CreateRestaurantCmd
+    public class CreateClientCmd
     {
-        [StringLength(100,MinimumLength = 1)]
-        public string Name { get; }
+        [Required]
+        public string Uid { get; }
 
-        public CreateRestaurantCmd(string name)
+        public CreateClientCmd(string uid)
         {
-            Name = name;
+            Uid = uid;
         }
+
         public (bool, string) Validate()
         {
             var validationResults = new List<ValidationResult>();
