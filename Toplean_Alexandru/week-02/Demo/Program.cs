@@ -10,12 +10,17 @@ using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
+using static Domain.Domain.AddToCartOp.AddToCartResult;
+using static Domain.Domain.ChangeQuantityOp.ChangeQuantityResult;
 using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
 using static Domain.Domain.CreateMenuItem.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 using static Domain.Domain.DeleteRestaurantOp.DeleteRestaurantResult;
+using static Domain.Domain.GetMenusOp.GetMenusResult;
+using static Domain.Domain.GetOrderStatus.GetOrderStatusResult;
+using static Domain.Domain.PlaceOrderOp.PlaceOrderResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using static Domain.Models.Restaurant;
 
@@ -47,6 +52,16 @@ namespace Demo
                 let secondMenuItem = (addMenuItemRes2 as MenuItemCreated)?.MenuItem
                 from deleteRestaurantRes in RestaurantDomain.DeleteRestaurant("KFC")
                 let dlt = (deleteRestaurantRes as RestaurantDeleted)?.Ok
+                from getAllMenus in RestaurantDomain.GetAllMenus(restaurant)
+                let allMenus = (getAllMenus as MenusGot)?.Menus
+                from addItemToCart in RestaurantDomain.AddToCart("0", AllHardcodedValues.HarcodedVals.CartItems)
+                let itemsToCart = (addItemToCart as ItemsAddedToCart)
+                from changeItemQuantity in RestaurantDomain.ChangeQuantity("0", AllHardcodedValues.HarcodedVals.CartItems[0], 100)
+                let quantityChanged = (changeItemQuantity as QuantityChanged)
+                from placeOrder in RestaurantDomain.PlaceOrder(AllHardcodedValues.HarcodedVals.Clients[0], 700)
+                let orderPlaced = (placeOrder as OrderPlaced)
+                from getOrderStatus in RestaurantDomain.GetOrderStatus("0")
+                let getStatus = (getOrderStatus as OrderGot)?.CartStatus
                 select restaurantResult;
 
             //var expr =

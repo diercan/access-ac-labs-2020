@@ -16,12 +16,17 @@ namespace Domain.Domain.DeleteRestaurantOp
         {
             if (Exists(Op.RestaurantName))
             {
+                // Get the restaurant that will be deleted
                 Restaurant restaurant = AllHardcodedValues.HarcodedVals.RestaurantList.FirstOrDefault(r => r.Name == Op.RestaurantName);
+                // Deleting the restaurant
                 AllHardcodedValues.HarcodedVals.RestaurantList.Remove(restaurant);
                 return Task.FromResult<IDeleteRestaurantResult>(new RestaurantDeleted(true));
             }
             else
+            {
+                // No restaurant deleted. Restaurant does not exist
                 return Task.FromResult<IDeleteRestaurantResult>(new RestaurantNotDeleted("The restaurant does not exist!"));
+            }
         }
 
         public bool Exists(String name) => AllHardcodedValues.HarcodedVals.RestaurantList.Any(m => m.Name == name);

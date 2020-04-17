@@ -19,6 +19,18 @@ using static Domain.Domain.DeleteRestaurantOp.DeleteRestaurantResult;
 using Domain.Domain.DeleteRestaurantOp;
 using static Domain.Domain.CreateMenuItem.CreateMenuItemResult;
 using Domain.Domain.CreateMenuItem;
+using static Domain.Domain.SelectClientOp.SelectClientResult;
+using Domain.Domain.SelectClientOp;
+using static Domain.Domain.GetMenusOp.GetMenusResult;
+using Domain.Domain.GetMenusOp;
+using static Domain.Domain.AddToCartOp.AddToCartResult;
+using Domain.Domain.AddToCartOp;
+using static Domain.Domain.ChangeQuantityOp.ChangeQuantityResult;
+using Domain.Domain.ChangeQuantityOp;
+using static Domain.Domain.PlaceOrderOp.PlaceOrderResult;
+using Domain.Domain.PlaceOrderOp;
+using static Domain.Domain.GetOrderStatus.GetOrderStatusResult;
+using Domain.Domain.GetOrderStatus;
 
 namespace Domain.Domain
 {
@@ -47,5 +59,24 @@ namespace Domain.Domain
 
         public static IO<ICreateMenuItemResult> CreateMenuItem(String name, float price, List<String> alergens, List<String> ingredients, String imageData, Menu menu) =>
             NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(name, price, alergens, ingredients, imageData, menu));
+
+        //Needs testing from here
+        public static IO<ISelectClientResult> SelectClient(String username) =>
+            NewIO<SelectClientCmd, ISelectClientResult>(new SelectClientCmd(username));
+
+        public static IO<IGetMenusResult> GetAllMenus(Restaurant restaurant) =>
+            NewIO<GetMenusCmd, IGetMenusResult>(new GetMenusCmd(restaurant));
+
+        public static IO<IAddToCartResult> AddToCart(String sessionId, List<CartItem> items) =>
+            NewIO<AddToCartCmd, IAddToCartResult>(new AddToCartCmd(sessionId, items));
+
+        public static IO<IChangeQuantityResult> ChangeQuantity(String sessionID, CartItem item, int quantity) =>
+            NewIO<ChangeQuantityCmd, IChangeQuantityResult>(new ChangeQuantityCmd(sessionID, item, quantity));
+
+        public static IO<IPlaceOrderResult> PlaceOrder(Client client, float tip = 0) =>
+            NewIO<PlaceOrderCmd, IPlaceOrderResult>(new PlaceOrderCmd(client, tip));
+
+        public static IO<IGetOrderStatusResult> GetOrderStatus(String sessionId) =>
+            NewIO<GetOrderStatusCmd, IGetOrderStatusResult>(new GetOrderStatusCmd(sessionId));
     }
 }

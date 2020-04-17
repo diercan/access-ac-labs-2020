@@ -26,5 +26,36 @@ namespace Domain.Domain
             new Restaurant("Sky Restaurant"),
             new Restaurant("3F")
         };
+
+        public List<String> SessionIds { get; set; } = new List<string>();
+
+        // Dictionary SessionID => Cart
+        public Dictionary<String, Cart> Carts = new Dictionary<string, Cart>() {
+            { "0", new Cart() },
+            { "1", new Cart() }
+        };
+
+        public List<Client> Clients { get; set; } = new List<Client> {
+            //-------ClientID, ClientName, ClientUsername, ClientPassword, ClientEmail, ClientSessionID, Cart----
+            new Client("0",     "Client0",     "User0",         "Pass0",      "Email0",      "0",      new Cart()),
+            new Client("1","Client1","User1","Pass1","Email1","1", new Cart()),
+            new Client("2","Client2","User2","Pass2","Email2","2", new Cart()),
+            new Client("3","Client3","User3","Pass3","Email3", "3", new Cart()),
+            new Client("4","Client4","User4","Pass4","Email4", "4", new Cart()),
+            new Client("5","Client5","User5","Pass5","Email5", "5", new Cart())
+        };
+
+        public List<MenuItem> MenuItems = new List<MenuItem>()
+        {
+            new MenuItem("MenuItem1",10,null,new List<string>(){"ingredient1","ingredient2" },null),
+            new MenuItem("MenuItem2",10,null,new List<string>(){"ingredient3","ingredient4" },null),
+            new MenuItem("MenuItem3",10,null,new List<string>(){"ingredient5","ingredient6" },null),
+        };
+
+        public List<CartItem> CartItems = new List<CartItem>()
+        {
+            new CartItem(new MenuItem("MenuItem1",10,null,new List<string>(){"ingredient1","ingredient2" },null),4),
+            new CartItem(new MenuItem("MenuItem2",10,null,new List<string>(){"ingredient1","ingredient2" },null),5)
+        };
     }
 }

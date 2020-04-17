@@ -22,13 +22,14 @@ namespace Domain.Domain.CreateEmployeeOp
 
                 if (CommandIsValid)
                 {
+                    // Adds the employee to the restaurant's employee list
                     Employee emp = new Employee(Op.Name, Op.Age, Op.Address, Op.TelephoneNumber, Op.Salary, Op.JobRole, Op.IBAN, Op.Restaurant);
                     Op.Restaurant.Employees.Add(emp);
 
                     return Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(emp));// Employee created
                 }
                 else
-                    return Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated(error));
+                    return Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated(error)); // Employee not created
             }
         }
 
