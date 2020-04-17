@@ -38,29 +38,29 @@ namespace Demo
             // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds►") //Exception -> RestaurantErrorCode.IllegalCharacters
             // from restaurantResult in RestaurantDomain.CreateRestaurant("") //Exception -> RestaurantErrorCode.EmptyField
             var expr =
-                from restaurantResult in RestaurantDomain.SelectRestaurant("McDonalds")
+                from restaurantResult in RestaurantDomain.SelectRestaurant("McDonalds")         // Selects A Restaurant
                 let restaurant = (restaurantResult as RestaurantSelected)?.Restaurant
-                from menuRes in RestaurantDomain.CreateMenu(restaurant, "Chicken", MenuType.Meat)
+                from menuRes in RestaurantDomain.CreateMenu(restaurant, "Chicken", MenuType.Meat)   // Creates a Menu
                 let menu = (menuRes as MenuCreated)?.Menu
-                from employeeRes in RestaurantDomain.CreateEmployee("1", 2, "3", "4", 5, Employee.JobRoles.Cashier, "6", restaurant)
+                from employeeRes in RestaurantDomain.CreateEmployee("1", 2, "3", "4", 5, Employee.JobRoles.Cashier, "6", restaurant) // Creates an Employee
                 let employee = (employeeRes as EmployeeCreated)?.Employee
-                from orderRes in RestaurantDomain.CreateOrder(0, 1, null, "waiter", 4F, restaurant)
+                from orderRes in RestaurantDomain.CreateOrder(0, 1, null, "waiter", 4F, restaurant) // Creates An Order
                 let order = (orderRes as OrderCreated)?.Order
-                from addMenuItemRes in RestaurantDomain.CreateMenuItem("McChicken", 20, null, new List<string> { "McChicken", "Cartofi prajiti", "Coca Cola" }, null, menu)
+                from addMenuItemRes in RestaurantDomain.CreateMenuItem("McChicken", 20, null, new List<string> { "McChicken", "Cartofi prajiti", "Coca Cola" }, null, menu)  // Creates a Menu Item
                 let firstMenuItem = (addMenuItemRes as MenuItemCreated)?.MenuItem
-                from addMenuItemRes2 in RestaurantDomain.CreateMenuItem("Cheeseburger", 20, null, new List<string> { "Cheeseburger", "Cartofi prajiti", "Coca Cola" }, null, menu)
+                from addMenuItemRes2 in RestaurantDomain.CreateMenuItem("Cheeseburger", 20, null, new List<string> { "Cheeseburger", "Cartofi prajiti", "Coca Cola" }, null, menu)// Creates a Menu Item
                 let secondMenuItem = (addMenuItemRes2 as MenuItemCreated)?.MenuItem
-                from deleteRestaurantRes in RestaurantDomain.DeleteRestaurant("KFC")
+                from deleteRestaurantRes in RestaurantDomain.DeleteRestaurant("KFC")  // Deletes a restaurant
                 let dlt = (deleteRestaurantRes as RestaurantDeleted)?.Ok
-                from getAllMenus in RestaurantDomain.GetAllMenus(restaurant)
+                from getAllMenus in RestaurantDomain.GetAllMenus(restaurant)    // Gets all the available menus from a restaurant
                 let allMenus = (getAllMenus as MenusGot)?.Menus
-                from addItemToCart in RestaurantDomain.AddToCart("0", AllHardcodedValues.HarcodedVals.CartItems)
+                from addItemToCart in RestaurantDomain.AddToCart("0", AllHardcodedValues.HarcodedVals.CartItems) // Adds a list of cart items to the cart
                 let itemsToCart = (addItemToCart as ItemsAddedToCart)
-                from changeItemQuantity in RestaurantDomain.ChangeQuantity("0", AllHardcodedValues.HarcodedVals.CartItems[0], 100)
+                from changeItemQuantity in RestaurantDomain.ChangeQuantity("0", AllHardcodedValues.HarcodedVals.CartItems[0], 100)  // Changes quantity of the first item of the hardcoded cart list
                 let quantityChanged = (changeItemQuantity as QuantityChanged)
-                from placeOrder in RestaurantDomain.PlaceOrder(AllHardcodedValues.HarcodedVals.Clients[0], 700)
+                from placeOrder in RestaurantDomain.PlaceOrder(AllHardcodedValues.HarcodedVals.Clients[0], 700) // Places an order with a 700 tip
                 let orderPlaced = (placeOrder as OrderPlaced)
-                from getOrderStatus in RestaurantDomain.GetOrderStatus("0")
+                from getOrderStatus in RestaurantDomain.GetOrderStatus("0")     // Gets the status on session with ID 0 (SessionID will be replaced by a 10 char string)
                 let getStatus = (getOrderStatus as OrderGot)?.CartStatus
                 select restaurantResult;
 
