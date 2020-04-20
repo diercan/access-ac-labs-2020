@@ -19,9 +19,13 @@ using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 using static Domain.Domain.DeleteRestaurantOp.DeleteRestaurantResult;
 using static Domain.Domain.GetMenusOp.GetMenusResult;
+using static Domain.Domain.GetOrdersOp.GetOrdersResult;
 using static Domain.Domain.GetOrderStatus.GetOrderStatusResult;
+using static Domain.Domain.GetPaymentStatusOp.GetPaymentStatusResult;
 using static Domain.Domain.PlaceOrderOp.PlaceOrderResult;
+using static Domain.Domain.RequestPaymentOp.RequestPaymentResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
+using static Domain.Domain.SetMenuAvalabilityOp.SetMenuAvalabilityResult;
 using static Domain.Models.Restaurant;
 
 namespace Demo
@@ -33,14 +37,10 @@ namespace Demo
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            // from restaurantResult in RestaurantDomain.CreateRestaurant(null) //Exception -> RestaurantErrorCode.UnknownError
-            // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds") //Exception -> RestaurantErrorCode.RestaurantExists
-            // from restaurantResult in RestaurantDomain.CreateRestaurant("McDonalds►") //Exception -> RestaurantErrorCode.IllegalCharacters
-            // from restaurantResult in RestaurantDomain.CreateRestaurant("") //Exception -> RestaurantErrorCode.EmptyField
             var expr =
                 from restaurantResult in RestaurantDomain.SelectRestaurant("McDonalds")         // Selects A Restaurant
                 let restaurant = (restaurantResult as RestaurantSelected)?.Restaurant
-                from menuRes in RestaurantDomain.CreateMenu(restaurant, "Chicken", MenuType.Meat)   // Creates a Menu
+                from menuRes in RestaurantDomain.CreateMenu(restaurant, "Chicken", MenuType.Meat, MenuVisibilityTypes.RegularMenu)   // Creates a Menu
                 let menu = (menuRes as MenuCreated)?.Menu
                 from employeeRes in RestaurantDomain.CreateEmployee("1", 2, "3", "4", 5, Employee.JobRoles.Cashier, "6", restaurant) // Creates an Employee
                 let employee = (employeeRes as EmployeeCreated)?.Employee
@@ -62,12 +62,15 @@ namespace Demo
                 let orderPlaced = (placeOrder as OrderPlaced)
                 from getOrderStatus in RestaurantDomain.GetOrderStatus("0")     // Gets the status on session with ID 0 (SessionID will be replaced by a 10 char string)
                 let getStatus = (getOrderStatus as OrderGot)?.CartStatus
+                from setMenuAvalability in RestaurantDomain.SetMenuAvalability(restaurant, menu, MenuVisibilityTypes.SpecialMenu, "8:00 - 12:00") // Marks the menu as special and display time between 8 - 12
+                let menuAvalability = (setMenuAvalability as MenuAvalabilitySet)
+                from getAllOrdersRes in RestaurantDomain.GetAllOrders(restaurant) // Gets all the current orders from a restaurant
+                let getAllOrders = (getAllOrdersRes as OrdersGot)?.Orders
+                from requestPaymentResult in RestaurantDomain.RequestPayment("0") // Requests payment from the client with SessionID = 0;
+                let requestPayment = (requestPaymentResult as PaymentRequested)
+                from checkPaymentResult in RestaurantDomain.CheckPaymentStatus("0") // Checks the  payment status for the client with SessionID = 0;
+                let checkPayment = (checkPaymentResult as PaymentStatusGot)?.Status
                 select restaurantResult;
-
-            //var expr =
-            //    from restaurantResult in RestaurantDomain.SelectRestaurant("McDonalds")
-            //    let restaurant = (restaurantResult as RestaurantSelected)?.Restaurant
-            //    select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
             var result = await interpreter.Interpret(expr, Unit.Default);

@@ -23,8 +23,10 @@ namespace Domain.Domain.CreateMenuOp
 
                 if (CommandIsValid)
                 {
-                    Menu menu = new Menu(Op.Name, Op.MenuType);
+                    Menu menu = new Menu(Op.Name, Op.MenuType, Op.MenuVisibilityTypes, Op.Hour);
                     Op.Restaurant.Menus.Add(menu);
+                    if (Op.MenuVisibilityTypes == MenuVisibilityTypes.SpecialMenu)
+                        AllHardcodedValues.HarcodedVals.SpecialMenus[Op.Hour].Add(menu);
                     return Task.FromResult<ICreateMenuResult>(new MenuCreated(menu)); // Creates the menu
                 }
                 else

@@ -14,6 +14,7 @@ namespace Domain.Models
         public String Email { get; }
         public String SessionID { get; private set; }
         public Cart Cart { get; }
+        public int Table { get; }
 
         public Client(String ClientID, String Name, String Username, String Password, String Email)
         {
@@ -24,7 +25,7 @@ namespace Domain.Models
             this.Email = Email;
         }
 
-        public Client(String ClientID, String Name, String Username, String Password, String Email, String SessionID, Cart Cart)
+        public Client(String ClientID, String Name, String Username, String Password, String Email, String SessionID, Cart Cart, int Table)
         {
             this.ClientID = ClientID;
             this.Name = Name;
@@ -33,6 +34,7 @@ namespace Domain.Models
             this.Email = Email;
             this.SessionID = SessionID;
             this.Cart = Cart;
+            this.Table = Table;
         }
 
         public void AssignClientSessionID()
