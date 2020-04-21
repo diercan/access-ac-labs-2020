@@ -20,6 +20,7 @@ namespace Domain.Domain.AddItemToCartOp
             if (!valid)
                 return Task.FromResult((IAddItemToCartResult)new ItemNotAddedToCart(validationMessage));
 
+            Op.Client.AddToCart(Op.MenuItem);
             return Task.FromResult((IAddItemToCartResult)new ItemAddedToCart(Op.MenuItem,Op.Client));
         }
     }

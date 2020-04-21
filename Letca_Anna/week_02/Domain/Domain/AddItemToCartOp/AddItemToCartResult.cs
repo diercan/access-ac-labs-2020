@@ -20,7 +20,7 @@ namespace Domain.Domain.AddItemToCartOp
             {
                 MenuItem = menuItem;
                 Client = client;
-                Client.AddToCart(menuItem);
+                
             }
         }
 

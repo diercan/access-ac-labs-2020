@@ -21,6 +21,7 @@ namespace Domain.Domain.AddMenuItemOp
             if (!valid)
                 return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded(validationMessage));
 
+            Op.Menu.AddMenuItem(Op.MenuItem);
             return Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem, Op.Menu));
         }
 
