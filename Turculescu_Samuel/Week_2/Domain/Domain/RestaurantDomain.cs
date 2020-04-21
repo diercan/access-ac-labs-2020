@@ -16,8 +16,8 @@ namespace Domain.Domain
 {
     public static class RestaurantDomain
     {
-        public static IO<ICreateRestaurantResult> CreateRestaurant(string name) =>
-            NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
+        public static IO<ICreateRestaurantResult> CreateRestaurant(string name, string address) =>
+            NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name, address));
 
         public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName,
             MenuType menuType)

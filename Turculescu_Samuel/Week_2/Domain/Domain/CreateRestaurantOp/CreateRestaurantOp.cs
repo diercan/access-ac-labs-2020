@@ -17,8 +17,8 @@ namespace Domain.Domain.CreateRestaurantOp
             //validate
 
             return !Exists(Op.Name) ? 
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated("restaurant already exists")) : 
-                Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name)));
+                Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated("Restaurant already exists!")) : 
+                Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name, Op.Address)));
         }
 
 

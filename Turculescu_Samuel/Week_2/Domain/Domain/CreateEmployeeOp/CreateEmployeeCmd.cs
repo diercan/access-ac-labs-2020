@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Models
+namespace Domain.Domain.CreateEmployeeOp
 {
-    public class Employee
+    public struct CreateEmployeeCmd
     {
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
         public string Phone { get; }
-
         public string CNP { get; }
 
-        public Employee(string firstName, string lastName, string email, string phone, string cnp)
+        public CreateEmployeeCmd(string firstName, string lastName, string email, string phone, string cnp)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -21,6 +20,5 @@ namespace Domain.Models
             Phone = phone;
             CNP = cnp;
         }
-
     }
 }
