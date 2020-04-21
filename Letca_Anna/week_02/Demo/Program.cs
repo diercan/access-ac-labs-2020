@@ -29,10 +29,9 @@ namespace Demo
 
             Storage storage = Storage.GetInstance();
 
-            string name = "";
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("vinto\n")
+                from restaurantResult in RestaurantDomain.CreateRestaurant("vinto")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuResult in RestaurantDomain.CreateMenu(restaurant, "paste", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu
@@ -45,10 +44,6 @@ namespace Demo
                 from addToCartResult in RestaurantDomain.AddItemToCart(menuItem2, client)
                 from orderResult in RestaurantDomain.CreateAndPlaceOrder(client, restaurant)
                 select restaurantResult;
-
-            var getRestaurantExpr =
-                from restaurant in RestaurantDomain.GetRestaurant(name)
-                select restaurant;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
 
@@ -65,7 +60,10 @@ namespace Demo
                 {
                     case "1": 
                         Console.WriteLine("Type the name...");
-                        name = Console.ReadLine();
+                        string name = Console.ReadLine();
+                        var getRestaurantExpr =
+                                        from restaurant in RestaurantDomain.GetRestaurant(name)
+                                        select restaurant;
                         var found = await interpreter.Interpret(getRestaurantExpr, Unit.Default);
                         var foundResult = found.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
                         Assert.True(foundResult);
