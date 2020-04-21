@@ -20,6 +20,8 @@ using static Domain.Domain.PlaceOrderOp.PlaceOrderResult;
 using Domain.Domain.PlaceOrderOp;
 using Domain.Domain.CreateOrderOp;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
+using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
+using Domain.Domain.GetRestaurantOp;
 
 namespace Domain.Domain
 {
@@ -62,5 +64,8 @@ namespace Domain.Domain
                let createdOrder = (createOrderResult as OrderCreated)?.Order
                from placeOrderResult in PlaceOrder(createdOrder, restaurant)
                select placeOrderResult;
+
+        public static IO<IGetRestaurantResult> GetRestaurant(string name) =>
+            NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(name));
     }
 }

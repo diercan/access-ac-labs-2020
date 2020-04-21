@@ -10,7 +10,7 @@ using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 
 namespace Domain.Domain.CreateRestauratOp
 {
-    public class CreateRestaurantOp : OpInterpreter<CreateRestaurantCmd, CreateRestaurantResult.ICreateRestaurantResult, Unit>
+    public class CreateRestaurantOp : OpInterpreter<CreateRestaurantCmd, ICreateRestaurantResult, Unit>
     {
         public override Task<ICreateRestaurantResult> Work(CreateRestaurantCmd Op, Unit state)
         {
@@ -19,7 +19,9 @@ namespace Domain.Domain.CreateRestauratOp
             if (!valid)
                 return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(validationMessage));
 
-            return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new Restaurant(Op.Name)));
+            Restaurant newRestaurant = new Restaurant(Op.Name);
+            Storage.RestaurantCollection[newRestaurant.Name] = newRestaurant;
+            return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(newRestaurant));
         }
     }
 }
