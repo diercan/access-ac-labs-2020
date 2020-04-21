@@ -14,7 +14,7 @@ namespace Domain.Domain.CreateClientOp
     {
         public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
         {
-            //validate
+            // Validate
 
             return !Exists(Op.Email) ?
                 Task.FromResult<ICreateClientResult>(new ClientNotCreated("Client already exists with this email!")) :

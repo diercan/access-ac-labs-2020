@@ -13,6 +13,8 @@ namespace Domain.Models
         public string CardNumber { get; }
         public Order Order { get; set; }
 
+        public Restaurant GoToRestaurant { get; set; }  // Restaurant selected by client
+
 
         public Client(string firstName, string lastName, string email, string phone, string cardNumber)
         {

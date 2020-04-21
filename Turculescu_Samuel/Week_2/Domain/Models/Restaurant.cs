@@ -8,7 +8,9 @@ namespace Domain.Models
     {
         public string Name { get; }
         public string Address { get; }
-        public Menu Menu { get; set; }
+
+        public Menu Menu { get; set; }  // Menu for restaurant
+        
         public Restaurant(string name, string address)
         {
             Name = name;
