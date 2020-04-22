@@ -21,9 +21,9 @@ namespace Demo
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
+                from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds", "Piata Victoriei")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from newMenu in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
+                from newMenu in RestaurantDomain.CreateMenu(restaurant, "burgers")
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
