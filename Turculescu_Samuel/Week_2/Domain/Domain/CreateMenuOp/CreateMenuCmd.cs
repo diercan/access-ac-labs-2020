@@ -13,7 +13,7 @@ namespace Domain.Domain.CreateMenuOp
         public CreateMenuCmd(Restaurant restaurant, string menuName)
         {
             Restaurant = restaurant;
-            MenuName = menuName;
+            MenuName = menuName;           
         }
     }
 }

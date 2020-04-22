@@ -4,6 +4,7 @@ using System.Text;
 using CSharp.Choices.Attributes;
 using Domain.Models;
 using System.Threading.Tasks;
+using System.ComponentModel.Design.Serialization;
 
 namespace Domain.Domain.CreateMenuOp
 {
@@ -22,6 +23,13 @@ namespace Domain.Domain.CreateMenuOp
             }
         }
 
-        public class MenuNotCreated : ICreateMenuResult { }
+        public class MenuNotCreated : ICreateMenuResult 
+        {   
+            public string Reason { get; }
+            public MenuNotCreated(string reason)
+            {
+                Reason = reason;
+            }
+        }
     }
 }

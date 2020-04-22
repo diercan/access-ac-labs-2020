@@ -14,7 +14,7 @@ namespace Domain.Domain.CreateRestaurantOp
     {
         public override Task<ICreateRestaurantResult> Work(CreateRestaurantCmd Op, Unit state)
         {
-            //validate
+            // Validate
 
             return !Exists(Op.Name) ? 
                 Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated("Restaurant already exists!")) : 
