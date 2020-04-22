@@ -4,21 +4,13 @@ using System.Text;
 
 namespace Domain.Models
 {
-
-    public enum MenuType
-    {
-        Vegan,
-        Meat,
-        Beverages
-    }
-
     public class Menu
     {
-        public MenuType MenuType { get; }
+        public string MenuName { get; }
 
-        public Menu(MenuType menuType)
+        public Menu(string menuName)
         {
-            MenuType = menuType;
+            MenuName = menuName;
         }
     }
 }

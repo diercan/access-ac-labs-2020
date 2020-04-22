@@ -13,7 +13,7 @@ namespace Domain.Domain.CreateMenuOp
     {
         public override Task<ICreateMenuResult> Work(CreateMenuCmd Op, Unit state)
         {
-            Op.Restaurant.Menu = new Menu(Op.Name, Op.MenuType);
+            Op.Restaurant.Menu = new Menu(Op.MenuName);
             return Task.FromResult((ICreateMenuResult)new MenuCreated(Op.Restaurant.Menu));
         }
     }
