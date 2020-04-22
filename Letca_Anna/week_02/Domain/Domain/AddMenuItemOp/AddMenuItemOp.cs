@@ -15,8 +15,9 @@ namespace Domain.Domain.AddMenuItemOp
         public override Task<IAddMenuItemResult> Work(AddMenuItemCmd Op, Unit state)
         {
 
-            var (valid, validationMessage) = Op.Validate();
-
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded(validationMessage));

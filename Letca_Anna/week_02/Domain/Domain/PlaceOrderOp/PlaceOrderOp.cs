@@ -15,7 +15,9 @@ namespace Domain.Domain.PlaceOrderOp
         public override Task<IPlaceOrderResult> Work(PlaceOrderCmd Op, Unit state)
         {
 
-            var (valid, validationMessage) = Op.Validate();
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult((IPlaceOrderResult)new OrderNotPlaced(validationMessage));

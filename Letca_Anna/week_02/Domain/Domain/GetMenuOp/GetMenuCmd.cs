@@ -8,7 +8,7 @@ namespace Domain.Domain.GetMenuOp
 {
     public class GetMenuCmd
     {
-        [Required]
+        [Required(ErrorMessage = "Null restaurant. Select a restaurant first.")]
         public Restaurant Restaurant { get; }
 
         public GetMenuCmd(Restaurant restaurant)
@@ -16,12 +16,10 @@ namespace Domain.Domain.GetMenuOp
             Restaurant = restaurant;
         }
 
-        public (bool, string) Validate()
+        public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();
-            string validationMessage = "";
-            validationResults.ForEach(x => validationMessage.Append(x.ErrorMessage));
-            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationMessage);
+            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
 }

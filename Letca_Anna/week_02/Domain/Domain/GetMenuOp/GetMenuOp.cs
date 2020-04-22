@@ -12,7 +12,9 @@ namespace Domain.Domain.GetMenuOp
     {
         public override Task<IGetMenuResult> Work(GetMenuCmd Op, Unit state)
         {
-            var (valid, validationMessage) = Op.Validate();
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage+=x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult<IGetMenuResult>(new MenuNotFound(validationMessage));

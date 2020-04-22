@@ -8,19 +8,17 @@ namespace Domain.Domain.CreateOrderOp
 {
     public class CreateOrderCmd
     {
-        [Required]
+        [Required(ErrorMessage = "Cannot create the order of a NULL initiator.")]
         public Client Client { get; }
 
         public CreateOrderCmd(Client client)
         {
             Client = client;
         }
-        public (bool, string) Validate()
+        public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();
-            string validationMessage = "";
-            validationResults.ForEach(x => validationMessage.Append(x.ErrorMessage));
-            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationMessage);
+            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
 }

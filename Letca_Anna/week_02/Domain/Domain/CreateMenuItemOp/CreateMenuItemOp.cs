@@ -14,7 +14,9 @@ namespace Domain.Domain.CreateMenuItemOp
 
         public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
         {
-            var (valid, validationMessage) = Op.Validate();
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult((ICreateMenuItemResult)new MenuItemNotCreated(validationMessage));

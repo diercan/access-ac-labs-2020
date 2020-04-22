@@ -15,7 +15,9 @@ namespace Domain.Domain.CreateClientOp
         public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
         {
 
-            var (valid, validationMessage) = Op.Validate();
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult((ICreateClientResult)new ClientNotCreated(validationMessage));

@@ -77,22 +77,22 @@ namespace Demo
                                         from menu in RestaurantDomain.GetMenu(foundRestaurant)
                                         select menu;
                         var interpretedMenu = await interpreter.Interpret(getMenuExpr, Unit.Default);
-                        var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); //<-----error
+                        var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); 
                         Assert.True(menuResponse);
                         break;
                 }
             } while (input != "0");
         }
 
-        private static bool OnMenuNotFound(RestaurantNotFound arg)
+        private static bool OnMenuNotFound(MenuNotFound arg)
         {
             return false;
         }
 
 
-        private static bool OnMenuFound(RestaurantFound arg)
+        private static bool OnMenuFound(MenuFound arg)
         {
-            Console.WriteLine(arg.Restaurant.ToString());
+            Console.WriteLine(arg.Menu.ToString());
             return true;
         }
 
