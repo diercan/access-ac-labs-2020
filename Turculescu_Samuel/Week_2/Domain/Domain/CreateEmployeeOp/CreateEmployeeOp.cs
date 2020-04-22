@@ -14,15 +14,15 @@ namespace Domain.Domain.CreateEmployeeOp
     {
         public override Task<ICreateEmployeeResult> Work(CreateEmployeeCmd Op, Unit state)
         {
-            //validate
+            // Validate
 
-            return !Exists(Op.CNP) ?
+            return !Exists(Op.IdEmployee) ?
                 Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated("Employee already is hired!")) :
-                Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(new Employee(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.CNP)));
+                Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(new Employee(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.IdEmployee)));
         }
 
 
-        public bool Exists(string cnp)
+        public bool Exists(string idEmployee)
         {
             return true;
         }

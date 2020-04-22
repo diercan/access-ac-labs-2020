@@ -15,6 +15,7 @@ namespace Domain.Domain.ClientRoles.GetRestaurantOp
         public class RestaurantGotten : IGetRestaurantResult
         {
             public Restaurant Restaurant { get; }
+
             public RestaurantGotten(Restaurant restaurant)
             {
                 Restaurant = restaurant;
@@ -24,6 +25,7 @@ namespace Domain.Domain.ClientRoles.GetRestaurantOp
         public class RestaurantNotGotten : IGetRestaurantResult
         {
             public string Reason { get; }
+
             public RestaurantNotGotten(string reason)
             {
                 Reason = reason;

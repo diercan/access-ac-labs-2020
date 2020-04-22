@@ -11,18 +11,19 @@ namespace Domain.Models
         public string Email { get; }
         public string Phone { get; }
         public string CardNumber { get; }
-        public Order Order { get; set; }
+        public string IdClient { get; }
 
+        public Order Order { get; set; }
         public Restaurant GoToRestaurant { get; set; }  // Restaurant selected by client
 
-
-        public Client(string firstName, string lastName, string email, string phone, string cardNumber)
+        public Client(string firstName, string lastName, string email, string phone, string cardNumber, string idClient)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
             CardNumber = cardNumber;
+            IdClient = idClient;
         }
     }
 }

@@ -14,12 +14,10 @@ namespace Domain.Models
 
     public class Menu
     {
-        public string Name { get; }
         public MenuType MenuType { get; }
 
-        public Menu(string name, MenuType menuType)
+        public Menu(MenuType menuType)
         {
-            Name = name;
             MenuType = menuType;
         }
     }

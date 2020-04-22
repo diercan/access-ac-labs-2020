@@ -14,9 +14,9 @@ namespace Domain.Domain.ClientRoles.GetRestaurantOp
     {
         public override Task<IGetRestaurantResult> Work(GetRestaurantCmd Op, Unit state)
         {
-            // Validate
+            Op.Client.GoToRestaurant = Op.Restaurant;   // Link restaurant selected by client 
 
-            Op.Client.GoToRestaurant = new Restaurant(Op.Restaurant.Name, Op.Restaurant.Address);   // Link restaurant selected by client 
+            // Validate
 
             return !Opened(Op.Restaurant) ?
                 Task.FromResult<IGetRestaurantResult>(new RestaurantNotGotten("Restaurant is closed!")) : 

@@ -18,7 +18,7 @@ namespace Domain.Domain.CreateClientOp
 
             return !Exists(Op.Email) ?
                 Task.FromResult<ICreateClientResult>(new ClientNotCreated("Client already exists with this email!")) :
-                Task.FromResult<ICreateClientResult>(new ClientCreated(new Client(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.CardNumber)));
+                Task.FromResult<ICreateClientResult>(new ClientCreated(new Client(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.CardNumber, Op.IdClient)));
         }
 
 
