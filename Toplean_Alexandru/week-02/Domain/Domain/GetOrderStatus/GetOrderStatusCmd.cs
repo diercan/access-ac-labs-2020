@@ -13,10 +13,11 @@ namespace Domain.Domain.GetOrderStatus
             SessionID = sessionID;
         }
 
-        public bool IsValid()
+        public (bool, String) IsValid()
         {
+            return (true, "None");
             // If the SessionID Exists in the AllHardCodedValues.HardcodedVals.Carts Dictionary it will return true. false otherwise
-            return AllHardcodedValues.HarcodedVals.Carts.ContainsKey(SessionID) ? true : false;
+            //return AllHardcodedValues.HarcodedVals.Carts.ContainsKey(SessionID) ? true : false;
         }
     }
 }

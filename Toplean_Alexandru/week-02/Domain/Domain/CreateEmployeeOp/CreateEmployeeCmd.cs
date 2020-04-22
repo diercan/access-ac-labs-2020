@@ -34,18 +34,6 @@ namespace Domain.Domain.CreateEmployeeOp
         {
             try
             {
-                if (EmptyField(Name))
-                    return (false, "Name field is empty!");
-
-                if (EmptyField(Salary.ToString()))
-                    return (false, "Salary field is empty!");
-
-                if (EmptyField(TelephoneNumber))
-                    return (false, "Telephone number field is empty");
-
-                if (EmptyField(IBAN))
-                    return (false, "IBAN field is empty");
-
                 if (Restaurant == null)
                     return (false, "No restaurant provided. Restaurant is null");
 

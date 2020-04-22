@@ -24,8 +24,10 @@ namespace Domain.Domain.ChangeQuantityOp
                 return (false, "No Cart Item Selected");
             if (NewQuantity < 0)
                 return (false, "Quantity can't be negative");
-            if (AllHardcodedValues.HarcodedVals.Carts[SessionID].Status > Cart.CartStatus.PendingOrder && CartItem.Quantity < NewQuantity)
-                return (false, "You cannot reduce the quantity of this item anymore");
+
+            // TODO: Something about the code below
+            //if (AllHardcodedValues.HarcodedVals.Carts[SessionID].Status > Cart.CartStatus.PendingOrder && CartItem.Quantity < NewQuantity)
+            //return (false, "You cannot reduce the quantity of this item anymore");
 
             return (true, "None");
         }

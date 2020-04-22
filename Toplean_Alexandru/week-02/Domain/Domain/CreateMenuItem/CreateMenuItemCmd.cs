@@ -29,10 +29,6 @@ namespace Domain.Domain.CreateMenuItem
         {
             try
             {
-                // No negativee price
-                if (Price < 0)
-                    return (false, "Price cannot be negative");
-
                 // Ingredients are mandatory
                 if (Ingredients == null)
                     return (false, "Ingredients cannot be empty");

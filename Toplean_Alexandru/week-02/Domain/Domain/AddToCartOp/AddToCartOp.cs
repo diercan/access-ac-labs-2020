@@ -12,16 +12,30 @@ namespace Domain.Domain.AddToCartOp
     {
         public override Task<IAddToCartResult> Work(AddToCartCmd Op, Unit state)
         {
-            (bool CommandIsValid, String ErrorReason) = Op.IsValid();
-            if (CommandIsValid)
+            if (SessionExists(Op.SessionID))
             {
-                // Adds the Items to the cart and sets the cart status to CartCreated
-                AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].CartItems = Op.CartItems;
-                AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].Status = Models.Cart.CartStatus.CartCreated;
-                return Task.FromResult<IAddToCartResult>(new ItemsAddedToCart());
+                if (CartExists(Op.SessionID))
+                {
+                    (bool CommandIsValid, String ErrorReason) = Op.IsValid();
+                    if (CommandIsValid)
+                    {
+                        // Adds the Items to the cart and sets the cart status to CartCreated
+                        AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].CartItems.AddRange(Op.CartItems);
+                        AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].Status = Models.Cart.CartStatus.CartCreated;
+                        return Task.FromResult<IAddToCartResult>(new ItemsAddedToCart());
+                    }
+                    else
+                        return Task.FromResult<IAddToCartResult>(new ItemsNotAddedToCart(ErrorReason));
+                }
+                else
+                    return Task.FromResult<IAddToCartResult>(new ItemsNotAddedToCart("The cart does not exist"));
             }
             else
-                return Task.FromResult<IAddToCartResult>(new ItemsNotAddedToCart(ErrorReason));
+                return Task.FromResult<IAddToCartResult>(new ItemsNotAddedToCart("The session does not exist"));
         }
+
+        public bool SessionExists(String SessionID) => AllHardcodedValues.HarcodedVals.Carts.ContainsKey(SessionID) ? true : false;
+
+        public bool CartExists(String SessionID) => AllHardcodedValues.HarcodedVals.Carts[SessionID] != null ? true : false;
     }
 }

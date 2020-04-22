@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Domain.Models
@@ -19,7 +20,9 @@ namespace Domain.Models
 
     public class Menu
     {
+        [Required(ErrorMessage = "Name field cannot be empty")]
         public string Name { get; }
+
         public MenuType MenuType { get; }
 
         public MenuVisibilityTypes MenuVisibilityTypes { get; set; }

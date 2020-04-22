@@ -1,29 +1,39 @@
 ﻿using Domain.Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Domain.Models
 {
     public class Client
     {
+        [Required(ErrorMessage = "Name field is mandatory")]
+        [StringLength(64, ErrorMessage = "Name field can have a maximum of 64 characters")]
         public String Name { get; }
+
+        [Required(ErrorMessage = "Username field is mandatory")]
+        [StringLength(64, ErrorMessage = "Username field can have a maximum of 64 characters")]
         public String Username { get; }
-        public String Password { get; }
+
+        [Required(ErrorMessage = "Password field is mandatory")]
+        [StringLength(64, ErrorMessage = "Password field can have a maximum of 64 characters")]
+        [MinLength(8, ErrorMessage = "Password must have at least 8 characters")]
+        public String Password { get; } // Needs custom attribute for standard password check
+
         public String ClientID { get; }
+
+        [Required(ErrorMessage = "Name field is mandatory")]
+        [StringLength(50, ErrorMessage = "Name field can have a maximum of 50 characters")]
+        [EmailAddress(ErrorMessage = " This is not a valid  Email Address")]
         public String Email { get; }
+
         public String SessionID { get; private set; }
         public Cart Cart { get; }
-        public int Table { get; }
 
-        public Client(String ClientID, String Name, String Username, String Password, String Email)
-        {
-            this.ClientID = ClientID;
-            this.Name = Name;
-            this.Username = Username;
-            this.Password = Password;
-            this.Email = Email;
-        }
+        [Required(ErrorMessage = "A table number must be inserted")]
+        [Range(0, int.MaxValue, ErrorMessage = "The table number must be a pozitive integer")]
+        public int Table { get; }
 
         public Client(String ClientID, String Name, String Username, String Password, String Email, String SessionID, Cart Cart, int Table)
         {

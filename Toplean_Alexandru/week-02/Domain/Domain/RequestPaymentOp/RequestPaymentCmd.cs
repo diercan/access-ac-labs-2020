@@ -15,6 +15,9 @@ namespace Domain.Domain.RequestPaymentOp
         }
 
         // Checks if the session still exists. If the SessionID is in the <SessionID, List<Cart>> Dictionary, the function will return false;
-        public bool IsValid() => AllHardcodedValues.HarcodedVals.Carts.ContainsKey(SessionID) ? true : false;
+        public (bool, String) IsValid()
+        {
+            return (true, "None");
+        }
     }
 }

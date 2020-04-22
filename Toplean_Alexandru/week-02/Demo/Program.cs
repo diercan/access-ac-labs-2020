@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using static Domain.Domain.AddToCartOp.AddToCartResult;
 using static Domain.Domain.ChangeQuantityOp.ChangeQuantityResult;
+using static Domain.Domain.CreateCartItemOp.CreateCartItemResult;
 using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
 using static Domain.Domain.CreateMenuItem.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
@@ -38,11 +39,11 @@ namespace Demo
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var expr =
-                from restaurantResult in RestaurantDomain.SelectRestaurant("McDonalds")         // Selects A Restaurant
-                let restaurant = (restaurantResult as RestaurantSelected)?.Restaurant
+                from restaurantResult in RestaurantDomain.CreateRestaurant("Restaurant")         // Selects A Restaurant
+                let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuRes in RestaurantDomain.CreateMenu(restaurant, "Chicken", MenuType.Meat, MenuVisibilityTypes.RegularMenu)   // Creates a Menu
                 let menu = (menuRes as MenuCreated)?.Menu
-                from employeeRes in RestaurantDomain.CreateEmployee("1", 2, "3", "4", 5, Employee.JobRoles.Cashier, "6", restaurant) // Creates an Employee
+                from employeeRes in RestaurantDomain.CreateEmployee("1", 2, "3", "4", -5, Employee.JobRoles.Cashier, "6", restaurant) // Creates an Employee
                 let employee = (employeeRes as EmployeeCreated)?.Employee
                 from orderRes in RestaurantDomain.CreateOrder(0, 1, null, "waiter", 4F, restaurant) // Creates An Order
                 let order = (orderRes as OrderCreated)?.Order
@@ -54,6 +55,8 @@ namespace Demo
                 let dlt = (deleteRestaurantRes as RestaurantDeleted)?.Ok
                 from getAllMenus in RestaurantDomain.GetAllMenus(restaurant)    // Gets all the available menus from a restaurant
                 let allMenus = (getAllMenus as MenusGot)?.Menus
+                from createCartItemRes in RestaurantDomain.CreateCartItem("0", firstMenuItem, 50) // Creates a menu item for sessionID = 0;
+                let createCartItem = (createCartItemRes as CartItemCreated)?.CartItem
                 from addItemToCart in RestaurantDomain.AddToCart("0", AllHardcodedValues.HarcodedVals.CartItems) // Adds a list of cart items to the cart
                 let itemsToCart = (addItemToCart as ItemsAddedToCart)
                 from changeItemQuantity in RestaurantDomain.ChangeQuantity("0", AllHardcodedValues.HarcodedVals.CartItems[0], 100)  // Changes quantity of the first item of the hardcoded cart list
@@ -75,8 +78,8 @@ namespace Demo
             var interpreter = new LiveInterpreterAsync(serviceProvider);
             var result = await interpreter.Interpret(expr, Unit.Default);
 
-            //var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
-            var finalResult = result.Match(OnRestaurantSelected, OnRestaurantNotSelected);
+            var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
+            //var finalResult = result.Match(OnRestaurantSelected, OnRestaurantNotSelected);
 
             Console.WriteLine("Hello World!");
         }

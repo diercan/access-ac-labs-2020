@@ -21,9 +21,6 @@ namespace Domain.Domain.PlaceOrderOp
             if (Client == null)
                 return (false, "No client provided");
 
-            if (!AllHardcodedValues.HarcodedVals.Carts.ContainsKey(Client.SessionID))
-                return (false, "This session has expired");
-
             if (Tip < 0)
                 return (false, "Tip cannot be negative");
 

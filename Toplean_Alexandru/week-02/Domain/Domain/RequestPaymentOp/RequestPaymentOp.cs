@@ -12,14 +12,22 @@ namespace Domain.Domain.RequestPaymentOp
     {
         public override Task<IRequestPaymentResult> Work(RequestPaymentCmd Op, Unit state)
         {
-            if (Op.IsValid())
+            if (SessionExists(Op.SessionID))
             {
-                // Sets the cart status to PaymentRequested to the client with the session ID = SessionID;
-                AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].Payment = Models.Cart.PaymentStatus.PaymentRequested;
-                return Task.FromResult<IRequestPaymentResult>(new PaymentRequested());
+                (bool CommandIsValid, String Error) = Op.IsValid();
+                if (CommandIsValid)
+                {
+                    // Sets the cart status to PaymentRequested to the client with the session ID = SessionID;
+                    AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].Payment = Models.Cart.PaymentStatus.PaymentRequested;
+                    return Task.FromResult<IRequestPaymentResult>(new PaymentRequested());
+                }
+                else // The session doesn't exist
+                    return Task.FromResult<IRequestPaymentResult>(new PaymentNotRequested(Error));
             }
-            else // The session doesn't exist
+            else
                 return Task.FromResult<IRequestPaymentResult>(new PaymentNotRequested("The session does not exist"));
         }
+
+        public bool SessionExists(String SessionID) => AllHardcodedValues.HarcodedVals.Carts.ContainsKey(SessionID);
     }
 }

@@ -18,9 +18,6 @@ namespace Domain.Domain.AddToCartOp
 
         public (bool, String) IsValid()
         {
-            // Session does not exist(anymore?)
-            if (!AllHardcodedValues.HarcodedVals.Carts.ContainsKey(SessionID))
-                return (false, "The session has expired or doesn't exist");
             // Cart should not be null
             if (CartItems == null)
                 return (false, "There are no orders in the cart.");

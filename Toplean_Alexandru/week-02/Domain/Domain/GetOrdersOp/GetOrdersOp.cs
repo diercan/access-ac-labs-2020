@@ -19,7 +19,7 @@ namespace Domain.Domain.GetOrdersOp
                 if (Op.IsValid())
                 {
                     // Gets the orders
-                    return Task.FromResult<IGetOrdersResult>(new OrdersGot(Op.Orders));
+                    return Task.FromResult<IGetOrdersResult>(new OrdersGot(Op.Restaurant.Orders));
                 }
                 else
                 {

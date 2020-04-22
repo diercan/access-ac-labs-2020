@@ -42,6 +42,8 @@ using static Domain.Domain.RequestPaymentOp.RequestPaymentResult;
 using Domain.Domain.RequestPaymentOp;
 using static Domain.Domain.GetPaymentStatusOp.GetPaymentStatusResult;
 using Domain.Domain.GetPaymentStatusOp;
+using Domain.Domain.CreateCartItemOp;
+using static Domain.Domain.CreateCartItemOp.CreateCartItemResult;
 
 namespace Domain.Domain
 {
@@ -105,5 +107,8 @@ namespace Domain.Domain
 
         public static IO<IGetPaymentStatusResult> CheckPaymentStatus(String sessionID) =>
             NewIO<GetPaymentStatusCmd, IGetPaymentStatusResult>(new GetPaymentStatusCmd(sessionID));
+
+        public static IO<ICreateCartItemResult> CreateCartItem(String sessionID, MenuItem menuItem, uint quantity) =>
+            NewIO<CreateCartItemCmd, ICreateCartItemResult>(new CreateCartItemCmd(sessionID, menuItem, quantity));
     }
 }

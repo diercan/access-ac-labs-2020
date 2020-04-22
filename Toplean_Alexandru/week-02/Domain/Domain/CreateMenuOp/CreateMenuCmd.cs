@@ -33,9 +33,6 @@ namespace Domain.Domain.CreateMenuOp
                 if (HasIllegalCharacters(Name))
                     return (false, "Name field contains a character that is not allowed");
 
-                if (NameTooShort(Name))
-                    return (false, "Name field is empty");
-
                 if (Restaurant == null)
                     return (false, "No restaurant provided. Restaurant is null");
 

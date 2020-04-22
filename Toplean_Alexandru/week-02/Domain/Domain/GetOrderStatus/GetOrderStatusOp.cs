@@ -12,16 +12,25 @@ namespace Domain.Domain.GetOrderStatus
     {
         public override Task<IGetOrderStatusResult> Work(GetOrderStatusCmd Op, Unit state)
         {
-            if (Op.IsValid())
+            if (SessionExists(Op.SessionID))
             {
-                // Successfully returns the order/cart status
-                return Task.FromResult<IGetOrderStatusResult>(new OrderGot(AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].Status));
+                (bool CommandIsValid, String Error) = Op.IsValid();
+
+                if (CommandIsValid)
+                {
+                    // Successfully returns the order/cart status
+                    return Task.FromResult<IGetOrderStatusResult>(new OrderGot(AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].Status));
+                }
+                else
+                {
+                    // The SessionID does not exist in the sessions Dictionary(AllHardCodedValues.HardcodedVals.Carts)
+                    return Task.FromResult<IGetOrderStatusResult>(new NoOrderGot(Error));
+                }
             }
             else
-            {
-                // The SessionID does not exist in the sessions Dictionary(AllHardCodedValues.HardcodedVals.Carts)
-                return Task.FromResult<IGetOrderStatusResult>(new NoOrderGot("Session has expired"));
-            }
+                return Task.FromResult<IGetOrderStatusResult>(new NoOrderGot("The session does not exist"));
         }
+
+        public bool SessionExists(String SessionID) => AllHardcodedValues.HarcodedVals.Carts.ContainsKey(SessionID);
     }
 }
