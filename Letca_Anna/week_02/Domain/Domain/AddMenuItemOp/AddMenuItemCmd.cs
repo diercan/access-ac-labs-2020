@@ -8,9 +8,9 @@ namespace Domain.Domain.AddMenuItemOp
 {
     public class AddMenuItemCmd
     {
-        [Required]
+        [Required(ErrorMessage = "Cannot add menu item into a NULL menu.")]
         public Menu Menu { get; }
-        [Required]
+        [Required(ErrorMessage = "Cannot add a NULL item into menu.")]
         public MenuItem MenuItem { get; }
 
         public AddMenuItemCmd(MenuItem menuItem, Menu menu)
@@ -19,12 +19,10 @@ namespace Domain.Domain.AddMenuItemOp
             Menu = menu;
         }
 
-        public (bool, string) Validate()
+        public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();
-            string validationMessage = "";
-            validationResults.ForEach(x => validationMessage.Append(x.ErrorMessage));
-            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationMessage);
+            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
 }

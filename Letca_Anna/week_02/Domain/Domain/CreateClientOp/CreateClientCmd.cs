@@ -9,7 +9,7 @@ namespace Domain.Domain.CreateClientOp
 {
     public class CreateClientCmd
     {
-        [Required]
+        [Required(ErrorMessage = "Cannot create client with NULL uid.")]
         public string Uid { get; }
 
         public CreateClientCmd(string uid)
@@ -17,12 +17,10 @@ namespace Domain.Domain.CreateClientOp
             Uid = uid;
         }
 
-        public (bool, string) Validate()
+        public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();
-            string validationMessage = "";
-            validationResults.ForEach(x => validationMessage.Append(x.ErrorMessage));
-            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationMessage);
+            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
 }

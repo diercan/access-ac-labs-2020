@@ -14,7 +14,9 @@ namespace Domain.Domain.CreateRestauratOp
     {
         public override Task<ICreateRestaurantResult> Work(CreateRestaurantCmd Op, Unit state)
         {
-            var (valid, validationMessage) = Op.Validate();
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(validationMessage));

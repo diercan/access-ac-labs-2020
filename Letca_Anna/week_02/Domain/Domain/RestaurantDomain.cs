@@ -22,6 +22,8 @@ using Domain.Domain.CreateOrderOp;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
 using Domain.Domain.GetRestaurantOp;
+using static Domain.Domain.GetMenuOp.GetMenuResult;
+using Domain.Domain.GetMenuOp;
 
 namespace Domain.Domain
 {
@@ -67,5 +69,8 @@ namespace Domain.Domain
 
         public static IO<IGetRestaurantResult> GetRestaurant(string name) =>
             NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(name));
+
+        public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
+            NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(restaurant));
     }
 }

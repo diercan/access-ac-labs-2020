@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Domain.Models;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.GetMenuOp
 {
-    public class CreateRestaurantCmd
+    public class GetMenuCmd
     {
-        [StringLength(100,MinimumLength = 1)]
-        public string Name { get; }
+        [Required(ErrorMessage = "Null restaurant. Select a restaurant first.")]
+        public Restaurant Restaurant { get; }
 
-        public CreateRestaurantCmd(string name)
+        public GetMenuCmd(Restaurant restaurant)
         {
-            Name = name;
+            Restaurant = restaurant;
         }
+
         public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();

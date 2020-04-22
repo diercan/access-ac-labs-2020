@@ -8,9 +8,9 @@ namespace Domain.Domain.PlaceOrderOp
 {
     public class PlaceOrderCmd
     {
-        [Required]
+        [Required(ErrorMessage = "Cannot place a NULL order.")]
         public Order Order { get; }
-        [Required]
+        [Required(ErrorMessage = "Cannot place orders to a NULL restaurant.")]
         public Restaurant Restaurant { get; }
 
         public PlaceOrderCmd(Order order, Restaurant restaurant)
@@ -19,12 +19,10 @@ namespace Domain.Domain.PlaceOrderOp
             Restaurant = restaurant;
         }
 
-        public (bool, string) Validate()
+        public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();
-            string validationMessage = "";
-            validationResults.ForEach(x => validationMessage.Append(x.ErrorMessage));
-            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationMessage);
+            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
 }
