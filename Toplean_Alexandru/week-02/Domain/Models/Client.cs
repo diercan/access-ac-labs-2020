@@ -33,9 +33,21 @@ namespace Domain.Models
 
         [Required(ErrorMessage = "A table number must be inserted")]
         [Range(0, int.MaxValue, ErrorMessage = "The table number must be a pozitive integer")]
-        public int Table { get; }
+        public int Table { get; set; }
 
         public Client(String ClientID, String Name, String Username, String Password, String Email, String SessionID, Cart Cart, int Table)
+        {
+            this.ClientID = ClientID;
+            this.Name = Name;
+            this.Username = Username;
+            this.Password = Password;
+            this.Email = Email;
+            this.SessionID = SessionID;
+            this.Cart = Cart;
+            this.Table = Table;
+        }
+
+        public Client(String ClientID, String Name, String Username, String Password, String Email, String SessionID, Cart Cart)
         {
             this.ClientID = ClientID;
             this.Name = Name;

@@ -13,6 +13,7 @@ using Xunit;
 using static Domain.Domain.AddToCartOp.AddToCartResult;
 using static Domain.Domain.ChangeQuantityOp.ChangeQuantityResult;
 using static Domain.Domain.CreateCartItemOp.CreateCartItemResult;
+using static Domain.Domain.CreateClientOp.CreateClientResult;
 using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
 using static Domain.Domain.CreateMenuItem.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
@@ -38,6 +39,150 @@ namespace Demo
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
+            var interpreter = new LiveInterpreterAsync(serviceProvider);
+            int option;
+
+            // Menu starts here. 3 choices available in this menu, last one being an exit
+            do
+            {
+                Console.WriteLine("*********************SOME WANNABE MENU********************");
+                Console.WriteLine("1. Client");
+                Console.WriteLine("2. Employee");
+                Console.WriteLine("0. Exit");
+                Console.Write("What are you? Please input the menu option number ->");
+                // Try catch will be used to prevent an unexpected crash, one of them is failing a parsing funciton. Catching an exception will result with
+                // the option = -1 and returning to the menu above while displaying the error message, without removing it with Console.Clear()
+                try
+                {
+                    option = Int32.Parse(Console.ReadLine());
+                    Console.Clear();
+                    switch (option)
+                    {
+                        case 1: // Client selected
+                            {
+                                bool StopFlag = false;
+                                // Creating an user menu that will allow an user to create an account, see all the restaurants and select a restaurant(for now)
+                                do
+                                {
+                                    // Client menu, three \n are used to make the text easier to read
+                                    Console.WriteLine("\n\n\nHello Client, please chose one of the options below");
+                                    Console.WriteLine("1. Create a new account");
+                                    Console.WriteLine("2. See all restaurants");
+                                    Console.WriteLine("3. Select a restaurant");
+                                    Console.WriteLine("0. Exit");
+                                    Console.Write("Please pick an option => ");
+                                    // Try catch used to prevent invalid inputs from the user(using chars instead of numbers)
+                                    try
+                                    {
+                                        int ClientOption1 = Int32.Parse(Console.ReadLine());
+                                        switch (ClientOption1)
+                                        {
+                                            case 1: // Create a new client
+                                                {
+                                                    Console.WriteLine("\n\n\n******************** Creating a new Client ********************");
+                                                    Console.WriteLine("Please fill the following form");
+                                                    Console.Write("Name: "); var name = Console.ReadLine();
+                                                    Console.Write("Username: "); var username = Console.ReadLine();
+                                                    Console.Write("Password: "); var password = Console.ReadLine();
+                                                    Console.Write("Email: "); var email = Console.ReadLine();
+                                                    Console.WriteLine("Hang on a second! We are creating your account!");
+
+                                                    var createUserExpr = from createClientResult in RestaurantDomain.CreateClient(name, username, password, email)
+                                                                         let client = (createClientResult as ClientCreated)?.Client
+                                                                         select createClientResult;
+
+                                                    var createUserResult = await interpreter.Interpret(createUserExpr, Unit.Default);
+
+                                                    var createUserFinalResult = createUserResult.Match(
+                                                        created => { Console.WriteLine("User Successfuly Created"); return created; },
+                                                        notCreated => { Console.WriteLine($"User was not created for the following reason: {notCreated.Reason}"); return notCreated; }
+                                                        );
+
+                                                    break;
+                                                }
+                                            case 2: // List all the available restaurants
+                                                {
+                                                    Console.WriteLine(" \n\n\n ****************************** All Available Restaurants****************");
+                                                    Console.WriteLine("Here is a list of all restaurants");
+                                                    int i = 0;
+                                                    foreach (var restaurant in AllHardcodedValues.HarcodedVals.RestaurantList)
+                                                    {
+                                                        Console.WriteLine($"{i++} -> {restaurant.Name}");
+                                                    }
+                                                    break;
+                                                }
+                                            case 3: // Select a restaurant
+                                                {
+                                                    Console.WriteLine("\n\n\n ************************* Select a restaurant *******************");
+                                                    Console.WriteLine("What is the restaurant name?");
+                                                    String restaurantName = Console.ReadLine();
+                                                    Console.WriteLine("Ok! Got it! Wait a second untill we check if the restaurant exists");
+                                                    var selectRestaurantExpr = from selectRestaurantRes in RestaurantDomain.SelectRestaurant(restaurantName)
+                                                                               let restaurant = (selectRestaurantRes as RestaurantSelected)?.Restaurant
+                                                                               select selectRestaurantRes;
+
+                                                    var selectRestaurantResult = await interpreter.Interpret(selectRestaurantExpr, Unit.Default);
+                                                    var selectedRestaurantFinalResult = selectRestaurantResult.Match(
+
+                                                        selected =>
+                                                        {
+                                                            Console.WriteLine("Restaurant Successfully Selected");
+                                                            return selected;
+                                                        },
+                                                        notSelected =>
+                                                        {
+                                                            Console.WriteLine($"Unable to select restaurant. Reason: {notSelected.Reason}");
+                                                            return notSelected;
+                                                        }
+                                                        );
+
+                                                    // TODO: Display all menus, select menu (by ID?), view menu and create an order
+
+                                                    break;
+                                                }
+                                            case 0: // Exit
+                                                {
+                                                    StopFlag = true;
+                                                    break;
+                                                }
+                                            default: // Invalid case selected
+                                                {
+                                                    break;
+                                                }
+                                        }
+                                    }
+                                    catch // Select Client option Try-Catch
+                                    {
+                                        Console.WriteLine("Please input a valid menu option number");
+                                    }
+                                }
+                                while (StopFlag != true);
+                                break;
+                            }
+
+                        case 2: // Employee  selected
+                            {
+                                break;
+                            }
+                        case 0: // Exit selected
+                            {
+                                break;
+                            }
+
+                        default: // Invalid case selected
+                            {
+                                break;
+                            }
+                    }
+                }
+                catch (Exception exp) // Select client or employee Try-Catch
+                {
+                    option = -1;
+                    Console.WriteLine("Please input a valid menu option number");
+                }
+            }
+            while (option != 0); // End of the select Client or Employee Do-While
+
             var expr =
                 from restaurantResult in RestaurantDomain.CreateRestaurant("Restaurant")         // Selects A Restaurant
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
@@ -73,9 +218,10 @@ namespace Demo
                 let requestPayment = (requestPaymentResult as PaymentRequested)
                 from checkPaymentResult in RestaurantDomain.CheckPaymentStatus("0") // Checks the  payment status for the client with SessionID = 0;
                 let checkPayment = (checkPaymentResult as PaymentStatusGot)?.Status
+                from createClientResult in RestaurantDomain.CreateClient("newname1", "newUsername1", "newpassword1", "newEmail1")
+                let clientCreated = (createClientResult as ClientCreated)?.Client
                 select restaurantResult;
 
-            var interpreter = new LiveInterpreterAsync(serviceProvider);
             var result = await interpreter.Interpret(expr, Unit.Default);
 
             var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
