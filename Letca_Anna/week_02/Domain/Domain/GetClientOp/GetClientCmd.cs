@@ -1,22 +1,18 @@
-﻿using Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
+using Domain.Models;
 
-
-namespace Domain.Domain.CreateClientOp
+namespace Domain.Domain.GetClientOp
 {
-    public class CreateClientCmd
+    public class GetClientCmd
     {
-        [Required(ErrorMessage = "Cannot create client with NULL uid.")]
+        [Required(ErrorMessage ="Null uid")]
         public string Uid { get; }
-        public string Name { get; }
-
-        public CreateClientCmd(string uid, string name)
+        public GetClientCmd(string uid)
         {
             Uid = uid;
-            Name = name;
         }
 
         public (bool, List<ValidationResult>) Validate()
@@ -25,4 +21,5 @@ namespace Domain.Domain.CreateClientOp
             return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
+
 }

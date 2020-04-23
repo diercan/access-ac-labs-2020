@@ -9,11 +9,12 @@ namespace Domain.Domain
     {
         private static Storage instance = null;
         public static Dictionary<string,Restaurant> RestaurantCollection { get; } = new Dictionary<string, Restaurant>();
+        public static Dictionary<string, Client> ClientCollection { get; } = new Dictionary<string, Client>();
         private Storage() { }
         
         public static Storage GetInstance()
         {
-            return instance == null ? new Storage() : instance;
+            return instance ?? new Storage();
         }
 
         public override string ToString()
