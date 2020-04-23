@@ -22,7 +22,9 @@ namespace Domain.Domain.CreateClientOp
             if (!valid)
                 return Task.FromResult((ICreateClientResult)new ClientNotCreated(validationMessage));
 
-            return Task.FromResult((ICreateClientResult)new ClientCreated(new Client(Op.Uid)));
+            Client newClient = new Client(Op.Uid, Op.Name);
+            Storage.ClientCollection[Op.Uid] = newClient;
+            return Task.FromResult((ICreateClientResult)new ClientCreated(newClient));
         }
     }
 }

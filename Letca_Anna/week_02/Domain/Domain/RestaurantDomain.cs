@@ -24,6 +24,8 @@ using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
 using Domain.Domain.GetRestaurantOp;
 using static Domain.Domain.GetMenuOp.GetMenuResult;
 using Domain.Domain.GetMenuOp;
+using static Domain.Domain.GetClientOp.GetClientResult;
+using Domain.Domain.GetClientOp;
 
 namespace Domain.Domain
 {
@@ -48,8 +50,8 @@ namespace Domain.Domain
                from addMenuItemResult in AddMenuItem(menu, createdMenuItem)
                select addMenuItemResult;
 
-        public static IO<ICreateClientResult> CreateClient(string uid)
-           => NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(uid));
+        public static IO<ICreateClientResult> CreateClient(string uid, string name)
+           => NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(uid, name));
 
         public static IO<IAddItemToCartResult> AddItemToCart(MenuItem menuItem, Client client)
            => NewIO<AddItemToCartCmd, IAddItemToCartResult>(new AddItemToCartCmd(menuItem, client));
@@ -72,5 +74,8 @@ namespace Domain.Domain
 
         public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
             NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(restaurant));
+
+        public static IO<IGetClientResult> GetClient(string uid) =>
+            NewIO<GetClientCmd, IGetClientResult>(new GetClientCmd(uid));
     }
 }
