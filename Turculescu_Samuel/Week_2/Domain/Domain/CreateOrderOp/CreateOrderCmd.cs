@@ -10,14 +10,14 @@ namespace Domain.Domain.CreateOrderOp
         public Client Client { get; }
 
         public Restaurant Restaurant { get; }
-        public int IdOrder { get; }
+        public uint OrderId { get; }
         public List<MenuItem> MenuItems { get; }
 
-        public CreateOrderCmd(Client client, Restaurant restaurant, int idOrder, List<MenuItem> menuItems)
+        public CreateOrderCmd(Client client, Restaurant restaurant, uint orderId, List<MenuItem> menuItems)
         {
             Client = client;
             Restaurant = restaurant;
-            IdOrder = idOrder;
+            OrderId = orderId;
             MenuItems = menuItems;
         }
     }

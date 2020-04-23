@@ -10,15 +10,15 @@ namespace Domain.Models
         public string LastName { get; }
         public string Email { get; }
         public string Phone { get; }
-        public string IdEmployee { get; }
+        public string EmployeeId { get; }
 
-        public Employee(string firstName, string lastName, string email, string phone, string idEmployee)
+        public Employee(string firstName, string lastName, string email, string phone, string employeeId)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
-            IdEmployee = idEmployee;
+            EmployeeId = employeeId;
         }
 
     }

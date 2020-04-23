@@ -6,10 +6,15 @@ namespace Domain.Models
 {
     public class Order
     {
-        public int IdOrder { get; }
-        public Order(int idOrder)
+        public uint OrderId { get; }
+        
+        public uint PreparationTimeInMinutes {get; set;}    // Preparation time for a MenuItem
+
+        public List<CartItem> OrderItems { get; set; }
+
+        public Order(uint orderId)
         {
-            IdOrder = idOrder;
+            OrderId = orderId;
         }
     }
 }

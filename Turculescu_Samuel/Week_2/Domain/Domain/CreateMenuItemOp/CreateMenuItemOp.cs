@@ -16,14 +16,14 @@ namespace Domain.Domain.CreateMenuItemOp
         {
             MenuItem menuItem = new MenuItem(Op.Name, Op.Price, Op.Quantity, Op.Ingredients, Op.Allergens); // Create a new MenuItem       
 
-            if (!Op.Menu.MenuItems.Contains(menuItem))   // Verify if there is no this menuItem in the MenuItems List from Menu
+            if (Op.Menu.MenuItems.Contains(menuItem))   // Verify if there is this menuItem in the MenuItems List from Menu
             {
-                Op.Menu.MenuItems.Add(menuItem);    // Add this menuItem to MenuItems List from Menu
-                return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(menuItem));
+                return Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated("This menu item already exists!"));
             }
             else
             {
-                return Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated("This menu item already exists!"));
+                Op.Menu.MenuItems.Add(menuItem);    // Add this menuItem to MenuItems List from Menu
+                return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(menuItem));
             }
         }
     }

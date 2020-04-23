@@ -13,7 +13,7 @@ namespace Domain.Domain.CreateOrderOp
     {
         public override Task<ICreateOrderResult> Work(CreateOrderCmd Op, Unit state)
         {
-            Op.Client.Order = new Order(Op.IdOrder);
+            Op.Client.Order = new Order(Op.OrderId);
             return Task.FromResult((ICreateOrderResult)new OrderCreated(Op.Client.Order));
         }
     }

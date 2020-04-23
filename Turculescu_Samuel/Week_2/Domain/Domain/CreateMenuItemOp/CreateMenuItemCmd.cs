@@ -10,11 +10,11 @@ namespace Domain.Domain.CreateMenuItemOp
         public Menu Menu { get; }
         public string Name { get; }
         public float Price { get; }
-        public int Quantity { get; }
+        public uint Quantity { get; }
         public string Ingredients { get; }
         public string Allergens { get; }
 
-        public CreateMenuItemCmd(Menu menu, string name, float price, int quantity, string ingredients, string allergens)
+        public CreateMenuItemCmd(Menu menu, string name, float price, uint quantity, string ingredients, string allergens)
         {
             Menu = menu;
             Name = name;

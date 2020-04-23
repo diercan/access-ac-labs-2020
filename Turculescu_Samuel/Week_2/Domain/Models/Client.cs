@@ -13,8 +13,9 @@ namespace Domain.Models
         public string CardNumber { get; }
         public string IdClient { get; }
 
-        public Order Order { get; set; }
         public Restaurant GoToRestaurant { get; set; }  // Restaurant selected by client
+        public Cart Cart { get; set; }  // Each Client has a Cart with CartItems
+        public Order Order { get; set; }
 
         public Client(string firstName, string lastName, string email, string phone, string cardNumber, string idClient)
         {
