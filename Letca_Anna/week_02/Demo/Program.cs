@@ -97,7 +97,7 @@ namespace Demo
                         Console.WriteLine("Enter the menuitem's name...");
                         string itemName = Console.ReadLine();
                         var getItemAndAddToCartExpr =
-                                        from item in RestaurantDomain.GetItemAndAddToCart("conpesto", foundMenu, foundClient)
+                                        from item in RestaurantDomain.GetItemAndAddToCart(itemName, foundMenu, foundClient)
                                         select item;
                         var interpretedItem = await interpreter.Interpret(getItemAndAddToCartExpr, Unit.Default);
                         var itemResponse = interpretedItem.Match<bool>(OnItemAdded, OnItemNotAdded);
