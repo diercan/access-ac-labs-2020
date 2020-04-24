@@ -14,11 +14,11 @@ namespace Domain.Domain.SelectClientOp
     {
         public override Task<ISelectClientResult> Work(SelectClientCmd Op, Unit state)
         {
-            return Exists(Op.Username) ?
-                Task.FromResult<ISelectClientResult>(new ClientSelected(AllHardcodedValues.HarcodedVals.Clients.FirstOrDefault(c => c.Username == Op.Username))) :
-                Task.FromResult<ISelectClientResult>(new ClientNotSelected($"There is no client with the username {Op.Username}"));
+            return Exists(Op.SessionID) ?
+                Task.FromResult<ISelectClientResult>(new ClientSelected(AllHardcodedValues.HarcodedVals.Clients.FirstOrDefault(c => c.SessionID == Op.SessionID))) :
+                Task.FromResult<ISelectClientResult>(new ClientNotSelected($"There is no client with the Session ID {Op.SessionID}"));
         }
 
-        public bool Exists(String name) => AllHardcodedValues.HarcodedVals.Clients.Any(c => c.Username == name);
+        public bool Exists(String sessionId) => AllHardcodedValues.HarcodedVals.Clients.Any(c => c.SessionID == sessionId);
     }
 }

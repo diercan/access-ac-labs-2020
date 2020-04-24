@@ -6,11 +6,11 @@ namespace Domain.Domain.SelectClientOp
 {
     public struct SelectClientCmd
     {
-        public String Username { get; }
+        public String SessionID { get; }
 
-        public SelectClientCmd(String username)
+        public SelectClientCmd(String sessionID)
         {
-            Username = username;
+            SessionID = sessionID;
         }
     }
 }

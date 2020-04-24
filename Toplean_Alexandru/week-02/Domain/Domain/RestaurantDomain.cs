@@ -46,6 +46,10 @@ using Domain.Domain.CreateCartItemOp;
 using static Domain.Domain.CreateCartItemOp.CreateCartItemResult;
 using static Domain.Domain.CreateClientOp.CreateClientResult;
 using Domain.Domain.CreateClientOp;
+using static Domain.Domain.GetMenuItemOp.GetMenuItemResult;
+using Domain.Domain.GetMenuItemOp;
+using static Domain.Domain.SelectMenuOp.SelectMenuResult;
+using Domain.Domain.SelectMenuOp;
 
 namespace Domain.Domain
 {
@@ -75,8 +79,8 @@ namespace Domain.Domain
         public static IO<ICreateMenuItemResult> CreateMenuItem(String name, float price, List<String> alergens, List<String> ingredients, String imageData, Menu menu) =>
             NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(name, price, alergens, ingredients, imageData, menu));
 
-        public static IO<ISelectClientResult> SelectClient(String username) =>
-            NewIO<SelectClientCmd, ISelectClientResult>(new SelectClientCmd(username));
+        public static IO<ISelectClientResult> SelectClient(String sessionID) =>
+            NewIO<SelectClientCmd, ISelectClientResult>(new SelectClientCmd(sessionID));
 
         public static IO<IGetMenusResult> GetAllMenus(Restaurant restaurant) =>
             NewIO<GetMenusCmd, IGetMenusResult>(new GetMenusCmd(restaurant));
@@ -115,5 +119,11 @@ namespace Domain.Domain
 
         public static IO<ICreateClientResult> CreateClient(String name, String username, String password, String email) =>
             NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, username, password, email));
+
+        public static IO<IGetMenuItemResult> GetMenuItem(Restaurant restaurant, Menu menu, String menuItem) =>
+            NewIO<GetMenuItemCmd, IGetMenuItemResult>(new GetMenuItemCmd(restaurant, menu, menuItem));
+
+        public static IO<ISelectMenuResult> SelectMenu(Restaurant restaurant, String menuName) =>
+            NewIO<SelectMenuCmd, ISelectMenuResult>(new SelectMenuCmd(restaurant, menuName));
     }
 }
