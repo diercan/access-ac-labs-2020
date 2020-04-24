@@ -9,9 +9,9 @@ namespace Domain.Domain.ChangeQuantityOp
     {
         public String SessionID { get; }
         public CartItem CartItem { get; }
-        public int NewQuantity { get; }
+        public uint NewQuantity { get; }
 
-        public ChangeQuantityCmd(String sessionID, CartItem item, int quantity)
+        public ChangeQuantityCmd(String sessionID, CartItem item, uint quantity)
         {
             CartItem = item;
             NewQuantity = quantity;

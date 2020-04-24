@@ -7,11 +7,13 @@ namespace Domain.Domain.PlaceOrderOp
 {
     public struct PlaceOrderCmd
     {
+        public Restaurant Restaurant { get; }
         public Client Client { get; }
         public float Tip { get; }
 
-        public PlaceOrderCmd(Client client, float tip = 0)
+        public PlaceOrderCmd(Restaurant restaurant, Client client, float tip = 0)
         {
+            Restaurant = restaurant;
             Client = client;
             Tip = tip;
         }

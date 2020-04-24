@@ -24,11 +24,11 @@ namespace Domain.Domain.CreateEmployeeOp
 
         public class EmployeeNotCreated : ICreateEmployeeResult // Employee not created
         {
-            public String Error { get; }
+            public String Reason { get; }
 
             public EmployeeNotCreated(String code)
             {
-                Error = code;
+                Reason = code;
             }
         }
 

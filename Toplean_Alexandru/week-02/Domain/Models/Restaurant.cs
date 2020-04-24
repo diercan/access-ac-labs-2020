@@ -7,17 +7,6 @@ namespace Domain.Models
 {
     public class Restaurant
     {
-        public enum RestaurantErrorCode
-        {
-            None,
-            RestaurantExists,
-            IllegalCharacters,
-            NameTooLong,
-            EmptyField,
-            UnknownError,
-            RestaurantDoesNotExist
-        };
-
         [Required(ErrorMessage = "The Name field cannot be empty")]
         public string Name { get; }
 

@@ -7,16 +7,6 @@ namespace Domain.Models
 {
     public class Employee
     {
-        public enum EmployeeErrorCode
-        {
-            EmptyField,
-            IncorrectInputType,
-            NameExists,
-            None,
-            UnknownError,
-            NullRestaurant
-        }
-
         public enum JobRoles
         {
             Waiter,

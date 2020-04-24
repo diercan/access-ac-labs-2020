@@ -13,18 +13,18 @@ namespace Domain.Domain.CreateOrderOp
     {
         public int OrderID;
         public int TableNumber;
-        public List<MenuItem> Items { get; }
+        public Cart Cart { get; }
 
         public String Waiter { get; }
 
         public float Price { get; }
         public Restaurant Restaurant;
 
-        public CreateOrderCmd(int id, int tableNumber, List<MenuItem> items, String waiter, float price, Restaurant restaurant)
+        public CreateOrderCmd(int id, int tableNumber, Cart cart, String waiter, float price, Restaurant restaurant)
         {
             OrderID = id;
             TableNumber = tableNumber;
-            Items = items;
+            Cart = cart;
             Waiter = waiter;
             Price = price;
             Restaurant = restaurant;

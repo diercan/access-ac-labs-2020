@@ -50,6 +50,8 @@ using static Domain.Domain.GetMenuItemOp.GetMenuItemResult;
 using Domain.Domain.GetMenuItemOp;
 using static Domain.Domain.SelectMenuOp.SelectMenuResult;
 using Domain.Domain.SelectMenuOp;
+using static Domain.Domain.GetCartItemOp.GetCartItemResult;
+using Domain.Domain.GetCartItemOp;
 
 namespace Domain.Domain
 {
@@ -60,14 +62,14 @@ namespace Domain.Domain
             NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
 
         // Menu
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName, MenuType menuType, MenuVisibilityTypes MenuVisibilityTypes)
-            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType, MenuVisibilityTypes));
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName, MenuType menuType, MenuVisibilityTypes MenuVisibilityTypes, String hour = null)
+            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType, MenuVisibilityTypes, hour));
 
         // Employee
         public static IO<ICreateEmployeeResult> CreateEmployee(String name, int age, String address, String telephone, float salary, JobRoles role, String iban, Restaurant restaurant)
             => NewIO<CreateEmployeeCmd, ICreateEmployeeResult>(new CreateEmployeeCmd(name, age, address, telephone, salary, role, iban, restaurant));
 
-        public static IO<ICreateOrderResult> CreateOrder(int id, int tableNumber, List<MenuItem> items, String waiter, float price, Restaurant restaurant) =>
+        public static IO<ICreateOrderResult> CreateOrder(int id, int tableNumber, Cart items, String waiter, float price, Restaurant restaurant) =>
             NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(id, tableNumber, items, waiter, price, restaurant));
 
         public static IO<ISelectRestaurantResult> SelectRestaurant(String name) =>
@@ -88,16 +90,14 @@ namespace Domain.Domain
         public static IO<IAddToCartResult> AddToCart(String sessionId, List<CartItem> items) =>
             NewIO<AddToCartCmd, IAddToCartResult>(new AddToCartCmd(sessionId, items));
 
-        public static IO<IChangeQuantityResult> ChangeQuantity(String sessionID, CartItem item, int quantity) =>
+        public static IO<IChangeQuantityResult> ChangeQuantity(String sessionID, CartItem item, uint quantity) =>
             NewIO<ChangeQuantityCmd, IChangeQuantityResult>(new ChangeQuantityCmd(sessionID, item, quantity));
 
-        public static IO<IPlaceOrderResult> PlaceOrder(Client client, float tip = 0) =>
-            NewIO<PlaceOrderCmd, IPlaceOrderResult>(new PlaceOrderCmd(client, tip));
+        public static IO<IPlaceOrderResult> PlaceOrder(Restaurant restaurant, Client client, float tip = 0) =>
+            NewIO<PlaceOrderCmd, IPlaceOrderResult>(new PlaceOrderCmd(restaurant, client, tip));
 
         public static IO<IGetOrderStatusResult> GetOrderStatus(String sessionId) =>
             NewIO<GetOrderStatusCmd, IGetOrderStatusResult>(new GetOrderStatusCmd(sessionId));
-
-        //Needs testing from here
 
         public static IO<ISetMenuAvalabilityResult> SetMenuAvalability(Restaurant restaurant, Menu menu, MenuVisibilityTypes type, String hour) =>
             NewIO<SetMenuAvalabilityCmd, ISetMenuAvalabilityResult>(new SetMenuAvalabilityCmd(restaurant, menu, type, hour));
@@ -125,5 +125,8 @@ namespace Domain.Domain
 
         public static IO<ISelectMenuResult> SelectMenu(Restaurant restaurant, String menuName) =>
             NewIO<SelectMenuCmd, ISelectMenuResult>(new SelectMenuCmd(restaurant, menuName));
+
+        public static IO<IGetCartItemResult> GetCartItem(String sessionID, MenuItem menuItem) =>
+            NewIO<GetCartItemCmd, IGetCartItemResult>(new GetCartItemCmd(sessionID, menuItem));
     }
 }

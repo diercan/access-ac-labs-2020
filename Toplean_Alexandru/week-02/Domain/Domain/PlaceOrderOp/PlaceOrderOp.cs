@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Free;
 using LanguageExt;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,7 @@ namespace Domain.Domain.PlaceOrderOp
                     {
                         // Placing the order and modifying the cart status to submitted
                         AllHardcodedValues.HarcodedVals.Carts[Op.Client.SessionID].Status = Models.Cart.CartStatus.CartSubmitted;
+                        AllHardcodedValues.HarcodedVals.RestaurantList.FirstOrDefault(r => r == Op.Restaurant).Orders.Add(new Models.Order(0, Op.Client.Table, Op.Client.Cart, null, 999));
                         return Task.FromResult<IPlaceOrderResult>(new OrderPlaced());
                     }
                     else

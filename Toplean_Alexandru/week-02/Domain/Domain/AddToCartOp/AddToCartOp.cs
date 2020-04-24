@@ -3,6 +3,7 @@ using LanguageExt;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using static Domain.Domain.AddToCartOp.AddToCartResult;
 
@@ -21,6 +22,8 @@ namespace Domain.Domain.AddToCartOp
                     {
                         // Adds the Items to the cart and sets the cart status to CartCreated
                         AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].CartItems.AddRange(Op.CartItems);
+                        AllHardcodedValues.HarcodedVals.Clients.FirstOrDefault(c => c.SessionID == Op.SessionID).Cart.CartItems.AddRange(Op.CartItems);
+                        AllHardcodedValues.HarcodedVals.Clients.FirstOrDefault(c => c.SessionID == Op.SessionID).Cart.Status = Models.Cart.CartStatus.CartCreated;
                         AllHardcodedValues.HarcodedVals.Carts[Op.SessionID].Status = Models.Cart.CartStatus.CartCreated;
                         return Task.FromResult<IAddToCartResult>(new ItemsAddedToCart());
                     }
