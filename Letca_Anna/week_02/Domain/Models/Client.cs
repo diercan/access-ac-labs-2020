@@ -20,7 +20,7 @@ namespace Domain.Models
         {
             Cart.MenuItems.Add(menuItem);
             Cart.calculateSubtotal(menuItem);
-            Console.WriteLine($"Cart of {Uid} client updated: " + Cart.ToString());
+            Console.WriteLine($"Cart of {Name} client updated: " + Cart.ToString());
         }
 
     }

@@ -21,7 +21,7 @@ namespace Domain.Domain.GetMenuItemOp
                 return Task.FromResult<IGetMenuItemResult>(new MenuItemNotFound(validationMessage));
 
             if (!Op.Menu.MenuItems.Any(x=>x.Name == Op.ItemName))
-                return Task.FromResult<IGetMenuItemResult>(new MenuItemNotFound($"{Op.Menu} has no item called {Op.ItemName}!"));
+                return Task.FromResult<IGetMenuItemResult>(new MenuItemNotFound($"{Op.Menu.Name} has no item called {Op.ItemName}!"));
 
             return Task.FromResult<IGetMenuItemResult>(new MenuItemFound(Op.Menu.MenuItems.Find(x => x.Name == Op.ItemName)));
         }
