@@ -16,7 +16,6 @@ namespace Domain.Domain.ClientRoles.GetMenusOp
 
         public override Task<IGetMenusResult> Work(GetMenusCmd Op, Unit state)
         {
-            Op.Client.GoToRestaurant.Menu = Op.Menu;   // Link menu from restaurant
             return Task.FromResult<IGetMenusResult>(new MenusGotten(Op.Client.GoToRestaurant.Menu));
         }
     }

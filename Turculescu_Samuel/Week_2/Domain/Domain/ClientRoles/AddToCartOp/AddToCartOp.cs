@@ -20,14 +20,14 @@ namespace Domain.Domain.ClientRoles.AddToCartOp
             // Validate
             if(Verify(Op.SessionId))
             {
-                return Task.FromResult<IAddToCartResult>(new AddToCartInvalidRequest("You should be logged in!"));
+                return !Exists(Op.Quantity, Op.MenuItem.Quantity) ?
+                    Task.FromResult<IAddToCartResult>(new AddToCartNotSuccessful("Insuficient quantity!")) :
+                    Task.FromResult<IAddToCartResult>(new AddToCartSuccessful(newCartItem)); 
             }
             else
             {
-                return !Exists(Op.Quantity, Op.MenuItem.Quantity) ?
-                    Task.FromResult<IAddToCartResult>(new AddToCartNotSuccessful("Insuficient quantity!")) :
-                    Task.FromResult<IAddToCartResult>(new AddToCartSuccessful(newCartItem));
-            }                   
+                return Task.FromResult<IAddToCartResult>(new AddToCartInvalidRequest("You should be logged in!"));
+            }
         }
 
         public bool Verify(string sessionId)

@@ -15,7 +15,7 @@ namespace Domain.Domain.ClientRoles.PlaceOrderOp
     {
         public override Task<IPlaceOrderResult> Work(PlaceOrderCmd Op, Unit state)
         {
-            Order Order = new Order(Op.Client.GoToRestaurant.OrderId++);
+            Order Order = new Order(Op.Client.GoToRestaurant.OrderId++, Op.Client.ClientId, Op.TableNumber, OrderStatus.Processing);
 
             return !Exists(Op.TableNumber) ?
                 Task.FromResult<IPlaceOrderResult>(new OrderNotPlaced("Please enter your table number!")) :

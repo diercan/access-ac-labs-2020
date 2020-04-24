@@ -4,14 +4,12 @@ using System.Text;
 using Domain.Domain.CreateMenuOp;
 using Domain.Domain.CreateRestaurantOp;
 using Domain.Domain.CreateClientOp;
-using Domain.Domain.CreateOrderOp;
 using Domain.Models;
 using Infra.Free;
 using LanguageExt.ClassInstances;
 using static IOExt;
 using static Domain.Domain.CreateRestaurantOp.CreateRestaurantResult;
 using static Domain.Domain.CreateClientOp.CreateClientResult;
-using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 
 namespace Domain.Domain
 {
@@ -25,9 +23,5 @@ namespace Domain.Domain
 
         public static IO<ICreateClientResult> CreateClient(string firstName, string lastName, string email, string phone, string cardNumber, string idClient) =>
             NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(firstName, lastName, email, phone, cardNumber, idClient));
-
-        public static IO<CreateOrderResult.ICreateOrderResult> CreateOrder(Client client, Restaurant restaurant, uint orderId, List<MenuItem> menuItems)
-           => NewIO<CreateOrderCmd, CreateOrderResult.ICreateOrderResult>(new CreateOrderCmd(client, restaurant, orderId, menuItems));
-
     }
 }

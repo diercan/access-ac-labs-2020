@@ -18,7 +18,7 @@ namespace Domain.Domain.CreateEmployeeOp
 
             return !Exists(Op.IdEmployee) ?
                 Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated("Employee already is hired!")) :
-                Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(new Employee(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.IdEmployee)));
+                Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(new Employee(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.IdEmployee, Op.Restaurant)));
         }
 
 

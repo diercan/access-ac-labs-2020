@@ -13,8 +13,9 @@ namespace Domain.Domain.CreateMenuItemOp
         public uint Quantity { get; }
         public string Ingredients { get; }
         public string Allergens { get; }
+        public MenuItemState MenuItemState { get; }
 
-        public CreateMenuItemCmd(Menu menu, string name, float price, uint quantity, string ingredients, string allergens)
+        public CreateMenuItemCmd(Menu menu, string name, float price, uint quantity, string ingredients, string allergens, MenuItemState menuItemState)
         {
             Menu = menu;
             Name = name;
@@ -22,6 +23,7 @@ namespace Domain.Domain.CreateMenuItemOp
             Quantity = quantity;
             Ingredients = ingredients;
             Allergens = allergens;
+            MenuItemState = menuItemState;
         }
     }
 }

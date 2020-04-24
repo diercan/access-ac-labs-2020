@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,14 +12,16 @@ namespace Domain.Domain.CreateEmployeeOp
         public string Email { get; }
         public string Phone { get; }
         public string IdEmployee { get; }
+        public Restaurant Restaurant { get; }
 
-        public CreateEmployeeCmd(string firstName, string lastName, string email, string phone, string idEmployee)
+        public CreateEmployeeCmd(string firstName, string lastName, string email, string phone, string idEmployee, Restaurant restaurant)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
             IdEmployee = idEmployee;
+            Restaurant = restaurant;
         }
     }
 }

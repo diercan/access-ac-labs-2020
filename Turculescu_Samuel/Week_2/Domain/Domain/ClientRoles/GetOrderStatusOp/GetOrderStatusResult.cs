@@ -12,11 +12,11 @@ namespace Domain.Domain.ClientRoles.GetOrderStatusOp
     {        
         public interface IGetOrderStatusResult { }
 
-        public class OrderStatus : IGetOrderStatusResult
+        public class GetOrderStatus : IGetOrderStatusResult
         {
             public string StatusMessage { get; }
 
-            public OrderStatus(string statusMessage)
+            public GetOrderStatus(string statusMessage)
             {
                 StatusMessage = statusMessage;
             }

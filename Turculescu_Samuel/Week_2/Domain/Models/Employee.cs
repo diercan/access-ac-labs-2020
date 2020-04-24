@@ -12,13 +12,16 @@ namespace Domain.Models
         public string Phone { get; }
         public string EmployeeId { get; }
 
-        public Employee(string firstName, string lastName, string email, string phone, string employeeId)
+        public Restaurant Restaurant { get; }
+
+        public Employee(string firstName, string lastName, string email, string phone, string employeeId, Restaurant restaurant)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
             EmployeeId = employeeId;
+            Restaurant = restaurant;
         }
 
     }

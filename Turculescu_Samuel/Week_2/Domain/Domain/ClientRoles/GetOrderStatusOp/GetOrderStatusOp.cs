@@ -16,8 +16,8 @@ namespace Domain.Domain.ClientRoles.GetOrderStatusOp
         public override Task<IGetOrderStatusResult> Work(GetOrderStatusCmd Op, Unit state)
         {
             return (Done(Op.Order.PreparationTimeInMinutes)) ?
-                Task.FromResult<IGetOrderStatusResult>(new OrderStatus("Order is done!")) :
-                Task.FromResult<IGetOrderStatusResult>(new OrderStatus($"Order is processing! Preparation time: {Op.Order.PreparationTimeInMinutes}"));
+                Task.FromResult<IGetOrderStatusResult>(new GetOrderStatus($"Order is {Op.Order.OrderStatus}!")) :
+                Task.FromResult<IGetOrderStatusResult>(new GetOrderStatus($"Order is {Op.Order.OrderStatus}! Preparation time: {Op.Order.PreparationTimeInMinutes}"));
 
         }
 

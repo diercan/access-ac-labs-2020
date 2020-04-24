@@ -8,12 +8,10 @@ namespace Domain.Domain.ClientRoles.GetMenusOp
     public struct GetMenusCmd
     {
         public Client Client { get; }
-        public Menu Menu { get; }
 
-        public GetMenusCmd(Client client, Menu menu)
+        public GetMenusCmd(Client client)
         {
-            Client = client;
-            Menu = menu;
+            Client = client;            
         }
     }
 }
