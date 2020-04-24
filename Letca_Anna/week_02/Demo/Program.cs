@@ -17,6 +17,8 @@ using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
 using static Domain.Domain.GetMenuOp.GetMenuResult;
 using Domain.Domain.GetMenuOp;
 using static Domain.Domain.GetClientOp.GetClientResult;
+using static Domain.Domain.GetMenuItemResult.MenuItemResult;
+using static Domain.Domain.AddItemToCartOp.AddItemToCartResult;
 
 namespace Demo
 {
@@ -42,8 +44,6 @@ namespace Demo
                 from menuItemResult2 in RestaurantDomain.CreateAndAddMenuItem("conpesto", 20, menu)
                 let menuItem2=(menuItemResult2 as MenuItemAdded)?.MenuItem
                 from clientResult in RestaurantDomain.CreateClient("gucdg34u6trgfh","Anca")
-                //let client = (clientResult as ClientCreated)?.Client
-                //from addToCartResult in RestaurantDomain.AddItemToCart(menuItem2, client)
                 //from orderResult in RestaurantDomain.CreateAndPlaceOrder(client, restaurant)
                 select restaurantResult;
 
@@ -55,6 +55,8 @@ namespace Demo
             Assert.True(finalResult);
 
             Restaurant foundRestaurant=null;
+            Menu foundMenu = null;
+            Client foundClient = null;
 
             do
             {
@@ -67,30 +69,53 @@ namespace Demo
                                         from client in RestaurantDomain.GetClient("gucdg34u6trgfh")
                                         select client;
                         var interpretedClient = await interpreter.Interpret(getClientExpr, Unit.Default);
+                        foundClient = (interpretedClient as ClientFound).Client;
                         var clientResponse = interpretedClient.Match<bool>(OnClientFound, OnClientNotFound);
                         Assert.True(clientResponse);
                         break;
-                    case "2": 
-                        Console.WriteLine("Type the restaurant's name...");
-                        string name = Console.ReadLine();
+                    case "2": //get restauraant
+                        Console.WriteLine("Enter the restaurant's name...");
+                        string restaurantName = Console.ReadLine();
                         var getRestaurantExpr =
-                                        from restaurant in RestaurantDomain.GetRestaurant(name)
+                                        from restaurant in RestaurantDomain.GetRestaurant(restaurantName)
                                         select restaurant;
                         var interpretedRestaurant = await interpreter.Interpret(getRestaurantExpr, Unit.Default);
                         foundRestaurant = (interpretedRestaurant as RestaurantFound).Restaurant;
                         var restaurantResponse = interpretedRestaurant.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
                         Assert.True(restaurantResponse);
                         break;
-                    case "3": //
+                    case "3": //get menu
                         var getMenuExpr =
                                         from menu in RestaurantDomain.GetMenu(foundRestaurant)
                                         select menu;
                         var interpretedMenu = await interpreter.Interpret(getMenuExpr, Unit.Default);
+                        foundMenu = (interpretedMenu as MenuFound).Menu;
                         var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); 
                         Assert.True(menuResponse);
                         break;
+                    case "4": //add item to cart
+                        Console.WriteLine("Enter the menuitem's name...");
+                        string itemName = Console.ReadLine();
+                        var getItemAndAddToCartExpr =
+                                        from item in RestaurantDomain.GetItemAndAddToCart("conpesto", foundMenu, foundClient)
+                                        select item;
+                        var interpretedItem = await interpreter.Interpret(getItemAndAddToCartExpr, Unit.Default);
+                        var itemResponse = interpretedItem.Match<bool>(OnItemAdded, OnItemNotAdded);
+                        Assert.True(itemResponse);
+                        break;
                 }
             } while (input != "0");
+        }
+        private static bool OnItemNotAdded(ItemNotAddedToCart arg)
+        {
+            return false;
+        }
+
+
+        private static bool OnItemAdded(ItemAddedToCart arg)
+        {
+            Console.WriteLine(arg.MenuItem.Name + " added to cart.");
+            return true;
         }
 
         private static bool OnClientNotFound(ClientNotFound arg)

@@ -26,6 +26,8 @@ using static Domain.Domain.GetMenuOp.GetMenuResult;
 using Domain.Domain.GetMenuOp;
 using static Domain.Domain.GetClientOp.GetClientResult;
 using Domain.Domain.GetClientOp;
+using static Domain.Domain.GetMenuItemResult.MenuItemResult;
+using Domain.Domain.GetMenuItemOp;
 
 namespace Domain.Domain
 {
@@ -77,5 +79,14 @@ namespace Domain.Domain
 
         public static IO<IGetClientResult> GetClient(string uid) =>
             NewIO<GetClientCmd, IGetClientResult>(new GetClientCmd(uid));
+
+        public static IO<IGetMenuItemResult> GetMenuItem(string name, Menu menu) =>
+            NewIO<GetMenuItemCmd, IGetMenuItemResult>(new GetMenuItemCmd(name,menu));
+
+        public static IO<IAddItemToCartResult> GetItemAndAddToCart(string name, Menu menu, Client client)
+            => from getItemResult in GetMenuItem(name, menu)
+               let item = (getItemResult as MenuItemFound)?.MenuItem
+               from addToCartResult in AddItemToCart(item, client)
+               select addToCartResult;
     }
 }
