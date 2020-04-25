@@ -8,7 +8,7 @@ using static Domain.Domain.GetClientOp.GetClientResult;
 
 namespace Domain.Domain.GetClientOp
 {
-    public class GetRestaurantOp : OpInterpreter<GetClientCmd,GetClientResult.IGetClientResult,Unit>
+    public class GetRestaurantOp : OpInterpreter<GetClientCmd, IGetClientResult,Unit>
     {
         public override Task<IGetClientResult> Work(GetClientCmd Op, Unit state)
         {

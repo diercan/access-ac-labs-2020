@@ -15,7 +15,7 @@ namespace Domain.Domain.CreateMenuOp
         {
             var menu = new Menu(Op.Name);
 
-            Op.Restaurant.Menu.Add(menu);
+            Op.Restaurant.Menus.Add(menu);
             return Task.FromResult((ICreateMenuResult)new MenuCreated(menu));
         }
     }

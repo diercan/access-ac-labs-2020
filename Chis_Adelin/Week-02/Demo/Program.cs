@@ -40,6 +40,7 @@ namespace Demo
                     12)
                 from getRestaurant in RestaurantDomain.GetRestaurant(restaurant.Name)
                 from clientRes1 in RestaurantDomain.CreateClient("Misu")
+                from getMenuRes1 in RestaurantDomain.GetMenu(restaurant, "Drinks")
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
