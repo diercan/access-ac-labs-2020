@@ -1,4 +1,23 @@
-﻿using System;
+﻿/*1a. GetRestaurant<GetRestaurantCmd, GetRestaurantResult>(string: name)
+1b. GetClient<GetClientCmd, GetClientResult>(string: clientId)
+2.  GetMenus<GetMenusCmd, GetMenusResult>(Restaurant: restaurant)
+3.  AddToCart<AddToCartCmd, AddToCartResult>(string: sessionId, MenuItem: menuItem, uint: qty) :
+							AddToCartSuccessful | AddToCartNotSuccessful | AddToCartInvalidRequest
+4.  ChangeQty<ChangeQtyCmd, ChangeQtyResult>(string: sessionId, int: menuItemId, uint newQty)
+5.  PlaceOrder<OrderCmd, OrderResult>(Cart cart, Restaurant: restaurant, Client: client, uint tip = 0)
+6.  GetOrderStatus<GetOrderStatusCmd, GetOrderStatusResult>(Cart cart);
+ASPNET.CORE -> RestaurantDomain -> Result -> Match -> HttpResponseMessage
+HTTP Request ------------------------------------------HTTP Response(200)*/
+
+/* 1a. GetReastaurant<,>(Func<Restaurant, bool> expresion)
+ * 1b. GetClient<,>(Func<Client, bool> expresion)
+ * #1. Get<Model,Cmd,Result>(Func<Model,bool> expresion) // should be a list not an object / interpretable
+ * 
+ * the other ones need the cart so we'll see it
+ * 
+*/
+
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Domain;
@@ -45,8 +64,15 @@ namespace Demo
             {
                 Console.WriteLine("\t~{0} [{1}]~", a.Name, a.MenuType);
                 a.Items.ForEach(b => Console.WriteLine("\t{0} / {1}", b.Name, b.Price));
-
             });
+
+            find(res, a => a.MenuType == MenuType.Beverages);
+        }
+
+        private static void find(Restaurant r, Func<Menu, bool> ex)
+        {
+            var x = r.Menus.Find(ex).FirstOrDefault();
+            Console.WriteLine($"\n\n{x.Name}");
         }
 
         private static object OnRestaurantNotCreated(RestaurantNotCreated arg)
