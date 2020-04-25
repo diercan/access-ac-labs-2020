@@ -11,6 +11,7 @@ namespace Domain.Models
         public Restaurant(string name)
         {
             Name = name;
+            Menu = new List<Menu>();
         }
     }
 }

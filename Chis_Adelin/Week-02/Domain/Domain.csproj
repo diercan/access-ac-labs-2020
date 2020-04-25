@@ -22,5 +22,17 @@
   <ItemGroup>
     <ProjectReference Include="..\Infra\Infra.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Domain\GetClientOp\GetClientCmd.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Update="Domain\GetClientOp\GetClientOp.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Update="Domain\GetClientOp\GetClientResult.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+  </ItemGroup>
   <!--End - Use these statements to enable codegen-->
 </Project>
