@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Domain.Domain.GetOp
 {
     [AsChoice]
-    static partial class GetResult
+    public static partial class GetResult
     {
         public interface IGetResult <T> { }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Domain.GetOp
 {
-    class GetCmd <T>
+    public class GetCmd <T>
     {
         public List<T> Items { get; }
         public Predicate<T> Expression { get; }

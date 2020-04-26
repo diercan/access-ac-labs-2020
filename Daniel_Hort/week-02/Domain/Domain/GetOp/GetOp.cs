@@ -8,9 +8,9 @@ using static Domain.Domain.GetOp.GetResult;
 
 namespace Domain.Domain.GetOp
 {
-    class GetOp<T> : OpInterpreter<GetCmd<T>, GetResult.IGetResult<T>, Unit>
+    public class GetOp<T> : OpInterpreter<GetCmd<T>, IGetResult<T>, Unit>
     {
-        public override Task<GetResult.IGetResult<T>> Work(GetCmd<T> Op, Unit state)
+        public override Task<IGetResult<T>> Work(GetCmd<T> Op, Unit state)
         {
             if (Op.Items.Count == 0)
                 return Task.FromResult((IGetResult<T>)new NotFound<T>(NotFoundReason.EmptyList));
