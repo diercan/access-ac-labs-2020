@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Domain.Domain.GetRestaurantOp
 {
-    public class GetRestaurantOp : GetOp<Restaurant>
+    /*class GetRestaurantOp : GetOp<Restaurant, GetCmd<Restaurant>, GetResultType<Restaurant>>
     {
-    }
+    }*/
 }

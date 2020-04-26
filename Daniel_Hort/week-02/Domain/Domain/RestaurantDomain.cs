@@ -29,7 +29,7 @@ namespace Domain.Domain
         /*public static IO<GetResult.IGetResult<T>> Get<T>(List<T> items, Predicate<T> expession) =>
             NewIO<GetCmd<T>, GetResult.IGetResult<T>>(new GetCmd<T>(items, expession));*/
 
-        public static IO<GetRestaurantResult.IGetRestaurantResult> GetRestaurant(List<Restaurant> items, Predicate<Restaurant> expession) =>
-            NewIO<GetRestaurantCmd, GetRestaurantResult.IGetRestaurantResult>(new GetRestaurantCmd(items, expession));
+        /*public static IO<GetResult.IGetResult<Restaurant>> GetRestaurant(List<Restaurant> items, Predicate<Restaurant> expession) =>
+            NewIO<GetCmd<Restaurant>, GetResult.IGetResult<Restaurant>>(new GetCmd<Restaurant>(items, expession));*/
     }
 }

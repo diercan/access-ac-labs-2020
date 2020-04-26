@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Domain;
-using Domain.Domain.CreateRestauratOp;
 using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
@@ -67,7 +66,7 @@ namespace Demo
             var result = await interpreter.Interpret(expr, Unit.Default);
             var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
 
-             var res = Restaurants[0];
+            var res = Restaurants[0];
 
             Console.WriteLine("{0}'s Menus", res.Name);
             res.Menus.ForEach(a =>
