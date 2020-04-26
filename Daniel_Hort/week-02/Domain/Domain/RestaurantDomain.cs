@@ -24,5 +24,8 @@ namespace Domain.Domain
 
         public static IO<CreateMenuItemResult.ICreateMenuItemResult> CreateMenuItem(Menu menu, string name, uint price) =>
             NewIO<CreateMenuItemCmd, CreateMenuItemResult.ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name, price));
+
+        public static IO<GetResult.IGetResult<T>> Get<T>(List<T> items, Predicate<T> expession) =>
+            NewIO<GetCmd<T>, GetResult.IGetResult<T>>(new GetCmd<T>(items, expession));
     }
 }
