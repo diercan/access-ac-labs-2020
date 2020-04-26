@@ -12,7 +12,9 @@ namespace Domain.Domain.CreateMenuItemOp
     {
         public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
         {
-            var m = new MenuItem(Op.Menu, Op.Title, Op.Price, Op.Ingredients);
+            MenuItem m = new MenuItem(Op.Menu, Op.Title, Op.Price, Op.Ingredients);
+            if (Op.Menu.menuItems.Contains(m))
+                return Task.FromResult((ICreateMenuItemResult)new MenuItemNotCreated("already exists"));
             Op.Menu.menuItems.Add(m);
             return Task.FromResult((ICreateMenuItemResult)new MenuItemCreated(m));
         }

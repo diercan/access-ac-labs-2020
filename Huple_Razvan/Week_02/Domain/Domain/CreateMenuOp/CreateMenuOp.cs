@@ -13,8 +13,9 @@ namespace Domain.Domain.CreateMenuOp
     {
         public override Task<ICreateMenuResult> Work(CreateMenuCmd Op, Unit state)
         {
-            Op.Restaurant.Menu = new Menu(Op.Name, Op.MenuType);
-            return Task.FromResult((ICreateMenuResult)new MenuCreated(Op.Restaurant.Menu));
+            Menu m = new Menu(Op.Name, Op.MenuType);
+            Op.Restaurant.Menus.Add(m); 
+            return Task.FromResult((ICreateMenuResult)new MenuCreated(m));
         }
     }
 }

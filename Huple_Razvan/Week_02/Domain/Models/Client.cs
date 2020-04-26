@@ -4,14 +4,16 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class Restaurant
+    public class Client
     {
         public string Name { get; }
-        public List<Menu> Menus { get; }
-        public Restaurant(string name)
+
+        public string Id { get; }
+
+        public Client( string name, string id)
         {
             Name = name;
-            Menus = new List<Menu>();
+            Id = id;
         }
     }
 }
