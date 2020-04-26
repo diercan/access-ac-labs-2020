@@ -22,6 +22,9 @@ namespace Domain.Domain.CreateClientOp
             if (!valid)
                 return Task.FromResult((ICreateClientResult)new ClientNotCreated(validationMessage));
 
+            if(Storage.ClientCollection.ContainsKey(Op.Uid))
+                return Task.FromResult((ICreateClientResult)new ClientNotCreated($"Client with uid {Op.Uid} already exists!"));
+
             Client newClient = new Client(Op.Uid, Op.Name);
             Storage.ClientCollection[Op.Uid] = newClient;
             return Task.FromResult((ICreateClientResult)new ClientCreated(newClient));

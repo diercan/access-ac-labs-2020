@@ -22,6 +22,9 @@ namespace Domain.Domain.AddMenuItemOp
             if (!valid)
                 return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded(validationMessage));
 
+            if(Exists(Op.MenuItem, Op.Menu))
+                return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded($"{Op.MenuItem.Name} already exists in menu!"));
+
             Op.Menu.AddMenuItem(Op.MenuItem);
             return Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem, Op.Menu));
         }

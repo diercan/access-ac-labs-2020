@@ -9,9 +9,9 @@ namespace Domain.Domain.AddItemToCartOp
     public class AddItemToCartCmd
     {
         [Required(ErrorMessage = "Cannot add NULL item into cart.")]
-        public MenuItem MenuItem;
+        public MenuItem MenuItem { get; }
         [Required(ErrorMessage = "Cannot add items into the cart of a NULL client.")]
-        public Client Client;
+        public Client Client { get; }
         public AddItemToCartCmd(MenuItem menuItem, Client client)
         {
             MenuItem = menuItem;

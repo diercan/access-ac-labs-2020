@@ -19,8 +19,8 @@ namespace Domain.Models
         public void AddToCart(MenuItem menuItem)
         {
             Cart.MenuItems.Add(menuItem);
-            Cart.calculateSubtotal(menuItem);
-            Console.WriteLine($"Cart of {Uid} client updated: " + Cart.ToString());
+            Cart.CalculateSubtotal(menuItem);
+            Console.WriteLine($"Cart of {Name} client updated: " + Cart.ToString());
         }
 
     }

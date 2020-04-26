@@ -17,7 +17,7 @@ namespace Domain.Models
             return retVal;
         }
 
-        public void calculateSubtotal(MenuItem menuItem)
+        public void CalculateSubtotal(MenuItem menuItem)
         {
             Price += menuItem.Price;
         }
