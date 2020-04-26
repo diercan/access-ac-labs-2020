@@ -71,7 +71,6 @@ namespace Demo
                         var interpretedClient = await interpreter.Interpret(getClientExpr, Unit.Default);
                         foundClient = (interpretedClient as ClientFound)?.Client;
                         var clientResponse = interpretedClient.Match<bool>(OnClientFound, OnClientNotFound);
-                        //Assert.True(clientResponse);
                         break;
                     case "2": //get restauraant
                         Console.WriteLine("Enter the restaurant's name...");
@@ -82,7 +81,6 @@ namespace Demo
                         var interpretedRestaurant = await interpreter.Interpret(getRestaurantExpr, Unit.Default);
                         foundRestaurant = (interpretedRestaurant as RestaurantFound)?.Restaurant;
                         var restaurantResponse = interpretedRestaurant.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
-                        Assert.True(restaurantResponse);
                         break;
                     case "3": //get menu
                         var getMenuExpr =
@@ -91,7 +89,6 @@ namespace Demo
                         var interpretedMenu = await interpreter.Interpret(getMenuExpr, Unit.Default);
                         foundMenu = (interpretedMenu as MenuFound)?.Menu;
                         var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); 
-                        Assert.True(menuResponse);
                         break;
                     case "4": //add item to cart
                         Console.WriteLine("Enter the menuitem's name...");
@@ -101,7 +98,6 @@ namespace Demo
                                         select item;
                         var interpretedItem = await interpreter.Interpret(getItemAndAddToCartExpr, Unit.Default);
                         var itemResponse = interpretedItem.Match<bool>(OnItemAdded, OnItemNotAdded);
-                        Assert.True(itemResponse);
                         break;
                 }
             } while (input != "0");
