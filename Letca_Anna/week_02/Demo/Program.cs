@@ -69,9 +69,9 @@ namespace Demo
                                         from client in RestaurantDomain.GetClient("gucdg34u6trgfh")
                                         select client;
                         var interpretedClient = await interpreter.Interpret(getClientExpr, Unit.Default);
-                        foundClient = (interpretedClient as ClientFound).Client;
+                        foundClient = (interpretedClient as ClientFound)?.Client;
                         var clientResponse = interpretedClient.Match<bool>(OnClientFound, OnClientNotFound);
-                        Assert.True(clientResponse);
+                        //Assert.True(clientResponse);
                         break;
                     case "2": //get restauraant
                         Console.WriteLine("Enter the restaurant's name...");
@@ -80,7 +80,7 @@ namespace Demo
                                         from restaurant in RestaurantDomain.GetRestaurant(restaurantName)
                                         select restaurant;
                         var interpretedRestaurant = await interpreter.Interpret(getRestaurantExpr, Unit.Default);
-                        foundRestaurant = (interpretedRestaurant as RestaurantFound).Restaurant;
+                        foundRestaurant = (interpretedRestaurant as RestaurantFound)?.Restaurant;
                         var restaurantResponse = interpretedRestaurant.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
                         Assert.True(restaurantResponse);
                         break;
@@ -89,7 +89,7 @@ namespace Demo
                                         from menu in RestaurantDomain.GetMenu(foundRestaurant)
                                         select menu;
                         var interpretedMenu = await interpreter.Interpret(getMenuExpr, Unit.Default);
-                        foundMenu = (interpretedMenu as MenuFound).Menu;
+                        foundMenu = (interpretedMenu as MenuFound)?.Menu;
                         var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); 
                         Assert.True(menuResponse);
                         break;
