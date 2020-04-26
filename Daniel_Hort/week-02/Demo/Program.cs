@@ -40,6 +40,8 @@ namespace Demo
     class Program
     {
         static List<Restaurant> Restaurants { get; set; }
+        static List<Client> Clients { get; set; }
+        static List<Order> Orders { get; set; }
 
         static async Task Main(string[] args)
         {
@@ -47,6 +49,7 @@ namespace Demo
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
+            serviceCollection.AddOperations(typeof(Client).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =
@@ -62,29 +65,36 @@ namespace Demo
                 from menuItemRes4 in RestaurantDomain.CreateMenuItem(menu2, "Cola", 7)
                 select restaurantResult;
 
+            var expr1 = from x in RestaurantDomain.CreateClient(Clients, "John Doe") select x;
+
             var interpreter = new LiveInterpreterAsync(serviceProvider);
             var result = await interpreter.Interpret(expr, Unit.Default);
+            var result1 = await interpreter.Interpret(expr1, Unit.Default);
             var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
 
             var res = Restaurants[0];
-
-            Console.WriteLine("{0}'s Menus", res.Name);
-            res.Menus.ForEach(a =>
-            {
-                Console.WriteLine("\t~{0} [{1}]~", a.Name, a.MenuType);
-                a.Items.ForEach(b => Console.WriteLine("\t{0} / {1}", b.Name, b.Price));
-            });
 
             int op = 0;
 
             do
             {
+                Console.WriteLine("\n1. Display Menus");
+                Console.WriteLine("0. Exit");
+                Console.Write("Option: ");
+
                 op = int.Parse(Console.ReadLine());
 
                 switch (op)
                 {
                     case 1:
+                        Console.WriteLine("{0}'s Menus", res.Name);
+                        res.Menus.ForEach(a =>
+                        {
+                            Console.WriteLine("\t~{0} [{1}]~", a.Name, a.MenuType);
+                            a.Items.ForEach(b => Console.WriteLine("\t\t{0} / {1}", b.Name, b.Price));
+                        });
                         break;
+                    case 2:
                     default:
                         Console.WriteLine("Not an option");
                         break;
