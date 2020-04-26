@@ -46,6 +46,7 @@ namespace Demo
         static async Task Main(string[] args)
         {
             Restaurants = new List<Restaurant>();
+            Clients = new List<Client>();
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
@@ -68,11 +69,9 @@ namespace Demo
             var expr1 = from x in RestaurantDomain.CreateClient(Clients, "John Doe") select x;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
-            var result = await interpreter.Interpret(expr, Unit.Default);
-            var result1 = await interpreter.Interpret(expr1, Unit.Default);
-            var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
 
             var res = Restaurants[0];
+            var client = Clients[0];
 
             int op = 0;
 
