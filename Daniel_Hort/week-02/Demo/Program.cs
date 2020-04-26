@@ -9,15 +9,21 @@
 ASPNET.CORE -> RestaurantDomain -> Result -> Match -> HttpResponseMessage
 HTTP Request ------------------------------------------HTTP Response(200)*/
 
-/* 1a. GetReastaurant<,>(Func<Restaurant, bool> expresion)
+/*
+ *1a. GetReastaurant<,>(Func<Restaurant, bool> expresion)
  * 1b. GetClient<,>(Func<Client, bool> expresion)
  * #1. Get<Model,Cmd,Result>(Func<Model,bool> expresion) // should be a list not an object / interpretable
  * 
  * the other ones need the cart so we'll see it
  * 
+ * Cart - list<(menuItem, uint)>, TotalPrice => Items.Sum(a => item1.price * item2), Client (or should I? Yeah probably)
+ * So every Cart have a Client but a Client's Cart can be null. That if we do it separately
+ * Or just include Cart into the Client but I'm not sure of that
+ * Ma culc
 */
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Domain;
@@ -34,14 +40,18 @@ namespace Demo
 {
     class Program
     {
+        static List<Restaurant> Restaurants { get; set; }
+
         static async Task Main(string[] args)
         {
+            Restaurants = new List<Restaurant>();
+
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("McRonald")
+                from restaurantResult in RestaurantDomain.CreateRestaurant(Restaurants, "McRonald")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
                 from menuRes1 in RestaurantDomain.CreateMenu(restaurant, "Burgers", MenuType.Meat)
                 let menu1 = (menuRes1 as MenuCreated)?.Menu
@@ -57,7 +67,7 @@ namespace Demo
             var result = await interpreter.Interpret(expr, Unit.Default);
             var finalResult = result.Match(OnRestaurantCreated, OnRestaurantNotCreated);
 
-            var res = finalResult as Restaurant;
+             var res = Restaurants[0];
 
             Console.WriteLine("{0}'s Menus", res.Name);
             res.Menus.ForEach(a =>
@@ -66,13 +76,22 @@ namespace Demo
                 a.Items.ForEach(b => Console.WriteLine("\t{0} / {1}", b.Name, b.Price));
             });
 
-            find(res, a => a.MenuType == MenuType.Beverages);
-        }
+            int op = 0;
 
-        private static void find(Restaurant r, Func<Menu, bool> ex)
-        {
-            var x = r.Menus.Find(ex).FirstOrDefault();
-            Console.WriteLine($"\n\n{x.Name}");
+            do
+            {
+                op = int.Parse(Console.ReadLine());
+
+                switch (op)
+                {
+                    case 1:
+                        break;
+                    default:
+                        Console.WriteLine("Not an option");
+                        break;
+                }
+
+            } while (op != 0);
         }
 
         private static object OnRestaurantNotCreated(RestaurantNotCreated arg)
