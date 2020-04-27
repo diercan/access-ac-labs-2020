@@ -1,8 +1,9 @@
-﻿using CSharp.Choices.Attributes;
-using Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+
+using CSharp.Choices.Attributes;
+using Domain.Models;
 
 namespace Domain.Domain.GetClientOp
 {

@@ -8,12 +8,13 @@ namespace Domain.Domain.GetMenusOp
     public struct GetMenusCmd
     {
         public Restaurant Restaurant { get; }
-        public Menu Menu { get; }
+        public string Name { get; }
 
-        public GetMenusCmd(Restaurant restaurant, Menu menu)
+        public GetMenusCmd(Restaurant restaurant, string name)
         {
             Restaurant = restaurant;
-            Menu = menu;
+            Name = name;
+            Restaurant.Menus = new List<Menu>() { new Menu("burgers", MenuType.Meat) };
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Domain.Models
     public class Restaurant
     {
         public string Name { get; }
-        public List<Menu> Menus { get; }
+        public List<Menu> Menus { get; set; }
         public Restaurant(string name)
         {
             Name = name;

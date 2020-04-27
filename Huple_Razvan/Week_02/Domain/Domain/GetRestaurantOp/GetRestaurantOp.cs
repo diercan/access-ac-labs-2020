@@ -15,10 +15,15 @@ namespace Domain.Domain.GetRestaurantOp
         public override Task<IGetRestaurantResult> Work(GetRestaurantCmd Op, Unit state)
         {
             //validate
-            if (Op.restaurants.Contains(Op.Restaurant))
-                return Task.FromResult<IGetRestaurantResult>((IGetRestaurantResult)new RestaurantFound(Op.Restaurant));
+            /*Restaurant r = new Restaurant(Op.Name);
+            if (Op.restaurants.Contains(r))
+                return Task.FromResult<IGetRestaurantResult>((IGetRestaurantResult)new RestaurantFound(r));
             else
-                return Task.FromResult<IGetRestaurantResult>((IGetRestaurantResult)new RestaurantNotFound("not found"));
+                return Task.FromResult<IGetRestaurantResult>((IGetRestaurantResult)new RestaurantNotFound("list is empty"));*/
+                foreach(var r in Op.restaurants)
+                    if(r.Name.Equals(Op.Name))
+                        return Task.FromResult<IGetRestaurantResult>((IGetRestaurantResult)new RestaurantFound(r));
+            return Task.FromResult<IGetRestaurantResult>((IGetRestaurantResult)new RestaurantNotFound("list is empty"));
         }
     }
 }

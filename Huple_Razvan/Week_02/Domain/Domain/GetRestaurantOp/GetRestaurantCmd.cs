@@ -8,12 +8,12 @@ namespace Domain.Domain.GetRestaurantOp
     public struct GetRestaurantCmd
     {
         public List<Restaurant> restaurants;
-        public Restaurant Restaurant { get; }
+        public string Name { get; }
 
-        public GetRestaurantCmd(Restaurant restaurant)
+        public GetRestaurantCmd(string name)
         {
-            Restaurant = restaurant;
-            restaurants = new List<Restaurant>();
+            Name = name;
+            restaurants = new List<Restaurant>() {new Restaurant("mcdonalds"),new Restaurant("kfc")};
         }
     }
 }
