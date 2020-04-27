@@ -1,15 +1,17 @@
-﻿using Infrastructure.Free;
+﻿using Domain.Models;
+using Infrastructure.Free;
 using LanguageExt;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using static Domain.Domain.GetOp.GetResult;
 
 namespace Domain.Domain.GetOp
 {
-    /*public class GetOp<T, C, R> : OpInterpreter<C, R, Unit>
+    public class GetOp<T, C, R> : OpInterpreter<C, R, Unit>
         where C : GetCmd<T>
-        where R : IGetResult<T>
+        where R : GetResultType<T>
     {
         public override Task<R> Work(C Op, Unit state)
         {
@@ -23,5 +25,9 @@ namespace Domain.Domain.GetOp
 
             return Task.FromResult(new Found<T>(result) as R);
         }
-    }*/
+    }
+
+    class GetRestaurantOp : GetOp<Restaurant, GetCmd<Restaurant>, GetResultType<Restaurant>> { }
+    class GetMenuOp : GetOp<Menu, GetCmd<Menu>, GetResultType<Menu>> { }
+    class GetClientOp : GetOp<Client, GetCmd<Client>, GetResultType<Client>> { }
 }

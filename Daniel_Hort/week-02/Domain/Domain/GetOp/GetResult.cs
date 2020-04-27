@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Domain.GetOp
 {
-    /*[AsChoice]
+    [AsChoice]
     public static partial class GetResult
     {
         public interface IGetResult <T> { }
-        *//*public abstract class GetResultType<T> : IGetResult<T>
-        {
-        }*//*
 
-        public class Found <T> : IGetResult<T>
+        public class Found <T> : GetResultType<T>
         {
             public List<T> Items { get; }
             public Found(List<T> items)
@@ -23,7 +20,7 @@ namespace Domain.Domain.GetOp
             }
         }
 
-        public class NotFound <T> : IGetResult<T>
+        public class NotFound <T> : GetResultType<T>
         {
             public NotFoundReason Reason { get; }
             public NotFound(NotFoundReason reason) 
@@ -38,5 +35,9 @@ namespace Domain.Domain.GetOp
             EmptyList,
             ExpressionNotMatched
         }
-    }*/
+    }
+
+    public abstract class GetResultType<T> : GetResult.IGetResult<T>
+    {
+    }
 }

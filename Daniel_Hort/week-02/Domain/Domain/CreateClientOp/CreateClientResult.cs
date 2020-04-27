@@ -1,11 +1,14 @@
-﻿using Domain.Models;
+﻿using CSharp.Choices.Attributes;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Domain.CreateClientOp
 {
-    public class CreateClientResult
+    [AsChoice]
+    public static partial class CreateClientResult
     {
         public interface ICreateClientResult { }
 

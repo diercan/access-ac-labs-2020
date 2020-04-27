@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Domain;
+using Domain.Domain.GetOp;
 using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
@@ -34,6 +35,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.GetOp.GetResult;
 
 namespace Demo
 {
@@ -50,7 +52,6 @@ namespace Demo
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
-            serviceCollection.AddOperations(typeof(Client).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =
@@ -66,12 +67,20 @@ namespace Demo
                 from menuItemRes4 in RestaurantDomain.CreateMenuItem(menu2, "Cola", 7)
                 select restaurantResult;
 
-            var expr1 = from x in RestaurantDomain.CreateClient(Clients, "John Doe") select x;
+            var res2 = RestaurantDomain.CreateRestaurant(Restaurants, "KFC");
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
+            var result = await interpreter.Interpret(expr, Unit.Default);
+            await interpreter.Interpret(res2, Unit.Default);
 
-            var res = Restaurants[0];
-            var client = Clients[0];
+            var res = ((await interpreter.Interpret(RestaurantDomain
+                .Get(Restaurants, a => a.Menus.Count > 0), Unit.Default))
+                .Match(OnFound, OnNotFound) as List<Restaurant>).FirstOrDefault();
+            var menu = ((await interpreter.Interpret(RestaurantDomain
+                .Get(res.Menus, a => a.MenuType == MenuType.Beverages), Unit.Default))
+                .Match(OnFound, OnNotFound) as List<Menu>).FirstOrDefault();
+
+            Console.WriteLine($"Meniul gasit: {menu.Name}");
 
             int op = 0;
 
@@ -102,14 +111,14 @@ namespace Demo
             } while (op != 0);
         }
 
-        private static object OnRestaurantNotCreated(RestaurantNotCreated arg)
+        private static object OnNotFound<T>(NotFound<T> arg)
         {
             return arg.Reason;
         }
 
-        private static object OnRestaurantCreated(RestaurantCreated arg)
+        private static object OnFound<T>(Found<T> arg)
         {
-            return arg.Restaurant;
+            return arg.Items;
         }
     }
 }
