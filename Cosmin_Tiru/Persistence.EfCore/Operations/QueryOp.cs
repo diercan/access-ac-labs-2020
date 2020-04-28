@@ -10,7 +10,7 @@ using Persistence.EfCore.Context;
 namespace Persistence.EfCore.Operations
 {
     public class QueryOp<TQuery, TResult> : OpInterpreter<TQuery, TResult, Unit>
-        where TQuery : QueryCmd<TResult>
+        where TQuery : Query<TResult>
     {
         private readonly OrderAndPayContext _ctx;
 
@@ -21,7 +21,7 @@ namespace Persistence.EfCore.Operations
 
         public override async Task<TResult> Work(TQuery Op, Unit state)
         {
-            var result = await Op.Query(_ctx);
+            var result = await Op.Executor(_ctx);
             return result;
         }
     }

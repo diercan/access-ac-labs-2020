@@ -42,15 +42,15 @@ namespace Domain.Domain
 
         public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateRestaurantAndPersist(string name)
             => from restaurantCreated in RestaurantDomain.CreateRestaurant(name)
-                let agg = (restaurantCreated as CreateRestaurantResult.RestaurantCreated)?.Restaurant
-                from db in Database.AddOrUpdate(agg.Restaurant)
-                select restaurantCreated;
+               let agg = (restaurantCreated as CreateRestaurantResult.RestaurantCreated)?.Restaurant
+               from db in Database.AddOrUpdate(agg.Restaurant)
+               select restaurantCreated;
 
         public static IO<RestaurantAgg> GetRestaurant(string name)
             => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
-                from getResult in RestaurantDomain.GetRestaurant(restaurant)
-                let agg = (getResult as GetRestaurantResult.RestaurantFound)?.Agg
-                select agg;
+               from getResult in RestaurantDomain.GetRestaurant(restaurant)
+               let agg = (getResult as GetRestaurantResult.RestaurantFound)?.Agg
+               select agg;
 
         public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(RestaurantAgg restaurant, string menuName,
             MenuType menuType)
@@ -96,7 +96,7 @@ namespace Domain.Domain
             NewIO<GetClientCmd, IGetClientResult>(new GetClientCmd(uid));
 
         public static IO<IGetMenuItemResult> GetMenuItem(string name, Menu menu) =>
-            NewIO<GetMenuItemCmd, IGetMenuItemResult>(new GetMenuItemCmd(name,menu));
+            NewIO<GetMenuItemCmd, IGetMenuItemResult>(new GetMenuItemCmd(name, menu));
 
         public static IO<IAddItemToCartResult> GetItemAndAddToCart(string name, Menu menu, Client client)
             => from getItemResult in GetMenuItem(name, menu)

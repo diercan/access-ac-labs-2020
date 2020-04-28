@@ -9,7 +9,7 @@ using Persistence.EfCore;
 
 namespace Domain.Queries
 {
-    public class FindRestaurantQuery : QueryCmd<Restaurant>
+    public class FindRestaurantQuery : Query<Restaurant>
     {
         public FindRestaurantQuery(string restaurantName) : base(async (ctx) =>
         {

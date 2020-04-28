@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Abstractions
 {
-    public abstract class QueryCmd<TResult>
+    public abstract class Query<TResult>
     {
-        public Func<DbContext, Task<TResult>> Query { get; }
+        public Func<DbContext, Task<TResult>> Executor { get; }
 
-        public QueryCmd(Func<DbContext, Task<TResult>> query)
+        public Query(Func<DbContext, Task<TResult>> query)
         {
-            Query = query;
+            Executor = query;
         }
     }
 }
