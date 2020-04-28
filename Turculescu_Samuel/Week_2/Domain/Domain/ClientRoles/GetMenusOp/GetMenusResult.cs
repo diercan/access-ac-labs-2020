@@ -4,29 +4,29 @@ using System.Text;
 using CSharp.Choices.Attributes;
 using Domain.Models;
 using System.Threading.Tasks;
-using System.ComponentModel.Design.Serialization;
 
-namespace Domain.Domain.CreateMenuOp
+namespace Domain.Domain.ClientRoles.GetMenusOp
 {
     [AsChoice]
-    public static partial class CreateMenuResult
+    public static partial class GetMenusResult
     {
-        public interface ICreateMenuResult { }
+        public interface IGetMenusResult { }
 
-        public class MenuCreated : ICreateMenuResult
+        public class MenusGotten : IGetMenusResult
         {
             public Menu Menu { get; }
 
-            public MenuCreated(Menu menu)
+            public MenusGotten(Menu menu)
             {
                 Menu = menu;
             }
         }
 
-        public class MenuNotCreated : ICreateMenuResult 
-        {   
+        public class MenusNotGotten : IGetMenusResult
+        {
             public string Reason { get; }
-            public MenuNotCreated(string reason)
+
+            public MenusNotGotten(string reason)
             {
                 Reason = reason;
             }

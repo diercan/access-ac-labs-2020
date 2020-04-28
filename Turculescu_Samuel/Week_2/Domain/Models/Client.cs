@@ -6,11 +6,25 @@ namespace Domain.Models
 {
     public class Client
     {
-        public string Name { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string Email { get; }
+        public string Phone { get; }
+        public string CardNumber { get; }
+        public string ClientId { get; }
+
+        public Restaurant GoToRestaurant { get; set; }  // Restaurant selected by client
+        public Cart Cart { get; set; }  // Each Client has a Cart with CartItems
         public Order Order { get; set; }
-        public Client(string name)
+
+        public Client(string firstName, string lastName, string email, string phone, string cardNumber, string clientId)
         {
-            Name = name;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Phone = phone;
+            CardNumber = cardNumber;
+            ClientId = clientId;
         }
     }
 }

@@ -7,10 +7,12 @@ namespace Domain.Domain.CreateRestaurantOp
     public struct CreateRestaurantCmd
     {
         public string Name { get; }
+        public string Address { get; }
 
-        public CreateRestaurantCmd(string name)
+        public CreateRestaurantCmd(string name, string address)
         {
             Name = name;
+            Address = address;
         }
     }
 }

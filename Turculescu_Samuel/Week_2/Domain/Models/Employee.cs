@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.CreateClientOp
+namespace Domain.Models
 {
-    public struct CreateClientCmd
+    public class Employee
     {
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
         public string Phone { get; }
-        public string CardNumber { get; }
-        public string ClientId { get; }
+        public string EmployeeId { get; }
 
-        public CreateClientCmd(string firstName, string lastName, string email, string phone, string cardNumber, string clientId)
+        public Restaurant Restaurant { get; }
+
+        public Employee(string firstName, string lastName, string email, string phone, string employeeId, Restaurant restaurant)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
-            CardNumber = cardNumber;
-            ClientId = clientId;
+            EmployeeId = employeeId;
+            Restaurant = restaurant;
         }
+
     }
 }

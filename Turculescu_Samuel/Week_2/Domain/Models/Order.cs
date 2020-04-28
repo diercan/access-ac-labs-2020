@@ -4,12 +4,37 @@ using System.Text;
 
 namespace Domain.Models
 {
+    public enum OrderStatus
+    {
+        Processing,
+        Checked,
+        Done
+    }
+    public enum PaymentStatus
+    {
+        Processing,
+        AwaitingPayment,
+        Paid
+    }
+
     public class Order
     {
-        public int IdOrder { get; }
-        public Order(int idOrder)
+        public uint OrderId { get; }
+        public string ClientId { get; }
+        public uint TableNumber { get; }
+        public OrderStatus OrderStatus { get; set; }
+        public PaymentStatus PaymentStatus { get; set; }
+        public uint PreparationTimeInMinutes {get; set;}    // Preparation time for a MenuItem
+
+        public List<CartItem> OrderItems { get; set; }
+
+        public Order(uint orderId, string clientId, uint tableNumber, OrderStatus orderStatus = OrderStatus.Processing, PaymentStatus paymentStatus = PaymentStatus.Processing)
         {
-            IdOrder = idOrder;
+            OrderId = orderId;
+            ClientId = clientId;
+            TableNumber = tableNumber;
+            OrderStatus = orderStatus;
+            PaymentStatus = paymentStatus;
         }
     }
 }

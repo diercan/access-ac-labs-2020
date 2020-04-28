@@ -8,14 +8,12 @@ namespace Domain.Domain.CreateMenuOp
     public struct CreateMenuCmd
     {
         public Restaurant Restaurant { get; }
-        public string Name { get; }
-        public MenuType MenuType { get; }
+        public string MenuName { get; }
 
-        public CreateMenuCmd(Restaurant restaurant, string name, MenuType menuType)
+        public CreateMenuCmd(Restaurant restaurant, string menuName)
         {
             Restaurant = restaurant;
-            Name = name;
-            MenuType = menuType;
+            MenuName = menuName;           
         }
     }
 }
