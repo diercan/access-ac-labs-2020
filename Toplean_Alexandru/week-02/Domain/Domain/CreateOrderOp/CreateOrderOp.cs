@@ -17,7 +17,7 @@ namespace Domain.Domain.CreateOrderOp
 
             if (CommandIsValid)
             {
-                Models.Order order = new Models.Order(Op.OrderID, Op.TableNumber, Op.Items, Op.Waiter, Op.Price);
+                Models.Order order = new Models.Order(Op.OrderID, Op.TableNumber, Op.Cart, Op.Waiter, Op.Price);
                 Op.Restaurant.Orders.Add(order);
                 return Task.FromResult<ICreateOrderResult>(new OrderCreated(order, Op.Restaurant)); // Order successfully created
             }

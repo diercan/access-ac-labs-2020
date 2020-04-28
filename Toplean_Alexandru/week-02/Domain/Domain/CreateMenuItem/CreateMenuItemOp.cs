@@ -17,12 +17,16 @@ namespace Domain.Domain.CreateMenuItem
 
             if (Valid)
             {
+                // Adds the MenuItem to the Menu
                 MenuItem item = new MenuItem(Op.Name, Op.Price, Op.Alergens, Op.Ingredients, Op.ImageData);
                 Op.Menu.Items.Add(item);
                 return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(item));
             }
             else
+            {
+                // Returns an error message if not valid
                 return Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated(ErrorMessage));
+            }
         }
     }
 }

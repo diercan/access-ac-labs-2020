@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Domain.Models
 {
+    public enum MenuVisibilityTypes
+    {
+        RegularMenu,
+        SpecialMenu
+    }
+
     public enum MenuType
     {
         Vegan,
@@ -13,15 +20,22 @@ namespace Domain.Models
 
     public class Menu
     {
+        [Required(ErrorMessage = "Name field cannot be empty")]
         public string Name { get; }
+
         public MenuType MenuType { get; }
 
-        public List<MenuItem> Items { get; set; } = new List<MenuItem>();
+        public MenuVisibilityTypes MenuVisibilityTypes { get; set; }
 
-        public Menu(string name, MenuType menuType)
+        public List<MenuItem> Items { get; set; } = new List<MenuItem>();
+        public String Hour { get; set; }
+
+        public Menu(string name, MenuType menuType, MenuVisibilityTypes menuVisibility, String hour = null)
         {
             Name = name;
             MenuType = menuType;
+            MenuVisibilityTypes = menuVisibility;
+            Hour = hour;
         }
     }
 }

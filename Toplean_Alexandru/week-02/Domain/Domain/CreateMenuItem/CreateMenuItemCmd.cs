@@ -29,24 +29,26 @@ namespace Domain.Domain.CreateMenuItem
         {
             try
             {
-                if (Price < 0)
-                    return (false, "Price cannot be negative");
-
+                // Ingredients are mandatory
                 if (Ingredients == null)
                     return (false, "Ingredients cannot be empty");
 
+                // Ingredients are mandatory
                 if (Ingredients.Count == 0)
                     return (false, "Ingredients cannot be empty");
 
+                // No illegal characters
                 if (HasIllegalCharacters(Name))
                     return (false, "Name field cannot have illegal characters");
 
+                // A menu must be provided
                 if (Menu == null)
                     return (false, "No menu provided");
                 return (true, "None");
             }
             catch (Exception exp)
             {
+                // Safety net. Returns the exception if occurs
                 return (false, exp.ToString());
             }
         }

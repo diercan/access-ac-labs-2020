@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using static Domain.Models.Employee;
 
@@ -9,7 +10,9 @@ namespace Domain.Domain.CreateEmployeeOp
     public struct CreateEmployeeCmd
     {
         public String Name { get; }
+
         public int Age { get; }
+
         public String Address { get; }
         public String TelephoneNumber { get; }
         public float Salary { get; }
@@ -34,18 +37,6 @@ namespace Domain.Domain.CreateEmployeeOp
         {
             try
             {
-                if (EmptyField(Name))
-                    return (false, "Name field is empty!");
-
-                if (EmptyField(Salary.ToString()))
-                    return (false, "Salary field is empty!");
-
-                if (EmptyField(TelephoneNumber))
-                    return (false, "Telephone number field is empty");
-
-                if (EmptyField(IBAN))
-                    return (false, "IBAN field is empty");
-
                 if (Restaurant == null)
                     return (false, "No restaurant provided. Restaurant is null");
 
