@@ -84,7 +84,7 @@ Those ones are generic. The AddOrUpdate can take as an input any entity type and
 The query operation is a bit more tricky. There's a generic command that takes as an input a function over DbContext*. This allows you to tap into Set< T > and query whatever table you like. You have one type per query where you have to specify the function in the base constructor. For example:
 
 ```csharp
- public class FindRestaurantQuery : QueryCmd<Restaurant>
+ public class FindRestaurantQuery : Query<Restaurant>
     {
         public FindRestaurantQuery(string restaurantName) : base(async (ctx) =>
         {
