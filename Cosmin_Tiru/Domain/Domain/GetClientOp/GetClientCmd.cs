@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Domain.Models;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.GetClientOp
 {
-    public class CreateRestaurantCmd
+    public class GetClientCmd
     {
-        [StringLength(100,MinimumLength = 1)]
-        public string Name { get; }
-
-        public CreateRestaurantCmd(string name)
+        [Required(ErrorMessage ="Null uid")]
+        public string Uid { get; }
+        public GetClientCmd(string uid)
         {
-            Name = name;
+            Uid = uid;
         }
+
         public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();
             return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
+
 }

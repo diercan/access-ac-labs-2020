@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Domain.Models;
 
-namespace Domain.Domain.CreateRestauratOp
+namespace Domain.Domain.GetMenuItemOp
 {
-    public class CreateRestaurantCmd
+    public class GetMenuItemCmd
     {
-        [StringLength(100,MinimumLength = 1)]
-        public string Name { get; }
+        [Required(ErrorMessage = "The menuitem's name can not be NULL.")]
+        public string ItemName { get; }
 
-        public CreateRestaurantCmd(string name)
+        [Required(ErrorMessage = "Can not search item in a NULL menu.")]
+        public Menu Menu { get; }
+        public GetMenuItemCmd(string name, Menu menu)
         {
-            Name = name;
+            ItemName = name;
+            Menu = menu;
         }
         public (bool, List<ValidationResult>) Validate()
         {

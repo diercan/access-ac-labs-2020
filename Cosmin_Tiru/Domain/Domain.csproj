@@ -18,9 +18,18 @@
   <ItemGroup>
     <DotNetCliToolReference Include="dotnet-codegen" Version="0.6.1" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Infra\Infra.csproj" />
+    <ProjectReference Include="..\Persistence\Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\PersistRestaurant\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
   <!--End - Use these statements to enable codegen-->
 </Project>

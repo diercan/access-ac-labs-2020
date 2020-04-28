@@ -1,19 +1,24 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace Domain.Domain.CreateRestauratOp
+
+namespace Domain.Domain.CreateClientOp
 {
-    public class CreateRestaurantCmd
+    public class CreateClientCmd
     {
-        [StringLength(100,MinimumLength = 1)]
+        [Required(ErrorMessage = "Cannot create client with NULL uid.")]
+        public string Uid { get; }
         public string Name { get; }
 
-        public CreateRestaurantCmd(string name)
+        public CreateClientCmd(string uid, string name)
         {
+            Uid = uid;
             Name = name;
         }
+
         public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();

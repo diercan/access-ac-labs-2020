@@ -14,13 +14,14 @@ namespace Domain.Domain.CreateRestauratOp
 
         public class RestaurantCreated : ICreateRestaurantResult
         {
-            public Restaurant Restaurant { get; }
+            public RestaurantAgg Restaurant { get; }
 
-            public RestaurantCreated(Restaurant restaurant)
+            public RestaurantCreated(RestaurantAgg restaurant)
             {
                 Restaurant = restaurant;
             }
         }
+
 
         public class RestaurantNotCreated : ICreateRestaurantResult
         {

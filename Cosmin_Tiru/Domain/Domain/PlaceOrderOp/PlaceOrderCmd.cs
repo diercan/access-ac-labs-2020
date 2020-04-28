@@ -1,26 +1,22 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Domain.CreateMenuOp
+namespace Domain.Domain.PlaceOrderOp
 {
-    public class CreateMenuCmd
+    public class PlaceOrderCmd
     {
-        [Required(ErrorMessage = "Cannot create menu for a NULL restaurant.")]
+        [Required(ErrorMessage = "Cannot place a NULL order.")]
+        public Order Order { get; }
+        [Required(ErrorMessage = "Cannot place orders to a NULL restaurant.")]
         public RestaurantAgg Restaurant { get; }
 
-        [StringLength(100, MinimumLength=1)]
-        public string Name { get; }
-
-        public MenuType MenuType { get; }
-
-        public CreateMenuCmd(RestaurantAgg restaurant, string name, MenuType menuType)
+        public PlaceOrderCmd(Order order, RestaurantAgg restaurant)
         {
+            Order = order;
             Restaurant = restaurant;
-            Name = name;
-            MenuType = menuType;
         }
 
         public (bool, List<ValidationResult>) Validate()

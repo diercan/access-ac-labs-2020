@@ -1,31 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using CSharp.Choices.Attributes;
 using Domain.Models;
 using System.Threading.Tasks;
 
-namespace Domain.Domain.CreateMenuOp
+namespace Domain.Domain.GetMenuOp
 {
     [AsChoice]
-    public static partial class CreateMenuResult
+    public static partial class GetMenuResult
     {
-        public interface ICreateMenuResult { }
+        public interface IGetMenuResult { }
 
-        public class MenuCreated : ICreateMenuResult
+        public class MenuFound : IGetMenuResult
         {
             public Menu Menu { get; }
 
-            public MenuCreated(Menu menu)
+            public MenuFound(Menu menu)
             {
                 Menu = menu;
             }
         }
 
-        public class MenuNotCreated : ICreateMenuResult
+
+        public class MenuNotFound : IGetMenuResult
         {
             public string Reason { get; }
-            public MenuNotCreated(string reason)
+
+            public MenuNotFound(string reason)
             {
                 Console.WriteLine(reason);
                 Reason = reason;
