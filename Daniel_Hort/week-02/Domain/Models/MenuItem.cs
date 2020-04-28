@@ -2,10 +2,10 @@
 {
     public class MenuItem
     {
-        public uint Price { get; }
+        public float Price { get; }
         public string Name { get; }
 
-        public MenuItem(string name, uint price) {
+        public MenuItem(string name, float price) {
             Name = name;
             Price = price;
         }
