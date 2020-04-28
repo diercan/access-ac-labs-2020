@@ -21,7 +21,7 @@ namespace Domain.Domain.PlaceOrderOp
             {
                 Restaurant = restaurant;
                 Order = order;
-                Restaurant.AddToIncomingOrders(Order);
+                
             }
         }
 

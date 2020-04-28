@@ -15,12 +15,17 @@ namespace Domain.Domain.AddMenuItemOp
         public override Task<IAddMenuItemResult> Work(AddMenuItemCmd Op, Unit state)
         {
 
-            var (valid, validationMessage) = Op.Validate();
-
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded(validationMessage));
 
+            if(Exists(Op.MenuItem, Op.Menu))
+                return Task.FromResult((IAddMenuItemResult)new NullItemNotAdded($"{Op.MenuItem.Name} already exists in menu!"));
+
+            Op.Menu.AddMenuItem(Op.MenuItem);
             return Task.FromResult((IAddMenuItemResult)new MenuItemAdded(Op.MenuItem, Op.Menu));
         }
 

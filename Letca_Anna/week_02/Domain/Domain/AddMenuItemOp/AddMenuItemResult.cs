@@ -21,7 +21,6 @@ namespace Domain.Domain.AddMenuItemOp
             {
                 Menu = menu;
                 MenuItem = menuItem;
-                Menu.AddMenuItem(MenuItem);
             }
         }
 

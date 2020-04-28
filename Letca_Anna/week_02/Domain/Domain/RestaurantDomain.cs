@@ -20,6 +20,14 @@ using static Domain.Domain.PlaceOrderOp.PlaceOrderResult;
 using Domain.Domain.PlaceOrderOp;
 using Domain.Domain.CreateOrderOp;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
+using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
+using Domain.Domain.GetRestaurantOp;
+using static Domain.Domain.GetMenuOp.GetMenuResult;
+using Domain.Domain.GetMenuOp;
+using static Domain.Domain.GetClientOp.GetClientResult;
+using Domain.Domain.GetClientOp;
+using static Domain.Domain.GetMenuItemResult.MenuItemResult;
+using Domain.Domain.GetMenuItemOp;
 
 namespace Domain.Domain
 {
@@ -44,8 +52,8 @@ namespace Domain.Domain
                from addMenuItemResult in AddMenuItem(menu, createdMenuItem)
                select addMenuItemResult;
 
-        public static IO<ICreateClientResult> CreateClient(string uid)
-           => NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(uid));
+        public static IO<ICreateClientResult> CreateClient(string uid, string name)
+           => NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(uid, name));
 
         public static IO<IAddItemToCartResult> AddItemToCart(MenuItem menuItem, Client client)
            => NewIO<AddItemToCartCmd, IAddItemToCartResult>(new AddItemToCartCmd(menuItem, client));
@@ -62,5 +70,23 @@ namespace Domain.Domain
                let createdOrder = (createOrderResult as OrderCreated)?.Order
                from placeOrderResult in PlaceOrder(createdOrder, restaurant)
                select placeOrderResult;
+
+        public static IO<IGetRestaurantResult> GetRestaurant(string name) =>
+            NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(name));
+
+        public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
+            NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(restaurant));
+
+        public static IO<IGetClientResult> GetClient(string uid) =>
+            NewIO<GetClientCmd, IGetClientResult>(new GetClientCmd(uid));
+
+        public static IO<IGetMenuItemResult> GetMenuItem(string name, Menu menu) =>
+            NewIO<GetMenuItemCmd, IGetMenuItemResult>(new GetMenuItemCmd(name,menu));
+
+        public static IO<IAddItemToCartResult> GetItemAndAddToCart(string name, Menu menu, Client client)
+            => from getItemResult in GetMenuItem(name, menu)
+               let item = (getItemResult as MenuItemFound)?.MenuItem
+               from addToCartResult in AddItemToCart(item, client)
+               select addToCartResult;
     }
 }

@@ -15,11 +15,14 @@ namespace Domain.Domain.PlaceOrderOp
         public override Task<IPlaceOrderResult> Work(PlaceOrderCmd Op, Unit state)
         {
 
-            var (valid, validationMessage) = Op.Validate();
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult((IPlaceOrderResult)new OrderNotPlaced(validationMessage));
 
+            Op.Restaurant.AddToIncomingOrders(Op.Order);
             return Task.FromResult((IPlaceOrderResult)new OrderPlaced(Op.Restaurant, Op.Order));
         }
     }

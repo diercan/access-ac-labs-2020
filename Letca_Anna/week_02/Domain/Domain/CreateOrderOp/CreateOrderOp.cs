@@ -14,7 +14,9 @@ namespace Domain.Domain.CreateOrderOp
     {
         public override Task<ICreateOrderResult> Work(CreateOrderCmd Op, Unit state)
         {
-            var (valid, validationMessage) = Op.Validate();
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
 
             if (!valid)
                 return Task.FromResult((ICreateOrderResult)new OrderNotCreated(validationMessage));

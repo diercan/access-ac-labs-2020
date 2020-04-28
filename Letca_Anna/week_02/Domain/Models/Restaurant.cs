@@ -17,13 +17,20 @@ namespace Domain.Models
 
         public override string ToString()
         {
-            return $"{Name}'s menu is : \n" + Menu.ToString();
+            return Menu != null ? $"{Name}'s menu is : \n" + Menu.ToString() : Name;
         }
 
         public void AddToIncomingOrders(Order order)
         {
             IncomingOrders.Add(order);
             Console.WriteLine($"New order added to {Name} restaurant: " + order.ToString());
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (!(obj is string restaurantName)) ? false :
+            restaurantName.Equals(this.Name) ? true :
+            false;
         }
     }
 }

@@ -8,22 +8,20 @@ namespace Domain.Domain.AddItemToCartOp
 {
     public class AddItemToCartCmd
     {
-        [Required]
-        public MenuItem MenuItem;
-        [Required]
-        public Client Client;
+        [Required(ErrorMessage = "Cannot add NULL item into cart.")]
+        public MenuItem MenuItem { get; }
+        [Required(ErrorMessage = "Cannot add items into the cart of a NULL client.")]
+        public Client Client { get; }
         public AddItemToCartCmd(MenuItem menuItem, Client client)
         {
             MenuItem = menuItem;
             Client = client;
         }
 
-        public (bool, string) Validate()
+        public (bool, List<ValidationResult>) Validate()
         {
             var validationResults = new List<ValidationResult>();
-            string validationMessage = "";
-            validationResults.ForEach(x => validationMessage.Append(x.ErrorMessage));
-            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationMessage);
+            return (Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true), validationResults);
         }
     }
 }
