@@ -20,6 +20,7 @@ namespace Domain.Models
         public Menu(string name)
         {
             Name = name;
+            MenuItems = new List<MenuItem>();
         }
     }
 }
