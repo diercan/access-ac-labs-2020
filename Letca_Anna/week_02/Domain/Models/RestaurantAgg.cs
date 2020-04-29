@@ -1,18 +1,20 @@
-﻿using System;
+﻿using Persistence.EfCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domain.Models
 {
-    public class Restaurant
+    public class RestaurantAgg
     {
+        public Restaurant Restaurant { get; }
         public string Name { get; }
         public Menu Menu { get; set; }
 
         public List<Order> IncomingOrders { get; } = new List<Order>();
-        public Restaurant(string name)
+        public RestaurantAgg(Restaurant restaurant)
         {
-            Name = name;
+            Restaurant = restaurant;
         }
 
         public override string ToString()

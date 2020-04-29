@@ -9,9 +9,9 @@ namespace Domain.Domain.GetMenuOp
     public class GetMenuCmd
     {
         [Required(ErrorMessage = "Null restaurant. Select a restaurant first.")]
-        public Restaurant Restaurant { get; }
+        public RestaurantAgg Restaurant { get; }
 
-        public GetMenuCmd(Restaurant restaurant)
+        public GetMenuCmd(RestaurantAgg restaurant)
         {
             Restaurant = restaurant;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using LanguageExt.ClassInstances.Pred;
@@ -12,11 +13,7 @@ namespace Domain.Domain.GetRestaurantOp
     {
         public override Task<IGetRestaurantResult> Work(GetRestaurantCmd Op, Unit state)
         {
-
-            if (!Storage.RestaurantCollection.ContainsKey(Op.Name))
-                return Task.FromResult<IGetRestaurantResult>(new RestaurantNotFound($"restaurant with name {Op.Name} not found!"));
-
-            return Task.FromResult<IGetRestaurantResult>(new RestaurantFound(Storage.RestaurantCollection[Op.Name]));
+            return Task.FromResult<IGetRestaurantResult>(new RestaurantFound(new RestaurantAgg(Op.Restaurant)));
         }
     }
 }

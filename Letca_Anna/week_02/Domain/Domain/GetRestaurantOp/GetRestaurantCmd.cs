@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Persistence.EfCore;
+using System;
 using System.Text;
 
 namespace Domain.Domain.GetRestaurantOp
 {
     public class GetRestaurantCmd
     {
-        public string Name { get; }
+        public Restaurant Restaurant { get; }
 
-        public GetRestaurantCmd(string name)
+        public GetRestaurantCmd(Restaurant restaurant)
         {
-            Name = name;
+            Restaurant = restaurant;
         }
     }
 }

@@ -19,6 +19,10 @@ using Domain.Domain.GetMenuOp;
 using static Domain.Domain.GetClientOp.GetClientResult;
 using static Domain.Domain.GetMenuItemResult.MenuItemResult;
 using static Domain.Domain.AddItemToCartOp.AddItemToCartResult;
+using Infra.Persistence;
+using Infra.Free;
+using Persistence.EfCore.Operations;
+using Persistence.EfCore.Context;
 
 namespace Demo
 {
@@ -27,7 +31,12 @@ namespace Demo
         static async Task Main(string[] args)
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddOperations(typeof(Restaurant).Assembly);
+            serviceCollection.AddOperations(typeof(RestaurantAgg).Assembly);
+            serviceCollection.AddOperations(typeof(AddOrUpdateOp).Assembly);
+            serviceCollection.AddTransient(typeof(IOp<,>), typeof(QueryOp<,>));
+
+            serviceCollection.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
+
             var serviceProvider = serviceCollection.BuildServiceProvider();
             string input;
 
@@ -35,8 +44,8 @@ namespace Demo
 
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("vinto")
-                let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
+                from restaurantResult in RestaurantDomain.CreateRestaurantAndPersist("vinto")
+                let restaurant = (restaurantResult as RestaurantCreated)?.RestaurantAgg
                 from menuResult in RestaurantDomain.CreateMenu(restaurant, "paste", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu
                 from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
@@ -54,11 +63,11 @@ namespace Demo
             var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated);
             Assert.True(finalResult);
 
-            Restaurant foundRestaurant=null;
+            RestaurantAgg foundRestaurant=null;
             Menu foundMenu = null;
             Client foundClient = null;
 
-            do
+            /*do
             {
                 PrintInputOptions();
                 input = Console.ReadLine(); 
@@ -79,8 +88,8 @@ namespace Demo
                                         from restaurant in RestaurantDomain.GetRestaurant(restaurantName)
                                         select restaurant;
                         var interpretedRestaurant = await interpreter.Interpret(getRestaurantExpr, Unit.Default);
-                        foundRestaurant = (interpretedRestaurant as RestaurantFound)?.Restaurant;
-                        var restaurantResponse = interpretedRestaurant.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
+                        //foundRestaurant = (interpretedRestaurant as RestaurantFound)?.Restaurant;
+                        //var restaurantResponse = interpretedRestaurant.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
                         break;
                     case "3": //get menu
                         var getMenuExpr =
@@ -100,7 +109,7 @@ namespace Demo
                         var itemResponse = interpretedItem.Match<bool>(OnItemAdded, OnItemNotAdded);
                         break;
                 }
-            } while (input != "0");
+            } while (input != "0"); */
         }
         private static bool OnItemNotAdded(ItemNotAddedToCart arg)
         {
@@ -146,7 +155,7 @@ namespace Demo
 
         private static bool OnRestaurantCreated(RestaurantCreated arg)
         {
-            Console.WriteLine(arg.Restaurant.ToString());
+            Console.WriteLine(arg.RestaurantAgg.ToString());
             return true;
         }
 
@@ -158,7 +167,7 @@ namespace Demo
 
         private static bool OnRestaurantFound(RestaurantFound arg)
         {
-            Console.WriteLine(arg.Restaurant.Name);
+            Console.WriteLine(arg.RestaurantAgg.Name);
             return true;
         }
 

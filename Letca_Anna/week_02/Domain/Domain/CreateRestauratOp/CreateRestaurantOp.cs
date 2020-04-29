@@ -6,6 +6,7 @@ using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using LanguageExt.ClassInstances.Pred;
+using Persistence.EfCore;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 
 namespace Domain.Domain.CreateRestauratOp
@@ -21,8 +22,7 @@ namespace Domain.Domain.CreateRestauratOp
             if (!valid)
                 return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(validationMessage));
 
-            Restaurant newRestaurant = new Restaurant(Op.Name);
-            Storage.RestaurantCollection[newRestaurant.Name] = newRestaurant;
+            RestaurantAgg newRestaurant = new RestaurantAgg(new Restaurant() { Name = Op.Name });
             return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(newRestaurant));
         }
     }

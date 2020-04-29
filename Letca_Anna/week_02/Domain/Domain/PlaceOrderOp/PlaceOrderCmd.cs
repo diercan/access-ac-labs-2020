@@ -11,9 +11,9 @@ namespace Domain.Domain.PlaceOrderOp
         [Required(ErrorMessage = "Cannot place a NULL order.")]
         public Order Order { get; }
         [Required(ErrorMessage = "Cannot place orders to a NULL restaurant.")]
-        public Restaurant Restaurant { get; }
+        public RestaurantAgg Restaurant { get; }
 
-        public PlaceOrderCmd(Order order, Restaurant restaurant)
+        public PlaceOrderCmd(Order order, RestaurantAgg restaurant)
         {
             Order = order;
             Restaurant = restaurant;

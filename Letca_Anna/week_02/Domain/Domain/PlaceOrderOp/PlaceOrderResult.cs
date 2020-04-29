@@ -15,9 +15,9 @@ namespace Domain.Domain.PlaceOrderOp
 
         public class OrderPlaced : IPlaceOrderResult
         {
-            public Restaurant Restaurant;
+            public RestaurantAgg Restaurant;
             public Order Order;
-            public OrderPlaced(Restaurant restaurant, Order order)
+            public OrderPlaced(RestaurantAgg restaurant, Order order)
             {
                 Restaurant = restaurant;
                 Order = order;
