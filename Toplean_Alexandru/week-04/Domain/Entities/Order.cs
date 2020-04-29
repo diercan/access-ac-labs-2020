@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Persistence.EfCore
+{
+    public partial class Order
+    {
+        public int Id { get; set; }
+        public int ClientId { get; set; }
+        public int RestaurantId { get; set; }
+        public int TableNumber { get; set; }
+        public string ItemNames { get; set; }
+        public string ItemQuantities { get; set; }
+        public string ItemComments { get; set; }
+        public double TotalPrice { get; set; }
+        public string Status { get; set; }
+
+        public virtual Client Client { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
+    }
+}
