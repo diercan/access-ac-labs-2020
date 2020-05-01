@@ -33,6 +33,7 @@ using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Database.Context;
+using Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
@@ -54,7 +55,7 @@ namespace Demo
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
-            serviceCollection.AddDbContext<OrderAndPayContext>();
+            serviceCollection.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =

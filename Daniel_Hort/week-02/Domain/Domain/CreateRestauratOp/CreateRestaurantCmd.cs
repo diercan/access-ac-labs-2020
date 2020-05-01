@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Domain.CreateRestauratOp
 {
-    public struct CreateRestaurantCmd
+    public class CreateRestaurantCmd
     {
         public string Name { get; }
         public List<Restaurant> Restaurants { get; }

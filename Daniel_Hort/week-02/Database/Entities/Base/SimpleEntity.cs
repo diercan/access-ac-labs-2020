@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace Database.Entities
+namespace Database.Entities.Base
 {
-    public class BaseEntity
+    public class SimpleEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
