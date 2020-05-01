@@ -29,6 +29,11 @@ namespace Database.Context
             modelBuilder.Entity<MenuEntity>()
                 .HasMany(a => a.Items)
                 .WithOne(a => a.Menu);
+            modelBuilder.Entity<OrderEntity>()
+                .HasMany(a => a.Items)
+                .WithOne(a => a.Order);
+            modelBuilder.Entity<OrderItemEntity>()
+                .HasOne(a => a.Item);
 
             modelBuilder.Entity<RestaurantEntity>()
                 .HasIndex(a => a.Name).IsUnique();
@@ -46,5 +51,7 @@ namespace Database.Context
         public DbSet<RestaurantEntity> RestaurantDbSet { get; set; }
         public DbSet<MenuEntity> MenuDbSet { get; set; }
         public DbSet<MenuItemEntity> MenuitemDbSet { get; set; }
+        public DbSet<OrderEntity> OrderDbSet { get; set; }
+        public DbSet<OrderItemEntity> OrderItemDbSet { get; set; }
     }
 }
