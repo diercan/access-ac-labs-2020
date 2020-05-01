@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Domain\Entities\Employees.cs" Link="Employees.cs" />
+    <Compile Include="..\Domain\Entities\MenuItems.cs" Link="MenuItems.cs" />
+    <Compile Include="..\Domain\Entities\Menus.cs" Link="Menus.cs" />
+    <Compile Include="..\Domain\Entities\Restaurant.cs" Link="Restaurant.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Persistence.EfCore\Persistence.EfCore.csproj" />
   </ItemGroup>
