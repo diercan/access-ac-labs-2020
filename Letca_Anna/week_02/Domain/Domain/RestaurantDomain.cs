@@ -31,6 +31,7 @@ using Domain.Domain.GetMenuItemOp;
 using Persistence;
 using Domain.Queries;
 using Persistence.EfCore;
+using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 
 namespace Domain.Domain
 {
@@ -44,6 +45,12 @@ namespace Domain.Domain
                let agg = (restaurantCreated as CreateRestaurantResult.RestaurantCreated)?.RestaurantAgg
                from db in Database.AddOrUpdate(agg.Restaurant)
                select restaurantCreated;
+
+        public static IO<ICreateMenuResult> CreateMenuAndPersist(RestaurantAgg restaurantAgg, string name, MenuType menuType)
+            => from menuCreated in CreateMenu(restaurantAgg, name, menuType)
+               let agg = (menuCreated as MenuCreated)?.Menu
+               from db in Database.AddOrUpdate(restaurantAgg.Menu)
+               select menuCreated;
 
         public static IO<RestaurantAgg> GetRestaurant(string name)
             => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
