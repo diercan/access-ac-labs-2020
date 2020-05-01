@@ -24,7 +24,7 @@ namespace Infra.Persistence
             try
             {
                 var entity = _ctx.Entry(Op.Item);
-                switch (entity.State)
+                 switch (entity.State)
                 {
                     case EntityState.Detached:
                         _ctx.Add(Op.Item);

@@ -47,15 +47,17 @@ namespace Demo
             var expr =
                 from r in RestaurantDomain.GetRestaurant("vinto")
                 from restaurantResult in RestaurantDomain.CreateRestaurantAndPersist("vinto")
-                //from restaurantResult2 in RestaurantDomain.CreateRestaurantAndPersist("test")
+                from restaurantResult2 in RestaurantDomain.CreateRestaurantAndPersist("urban")
                 let restaurant = (restaurantResult as RestaurantCreated)?.RestaurantAgg
-                from menuResult in RestaurantDomain.CreateMenu(restaurant, "paste", MenuType.Meat)
-                let menu = (menuResult as MenuCreated)?.Menu
-                from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
-                from menuItemResult1 in RestaurantDomain.CreateAndAddMenuItem("carbonara", 25, menu)
-                from menuItemResult2 in RestaurantDomain.CreateAndAddMenuItem("conpesto", 20, menu)
-                let menuItem2=(menuItemResult2 as MenuItemAdded)?.MenuItem
-                from clientResult in RestaurantDomain.CreateClient("gucdg34u6trgfh","Anca")
+                from menuResult in RestaurantDomain.CreateMenuAndPersist(restaurant, "paste", MenuType.Meat)
+                from menuResult2 in RestaurantDomain.CreateMenuAndPersist(restaurant, "burgeri", MenuType.Meat)
+                from menuResult3 in RestaurantDomain.CreateMenuAndPersist(restaurant, "pizza", MenuType.Meat)
+                //let menu = (menuResult as MenuCreated)?.Menu
+                //from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
+                //from menuItemResult1 in RestaurantDomain.CreateAndAddMenuItem("carbonara", 25, menu)
+                //from menuItemResult2 in RestaurantDomain.CreateAndAddMenuItem("conpesto", 20, menu)
+                //let menuItem2=(menuItemResult2 as MenuItemAdded)?.MenuItem
+                //from clientResult in RestaurantDomain.CreateClient("gucdg34u6trgfh","Anca")
                 //from orderResult in RestaurantDomain.CreateAndPlaceOrder(client, restaurant)
                 select restaurantResult;
 

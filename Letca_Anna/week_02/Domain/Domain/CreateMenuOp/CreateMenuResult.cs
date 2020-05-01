@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using CSharp.Choices.Attributes;
-using Domain.Models;
 using System.Threading.Tasks;
+using Persistence.EfCore;
 
 namespace Domain.Domain.CreateMenuOp
 {
@@ -14,9 +14,9 @@ namespace Domain.Domain.CreateMenuOp
 
         public class MenuCreated : ICreateMenuResult
         {
-            public Menu Menu { get; }
+            public Menus Menu { get; }
 
-            public MenuCreated(Menu menu)
+            public MenuCreated(Menus menu)
             {
                 Menu = menu;
             }
