@@ -5,6 +5,22 @@ namespace Persistence.EfCore
 {
     public partial class Order
     {
+        public Order()
+        {
+        }
+
+        public Order(int clientID, int restauranID, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status)
+        {
+            ClientId = clientID;
+            RestaurantId = restauranID;
+            TableNumber = tableNumber;
+            ItemNames = itemNames;
+            ItemQuantities = itemQuantities;
+            ItemComments = itemComments;
+            TotalPrice = totalPrice;
+            Status = status;
+        }
+
         public int Id { get; set; }
         public int ClientId { get; set; }
         public int RestaurantId { get; set; }

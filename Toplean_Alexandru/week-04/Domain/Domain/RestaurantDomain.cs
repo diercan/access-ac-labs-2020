@@ -10,6 +10,10 @@ using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using System;
 using Domain.Domain.SelectRestaurantOp;
 
+using Domain.Domain.CreateMenuOp;
+using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+using System.Collections.Generic;
+
 namespace Domain.Domain
 {
     public static class RestaurantDomain
@@ -27,10 +31,23 @@ namespace Domain.Domain
         public static IO<ISelectRestaurantResult> SelectRestaurant(Restaurant restaurant) =>
            NewIO<SelectRestaurantCmd, ISelectRestaurantResult>(new SelectRestaurantCmd(restaurant));
 
-        public static IO<RestaurantAgg> GetRestaurant(string name)
+        public static IO<ISelectRestaurantResult> GetRestaurant(string name)
             => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
                from getResult in RestaurantDomain.SelectRestaurant(restaurant)
                let agg = (getResult as SelectRestaurantResult.RestaurantSelected)?.Restaurant
-               select agg;
+               select getResult;
+
+        public static IO<ICreateMenuResult> CreateMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
+           NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(id, name, menuType, isVisible, hours, restaurant));
+
+        public static IO<ICreateMenuResult> CreateAndPersistMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
+            from menuCreated in RestaurantDomain.CreateMenu(id, name, menuType, isVisible, hours, restaurant)
+            let menuAgg = (menuCreated as MenuCreated)?.Menu
+            from dbContext in Database.AddNewEntity(menuAgg.Menu)
+            select menuCreated;
+
+        public static IO<ICollection<Menu>> GetAllMenus(int restaurantId) =>
+            from getAllMenus in Database.Query<GetAllMenusQuery, ICollection<Menu>>(new GetAllMenusQuery(restaurantId))
+            select getAllMenus;
     }
 }

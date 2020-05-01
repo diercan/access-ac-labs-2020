@@ -7,6 +7,15 @@ namespace Persistence.EfCore
     {
         public Menu()
         {
+        }
+
+        public Menu(int restaurantID, String name, String menuType, bool isVisible, string hours)
+        {
+            RestaurantId = restaurantID;
+            Name = name;
+            MenuType = menuType;
+            Visibility = isVisible;
+            Hours = hours;
             MenuItem = new HashSet<MenuItem>();
         }
 

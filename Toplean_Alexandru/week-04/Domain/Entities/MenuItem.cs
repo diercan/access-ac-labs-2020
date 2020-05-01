@@ -5,6 +5,20 @@ namespace Persistence.EfCore
 {
     public partial class MenuItem
     {
+        public MenuItem()
+        {
+        }
+
+        public MenuItem(int menuId, String name, String ingredients, String alergens, double price, byte[] image)
+        {
+            MenuId = menuId;
+            Name = name;
+            Ingredients = ingredients;
+            Alergens = alergens;
+            Price = price;
+            Image = image;
+        }
+
         public int Id { get; set; }
         public int MenuId { get; set; }
         public string Name { get; set; }

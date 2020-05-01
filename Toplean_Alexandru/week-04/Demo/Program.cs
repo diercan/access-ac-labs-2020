@@ -11,6 +11,9 @@ using Persistence;
 using Persistence.Abstractions;
 using Persistence.EfCore.Context;
 using Persistence.EfCore.Operations;
+using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+
+//using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 
 //using Persistence.EfCore.Context;
 //using Persistence.EfCore.Operations;
@@ -52,23 +55,43 @@ namespace Demo
 
             //    );
 
-            //var expr = from selectRestaurant in RestaurantDomain.GetRestaurant("McDonalds")
-            //           let restaurant = (selectRestaurant as RestaurantAgg)?.Restaurant
-            //           select selectRestaurant;
+            //Selecting the restaurant
+            var expr = from selectRestaurant in RestaurantDomain.GetRestaurant("McDonalds")
+                       let restaurant = (selectRestaurant as RestaurantAgg)?.Restaurant
+                       select selectRestaurant;
 
-            //select restaurant;
-            // var exprResult = await interpreter.Interpret(expr, Unit.Default);
-            //var finalExpr = await exprResult.MatchAsync(
-            //    async (persisted) =>
-            //    {
-            //        return persisted;
-            //    },
-            //    async (notPersisted) =>
-            //    {
-            //        return notPersisted;
-            //    }
+            var exprResult = await interpreter.Interpret(expr, Unit.Default);
+            var finalExpr = await exprResult.MatchAsync(
+                async (persisted) => // Restaurant Successfully selected
+                {
+                    //var createMenuExpr = from createMenu in RestaurantDomain.CreateAndPersistMenu(persisted.Restaurant.Restaurant.Id, "Chicken", "Meat", false, null, persisted.Restaurant.Restaurant)
+                    //                     let menu = (createMenu as MenuCreated).Menu
+                    //                     select createMenu;
+                    //var createMenuResult = await interpreter.Interpret(createMenuExpr, Unit.Default);
 
-            //    );
+                    //var createMenuFinalResult = await createMenuResult.MatchAsync(
+                    //    async (menuCreated) =>
+                    //    {
+                    //        return menuCreated;
+                    //    },
+                    //    async (menuNotCreated) =>
+                    //    {
+                    //        return menuNotCreated;
+                    //    }
+                    //    );
+
+                    var menus = RestaurantDomain.GetAllMenus(persisted.Restaurant.Restaurant.Id); // Getting all the menus
+                    var menusResult = await interpreter.Interpret(menus, Unit.Default); // Consuming the service
+                    persisted.Restaurant.Menus = menusResult; // Populating the entity
+
+                    return persisted;
+                },
+                async (notPersisted) => // Restaurant not selected
+                {
+                    return notPersisted;
+                }
+
+                );
 
             #region The code from last week commented due to incredible lag
 

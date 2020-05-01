@@ -13,5 +13,13 @@ namespace Domain.Domain.SelectRestaurantOp
         {
             Restaurant = restaurant;
         }
+
+        public void CheckIfValid()
+        {
+            if (Restaurant == null)
+            {
+                throw new Exception("The restaurant does not exist");
+            }
+        }
     }
 }
