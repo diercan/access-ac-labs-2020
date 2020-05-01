@@ -44,7 +44,9 @@ namespace Demo
 
 
             var expr =
+                from r in RestaurantDomain.GetRestaurant("vinto")
                 from restaurantResult in RestaurantDomain.CreateRestaurantAndPersist("vinto")
+                //from restaurantResult2 in RestaurantDomain.CreateRestaurantAndPersist("test")
                 let restaurant = (restaurantResult as RestaurantCreated)?.RestaurantAgg
                 from menuResult in RestaurantDomain.CreateMenu(restaurant, "paste", MenuType.Meat)
                 let menu = (menuResult as MenuCreated)?.Menu

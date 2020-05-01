@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Demo;
 using Persistence.EfCore;
 
-namespace Persistence.EfCore.Context
+namespace Demo.Context
 {
     public partial class OrderAndPayContext : DbContext
     {
@@ -31,8 +32,6 @@ namespace Persistence.EfCore.Context
         {
             modelBuilder.Entity<Restaurant>(entity =>
             {
-               // entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
