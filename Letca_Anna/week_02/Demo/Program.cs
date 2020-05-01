@@ -22,6 +22,7 @@ using static Domain.Domain.AddItemToCartOp.AddItemToCartResult;
 using Infra.Persistence;
 using Infra.Free;
 using Persistence.EfCore.Operations;
+using Persistence.EfCore;
 using Persistence.EfCore.Context;
 
 namespace Demo
@@ -65,11 +66,11 @@ namespace Demo
             var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated);
             Assert.True(finalResult);
 
-            RestaurantAgg foundRestaurant=null;
+            /*RestaurantAgg foundRestaurant=null;
             Menu foundMenu = null;
             Client foundClient = null;
 
-            /*do
+            do
             {
                 PrintInputOptions();
                 input = Console.ReadLine(); 

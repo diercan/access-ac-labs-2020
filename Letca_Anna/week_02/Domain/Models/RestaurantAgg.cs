@@ -9,6 +9,8 @@ namespace Domain.Models
     {
         public Restaurant Restaurant { get; }
         public string Name { get; }
+
+        //public Menu Menu { get; set; }
         public Menu Menu { get; set; }
 
         public List<Order> IncomingOrders { get; } = new List<Order>();
