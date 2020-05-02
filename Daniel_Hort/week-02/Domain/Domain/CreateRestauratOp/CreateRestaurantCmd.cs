@@ -8,12 +8,10 @@ namespace Domain.Domain.CreateRestauratOp
     public class CreateRestaurantCmd
     {
         public string Name { get; }
-        public List<Restaurant> Restaurants { get; }
 
-        public CreateRestaurantCmd(List<Restaurant> restaurants, string name)
+        public CreateRestaurantCmd(string name)
         {
             Name = name;
-            Restaurants = restaurants;
         }
     }
 }
