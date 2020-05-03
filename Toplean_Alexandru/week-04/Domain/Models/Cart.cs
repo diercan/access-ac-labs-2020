@@ -25,7 +25,7 @@ namespace Domain.Models
             OrderFinished
         };
 
-        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public ICollection<CartItem> CartItems { get; set; }
         public CartStatus Status { get; set; }
         public PaymentStatus Payment { get; set; }
 

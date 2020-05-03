@@ -7,12 +7,11 @@ namespace Domain.Models
 {
     public class MenuItemAgg
     {
-        public ICollection<MenuItem> MenuItems { get; set; }
-        public Menu Menu { get; set; }
+        public MenuItem MenuItem { get; set; }
 
-        public MenuItemAgg(Restaurant restaurant, Menu menu)
+        public MenuItemAgg(MenuItem menuItem)
         {
-            Menu = menu;
+            MenuItem = menuItem;
         }
     }
 }

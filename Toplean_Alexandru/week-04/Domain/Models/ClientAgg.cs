@@ -22,13 +22,14 @@ namespace Domain.Models
         public String Email { get; }
 
         public String SessionID { get; private set; }
-        public CartAgg Cart { get; }
+        public Cart Cart { get; }
 
         public int Table { get; set; }
 
         public ClientAgg(Client client)
         {
             Client = client;
+            Cart = new Cart();
         }
 
         public void AssignClientSessionID()

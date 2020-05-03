@@ -28,7 +28,6 @@ namespace Domain.Domain.CreateRestauratOp
                 if (CommandIsValid)
                 {
                     RestaurantAgg restaurant = new RestaurantAgg(new Restaurant(Op.Name));
-                    //AllHardcodedValues.HarcodedVals.RestaurantList.Add(restaurant);
                     return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(restaurant));  // Restaurant is valid
                 }
                 else

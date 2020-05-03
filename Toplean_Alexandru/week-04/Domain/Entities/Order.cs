@@ -9,7 +9,7 @@ namespace Persistence.EfCore
         {
         }
 
-        public Order(int clientID, int restauranID, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status)
+        public Order(int clientID, int restauranID, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status, String paymentStatus)
         {
             ClientId = clientID;
             RestaurantId = restauranID;
@@ -19,6 +19,7 @@ namespace Persistence.EfCore
             ItemComments = itemComments;
             TotalPrice = totalPrice;
             Status = status;
+            PaymentStatus = paymentStatus;
         }
 
         public int Id { get; set; }
@@ -30,6 +31,7 @@ namespace Persistence.EfCore
         public string ItemComments { get; set; }
         public double TotalPrice { get; set; }
         public string Status { get; set; }
+        public string PaymentStatus { get; set; }
 
         public virtual Client Client { get; set; }
         public virtual Restaurant Restaurant { get; set; }

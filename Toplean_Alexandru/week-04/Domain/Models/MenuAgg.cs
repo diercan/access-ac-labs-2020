@@ -26,7 +26,7 @@ namespace Domain.Models
         public String Name { get; set; }
         public MenuType MenuType { get; set; }
         public MenuVisibilityTypes MenuVisibilityTypes { get; set; }
-
+        public String DisplayTime { get; set; }
         public Menu Menu { get; private set; }
         public ICollection<MenuItem> MenuItems { get; set; }
 

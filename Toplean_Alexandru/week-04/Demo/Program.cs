@@ -11,6 +11,7 @@ using Persistence;
 using Persistence.Abstractions;
 using Persistence.EfCore.Context;
 using Persistence.EfCore.Operations;
+using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 
 //using static Domain.Domain.CreateMenuOp.CreateMenuResult;
@@ -18,6 +19,7 @@ using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 //using Persistence.EfCore.Context;
 //using Persistence.EfCore.Operations;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.SelectMenuOp.SelectMenuResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 
 namespace Demo
@@ -28,7 +30,7 @@ namespace Demo
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(RestaurantAgg).Assembly);
-            serviceCollection.AddOperations(typeof(AddEntityOp).Assembly);
+            serviceCollection.AddOperations(typeof(AddOrUpdateEntityOp).Assembly);
             serviceCollection.AddTransient(typeof(IOp<,>), typeof(QueryOp<,>));
 
             serviceCollection.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
@@ -80,9 +82,62 @@ namespace Demo
                     //    }
                     //    );
 
-                    var menus = RestaurantDomain.GetAllMenus(persisted.Restaurant.Restaurant.Id); // Getting all the menus
-                    var menusResult = await interpreter.Interpret(menus, Unit.Default); // Consuming the service
-                    persisted.Restaurant.Menus = menusResult; // Populating the entity
+                    // Selects a menu with a specific name
+                    var selectMenuExpr = from selectMenu in RestaurantDomain.GetMenu("Chicken", persisted.Restaurant.Restaurant.Id)
+                                         let menu = (selectMenu as MenuSelected)?.MenuAgg
+                                         select selectMenu;
+
+                    var selectMenuRes = await interpreter.Interpret(selectMenuExpr, Unit.Default);
+                    var selectMenuResult = await selectMenuRes.MatchAsync(
+                        async (selected) => // Menu was successfully selected
+                        {
+                            // Expression for creating a new Menu item and adding it to a database
+                            var createMenuItemExpr = from createMenuItem in RestaurantDomain.CreateAndPersistMenuItem(
+                                selected.MenuAgg.Menu.Id, "McChicken", 15.50, "McChicken;Cartofi prajiti;Coca cola 500ml;Sos la alegere", null, null)
+                                                     let menuItem = (createMenuItem as MenuItemCreated)?.MenuItemAgg
+                                                     select createMenuItem;
+
+                            var createMenuItemRes = await interpreter.Interpret(createMenuItemExpr, Unit.Default);
+                            var createMenuItemFinalResult = await createMenuItemRes.MatchAsync(
+                                async (created) => // Menu item was created
+                                {
+                                    return created;
+                                },
+                                async (notCreated) => // Menu item not created
+                                {
+                                    return notCreated;
+                                }
+                                );
+
+                            return selected;
+                        },
+                        async (notSelected) => // Menu not selected
+                        {
+                            return notSelected;
+                        }
+
+                        );
+
+                    // Get all menus as an ICollection from the database. If  there are no menus it will return an emply HashSet
+                    //var menus = RestaurantDomain.GetAllMenus(persisted.Restaurant.Restaurant.Id); // Getting all the menus
+                    //var menusResult = await interpreter.Interpret(menus, Unit.Default); // Consuming the service
+                    //persisted.Restaurant.Menus = menusResult; // Populating the entity
+
+                    //var getMenuExpr = from getMenu in RestaurantDomain.GetMenu("Chicken", 1)
+                    //                  let menu = (getMenu as MenuSelected)?.MenuAgg
+                    //                  select getMenu;
+
+                    //var getMenuRes = await interpreter.Interpret(getMenuExpr, Unit.Default);
+                    //var getMenuFial = await getMenuRes.MatchAsync(
+                    //    async (got) => // Menus Got
+                    //    {
+                    //        return got;
+                    //    },
+                    //    async (notGot) => // Unexpected error
+                    //    {
+                    //        return notGot;
+                    //    }
+                    //    );
 
                     return persisted;
                 },

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static IOExt;
-using static Persistence.Abstractions.AddEntityResult;
+using static Persistence.Abstractions.AddOrUpdateEntityResult;
 using static Persistence.Abstractions.DeleteEntityResult;
 using static Persistence.Abstractions.UpdateEntityResult;
 
@@ -12,8 +12,8 @@ namespace Persistence
 {
     public class Database
     {
-        public static IO<IAddEntityResult> AddNewEntity<T>(T entity) =>
-            NewIO<AddEntityCmd, IAddEntityResult>(new AddEntityCmd(entity));
+        public static IO<IAddOrUpdateEntityResult> AddNewEntity<T>(T entity) =>
+            NewIO<AddOrUpdateEntityCmd, IAddOrUpdateEntityResult>(new AddOrUpdateEntityCmd(entity));
 
         public static IO<IUpdateEntityResult> UpdateEntity<T>(T entity) =>
             NewIO<UpdateEntityCmd, IUpdateEntityResult>(new UpdateEntityCmd(entity));
