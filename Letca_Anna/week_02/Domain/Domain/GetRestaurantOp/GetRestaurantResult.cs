@@ -29,7 +29,6 @@ namespace Domain.Domain.GetRestaurantOp
 
             public RestaurantNotFound(string reason)
             {
-                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

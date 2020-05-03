@@ -13,6 +13,12 @@ namespace Domain.Domain.GetRestaurantOp
     {
         public override Task<IGetRestaurantResult> Work(GetRestaurantCmd Op, Unit state)
         {
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
+
+            if (!valid)
+                return Task.FromResult<IGetRestaurantResult>(new RestaurantNotFound(validationMessage));
             return Task.FromResult<IGetRestaurantResult>(new RestaurantFound(new RestaurantAgg(Op.Restaurant)));
         }
     }

@@ -29,7 +29,6 @@ namespace Domain.Domain.GetMenuOp
 
             public MenuNotFound(string reason)
             {
-                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

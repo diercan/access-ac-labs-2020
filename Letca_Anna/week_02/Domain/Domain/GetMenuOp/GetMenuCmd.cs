@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using Domain.Models;
+using Persistence.EfCore;
 
 namespace Domain.Domain.GetMenuOp
 {
     public class GetMenuCmd
     {
-        [Required(ErrorMessage = "Null restaurant. Select a restaurant first.")]
-        public RestaurantAgg Restaurant { get; }
+        [Required(ErrorMessage = "ValidationError_GetMenu: Null Menu.")]
+        public Menus Menu { get; }
+        [Required(ErrorMessage = "ValidationError_GetMenu: Null Restaurant.")]
+        public RestaurantAgg RestaurantAgg { get; }
+        [Required(ErrorMessage = "ValidationError_GetMenu: Null MenuItems.")]
+        public List<MenuItems> MenuItems { get; }
 
-        public GetMenuCmd(RestaurantAgg restaurant)
+        public GetMenuCmd(Menus menu, RestaurantAgg restaurantAgg, List<MenuItems> menuItems)
         {
-            Restaurant = restaurant;
+            Menu = menu;
+            RestaurantAgg = restaurantAgg;
+            MenuItems = menuItems;
         }
 
         public (bool, List<ValidationResult>) Validate()
