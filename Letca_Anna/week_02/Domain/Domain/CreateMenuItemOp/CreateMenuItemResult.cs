@@ -1,5 +1,5 @@
 ﻿using CSharp.Choices.Attributes;
-using Domain.Models;
+using Persistence.EfCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,8 +14,8 @@ namespace Domain.Domain.CreateMenuItemOp
 
         public class MenuItemCreated : ICreateMenuItemResult
         {
-            public MenuItem MenuItem;
-            public MenuItemCreated(MenuItem menuItem)
+            public MenuItems MenuItem;
+            public MenuItemCreated(MenuItems menuItem)
             {
                 MenuItem = menuItem;
             }
