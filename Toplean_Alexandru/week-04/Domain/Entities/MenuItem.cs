@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Entities;
 
 namespace Persistence.EfCore
 {
-    public partial class MenuItem
+    public partial class MenuItem : IEntity
     {
         public MenuItem()
         {

@@ -31,6 +31,17 @@ using static Domain.Domain.SetOrderStatusOp.SetOrderStatusResult;
 using static Domain.Models.Cart;
 using static Domain.Domain.GetPaymentStatusOp.GetPaymentStatusResult;
 using static Domain.Domain.RequestPaymentOp.RequestPaymentResult;
+using Infrastructure.Free;
+using LanguageExt;
+using System.Threading.Tasks;
+using static Domain.Domain.UpdateEntityOp.UpdateEntityResult;
+
+using Domain.Entities;
+using Domain.Domain.UpdateEntityOp;
+using static Domain.Domain.UpdateOrderOp.UpdateOrderResult;
+using Domain.Domain.UpdateOrderOp;
+using static Domain.Domain.UpdateMenuOp.UpdateMenuResult;
+using Domain.Domain.UpdateMenuOp;
 
 namespace Domain.Domain
 {
@@ -56,31 +67,31 @@ namespace Domain.Domain
         public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateAndPersist(string name) =>
             from restaurantCreated in RestaurantDomain.CreateRestaurant(name)
             let restaurantAgg = (restaurantCreated as RestaurantCreated)?.Restaurant
-            from dbContext in Database.AddNewEntity(restaurantAgg.Restaurant)
+            from dbContext in Database.AddOrUpdateEntity(restaurantAgg.Restaurant)
             select restaurantCreated;
 
         public static IO<ICreateMenuResult> CreateAndPersistMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
            from menuCreated in RestaurantDomain.CreateMenu(id, name, menuType, isVisible, hours, restaurant)
            let menuAgg = (menuCreated as MenuCreated)?.Menu
-           from dbContext in Database.AddNewEntity(menuAgg.Menu)
+           from dbContext in Database.AddOrUpdateEntity(menuAgg.Menu)
            select menuCreated;
 
         public static IO<ICreateMenuItemResult> CreateAndPersistMenuItem(int menuid, string name, double price, String ingredients, String? alergens, byte[] image) =>
            from menuItemCreated in RestaurantDomain.CreateMenuItem(menuid, name, price, ingredients, alergens, image)
            let menuItemAgg = (menuItemCreated as MenuItemCreated)?.MenuItemAgg
-           from dbContext in Database.AddNewEntity(menuItemAgg.MenuItem)
+           from dbContext in Database.AddOrUpdateEntity(menuItemAgg.MenuItem)
            select menuItemCreated;
 
         public static IO<ICreateClientResult> CreateAndPersistClient(String name, String username, String password, String email) =>
            from clientCreated in RestaurantDomain.CreateClient(name, username, password, email)
            let clientAgg = (clientCreated as ClientCreated)?.Client
-           from dbContext in Database.AddNewEntity(clientAgg.Client)
+           from dbContext in Database.AddOrUpdateEntity(clientAgg.Client)
            select clientCreated;
 
         public static IO<ICreateOrderResult> CreateAndPersistOrder(int clientId, int restaurantId, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status, String payment) =>
            from orderCreated in RestaurantDomain.CreateOrder(clientId, restaurantId, tableNumber, itemNames, itemQuantities, itemComments, totalPrice, status, payment)
            let orderAgg = (orderCreated as OrderCreated)?.OrderAgg
-           from dbContext in Database.AddNewEntity(orderAgg.Order)
+           from dbContext in Database.AddOrUpdateEntity(orderAgg.Order)
            select orderCreated;
 
         // ===================================================== Selects ================================================
@@ -100,7 +111,6 @@ namespace Domain.Domain
         public static IO<ISelectRestaurantResult> GetRestaurant(string name)
             => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
                from getResult in RestaurantDomain.SelectRestaurant(restaurant)
-               let agg = (getResult as SelectRestaurantResult.RestaurantSelected)?.Restaurant
                select getResult;
 
         public static IO<ISelectMenuResult> GetMenu(String name, int restaurantId) =>
@@ -139,6 +149,32 @@ namespace Domain.Domain
 
         //============================================= Updates ========================================================
 
+        public static IO<IUpdateEntityResult<IEntity>> UpdateEntity(IEntity entity) =>
+            NewIO<UpdateEntityCmd<IEntity>, IUpdateEntityResult<IEntity>>(new UpdateEntityCmd<IEntity>(entity));
+
+        public static IO<IUpdateOrderResult> UpdateOrder(Order order) =>
+            NewIO<UpdateOrderCmd, IUpdateOrderResult>(new UpdateOrderCmd(order));
+
+        public static IO<IUpdateMenuResult> UpdateMenu(Menu menu) =>
+            NewIO<UpdateMenuCmd, IUpdateMenuResult>(new UpdateMenuCmd(menu));
+
+        //============================================= Update And Persist ========================================================
+
+        public static IO<IUpdateEntityResult<IEntity>> UpdateAndPersistEntity(IEntity entity) =>
+            from updateEntity in UpdateEntity(entity)
+            from db in Database.AddOrUpdateEntity(entity)
+            select updateEntity;
+
+        public static IO<IUpdateOrderResult> UpdateAndPersistOrder(Order order) =>
+            from updateOrder in UpdateOrder(order)
+            from db in Database.AddOrUpdateEntity(order)
+            select updateOrder;
+
+        public static IO<IUpdateMenuResult> UpdateAndPersistMenu(Menu menu) =>
+            from updateMenu in UpdateMenu(menu)
+            from db in Database.AddOrUpdateEntity(menu)
+            select updateMenu;
+
         //============================================= Others ===========================================================
 
         public static IO<IAddToCartResult> AddItemsToCart(ClientAgg clientAgg, List<CartItem> items) =>
@@ -155,5 +191,26 @@ namespace Domain.Domain
 
         public static IO<IRequestPaymentResult> RequestPayment(ClientAgg clientAgg) =>
             NewIO<RequestPaymentOp.RequestPaymentCmd, IRequestPaymentResult>(new RequestPaymentOp.RequestPaymentCmd(clientAgg));
+
+        // Populates the RestaurantAgg model with the data from two functions, using a LiveAsyncInterpreter.
+        // This function will firstly populate the ICollection<Menu> Menus by calling GetAllMenus, with all the menus from the database that have the restaurant's id
+        // After the ICollection<Menu> will be filled, for each entity it will call the GetAllMenuItems function to populate the menu
+        public static async Task PopulateModel(RestaurantAgg restaurantAgg, Func<int, IO<ICollection<Menu>>> getAllMenus, Func<int, IO<ICollection<MenuItem>>> getAllMenuItems, LiveInterpreterAsync interpreter)
+        {
+            var expression = from allMenus in getAllMenus(restaurantAgg.Restaurant.Id)
+                             select allMenus;
+
+            var result = await interpreter.Interpret(expression, Unit.Default);
+
+            restaurantAgg.Menus = result;
+            foreach (var menu in restaurantAgg.Menus)
+            {
+                var expressionMenuItem = from allMenuItems in getAllMenuItems(menu.Id)
+                                         select allMenuItems;
+
+                var resultMenuItem = await interpreter.Interpret(expressionMenuItem, Unit.Default);
+                menu.MenuItem = resultMenuItem;
+            }
+        }
     }
 }

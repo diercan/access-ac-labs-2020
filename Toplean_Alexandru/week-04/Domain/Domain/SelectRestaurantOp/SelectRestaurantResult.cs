@@ -15,11 +15,11 @@ namespace Domain.Domain.SelectRestaurantOp
 
         public class RestaurantSelected : ISelectRestaurantResult
         {
-            public RestaurantAgg Restaurant { get; }
+            public RestaurantAgg RestaurantAgg { get; }
 
             public RestaurantSelected(RestaurantAgg restaurant)
             {
-                Restaurant = restaurant;
+                RestaurantAgg = restaurant;
             }
         }
 

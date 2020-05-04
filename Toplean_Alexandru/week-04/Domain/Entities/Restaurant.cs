@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Persistence.EfCore
 {
-    public partial class Restaurant
+    public partial class Restaurant : IEntity
     {
         public Restaurant(String name)
         {

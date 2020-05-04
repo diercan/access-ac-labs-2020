@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Entities;
 
 namespace Persistence.EfCore
 {
-    public partial class Employee
+    public partial class Employee : IEntity
     {
         public Employee()
         {

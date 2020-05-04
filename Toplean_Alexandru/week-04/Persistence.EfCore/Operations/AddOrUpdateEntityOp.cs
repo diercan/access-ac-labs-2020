@@ -31,7 +31,7 @@ namespace Persistence.EfCore.Operations
                         _context.Add(Op.Item);
                         break;
 
-                    case EntityState.Unchanged:
+                    case EntityState.Modified:
                         _context.Update(Op.Item);
                         break;
 

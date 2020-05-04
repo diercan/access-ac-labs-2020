@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Persistence.EfCore
 {
-    public partial class Client
+    public partial class Client : IEntity
     {
         public Client()
         {

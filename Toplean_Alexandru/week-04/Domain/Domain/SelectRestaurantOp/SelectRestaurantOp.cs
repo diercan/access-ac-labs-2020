@@ -19,6 +19,7 @@ namespace Domain.Domain.SelectRestaurantOp
             try
             {
                 Op.CheckIfValid();
+
                 return Task.FromResult<ISelectRestaurantResult>(new RestaurantSelected(new RestaurantAgg(Op.Restaurant)));
             }
             catch (Exception exp)
