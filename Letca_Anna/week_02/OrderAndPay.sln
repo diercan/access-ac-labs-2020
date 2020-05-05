@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{7FB432C2-508A-48F9-8505-63347F303DE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.EfCore", "Persistence.EfCore\Persistence.EfCore.csproj", "{6DEBB149-AB05-461A-9C81-D2821382B844}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.EfCore", "Persistence.EfCore\Persistence.EfCore.csproj", "{6DEBB149-AB05-461A-9C81-D2821382B844}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{A8B78B92-B995-420B-82D5-CF853E06923B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{A8B78B92-B995-420B-82D5-CF853E06923B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAndPay.Web", "OrderAndPay.Web\OrderAndPay.Web.csproj", "{496645DA-C546-4E74-876B-D61B60D552EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A8B78B92-B995-420B-82D5-CF853E06923B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8B78B92-B995-420B-82D5-CF853E06923B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8B78B92-B995-420B-82D5-CF853E06923B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{496645DA-C546-4E74-876B-D61B60D552EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{496645DA-C546-4E74-876B-D61B60D552EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{496645DA-C546-4E74-876B-D61B60D552EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{496645DA-C546-4E74-876B-D61B60D552EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
