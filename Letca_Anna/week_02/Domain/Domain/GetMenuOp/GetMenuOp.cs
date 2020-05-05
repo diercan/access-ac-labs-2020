@@ -20,8 +20,6 @@ namespace Domain.Domain.GetMenuOp
             if (!valid)
                 return Task.FromResult<IGetMenuResult>(new MenuNotFound(validationMessage));
 
-            //Op.RestaurantAgg.Menu = Op.Menu;
-            //Op.RestaurantAgg.Menu.MenuItems = Op.MenuItems;
             return Task.FromResult<IGetMenuResult>(new MenuFound(Op.Menus));
         }
     }
