@@ -53,8 +53,6 @@ namespace Domain.Domain
         public static IO<IGetRestaurantResult> GetRestaurant(Restaurant restaurant) =>
              NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(restaurant));
 
-
-
         public static IO<ICreateMenuResult> CreateMenuAndPersist(RestaurantAgg restaurantAgg, string name, MenuType menuType)
             => from menuCreated in CreateMenu(restaurantAgg, name, menuType)
                let agg = (menuCreated as MenuCreated)?.Menu
@@ -65,14 +63,8 @@ namespace Domain.Domain
             MenuType menuType)
             => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
 
-        public static IO<IGetMenuResult> GetMenu(RestaurantAgg restaurant)
-            => from menu in Database.Query<FindMenuQuery, Menus>(new FindMenuQuery(restaurant.Restaurant.Id))
-               from menuitems in Database.Query<FindMenuItemsQuery, List<MenuItems>>(new FindMenuItemsQuery(menu.Id))
-               from getMenuResult in GetMenu(menu, restaurant, menuitems)
-               select getMenuResult;
-
-        public static IO<IGetMenuResult> GetMenu(Menus menu, RestaurantAgg restaurantAgg, List<MenuItems> menuItems) =>
-            NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(menu, restaurantAgg, menuItems));
+        public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
+            NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(restaurant));
 
 
 

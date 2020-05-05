@@ -16,6 +16,7 @@ namespace Domain.Queries
             return
                 await ctx.Set<Restaurant>()
                     .Where(p => p.Name.Equals(restaurantName))
+                    .Include("Menus.MenuItems")
                     .FirstOrDefaultAsync();
         })
         { }

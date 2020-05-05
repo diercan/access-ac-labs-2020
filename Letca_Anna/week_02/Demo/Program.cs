@@ -23,6 +23,7 @@ using Infra.Free;
 using Persistence.EfCore.Operations;
 using Persistence.EfCore;
 using Persistence.EfCore.Context;
+using System.Collections.Generic;
 
 namespace Demo
 {
@@ -67,8 +68,8 @@ namespace Demo
             var finalResult = result.Match<bool>(OnRestaurantCreated, OnRestaurantNotCreated);
             Assert.True(finalResult);
 
-            RestaurantAgg foundRestaurant=null;
-            Menus foundMenu = null;
+            Restaurant foundRestaurant=null;
+            List<Menus> foundMenus = null;
             //Client foundClient = null;
 
             do
@@ -92,7 +93,7 @@ namespace Demo
                                         from restaurant in RestaurantDomain.GetRestaurant(restaurantName)
                                         select restaurant;
                         var interpretedRestaurant = await interpreter.Interpret(getRestaurantExpr, Unit.Default);
-                        foundRestaurant = (interpretedRestaurant as RestaurantFound)?.RestaurantAgg;
+                        foundRestaurant = (interpretedRestaurant as RestaurantFound)?.RestaurantAgg.Restaurant;
                         var restaurantResponse = interpretedRestaurant.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
                         break;
                     case "3": //get menu
@@ -100,7 +101,7 @@ namespace Demo
                                         from menu in RestaurantDomain.GetMenu(foundRestaurant)
                                         select menu;
                         var interpretedMenu = await interpreter.Interpret(getMenuExpr, Unit.Default);
-                        foundMenu = (interpretedMenu as MenuFound)?.Menu;
+                        foundMenus = (interpretedMenu as MenuFound)?.Menus;
                         var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); 
                         break;
                     /*case "4": //add item to cart
@@ -148,7 +149,7 @@ namespace Demo
 
         private static bool OnMenuFound(MenuFound arg)
         {
-            arg.Menu.MenuItems.Iter(x=>Console.WriteLine(x.Name+", price: " + x.Price));
+            arg.Menus.Iter(menu => menu.MenuItems.Iter(item=>Console.WriteLine(item.Name+", price: " + item.Price)));
             return true;
         }
 
