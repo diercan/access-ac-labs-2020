@@ -8,7 +8,6 @@ using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
-using static Domain.Domain.AddMenuItemOp.AddMenuItemResult;
 using static Domain.Domain.CreateClientOp.CreateClientResult;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
@@ -19,6 +18,12 @@ using Domain.Domain.GetMenuOp;
 using static Domain.Domain.GetClientOp.GetClientResult;
 using static Domain.Domain.GetMenuItemResult.MenuItemResult;
 using static Domain.Domain.AddItemToCartOp.AddItemToCartResult;
+using Infra.Persistence;
+using Infra.Free;
+using Persistence.EfCore.Operations;
+using Persistence.EfCore;
+using Persistence.EfCore.Context;
+using System.Collections.Generic;
 
 namespace Demo
 {
@@ -27,7 +32,12 @@ namespace Demo
         static async Task Main(string[] args)
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddOperations(typeof(Restaurant).Assembly);
+            serviceCollection.AddOperations(typeof(RestaurantAgg).Assembly);
+            serviceCollection.AddOperations(typeof(AddOrUpdateOp).Assembly);
+            serviceCollection.AddTransient(typeof(IOp<,>), typeof(QueryOp<,>));
+
+            serviceCollection.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
+
             var serviceProvider = serviceCollection.BuildServiceProvider();
             string input;
 
@@ -35,15 +45,19 @@ namespace Demo
 
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("vinto")
-                let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from menuResult in RestaurantDomain.CreateMenu(restaurant, "paste", MenuType.Meat)
-                let menu = (menuResult as MenuCreated)?.Menu
-                from menuItemResult in RestaurantDomain.CreateAndAddMenuItem("carbonara", 100, menu)
-                from menuItemResult1 in RestaurantDomain.CreateAndAddMenuItem("carbonara", 25, menu)
-                from menuItemResult2 in RestaurantDomain.CreateAndAddMenuItem("conpesto", 20, menu)
-                let menuItem2=(menuItemResult2 as MenuItemAdded)?.MenuItem
-                from clientResult in RestaurantDomain.CreateClient("gucdg34u6trgfh","Anca")
+                from restaurantResult in RestaurantDomain.CreateRestaurantAndPersist("vinto")
+                let restaurant = (restaurantResult as RestaurantCreated)?.RestaurantAgg
+                from restaurantResult2 in RestaurantDomain.CreateRestaurantAndPersist("urban")
+                let restaurant2 = (restaurantResult2 as RestaurantCreated)?.RestaurantAgg
+                from pasteResult in RestaurantDomain.CreateMenuAndPersist(restaurant, "paste", MenuType.Meat)
+                from burgeriResult in RestaurantDomain.CreateMenuAndPersist(restaurant, "burgeri", MenuType.Meat)
+                from pizzaResult in RestaurantDomain.CreateMenuAndPersist(restaurant, "pizza", MenuType.Meat)
+                let paste = (pasteResult as MenuCreated)?.Menu
+                from menuItemResult in RestaurantDomain.CreateMenuItemAndPersist("carbonara", 50, paste)
+                from menuItemResult1 in RestaurantDomain.CreateMenuItemAndPersist("conpesto", 25, paste)
+                let burgeri = (burgeriResult as MenuCreated)?.Menu
+                from menuItemResult2 in RestaurantDomain.CreateMenuItemAndPersist("beefburger", 20, burgeri)
+                //from clientResult in RestaurantDomain.CreateClient("gucdg34u6trgfh","Anca")
                 //from orderResult in RestaurantDomain.CreateAndPlaceOrder(client, restaurant)
                 select restaurantResult;
 
@@ -55,8 +69,8 @@ namespace Demo
             Assert.True(finalResult);
 
             Restaurant foundRestaurant=null;
-            Menu foundMenu = null;
-            Client foundClient = null;
+            List<Menus> foundMenus = null;
+            //Client foundClient = null;
 
             do
             {
@@ -64,14 +78,14 @@ namespace Demo
                 input = Console.ReadLine(); 
                 switch (input)
                 {
-                    case "1": // login (suppose client is already created/registered)
+                    /*case "1": // login (suppose client is already created/registered)
                         var getClientExpr =
                                         from client in RestaurantDomain.GetClient("gucdg34u6trgfh")
                                         select client;
                         var interpretedClient = await interpreter.Interpret(getClientExpr, Unit.Default);
                         foundClient = (interpretedClient as ClientFound)?.Client;
                         var clientResponse = interpretedClient.Match<bool>(OnClientFound, OnClientNotFound);
-                        break;
+                        break;*/
                     case "2": //get restauraant
                         Console.WriteLine("Enter the restaurant's name...");
                         string restaurantName = Console.ReadLine();
@@ -79,7 +93,7 @@ namespace Demo
                                         from restaurant in RestaurantDomain.GetRestaurant(restaurantName)
                                         select restaurant;
                         var interpretedRestaurant = await interpreter.Interpret(getRestaurantExpr, Unit.Default);
-                        foundRestaurant = (interpretedRestaurant as RestaurantFound)?.Restaurant;
+                        foundRestaurant = (interpretedRestaurant as RestaurantFound)?.RestaurantAgg.Restaurant;
                         var restaurantResponse = interpretedRestaurant.Match<bool>(OnRestaurantFound, OnRestaurantNotFound);
                         break;
                     case "3": //get menu
@@ -87,10 +101,10 @@ namespace Demo
                                         from menu in RestaurantDomain.GetMenu(foundRestaurant)
                                         select menu;
                         var interpretedMenu = await interpreter.Interpret(getMenuExpr, Unit.Default);
-                        foundMenu = (interpretedMenu as MenuFound)?.Menu;
+                        foundMenus = (interpretedMenu as MenuFound)?.Menus;
                         var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); 
                         break;
-                    case "4": //add item to cart
+                    /*case "4": //add item to cart
                         Console.WriteLine("Enter the menuitem's name...");
                         string itemName = Console.ReadLine();
                         var getItemAndAddToCartExpr =
@@ -98,9 +112,9 @@ namespace Demo
                                         select item;
                         var interpretedItem = await interpreter.Interpret(getItemAndAddToCartExpr, Unit.Default);
                         var itemResponse = interpretedItem.Match<bool>(OnItemAdded, OnItemNotAdded);
-                        break;
+                        break;*/
                 }
-            } while (input != "0");
+            } while (input != "0"); 
         }
         private static bool OnItemNotAdded(ItemNotAddedToCart arg)
         {
@@ -128,13 +142,14 @@ namespace Demo
 
         private static bool OnMenuNotFound(MenuNotFound arg)
         {
+            Console.WriteLine(arg.Reason);
             return false;
         }
 
 
         private static bool OnMenuFound(MenuFound arg)
         {
-            Console.WriteLine(arg.Menu.ToString());
+            arg.Menus.Iter(menu => menu.MenuItems.Iter(item=>Console.WriteLine(item.Name+", price: " + item.Price)));
             return true;
         }
 
@@ -146,19 +161,20 @@ namespace Demo
 
         private static bool OnRestaurantCreated(RestaurantCreated arg)
         {
-            Console.WriteLine(arg.Restaurant.ToString());
+            Console.WriteLine(arg.RestaurantAgg.ToString());
             return true;
         }
 
         private static bool OnRestaurantNotFound(RestaurantNotFound arg)
         {
+            Console.WriteLine(arg.Reason);
             return false;
         }
 
 
         private static bool OnRestaurantFound(RestaurantFound arg)
         {
-            Console.WriteLine(arg.Restaurant.Name);
+            Console.WriteLine("Welcome to " + arg.RestaurantAgg.Restaurant.Name + "!");
             return true;
         }
 

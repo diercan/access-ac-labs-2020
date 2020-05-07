@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
+using Persistence.EfCore;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 
 namespace Domain.Domain.CreateMenuOp
@@ -21,8 +22,8 @@ namespace Domain.Domain.CreateMenuOp
             if (!valid)
                 return Task.FromResult((ICreateMenuResult)new MenuNotCreated(validationMessage));
 
-            Op.Restaurant.Menu = new Menu(Op.Name, Op.MenuType);
-            return Task.FromResult((ICreateMenuResult)new MenuCreated(Op.Restaurant.Menu));
+            Op.RestaurantAgg.Menu = new Menus() { Name = Op.Name, RestaurantId=Op.RestaurantAgg.Restaurant.Id };
+            return Task.FromResult((ICreateMenuResult)new MenuCreated(Op.RestaurantAgg.Menu));
          }
     }
 }

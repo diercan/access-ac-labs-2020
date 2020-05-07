@@ -3,6 +3,8 @@ using System.Text;
 using CSharp.Choices.Attributes;
 using Domain.Models;
 using System.Threading.Tasks;
+using Persistence.EfCore;
+using System.Collections.Generic;
 
 namespace Domain.Domain.GetMenuOp
 {
@@ -13,11 +15,11 @@ namespace Domain.Domain.GetMenuOp
 
         public class MenuFound : IGetMenuResult
         {
-            public Menu Menu { get; }
+            public List<Menus> Menus { get; }
 
-            public MenuFound(Menu menu)
+            public MenuFound(List<Menus> menus)
             {
-                Menu = menu;
+                Menus = menus;
             }
         }
 
@@ -28,7 +30,6 @@ namespace Domain.Domain.GetMenuOp
 
             public MenuNotFound(string reason)
             {
-                Console.WriteLine(reason);
                 Reason = reason;
             }
         }
