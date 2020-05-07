@@ -15,7 +15,6 @@ namespace Domain.Domain.CreateRestauratOp
         public override Task<ICreateRestaurantResult> Work(CreateRestaurantCmd Op, Unit state)
         {
             var restaurant = new Restaurant(Op.Name);
-            Op.Restaurants.Add(restaurant);
             return Task.FromResult((ICreateRestaurantResult)new RestaurantCreated(restaurant));
         }
     }
