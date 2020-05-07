@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Domain.Entities;
 
 namespace Persistence.EfCore
@@ -28,6 +30,8 @@ namespace Persistence.EfCore
         public double Price { get; set; }
         public byte[] Image { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Menu Menu { get; set; }
     }
 }

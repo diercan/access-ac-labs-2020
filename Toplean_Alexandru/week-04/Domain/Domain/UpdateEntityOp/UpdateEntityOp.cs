@@ -9,18 +9,18 @@ using static Domain.Domain.UpdateEntityOp.UpdateEntityResult;
 
 namespace Domain.Domain.UpdateEntityOp
 {
-    public class UpdateEntityOp : OpInterpreter<UpdateEntityCmd<IEntity>, IUpdateEntityResult<IEntity>, Unit>
+    public class UpdateEntityOp<T> : OpInterpreter<UpdateEntityCmd<T>, IUpdateEntityResult<T>, Unit>
     {
-        public override Task<IUpdateEntityResult<IEntity>> Work(UpdateEntityCmd<IEntity> Op, Unit state)
+        public override Task<IUpdateEntityResult<T>> Work(UpdateEntityCmd<T> Op, Unit state)
         {
             try
             {
                 Op.CommandIsValid();
-                return Task.FromResult<IUpdateEntityResult<IEntity>>(new EntityUpdated<IEntity>(Op.Entity));
+                return Task.FromResult<IUpdateEntityResult<T>>(new EntityUpdated<T>(Op.Entity));
             }
             catch (Exception exp)
             {
-                return Task.FromResult<IUpdateEntityResult<IEntity>>(new EntityNotUpdated<IEntity>(exp.Message));
+                return Task.FromResult<IUpdateEntityResult<T>>(new EntityNotUpdated<T>(exp.Message));
             }
         }
     }

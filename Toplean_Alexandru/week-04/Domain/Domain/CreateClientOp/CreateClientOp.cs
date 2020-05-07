@@ -16,30 +16,14 @@ namespace Domain.Domain.CreateClientOp
         //To Be Implemented
         public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
         {
-            if (!Exists(Op.Username))
+            try
             {
-                (bool CommandIsValid, String Error) = Op.IsValid();
-                if (CommandIsValid)
-                {
-                    try
-                    {
-                        Client client = new Client(Op.Name, Op.Username, Op.Password, Op.Email, null);
-                        return Task.FromResult<ICreateClientResult>(new ClientCreated(new ClientAgg(client)));
-                    }
-                    catch (Exception exp)
-                    {
-                        return Task.FromResult<ICreateClientResult>(new ClientNotCreated(exp.Message));
-                    }
-                }
-                else
-                    return Task.FromResult<ICreateClientResult>(new ClientNotCreated(Error));
+                return Task.FromResult<ICreateClientResult>(new ClientCreated(new ClientAgg(Op.Client)));
             }
-            else
+            catch (Exception exp)
             {
-                return Task.FromResult<ICreateClientResult>(new ClientNotCreated("The username already exists in the database"));
+                return Task.FromResult<ICreateClientResult>(new ClientNotCreated(exp.Message));
             }
         }
-
-        public bool Exists(String Username) => false;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Domain.Entities;
 
 namespace Persistence.EfCore
@@ -35,6 +37,9 @@ namespace Persistence.EfCore
         public string PaymentStatus { get; set; }
 
         public virtual Client Client { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Restaurant Restaurant { get; set; }
     }
 }

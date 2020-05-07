@@ -14,11 +14,11 @@ namespace Domain.Domain.CreateClientOp
 
         public class ClientCreated : ICreateClientResult
         {
-            public ClientAgg Client { get; }
+            public ClientAgg ClientAgg { get; }
 
             public ClientCreated(ClientAgg client)
             {
-                Client = client;
+                ClientAgg = client;
             }
         }
 

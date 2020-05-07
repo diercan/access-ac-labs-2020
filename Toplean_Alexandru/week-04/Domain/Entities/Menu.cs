@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Domain.Entities;
 
 namespace Persistence.EfCore
@@ -27,7 +29,10 @@ namespace Persistence.EfCore
         public bool Visibility { get; set; }
         public string Hours { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Restaurant Restaurant { get; set; }
+
         public virtual ICollection<MenuItem> MenuItem { get; set; }
     }
 }

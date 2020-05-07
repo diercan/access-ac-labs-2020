@@ -58,7 +58,7 @@ namespace Demo
                     // Populates the RestaurantAgg model with the data from two functions, using a LiveAsyncInterpreter.
                     // This function will firstly populate the ICollection<Menu> Menus by calling GetAllMenus, with all the menus from the database that have the restaurant's id
                     // After the ICollection<Menu> will be filled, for each entity it will call the GetAllMenuItems function to populate the menu
-                    await RestaurantDomain.PopulateModel(persisted.RestaurantAgg, RestaurantDomain.GetAllMenus, RestaurantDomain.GetAllMenuItems, interpreter);
+                    await RestaurantDomain.PopulateRestaurantModel(persisted.RestaurantAgg, RestaurantDomain.GetAllMenus, RestaurantDomain.GetAllMenuItems, interpreter);
 
                     //// Selects a menu with a specific name
                     var selectMenuExpr = from selectMenu in RestaurantDomain.GetMenu("Chicken", persisted.RestaurantAgg.Restaurant.Id)
@@ -69,9 +69,9 @@ namespace Demo
                     var selectMenuResult = await selectMenuRes.MatchAsync(
                         async (selected) => // Menu was successfully selected
                         {
-                            selected.MenuAgg.Menu.Hours = "8-12";
+                            selected.MenuAgg.Menu.Hours = "8-13";
 
-                            var updateRestaurantExprUnique = from updateRestauruant in RestaurantDomain.UpdateAndPersistEntity(selected.MenuAgg.Menu)
+                            var updateRestaurantExprUnique = from updateRestauruant in RestaurantDomain.UpdateAndPersistEntity<IEntity>(selected.MenuAgg.Menu)
                                                              let updatem = (updateRestauruant as EntityUpdated<IEntity>)?.Entity
                                                              select updateRestauruant;
                             var updateRestaurantFin = await interpreter.Interpret(updateRestaurantExprUnique, Unit.Default);

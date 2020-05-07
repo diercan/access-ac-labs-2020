@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Domain.UpdateEntityOp
 {
-    public class UpdateEntityCmd<T> where T : IEntity
+    public class UpdateEntityCmd<T>// where T : IEntity
     {
         public T Entity { get; }
 

@@ -9,7 +9,7 @@ using static Domain.Domain.GetPaymentStatusOp.GetPaymentStatusResult;
 
 namespace Domain.Domain.GetPaymentStatusOp
 {
-    internal class GetPaymentStatusOp : OpInterpreter<GetPaymentStatusCmd, IGetPaymentStatusResult, Unit>
+    public class GetPaymentStatusOp : OpInterpreter<GetPaymentStatusCmd, IGetPaymentStatusResult, Unit>
     {
         public override Task<IGetPaymentStatusResult> Work(GetPaymentStatusCmd Op, Unit state)
         {

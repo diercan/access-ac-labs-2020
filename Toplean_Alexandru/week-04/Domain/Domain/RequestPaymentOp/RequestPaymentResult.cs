@@ -1,4 +1,5 @@
 ﻿using CSharp.Choices.Attributes;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,8 +14,11 @@ namespace Domain.Domain.RequestPaymentOp
 
         public class PaymentRequested : IRequestPaymentResult
         {
-            public PaymentRequested()
+            public ClientAgg ClientAgg { get; }
+
+            public PaymentRequested(ClientAgg client)
             {
+                ClientAgg = client;
             }
         }
 

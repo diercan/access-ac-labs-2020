@@ -10,19 +10,19 @@ namespace Domain.Domain.UpdateEntityOp
     [AsChoice]
     public static partial class UpdateEntityResult
     {
-        public interface IUpdateEntityResult<IEntity> { }
+        public interface IUpdateEntityResult<T> { }
 
-        public class EntityUpdated<IEntity> : IUpdateEntityResult<IEntity>
+        public class EntityUpdated<T> : IUpdateEntityResult<T>
         {
-            public IEntity Entity { get; }
+            public T Entity { get; }
 
-            public EntityUpdated(IEntity entity)
+            public EntityUpdated(T entity)
             {
                 Entity = entity;
             }
         }
 
-        public class EntityNotUpdated<IEntity> : IUpdateEntityResult<IEntity>
+        public class EntityNotUpdated<T> : IUpdateEntityResult<T>
         {
             public String Reason { get; }
 

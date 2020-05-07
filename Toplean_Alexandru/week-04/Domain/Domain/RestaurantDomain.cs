@@ -42,49 +42,63 @@ using static Domain.Domain.UpdateOrderOp.UpdateOrderResult;
 using Domain.Domain.UpdateOrderOp;
 using static Domain.Domain.UpdateMenuOp.UpdateMenuResult;
 using Domain.Domain.UpdateMenuOp;
+using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
 
 namespace Domain.Domain
 {
     public static class RestaurantDomain
     {
         //========================================== Creates =========================================================
-        public static IO<ICreateRestaurantResult> CreateRestaurant(string name) =>
-            NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
+        //public static IO<ICreateRestaurantResult> CreateRestaurant(string name) =>
+        //    NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
 
-        public static IO<ICreateMenuResult> CreateMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
-           NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(id, name, menuType, isVisible, hours, restaurant));
+        public static IO<ICreateRestaurantResult> CreateRestaurant(Restaurant restaurant) =>
+            NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(restaurant));
 
-        public static IO<ICreateMenuItemResult> CreateMenuItem(int menuid, string name, double price, String ingredients, String? alergens, byte[] image) =>
-           NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuid, name, price, ingredients, alergens, image));
+        //public static IO<ICreateMenuResult> CreateMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
+        //   NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(id, name, menuType, isVisible, hours, restaurant));
 
-        public static IO<ICreateClientResult> CreateClient(String name, String username, String password, String email) =>
-          NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, username, password, email));
+        public static IO<ICreateMenuResult> CreateMenu(Menu menu) =>
+           NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(menu));
+
+        //public static IO<ICreateMenuItemResult> CreateMenuItem(int menuid, string name, double price, String ingredients, String? alergens, byte[] image) =>
+        //   NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuid, name, price, ingredients, alergens, image));
+        public static IO<ICreateMenuItemResult> CreateMenuItem(MenuItem menuItem) =>
+           NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuItem));
+
+        //public static IO<ICreateClientResult> CreateClient(String name, String username, String password, String email) =>
+        //  NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, username, password, email));
+
+        public static IO<ICreateClientResult> CreateClient(Client client) =>
+          NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(client));
 
         public static IO<ICreateOrderResult> CreateOrder(int clientId, int restaurantId, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status, String payment) =>
           NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(clientId, restaurantId, tableNumber, itemNames, itemQuantities, itemComments, totalPrice, status, payment));
 
         //=============================================== Creates and persists ============================================
-        public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateAndPersist(string name) =>
-            from restaurantCreated in RestaurantDomain.CreateRestaurant(name)
-            let restaurantAgg = (restaurantCreated as RestaurantCreated)?.Restaurant
+        public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateAndPersistRestaurant(Restaurant restaurant) =>
+            from restaurantCreated in RestaurantDomain.CreateRestaurant(restaurant)
+            let restaurantAgg = (restaurantCreated as RestaurantCreated)?.RestaurantAgg
             from dbContext in Database.AddOrUpdateEntity(restaurantAgg.Restaurant)
             select restaurantCreated;
 
-        public static IO<ICreateMenuResult> CreateAndPersistMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
-           from menuCreated in RestaurantDomain.CreateMenu(id, name, menuType, isVisible, hours, restaurant)
+        //public static IO<ICreateMenuResult> CreateAndPersistMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
+        //   from menuCreated in RestaurantDomain.CreateMenu(id, name, menuType, isVisible, hours, restaurant)
+        public static IO<ICreateMenuResult> CreateAndPersistMenu(Menu menu) =>
+           from menuCreated in RestaurantDomain.CreateMenu(menu)
            let menuAgg = (menuCreated as MenuCreated)?.Menu
            from dbContext in Database.AddOrUpdateEntity(menuAgg.Menu)
            select menuCreated;
 
-        public static IO<ICreateMenuItemResult> CreateAndPersistMenuItem(int menuid, string name, double price, String ingredients, String? alergens, byte[] image) =>
-           from menuItemCreated in RestaurantDomain.CreateMenuItem(menuid, name, price, ingredients, alergens, image)
+        public static IO<ICreateMenuItemResult> CreateAndPersistMenuItem(MenuItem menuItem) =>
+           from menuItemCreated in RestaurantDomain.CreateMenuItem(menuItem)
            let menuItemAgg = (menuItemCreated as MenuItemCreated)?.MenuItemAgg
            from dbContext in Database.AddOrUpdateEntity(menuItemAgg.MenuItem)
            select menuItemCreated;
 
-        public static IO<ICreateClientResult> CreateAndPersistClient(String name, String username, String password, String email) =>
-           from clientCreated in RestaurantDomain.CreateClient(name, username, password, email)
-           let clientAgg = (clientCreated as ClientCreated)?.Client
+        public static IO<ICreateClientResult> CreateAndPersistClient(Client client) =>
+           from clientCreated in RestaurantDomain.CreateClient(client)
+           let clientAgg = (clientCreated as ClientCreated)?.ClientAgg
            from dbContext in Database.AddOrUpdateEntity(clientAgg.Client)
            select clientCreated;
 
@@ -125,7 +139,7 @@ namespace Domain.Domain
             let agg = (getResult as MenuItemSelected)?.MenuItemAgg
             select getResult;
 
-        public static IO<ISelectClientResult> GetMenuItem(String name) =>
+        public static IO<ISelectClientResult> GetClient(String name) =>
             from client in Database.Query<GetClientQuery, Client>(new GetClientQuery(name))
             from getResult in RestaurantDomain.SelectClient(client)
             let agg = (getResult as ClientSelected)?.ClientAgg
@@ -149,8 +163,8 @@ namespace Domain.Domain
 
         //============================================= Updates ========================================================
 
-        public static IO<IUpdateEntityResult<IEntity>> UpdateEntity(IEntity entity) =>
-            NewIO<UpdateEntityCmd<IEntity>, IUpdateEntityResult<IEntity>>(new UpdateEntityCmd<IEntity>(entity));
+        public static IO<IUpdateEntityResult<T>> UpdateEntity<T>(T entity) where T : IEntity =>
+            NewIO<UpdateEntityCmd<T>, IUpdateEntityResult<T>>(new UpdateEntityCmd<T>(entity));
 
         public static IO<IUpdateOrderResult> UpdateOrder(Order order) =>
             NewIO<UpdateOrderCmd, IUpdateOrderResult>(new UpdateOrderCmd(order));
@@ -160,8 +174,8 @@ namespace Domain.Domain
 
         //============================================= Update And Persist ========================================================
 
-        public static IO<IUpdateEntityResult<IEntity>> UpdateAndPersistEntity(IEntity entity) =>
-            from updateEntity in UpdateEntity(entity)
+        public static IO<IUpdateEntityResult<T>> UpdateAndPersistEntity<T>(T entity) where T : IEntity =>
+            from updateEntity in UpdateEntity<T>(entity)
             from db in Database.AddOrUpdateEntity(entity)
             select updateEntity;
 
@@ -195,7 +209,12 @@ namespace Domain.Domain
         // Populates the RestaurantAgg model with the data from two functions, using a LiveAsyncInterpreter.
         // This function will firstly populate the ICollection<Menu> Menus by calling GetAllMenus, with all the menus from the database that have the restaurant's id
         // After the ICollection<Menu> will be filled, for each entity it will call the GetAllMenuItems function to populate the menu
-        public static async Task PopulateModel(RestaurantAgg restaurantAgg, Func<int, IO<ICollection<Menu>>> getAllMenus, Func<int, IO<ICollection<MenuItem>>> getAllMenuItems, LiveInterpreterAsync interpreter)
+
+        public static IO<IPopulateRestaurantResult> PopulateRestaurant(RestaurantAgg restaurantAgg, Func<int, IO<ICollection<Menu>>> getAllMenus, Func<int, IO<ICollection<MenuItem>>> getAllMenuItems, LiveInterpreterAsync interpreter) =>
+            NewIO<PopulateRestaurantOp.PopulateRestaurantCmd, IPopulateRestaurantResult>(new PopulateRestaurantOp.PopulateRestaurantCmd(restaurantAgg, getAllMenus, getAllMenuItems, interpreter));
+
+        [Obsolete("Please use the IO<> PopulateRestaurant Function! This class is deprecated")]
+        public static async Task PopulateRestaurantModel(RestaurantAgg restaurantAgg, Func<int, IO<ICollection<Menu>>> getAllMenus, Func<int, IO<ICollection<MenuItem>>> getAllMenuItems, LiveInterpreterAsync interpreter)
         {
             var expression = from allMenus in getAllMenus(restaurantAgg.Restaurant.Id)
                              select allMenus;

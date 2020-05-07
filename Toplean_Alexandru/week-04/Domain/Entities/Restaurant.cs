@@ -6,6 +6,10 @@ namespace Persistence.EfCore
 {
     public partial class Restaurant : IEntity
     {
+        public Restaurant()
+        {
+        }
+
         public Restaurant(String name)
         {
             Name = name;

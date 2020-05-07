@@ -15,11 +15,11 @@ namespace Domain.Domain.CreateRestauratOp
 
         public class RestaurantCreated : ICreateRestaurantResult
         {
-            public RestaurantAgg Restaurant { get; }
+            public RestaurantAgg RestaurantAgg { get; }
 
             public RestaurantCreated(RestaurantAgg restaurant)
             {
-                Restaurant = restaurant;
+                RestaurantAgg = restaurant;
             }
         }
 

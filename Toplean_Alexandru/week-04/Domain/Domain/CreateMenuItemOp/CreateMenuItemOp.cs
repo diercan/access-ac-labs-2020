@@ -16,8 +16,8 @@ namespace Domain.Domain.CreateMenuItemOp
         {
             try
             {
-                MenuItem menuItem = new MenuItem(Op.MenuID, Op.Name, Op.Ingredients, Op.Alergens, Op.Price, Op.Image);
-                MenuItemAgg menuItemAgg = new MenuItemAgg(menuItem);
+                //MenuItem menuItem = new MenuItem(Op.MenuID, Op.Name, Op.Ingredients, Op.Alergens, Op.Price, Op.Image);
+                MenuItemAgg menuItemAgg = new MenuItemAgg(Op.MenuItem);
                 return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(menuItemAgg));  // Restaurant is valid
             }
             catch (Exception exp)

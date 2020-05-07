@@ -17,21 +17,14 @@ namespace Domain.Domain.CreateRestauratOp
         {
             //validate
 
-            if (Exists(Op.Name))
+            if (Exists(Op.Restaurant.Name))
             {
-                return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated($"There already is a restaurant with the name {Op.Name}"));
+                return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated($"There already is a restaurant with the name {Op.Restaurant.Name}"));
             }
             else
             {
-                (bool CommandIsValid, String ErrorCode) = Op.IsValid();
-
-                if (CommandIsValid)
-                {
-                    RestaurantAgg restaurant = new RestaurantAgg(new Restaurant(Op.Name));
-                    return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(restaurant));  // Restaurant is valid
-                }
-                else
-                    return Task.FromResult<ICreateRestaurantResult>(new RestaurantNotCreated(ErrorCode)); // Restaurant is not valid for any reason
+                Restaurant restaurant = Op.Restaurant;
+                return Task.FromResult<ICreateRestaurantResult>(new RestaurantCreated(new RestaurantAgg(restaurant)));  // Restaurant is valid
             }
         }
 
