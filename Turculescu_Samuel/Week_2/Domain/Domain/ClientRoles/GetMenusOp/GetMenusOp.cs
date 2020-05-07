@@ -13,10 +13,9 @@ namespace Domain.Domain.ClientRoles.GetMenusOp
 {
     public class GetMenusOp : OpInterpreter<GetMenusCmd, GetMenusResult.IGetMenusResult, Unit>
     {
-
         public override Task<IGetMenusResult> Work(GetMenusCmd Op, Unit state)
         {
-            return Task.FromResult<IGetMenusResult>(new MenusGotten(Op.Client.GoToRestaurant.Menu));
+            return Task.FromResult<IGetMenusResult>(new GetMenusSuccessful(Op.Restaurant.Menus));
         }
     }
 }

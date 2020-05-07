@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using CSharp.Choices.Attributes;
-using Domain.Models;
-using System.Threading.Tasks;
 using System.ComponentModel.Design.Serialization;
 
-namespace Domain.Domain.CreateMenuItemOp
+namespace Domain.Domain.EmployeeRoles.CreateMenuItemOp
 {
-    [AsChoice]
     public static partial class CreateMenuItemResult
     {
         public interface ICreateMenuItemResult { }
@@ -16,16 +13,16 @@ namespace Domain.Domain.CreateMenuItemOp
         public class MenuItemCreated : ICreateMenuItemResult
         {
             public MenuItem MenuItem { get; }
-
             public MenuItemCreated(MenuItem menuItem)
             {
-                MenuItem = menuItem;
+                MenuItem = menuItem;    
             }
         }
 
         public class MenuItemNotCreated : ICreateMenuItemResult
         {
             public string Reason { get; }
+
             public MenuItemNotCreated(string reason)
             {
                 Reason = reason;

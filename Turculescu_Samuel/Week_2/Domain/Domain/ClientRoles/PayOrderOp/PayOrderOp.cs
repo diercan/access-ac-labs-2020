@@ -13,17 +13,30 @@ namespace Domain.Domain.ClientRoles.PayOrderOp
     public class PayOrderOp : OpInterpreter<PayOrderCmd, PayOrderResult.IPayOrderResult, Unit>
     {
         public override Task<IPayOrderResult> Work(PayOrderCmd Op, Unit state)
-        {
-            Op.Client.Order.PaymentStatus = PaymentStatus.Paid;
+        {          
+            if(!Exists(Op.Client.CardNumber))
+            {
+                return Task.FromResult<IPayOrderResult>(new PayOrderStatus("Unsuccessful payment! Please try again!"));
+            }
+            else
+            {
+                Op.Order.PaymentStatus = PaymentStatus.Paid;
+                Op.Client.OrdersPlaced.Add(Op.Order);
+                return Task.FromResult<IPayOrderResult>(new PayOrderStatus($"Your order: {Op.Order.OrderId} is paid. Thank you!"));
 
-            return !Exists(Op.Client.CardNumber) ?
-                Task.FromResult<IPayOrderResult>(new PayOrderNotSuccessful("Unsuccessful payment!")) :
-                Task.FromResult<IPayOrderResult>(new PayOrderSuccessful(Op.Client.Order.PaymentStatus));
+            }                     
         }
 
         public bool Exists(string CardNumber)
         {
-            return true;
+            if (CardNumber != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

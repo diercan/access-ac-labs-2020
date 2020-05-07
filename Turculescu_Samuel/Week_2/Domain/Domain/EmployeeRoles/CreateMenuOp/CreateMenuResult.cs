@@ -6,7 +6,7 @@ using Domain.Models;
 using System.Threading.Tasks;
 using System.ComponentModel.Design.Serialization;
 
-namespace Domain.Domain.CreateMenuOp
+namespace Domain.Domain.EmployeeRoles.CreateMenuOp
 {
     [AsChoice]
     public static partial class CreateMenuResult

@@ -12,21 +12,11 @@ namespace Domain.Domain.ClientRoles.PayOrderOp
     {
         public interface IPayOrderResult { }
 
-        public class PayOrderSuccessful : IPayOrderResult 
-        {
-            public PaymentStatus PaymentStatus { get; }
-
-            public PayOrderSuccessful(PaymentStatus paymentStatus)
-            {
-                PaymentStatus = paymentStatus;
-            }
-        }
-
-        public class PayOrderNotSuccessful : IPayOrderResult
+        public class PayOrderStatus : IPayOrderResult
         {
             public string Reason { get; }
 
-            public PayOrderNotSuccessful(string reason)
+            public PayOrderStatus(string reason)
             {
                 Reason = reason;
             }

@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.CreateMenuItemOp
+namespace Domain.Domain.EmployeeRoles.CreateMenuItemOp
 {
     public struct CreateMenuItemCmd
     {
         public Menu Menu { get; }
         public string Name { get; }
-        public float Price { get; }
+        public double Price { get; }
         public uint Quantity { get; }
         public string Ingredients { get; }
         public string Allergens { get; }
         public MenuItemState MenuItemState { get; }
 
-        public CreateMenuItemCmd(Menu menu, string name, float price, uint quantity, string ingredients, string allergens, MenuItemState menuItemState)
+        public CreateMenuItemCmd(Menu menu, string name, double price, uint quantity, string ingredients, string allergens, MenuItemState menuItemState)
         {
             Menu = menu;
             Name = name;

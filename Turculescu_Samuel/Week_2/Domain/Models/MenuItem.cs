@@ -14,13 +14,13 @@ namespace Domain.Models
     public class MenuItem
     {
         public string Name { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public uint Quantity { get; set; }
         public string Ingredients { get; set; }
         public string Allergens { get; set; }
         public MenuItemState MenuItemState { get; set; }
 
-        public MenuItem(string name, float price, uint quantity, string ingredients, string allergens, MenuItemState menuItemState) 
+        public MenuItem(string name, double price, uint quantity, string ingredients, string allergens, MenuItemState menuItemState) 
         {
             Name = name;
             Price = price;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Domain.Models;
 
-namespace Domain.Domain.CreateMenuOp
+namespace Domain.Domain.EmployeeRoles.CreateMenuOp
 {
     public struct CreateMenuCmd
     {

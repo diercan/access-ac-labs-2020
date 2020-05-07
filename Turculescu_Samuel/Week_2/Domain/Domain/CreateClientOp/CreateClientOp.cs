@@ -14,17 +14,25 @@ namespace Domain.Domain.CreateClientOp
     {
         public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
         {
-            // Validate
+            Client newClient = new Client(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.CardNumber, Op.ClientId);
 
-            return !Exists(Op.Email) ?
-                Task.FromResult<ICreateClientResult>(new ClientNotCreated("Client already exists with this email!")) :
-                Task.FromResult<ICreateClientResult>(new ClientCreated(new Client(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.CardNumber, Op.ClientId)));
+            // Validate
+            return !Exists(newClient) ?
+                Task.FromResult<ICreateClientResult>(new ClientNotCreated("Client already exists!")) :
+                Task.FromResult<ICreateClientResult>(new ClientCreated(newClient));
         }
 
 
-        public bool Exists(string email)
+        public bool Exists(Client client)
         {
-            return true;
+            if(Storage.ClientsList.Contains(client))
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
         }
     }
 }

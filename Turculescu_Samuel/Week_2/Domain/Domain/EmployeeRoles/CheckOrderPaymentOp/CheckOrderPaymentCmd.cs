@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.EmployeeRoles.GetOrderStatusOp
+namespace Domain.Domain.EmployeeRoles.CheckOrderPaymentOp
 {
-    public struct GetOrderStatusCmd
+    public struct CheckOrderPaymentCmd
     {
         public Order Order { get; }
 
-        public GetOrderStatusCmd(Order order)
+        public CheckOrderPaymentCmd(Order order)
         {
             Order = order;
         }

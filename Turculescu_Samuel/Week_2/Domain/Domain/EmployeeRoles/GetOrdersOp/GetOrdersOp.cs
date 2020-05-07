@@ -16,9 +16,9 @@ namespace Domain.Domain.EmployeeRoles.GetOrdersOp
     {
         public override Task<IGetOrdersResult> Work(GetOrdersCmd Op, Unit state)
         {
-            return (!Op.Employee.Restaurant.OrdersList.Any()) ?
+            return (!Op.Restaurant.OrdersList.Any()) ?
                 Task.FromResult<IGetOrdersResult>(new GetOrdersResultNotSuccessful("No orders in this restaurant!")) :
-                Task.FromResult<IGetOrdersResult>(new GetOrdersResultSuccessful(Op.Employee.Restaurant.OrdersList));
+                Task.FromResult<IGetOrdersResult>(new GetOrdersResultSuccessful(Op.Restaurant.OrdersList));
         }
     }
 }
