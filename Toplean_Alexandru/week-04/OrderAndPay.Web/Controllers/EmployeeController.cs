@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Persistence;
 using Persistence.EfCore;
+using static Domain.Domain.CreateEntityOp.CreateEntityResult;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;

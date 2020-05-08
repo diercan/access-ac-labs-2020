@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using Domain.Entities;
@@ -23,11 +24,21 @@ namespace Persistence.EfCore
         }
 
         public int Id { get; set; }
+
+        [Required]
         public int MenuId { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Ingredients { get; set; }
+
         public string Alergens { get; set; }
+
+        [Required]
         public double Price { get; set; }
+
         public byte[] Image { get; set; }
 
         [JsonIgnore]

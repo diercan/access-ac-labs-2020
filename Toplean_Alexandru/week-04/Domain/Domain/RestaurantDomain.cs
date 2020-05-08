@@ -43,6 +43,7 @@ using Domain.Domain.UpdateOrderOp;
 using static Domain.Domain.UpdateMenuOp.UpdateMenuResult;
 using Domain.Domain.UpdateMenuOp;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
+using static Domain.Domain.CreateEntityOp.CreateEntityResult;
 
 namespace Domain.Domain
 {
@@ -74,6 +75,9 @@ namespace Domain.Domain
 
         public static IO<ICreateOrderResult> CreateOrder(int clientId, int restaurantId, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status, String payment) =>
           NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(clientId, restaurantId, tableNumber, itemNames, itemQuantities, itemComments, totalPrice, status, payment));
+
+        public static IO<ICreateEntityResult<T>> CreateEntity<T>(T Entity) =>
+    NewIO<CreateEntityOp.CreateEntityCmd<T>, ICreateEntityResult<T>>(new CreateEntityOp.CreateEntityCmd<T>(Entity));
 
         //=============================================== Creates and persists ============================================
         public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateAndPersistRestaurant(Restaurant restaurant) =>
@@ -107,6 +111,11 @@ namespace Domain.Domain
            let orderAgg = (orderCreated as OrderCreated)?.OrderAgg
            from dbContext in Database.AddOrUpdateEntity(orderAgg.Order)
            select orderCreated;
+
+        public static IO<ICreateEntityResult<T>> CreateAndPersistEntity<T>(T entity) =>
+        from createEntity in CreateEntity<T>(entity)
+        from db in Database.AddOrUpdateEntity(entity)
+        select createEntity;
 
         // ===================================================== Selects ================================================
         public static IO<ISelectRestaurantResult> SelectRestaurant(Restaurant restaurant) =>

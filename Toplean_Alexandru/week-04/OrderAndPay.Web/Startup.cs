@@ -58,6 +58,8 @@ namespace OrderAndPay.Web
 
             app.UseRouting();
 
+            app.UseMiddleware<Detect404>();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
