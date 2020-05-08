@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Web
 {
@@ -26,6 +28,11 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen(x => x.SwaggerDoc("oap", new OpenApiInfo
+            {
+                Title = "Order And Pay API",
+                Version = "v1"
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +48,9 @@ namespace Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger(x => x.RouteTemplate = "swagger/{documentName}/swagger.json");
+            app.UseSwaggerUI(x => x.SwaggerEndpoint("oap/swagger.json", "Liga AC LABS Access Group"));
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
