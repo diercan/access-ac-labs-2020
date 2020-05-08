@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Database.Context;
+using Database.Entities;
+using Domain.Models;
+using Infrastructure.Free;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +32,9 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddOperations(typeof(Restaurant).Assembly);
+            services.AddOperations(typeof(RestaurantEntity).Assembly);
+            services.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
             services.AddSwaggerGen(x => x.SwaggerDoc("oap", new OpenApiInfo
             {
                 Title = "Order And Pay API",
