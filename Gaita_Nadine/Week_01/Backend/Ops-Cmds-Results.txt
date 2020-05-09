@@ -1,0 +1,11 @@
+Client
+1a. GetRestaurant<GetRestaurantCmd, GetRestaurantResult>(string: name)
+1b. GetClient<GetClientCmd, GetClientResult>(string: clientId)
+2.  GetMenus<GetMenusCmd, GetMenusResult>(Restaurant: restaurant)
+3.  AddToCart<AddToCartCmd, AddToCartResult>(string: sessionId, MenuItem: menuItem, uint: qty) :
+							AddToCartSuccessful | AddToCartNotSuccessful | AddToCartInvalidRequest
+4.  ChangeQty<ChangeQtyCmd, ChangeQtyResult>(string: sessionId, int: menuItemId, uint newQty)
+5.  PlaceOrder<OrderCmd, OrderResult>(Cart cart, Restaurant: restaurant, Client: client, uint tip = 0)
+6.  GetOrderStatus<GetOrderStatusCmd, GetOrderStatusResult>(Cart cart);
+ASPNET.CORE -> RestaurantDomain -> Result -> Match -> HttpResponseMessage
+HTTP Request ------------------------------------------HTTP Response(200)

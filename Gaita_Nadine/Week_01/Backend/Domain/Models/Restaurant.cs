@@ -6,11 +6,14 @@ namespace Domain.Models
 {
     public class Restaurant
     {
+        private Restaurant restaurant;
+
         public string Name { get; }
         public Menu Menu { get; set; }
         public Restaurant(string name)
         {
             Name = name;
         }
+
     }
 }
