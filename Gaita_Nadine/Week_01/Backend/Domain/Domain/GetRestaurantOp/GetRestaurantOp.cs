@@ -13,7 +13,7 @@ namespace Domain.Domain.GetRestaurantOp
     {
         public override System.Threading.Tasks.Task<IGetRestaurantResult> Work(GetRestaurantCmd Op, Unit state)
         {
-            return Task.FromResult<IGetRestaurantResult>(new RestaurantFound(new Restaurant(Op.Restaurant.Name)));
+            return Task.FromResult<IGetRestaurantResult>(new RestaurantFound(new Restaurant(Op.Name)));
         }
     }
 }

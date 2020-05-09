@@ -13,6 +13,10 @@ using static Domain.Domain.CreateIngredientOp.CreateIngredientResult;
 using Domain.Domain.CreateIngredientOp;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using Domain.Domain.CreateMenuItemOp;
+using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
+using Domain.Domain.GetRestaurantOp;
+using static Domain.Domain.GetMenusOp.GetMenuResult;
+using Domain.Domain.GetMenusOp;
 
 namespace Domain.Domain
 {
@@ -30,5 +34,11 @@ namespace Domain.Domain
 
         public static IO<ICreateIngredientResult> CreateIngredient(ushort noIngredients, List<string> ingredients) =>
             NewIO<CreateIngredientCmd, ICreateIngredientResult>(new CreateIngredientCmd(noIngredients, ingredients));
+
+        public static IO<IGetRestaurantResult> GetRestaurant(string restaurantName) =>
+            NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(restaurantName));
+
+        public static IO<IGetMenusResult> GetMenus(Restaurant restaurant) =>
+            NewIO<GetMenusCmd, IGetMenusResult>(new GetMenusCmd(restaurant));
     }
 }

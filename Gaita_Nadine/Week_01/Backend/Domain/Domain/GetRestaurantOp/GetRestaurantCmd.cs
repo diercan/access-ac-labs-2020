@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Domain.GetRestaurantOp
 {
     public class GetRestaurantCmd
     {
-        public Restaurant Restaurant { get; }
+        public string Name { get; }
 
-        public GetRestaurantCmd(Restaurant restaurant)
+        public GetRestaurantCmd(string name)
         {
-            Restaurant = restaurant;
+            Name=name;
         }
     }
 }
