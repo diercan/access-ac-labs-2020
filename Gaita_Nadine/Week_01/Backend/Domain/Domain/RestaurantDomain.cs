@@ -28,7 +28,7 @@ namespace Domain.Domain
         public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, string name, double price, List<Ingredient> ingredients) =>
             NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name, price, ingredients));
 
-        public static IO<ICreateIngredientResult> CreateIngredient(string ingredientName) =>
-            NewIO<CreateIngredientCmd, ICreateIngredientResult>(new CreateIngredientCmd(ingredientName));
+        public static IO<ICreateIngredientResult> CreateIngredient(ushort noIngredients, List<string> ingredients) =>
+            NewIO<CreateIngredientCmd, ICreateIngredientResult>(new CreateIngredientCmd(noIngredients, ingredients));
     }
 }

@@ -1,5 +1,8 @@
 ﻿using CSharp.Choices.Attributes;
 using Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domain.Domain.CreateIngredientOp
 {
@@ -9,10 +12,10 @@ namespace Domain.Domain.CreateIngredientOp
         public interface ICreateIngredientResult { };
         public class IngredientCreated : ICreateIngredientResult
         {
-            public Ingredient Ingredient { get; }
-            public IngredientCreated(Ingredient ingredient)
+            public List<Ingredient> Ingredients { get; }
+            public IngredientCreated(List<Ingredient> ingredients)
             {
-                Ingredient = ingredient;
+                Ingredients = ingredients;
             }
 
         }

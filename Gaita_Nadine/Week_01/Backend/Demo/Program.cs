@@ -21,19 +21,15 @@ namespace Demo
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            
-            Ingredient mozarella = new Ingredient("mozarella");
-            Ingredient bacon = new Ingredient("bacon");
-            List<Ingredient> ingredients = new List<Ingredient>();
-            ingredients.Add(mozarella);
-            ingredients.Add(bacon);
 
             var expr =
                 from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from newMenuResult in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
-                let newMenu= (newMenuResult as MenuCreated)?.Menu
-                from menuItemResult in RestaurantDomain.CreateMenuItem(newMenu, "Paste Carbonara", 30, ingredients)
+                from menuResult1 in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
+                let menu1= (menuResult1 as MenuCreated)?.Menu
+                from ingredientsResult1 in RestaurantDomain.CreateIngredient(4, ["chifla", "angus", "bbq", "salata"])
+                let ingredients1 = (ingredientsResult1 as IngredientCreated)?.Ingredient
+                from menuItemResult1 in RestaurantDomain.CreateMenuItem(menu1, "Burger Angus", 35, ingredients1)
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);

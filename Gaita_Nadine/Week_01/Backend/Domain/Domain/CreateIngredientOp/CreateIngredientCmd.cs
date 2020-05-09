@@ -1,11 +1,17 @@
-﻿namespace Domain.Domain.CreateIngredientOp
+﻿using System.Collections.Generic;
+
+namespace Domain.Domain.CreateIngredientOp
 {
     public struct CreateIngredientCmd
     {
-        public string Name { get; }
-        public CreateIngredientCmd(string name)
+        public ushort NoIngredients { get; }
+
+        public List<string> Ingredients { get; }
+        public CreateIngredientCmd(ushort noIngredients, List<string> ingredients)
         {
-            Name = name;
+            NoIngredients = noIngredients;
+            Ingredients = new List<string>(NoIngredients);
+            Ingredients = ingredients;
         }
     }
 }
