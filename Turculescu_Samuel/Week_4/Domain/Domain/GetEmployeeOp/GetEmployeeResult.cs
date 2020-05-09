@@ -12,21 +12,21 @@ namespace Domain.Domain.GetEmployeeOp
     {
         public interface IGetEmployeeResult { }
 
-        public class GetEmployeeSuccessful : IGetEmployeeResult 
+        public class EmployeeFound : IGetEmployeeResult 
         { 
-            public Employee Employee { get; }
+            public EmployeeAgg Agg { get; }
 
-            public GetEmployeeSuccessful(Employee employee)
+            public EmployeeFound(EmployeeAgg agg)
             {
-                Employee = employee;
+                Agg = agg;
             }
         }
 
-        public class GetEmployeeNotSuccessful : IGetEmployeeResult
+        public class EmployeeNotFound : IGetEmployeeResult
         {
             public string Reason { get; }
 
-            public GetEmployeeNotSuccessful(string reason)
+            public EmployeeNotFound(string reason)
             {
                 Reason = reason;
             }

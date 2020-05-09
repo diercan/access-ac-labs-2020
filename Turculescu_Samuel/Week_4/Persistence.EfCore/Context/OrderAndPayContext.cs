@@ -18,6 +18,7 @@ namespace Persistence.EfCore.Context
 
         public virtual DbSet<Restaurant> Restaurant { get; set; }
         public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,9 +31,56 @@ namespace Persistence.EfCore.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // RESTAURANT
             modelBuilder.Entity<Restaurant>(entity =>
             {
-                entity.Property(e => e.Name).HasMaxLength(500);
+                entity.Property(r => r.Name).HasMaxLength(500);
+
+                entity.Property(r => r.Address).HasMaxLength(500);                
+            });
+
+            // CLIENT
+            modelBuilder.Entity<Client>(entity =>
+            {
+                entity.Property(c => c.FirstName).HasMaxLength(50);
+
+                entity.Property(c => c.LastName).HasMaxLength(50);
+
+                entity.Property(c => c.Phone)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(c => c.Email).HasMaxLength(800);
+
+                entity.Property(c => c.CardNumber)
+                    .HasMaxLength(16)
+                    .IsFixedLength();
+
+                entity.Property(c => c.Username).HasMaxLength(50);
+
+                entity.Property(c => c.Password).HasMaxLength(128);             
+            });
+
+            // EMPLOYEE
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.Property(e => e.FirstName).HasMaxLength(50);
+
+                entity.Property(e => e.LastName).HasMaxLength(50);
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Email).HasMaxLength(800);
+
+                entity.Property(e => e.Job).HasMaxLength(100);                    
+
+                entity.Property(e => e.Username).HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(128);
+
+                entity.Property(e => e.RestaurantId);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using Domain.Models;
+using Persistence.EfCore;
 
 namespace Domain.Domain.GetEmployeeOp
 {
     public struct GetEmployeeCmd
     {
-        public RestaurantAgg Restaurant { get; }
-        public string EmployeeId { get; }
+        public Employee Employee { get; }
 
-        public GetEmployeeCmd(RestaurantAgg restaurant, string employeeId)
+        public GetEmployeeCmd(Employee employee)
         {
-            Restaurant = restaurant;
-            EmployeeId = employeeId;
+            Employee = employee;
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using Persistence.EfCore;
 
 namespace Domain.Domain.GetClientOp
 {
     public struct GetClientCmd
     {
-        public string ClientId { get; }
-        public GetClientCmd(string clientId)
+        public Client Client { get; }
+        public GetClientCmd(Client client)
         {
-            ClientId = clientId;
+            Client = client;
         }
     }
 }

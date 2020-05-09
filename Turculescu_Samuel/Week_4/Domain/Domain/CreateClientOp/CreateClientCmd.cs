@@ -11,16 +11,18 @@ namespace Domain.Domain.CreateClientOp
         public string Email { get; }
         public string Phone { get; }
         public string CardNumber { get; }
-        public int ClientId { get; }
+        public string Username { get; }
+        public string Password { get; }
 
-        public CreateClientCmd(string firstName, string lastName, string email, string phone, string cardNumber, int clientId)
+        public CreateClientCmd(string firstName, string lastName, string email, string phone, string cardNumber, string username, string password)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
             CardNumber = cardNumber;
-            ClientId = clientId;
+            Username = username;
+            Password = password;
         }
     }
 }

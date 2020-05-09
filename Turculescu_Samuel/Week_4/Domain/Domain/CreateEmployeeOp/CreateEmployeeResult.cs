@@ -14,8 +14,8 @@ namespace Domain.Domain.CreateEmployeeOp
 
         public class EmployeeCreated : ICreateEmployeeResult
         {
-            public Employee Employee { get; }
-            public EmployeeCreated(Employee employee)
+            public EmployeeAgg Employee { get; }
+            public EmployeeCreated(EmployeeAgg employee)
             {
                 Employee = employee;
             }

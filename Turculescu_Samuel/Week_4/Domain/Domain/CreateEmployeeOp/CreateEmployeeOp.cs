@@ -6,6 +6,7 @@ using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using LanguageExt.ClassInstances.Pred;
+using Persistence.EfCore;
 using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
 
 namespace Domain.Domain.CreateEmployeeOp
@@ -14,15 +15,15 @@ namespace Domain.Domain.CreateEmployeeOp
     {
         public override Task<ICreateEmployeeResult> Work(CreateEmployeeCmd Op, Unit state)
         {
-            Employee newEmployee = new Employee(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.IdEmployee, Op.Restaurant);
+            EmployeeAgg newEmployee = new EmployeeAgg(new Employee { FirstName = Op.FirstName, LastName = Op.LastName, Email = Op.Email, Phone = Op.Phone, Job = Op.Job, Username = Op.Username, Password = Op.Password, RestaurantId = Op.RestaurantId });
             // Validate
-            return !Exists(Op.Restaurant.EmployeesList, newEmployee) ?
-                Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated("Employee already is hired!")) :
-                Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(newEmployee));
+            //return !Exists(Op.Restaurant.EmployeesList, newEmployee) ?
+              //  Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated("Employee already is hired!")) :
+                return Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(newEmployee));
         }
 
 
-        public bool Exists(List<Employee> employeesList, Employee employee)
+        public bool Exists(List<EmployeeAgg> employeesList, EmployeeAgg employee)
         {
             if (employeesList.Contains(employee))
             {

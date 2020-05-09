@@ -40,18 +40,12 @@ namespace Domain.Domain
         public static IO<ICreateRestaurantResult> CreateRestaurant(string name, string address) =>
             NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name, address));
 
-        public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateRestaurantAndPersist(string name, string address)
-            => from restaurantCreated in RestaurantDomain.CreateRestaurant(name, address)
-               let agg = (restaurantCreated as CreateRestaurantResult.RestaurantCreated)?.Restaurant
-               from db in Database.AddOrUpdate(agg.Restaurant)
-               select restaurantCreated;
-
         // EMPLOYEE
-        public static IO<ICreateEmployeeResult> CreateEmployee(string firstName, string lastName, string email, string phone, string employeeId, RestaurantAgg restaurant) =>
-            NewIO<CreateEmployeeCmd, ICreateEmployeeResult>(new CreateEmployeeCmd(firstName, lastName, email, phone, employeeId, restaurant));
+        public static IO<ICreateEmployeeResult> CreateEmployee(string firstName, string lastName, string email, string phone, string job, string username, string password, int restaurantId) =>
+            NewIO<CreateEmployeeCmd, ICreateEmployeeResult>(new CreateEmployeeCmd(firstName, lastName, email, phone, job, username, password, restaurantId));
 
-        public static IO<GetEmployeeResult.IGetEmployeeResult> GetEmployee(RestaurantAgg restaurant, string employeeId) =>
-            NewIO<GetEmployeeCmd, GetEmployeeResult.IGetEmployeeResult>(new GetEmployeeCmd(restaurant, employeeId));
+        public static IO<GetEmployeeResult.IGetEmployeeResult> GetEmployee(Employee employee) =>
+            NewIO<GetEmployeeCmd, GetEmployeeResult.IGetEmployeeResult>(new GetEmployeeCmd(employee));
 
         public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(RestaurantAgg restaurant, string menuName) =>
             NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName));
@@ -75,20 +69,14 @@ namespace Domain.Domain
             NewIO<CheckOrderPaymentCmd, CheckOrderPaymentResult.ICheckOrderPaymentResult>(new CheckOrderPaymentCmd(order));
 
         // CLIENT
-        public static IO<ICreateClientResult> CreateClient(string firstName, string lastName, string email, string phone, string cardNumber, int clientId) =>
-            NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(firstName, lastName, email, phone, cardNumber, clientId));
+        public static IO<ICreateClientResult> CreateClient(string firstName, string lastName, string email, string phone, string cardNumber, string username, string password) =>
+            NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(firstName, lastName, email, phone, cardNumber, username, password));
 
-        public static IO<GetClientResult.IGetClientResult> GetClient(string clientId) =>
-            NewIO<GetClientCmd, GetClientResult.IGetClientResult>(new GetClientCmd(clientId));
+        public static IO<GetClientResult.IGetClientResult> GetClient(Client client) =>
+            NewIO<GetClientCmd, GetClientResult.IGetClientResult>(new GetClientCmd(client));
 
         public static IO<GetRestaurantResult.IGetRestaurantResult> GetRestaurant(Restaurant restaurant) =>
              NewIO<GetRestaurantCmd, GetRestaurantResult.IGetRestaurantResult>(new GetRestaurantCmd(restaurant));
-
-        public static IO<RestaurantAgg> GetRestaurant(string name)
-           => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
-              from getResult in RestaurantDomain.GetRestaurant(restaurant)
-              let agg = (getResult as GetRestaurantResult.RestaurantFound)?.Agg
-              select agg;
 
         public static IO<GetMenusResult.IGetMenusResult> GetMenu(RestaurantAgg restaurant) =>
             NewIO<GetMenusCmd, GetMenusResult.IGetMenusResult>(new GetMenusCmd(restaurant));

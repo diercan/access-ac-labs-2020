@@ -12,21 +12,21 @@ namespace Domain.Domain.GetClientOp
     {
         public interface IGetClientResult { }
 
-        public class GetClientSuccessful : IGetClientResult
+        public class ClientFound : IGetClientResult
         {
-            public ClientAgg Client { get; }
+            public ClientAgg Agg { get; }
 
-            public GetClientSuccessful(ClientAgg client)
+            public ClientFound(ClientAgg agg)
             {
-                Client = client;
+                Agg = agg;
             }
         }
 
-        public class GetClientNotSuccessful : IGetClientResult
+        public class ClientNotFound : IGetClientResult
         {
             public string Reason { get; }
 
-            public GetClientNotSuccessful(string reason)
+            public ClientNotFound(string reason)
             {
                 Reason = reason;
             }

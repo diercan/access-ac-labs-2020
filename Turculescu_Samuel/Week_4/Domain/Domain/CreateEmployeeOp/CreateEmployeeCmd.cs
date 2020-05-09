@@ -11,17 +11,21 @@ namespace Domain.Domain.CreateEmployeeOp
         public string LastName { get; }
         public string Email { get; }
         public string Phone { get; }
-        public string IdEmployee { get; }
-        public RestaurantAgg Restaurant { get; }
+        public string Job { get; }
+        public string Username { get; }
+        public string Password { get; }
+        public int RestaurantId { get; }
 
-        public CreateEmployeeCmd(string firstName, string lastName, string email, string phone, string idEmployee, RestaurantAgg restaurant)
+        public CreateEmployeeCmd(string firstName, string lastName, string email, string phone,string job, string username, string password, int restaurantId)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
-            IdEmployee = idEmployee;
-            Restaurant = restaurant;
+            Job = job;
+            Username = username;
+            Password = password;
+            RestaurantId = restaurantId;
         }
     }
 }

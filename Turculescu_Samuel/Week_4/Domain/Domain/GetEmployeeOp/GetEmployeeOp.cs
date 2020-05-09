@@ -12,29 +12,11 @@ namespace Domain.Domain.GetEmployeeOp
 {
     public class GetEmployeeOp : OpInterpreter<GetEmployeeCmd, GetEmployeeResult.IGetEmployeeResult, Unit>
     {
-        private List<Employee>.Enumerator e;
         public override Task<IGetEmployeeResult> Work(GetEmployeeCmd Op, Unit state)
         {
-            e = Op.Restaurant.EmployeesList.GetEnumerator();    // e is enumerator for EmployeesList from Restaurant
-
-            // Validate
-
-            return !Exists(Op.EmployeeId) ?
-                Task.FromResult<IGetEmployeeResult>(new GetEmployeeNotSuccessful($"There is no client with this id: {Op.EmployeeId}!")) :
-                Task.FromResult<IGetEmployeeResult>(new GetEmployeeSuccessful(e.Current));
-        }
-
-        // Verify if restaurant selected is opened or not
-        public bool Exists(string employeeId)
-        {
-            while (e.MoveNext())
-            {
-                if (employeeId.CompareTo(e.Current.EmployeeId) == 0)
-                {
-                    return true;
-                }
-            }
-            return false;
+           return (Op.Employee is null) ?
+                Task.FromResult<IGetEmployeeResult>(new EmployeeNotFound("Employee not found!")) :
+                Task.FromResult<IGetEmployeeResult>(new EmployeeFound(new EmployeeAgg(Op.Employee)));
         }
     }
 }
