@@ -44,6 +44,11 @@ using static Domain.Domain.UpdateMenuOp.UpdateMenuResult;
 using Domain.Domain.UpdateMenuOp;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
 using static Domain.Domain.CreateEntityOp.CreateEntityResult;
+using static Domain.Domain.CreateOrderItemOp.CreateOrderItemResult;
+using Domain.Domain.CreateOrderItemOp;
+using static Domain.Domain.DeleteOrderOp.DeleteOrderResult;
+using static Domain.Domain.SelectOrderOp.SelectOrderResult;
+using Domain.Domain.SelectOrderOp;
 
 namespace Domain.Domain
 {
@@ -78,6 +83,9 @@ namespace Domain.Domain
 
         public static IO<ICreateEntityResult<T>> CreateEntity<T>(T Entity) =>
     NewIO<CreateEntityOp.CreateEntityCmd<T>, ICreateEntityResult<T>>(new CreateEntityOp.CreateEntityCmd<T>(Entity));
+
+        public static IO<ICreateOrderItemResult> CreateOrderItem(OrderItems orderItem) =>
+            NewIO<CreateOrderItemCmd, ICreateOrderItemResult>(new CreateOrderItemCmd(orderItem));
 
         //=============================================== Creates and persists ============================================
         public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateAndPersistRestaurant(Restaurant restaurant) =>
@@ -117,6 +125,11 @@ namespace Domain.Domain
         from db in Database.AddOrUpdateEntity(entity)
         select createEntity;
 
+        public static IO<ICreateOrderItemResult> CreateAndPersistOrderItem(OrderItems orderItem) =>
+            from createOrderItem in CreateOrderItem(orderItem)
+            from db in Database.AddOrUpdateEntity(orderItem)
+            select createOrderItem;
+
         // ===================================================== Selects ================================================
         public static IO<ISelectRestaurantResult> SelectRestaurant(Restaurant restaurant) =>
            NewIO<SelectRestaurantCmd, ISelectRestaurantResult>(new SelectRestaurantCmd(restaurant));
@@ -129,6 +142,9 @@ namespace Domain.Domain
 
         public static IO<ISelectClientResult> SelectClient(Client client) =>
             NewIO<SelectClientCmd, ISelectClientResult>(new SelectClientCmd(client));
+
+        public static IO<ISelectOrderResult> SelectOrder(Order order) =>
+            NewIO<SelectOrderCmd, ISelectOrderResult>(new SelectOrderCmd(order));
 
         //================================================== Gets =======================================================
         public static IO<ISelectRestaurantResult> GetRestaurant(string name)
@@ -154,6 +170,12 @@ namespace Domain.Domain
             let agg = (getResult as ClientSelected)?.ClientAgg
             select getResult;
 
+        public static IO<ISelectOrderResult> GetOrder(int orderID) =>
+           from selectOrder in Database.Query<GetOrderQuery, Order>(new GetOrderQuery(orderID))
+           from getOrder in RestaurantDomain.SelectOrder(selectOrder)
+           let order = (getOrder as OrderSelected)?.OrderAgg
+           select getOrder;
+
         //===========================================Multiple Select Gets =============================================
 
         public static IO<ICollection<Menu>> GetAllMenus(int restaurantId) =>
@@ -168,7 +190,22 @@ namespace Domain.Domain
             from getAllOrders in Database.Query<GetAllOrdersQuery, ICollection<Order>>(new GetAllOrdersQuery(restaurantId))
             select getAllOrders;
 
+        public static IO<ICollection<OrderItems>> GetAllOrderItems(int orderId) =>
+            from getAllOrderItems in Database.Query<GetAllOrderItemsQuery, ICollection<OrderItems>>(new GetAllOrderItemsQuery(orderId))
+            select getAllOrderItems;
+
         // ============================================== Deletes ======================================================
+
+        public static IO<IDeleteOrderResult> DeleteOrder(Order order) =>
+            NewIO<DeleteOrderOp.DeleteOrderCmd, IDeleteOrderResult>(new DeleteOrderOp.DeleteOrderCmd(order));
+
+        public static IO<IDeleteOrderResult> DeleteOrderFromDB(int orderID) =>
+            from getOrder in RestaurantDomain.GetOrder(orderID)
+            let order = (getOrder as OrderSelected)?.OrderAgg.Order
+            from deleteOrder in DeleteOrder(order)
+            let orderToDelete = (deleteOrder as OrderDeleted)?.Order
+            from db in Database.DeleteEntity(orderToDelete)
+            select deleteOrder;
 
         //============================================= Updates ========================================================
 

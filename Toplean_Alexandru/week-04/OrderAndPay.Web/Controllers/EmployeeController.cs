@@ -19,6 +19,7 @@ using static Domain.Domain.CreateEntityOp.CreateEntityResult;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.DeleteOrderOp.DeleteOrderResult;
 using static Domain.Domain.GetPaymentStatusOp.GetPaymentStatusResult;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
 using static Domain.Domain.RequestPaymentOp.RequestPaymentResult;
@@ -272,6 +273,28 @@ namespace OrderAndPay.Web.Controllers
                 {
                     return NotFound();
                 }
+                );
+        }
+
+        [HttpDelete("DeleteOrder/{orderID}")]
+        public async Task<IActionResult> DeteleOrder(int orderID)
+        {
+            var expr = from deleteOrder in RestaurantDomain.DeleteOrderFromDB(orderID)
+                       let order = (deleteOrder as OrderDeleted)?.Order
+                       select deleteOrder;
+
+            var result = await interpreter.Interpret(expr, Unit.Default);
+            return await result.MatchAsync<IActionResult>(
+
+                async (deleted) =>
+                {
+                    return (IActionResult)Ok(deleted.Order);
+                },
+                async (notDeleted) =>
+                {
+                    return NotFound();
+                }
+
                 );
         }
 

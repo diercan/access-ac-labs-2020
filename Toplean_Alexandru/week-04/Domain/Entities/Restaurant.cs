@@ -1,14 +1,15 @@
-﻿using Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Persistence.EfCore
 {
-    public partial class Restaurant : IEntity
+    public partial class Restaurant
     {
         public Restaurant()
         {
+            Employee = new HashSet<Employee>();
+            Menu = new HashSet<Menu>();
+            Order = new HashSet<Order>();
         }
 
         public Restaurant(String name)
@@ -20,8 +21,6 @@ namespace Persistence.EfCore
         }
 
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<Employee> Employee { get; set; }

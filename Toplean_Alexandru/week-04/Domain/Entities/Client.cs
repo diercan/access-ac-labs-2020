@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Persistence.EfCore
 {
@@ -9,6 +8,7 @@ namespace Persistence.EfCore
     {
         public Client()
         {
+            Order = new HashSet<Order>();
         }
 
         public Client(String name, String username, String password, String email, int? tableNumber)
@@ -23,21 +23,11 @@ namespace Persistence.EfCore
         }
 
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
-
-        [Required]
         public string Username { get; set; }
-
-        [Required]
         public string Password { get; set; }
-
-        [Required]
         public string Email { get; set; }
-
         public int? TableNumber { get; set; }
-
         public string SessionId { get; set; }
 
         public virtual ICollection<Order> Order { get; set; }
