@@ -12,21 +12,21 @@ namespace Domain.Domain.ClientRoles.GetRestaurantOp
     {
         public interface IGetRestaurantResult { }
 
-        public class RestaurantGotten : IGetRestaurantResult
+        public class GetRestaurantSuccessful : IGetRestaurantResult
         {
             public Restaurant Restaurant { get; }
 
-            public RestaurantGotten(Restaurant restaurant)
+            public GetRestaurantSuccessful(Restaurant restaurant)
             {
                 Restaurant = restaurant;
             }
         }
 
-        public class RestaurantNotGotten : IGetRestaurantResult
+        public class GetRestaurantNotSuccessful : IGetRestaurantResult
         {
             public string Reason { get; }
 
-            public RestaurantNotGotten(string reason)
+            public GetRestaurantNotSuccessful(string reason)
             {
                 Reason = reason;
             }

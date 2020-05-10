@@ -12,21 +12,21 @@ namespace Domain.Domain.ClientRoles.GetMenusOp
     {
         public interface IGetMenusResult { }
 
-        public class MenusGotten : IGetMenusResult
+        public class GetMenusSuccessful : IGetMenusResult
         {
-            public Menu Menu { get; }
+            public List<Menu> Menus { get; }
 
-            public MenusGotten(Menu menu)
+            public GetMenusSuccessful(List<Menu> menus)
             {
-                Menu = menu;
+                Menus = menus;
             }
         }
 
-        public class MenusNotGotten : IGetMenusResult
+        public class GetMenusNotSuccessful : IGetMenusResult
         {
             public string Reason { get; }
 
-            public MenusNotGotten(string reason)
+            public GetMenusNotSuccessful(string reason)
             {
                 Reason = reason;
             }

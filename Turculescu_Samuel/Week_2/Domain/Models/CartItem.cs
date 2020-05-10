@@ -9,10 +9,10 @@ namespace Domain.Models
         public string Name { get; }
         public string SpecialRequests { get; set; }
         public uint Quantity { get; set; }
-        public float Price { get; }
+        public double Price { get; }
         public MenuItem MenuItem { get; }
 
-        public CartItem(MenuItem menuItem, string name, string specialRequests, uint quantity, float price)
+        public CartItem(MenuItem menuItem, string name, string specialRequests, uint quantity, double price)
         {
             MenuItem = menuItem;
             Name = name;

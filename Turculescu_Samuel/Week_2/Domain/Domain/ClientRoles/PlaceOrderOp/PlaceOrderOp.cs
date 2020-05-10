@@ -14,12 +14,17 @@ namespace Domain.Domain.ClientRoles.PlaceOrderOp
     public class PlaceOrderOp : OpInterpreter<PlaceOrderCmd, PlaceOrderResult.IPlaceOrderResult, Unit>
     {
         public override Task<IPlaceOrderResult> Work(PlaceOrderCmd Op, Unit state)
-        {
-            Order Order = new Order(Op.Client.GoToRestaurant.OrderId++, Op.Client.ClientId, Op.TableNumber, OrderStatus.Processing);
-
-            return !Exists(Op.TableNumber) ?
-                Task.FromResult<IPlaceOrderResult>(new OrderNotPlaced("Please enter your table number!")) :
-                Task.FromResult<IPlaceOrderResult>(new OrderPlaced(Order));
+        {            
+            if(!Exists(Op.TableNumber))
+            {
+                return Task.FromResult<IPlaceOrderResult>(new OrderNotPlaced("Please enter your table number!"));
+            }
+            else
+            {
+                Order Order = new Order(Op.Restaurant.OrderId++, Op.Client.ClientId, Op.TableNumber, OrderStatus.Processing);
+                Op.Restaurant.OrdersList.Add(Order);
+                return Task.FromResult<IPlaceOrderResult>(new OrderPlaced(Order));
+            }        
         }
 
         public bool Exists(uint tableNumber)

@@ -7,12 +7,14 @@ namespace Domain.Domain.EmployeeRoles.ChangeMenuItemOp
 {
     public struct ChangeMenuItemCmd
     {
-        public MenuItem CurrentMenuItem { get; }
+        public Menu Menu { get; }
+        public int MenuItemId { get; }
         public MenuItem NewMenuItem { get; }
 
-        public ChangeMenuItemCmd(MenuItem currentMenuItem, MenuItem newMenuItem)
+        public ChangeMenuItemCmd(Menu menu, int menuItemId, MenuItem newMenuItem)
         {
-            CurrentMenuItem = currentMenuItem;
+            Menu = menu;
+            MenuItemId = menuItemId;
             NewMenuItem = newMenuItem;
         }
     }
