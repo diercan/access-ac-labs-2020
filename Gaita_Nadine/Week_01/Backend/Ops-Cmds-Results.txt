@@ -12,3 +12,7 @@ AddToCartSuccessful | AddToCartNotSuccessful |AddToCartInvalidRequest
 
 ASPNET.CORE -> RestaurantDomain -> Result -> Match -> HttpResponseMessage
 HTTP Request ------------------------------------------HTTP Response(200)
+
+/*********
+Uid inseamna ca clientul e logat
+session Id inseamna ca clientul a intrat pe site

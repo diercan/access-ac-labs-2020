@@ -17,6 +17,10 @@ using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
 using Domain.Domain.GetRestaurantOp;
 using static Domain.Domain.GetMenusOp.GetMenuResult;
 using Domain.Domain.GetMenusOp;
+using static Domain.Domain.CreateClientOp.CreateClientResult;
+using Domain.Domain.CreateClientOp;
+using Domain.Domain.GetClientOp;
+using static Domain.Domain.GetClientOp.GetClientResult;
 
 namespace Domain.Domain
 {
@@ -40,5 +44,10 @@ namespace Domain.Domain
 
         public static IO<IGetMenusResult> GetMenus(Restaurant restaurant) =>
             NewIO<GetMenusCmd, IGetMenusResult>(new GetMenusCmd(restaurant));
+
+        public static IO<ICreateClientResult> CreateClient(string name, string email, string uid) =>
+            NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, email, uid));
+        public static IO<IGetClientResult> GetClient(string uid) =>
+           NewIO<GetClientCmd, IGetClientResult>(new GetClientCmd(uid));
     }
 }
