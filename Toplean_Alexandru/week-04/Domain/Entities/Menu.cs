@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace Persistence.EfCore
 {
-    public partial class Menu
+    public partial class Menu : IEntity
     {
         public Menu()
         {

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Entities;
 
 namespace Domain.Domain.CreateEntityOp
 {
-    internal class CreateEntityCmd<T>
+    public class CreateEntityCmd
     {
-        public T Entity { get; }
+        public IEntity Entity { get; }
 
-        public CreateEntityCmd(T entity)
+        public CreateEntityCmd(IEntity entity)
         {
             Entity = entity;
         }

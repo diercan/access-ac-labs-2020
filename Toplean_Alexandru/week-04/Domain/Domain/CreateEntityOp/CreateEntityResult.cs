@@ -1,4 +1,5 @@
 ﻿using CSharp.Choices.Attributes;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,19 +10,19 @@ namespace Domain.Domain.CreateEntityOp
     [AsChoice]
     public static partial class CreateEntityResult
     {
-        public interface ICreateEntityResult<T> { }
+        public interface ICreateEntityResult { }
 
-        public class EntityCreated<T> : ICreateEntityResult<T>
+        public class EntityCreated : ICreateEntityResult
         {
-            public T Entity { get; }
+            public IEntity Entity { get; }
 
-            public EntityCreated(T entity)
+            public EntityCreated(IEntity entity)
             {
                 Entity = entity;
             }
         }
 
-        public class EntityNotCreated<T> : ICreateEntityResult<T>
+        public class EntityNotCreated : ICreateEntityResult
         {
             public String Reason { get; }
 

@@ -9,18 +9,18 @@ using static Domain.Domain.CreateEntityOp.CreateEntityResult;
 
 namespace Domain.Domain.CreateEntityOp
 {
-    internal class CreateEntityOp : OpInterpreter<CreateEntityCmd<IEntity>, ICreateEntityResult<IEntity>, Unit>
+    public class CreateEntityOp : OpInterpreter<CreateEntityCmd, ICreateEntityResult, Unit>
     {
-        public override Task<ICreateEntityResult<IEntity>> Work(CreateEntityCmd<IEntity> Op, Unit state)
+        public override Task<ICreateEntityResult> Work(CreateEntityCmd Op, Unit state)
         {
             try
             {
                 Op.CommandIsValid();
-                return Task.FromResult<ICreateEntityResult<IEntity>>(new EntityCreated<IEntity>(Op.Entity));
+                return Task.FromResult<ICreateEntityResult>(new EntityCreated(Op.Entity));
             }
             catch (Exception exp)
             {
-                return Task.FromResult<ICreateEntityResult<IEntity>>(new EntityNotCreated<IEntity>(exp.Message));
+                return Task.FromResult<ICreateEntityResult>(new EntityNotCreated(exp.Message));
             }
         }
     }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace Persistence.EfCore
 {
-    public partial class Employee
+    public partial class Employee : IEntity
     {
         public Employee()
         {
