@@ -21,6 +21,12 @@ using static Domain.Domain.CreateClientOp.CreateClientResult;
 using Domain.Domain.CreateClientOp;
 using Domain.Domain.GetClientOp;
 using static Domain.Domain.GetClientOp.GetClientResult;
+using static Domain.Domain.AddToCartOp.AddMenuItemToCartResult;
+using Domain.Domain.AddToCartOp;
+using static Domain.Domain.CreateOrderOp.CreateOrderResult;
+using Domain.Domain.CreateOrderOp;
+using static Domain.Domain.PlaceOrder.PlaceOrderResult;
+using Domain.Domain.PlaceOrder;
 
 namespace Domain.Domain
 {
@@ -49,5 +55,12 @@ namespace Domain.Domain
             NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, email, uid, password));
         public static IO<IGetClientResult> GetClient(string uid) =>
            NewIO<GetClientCmd, IGetClientResult>(new GetClientCmd(uid));
+
+        public static IO<IAddMenuItemToCartResult> AddMenuItemToCart(Client client, MenuItem menuItem, ushort quantity) =>
+            NewIO<AddMenuItemToCartCmd, IAddMenuItemToCartResult>(new AddMenuItemToCartCmd(client, menuItem, quantity));
+        public static IO<ICreateOrderResult> CreateOrder(Restaurant restaurant, Client client) =>
+           NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(restaurant, client));
+        public static IO<IPlaceOrderResult> PlaceOrder(Order order) =>
+           NewIO<PlaceOrderCmd, IPlaceOrderResult>(new PlaceOrderCmd(order));
     }
 }
