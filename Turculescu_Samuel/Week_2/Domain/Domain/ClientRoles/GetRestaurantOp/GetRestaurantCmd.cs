@@ -7,13 +7,11 @@ namespace Domain.Domain.ClientRoles.GetRestaurantOp
 {
     public struct GetRestaurantCmd
     {
-        public Client Client { get; }
-        public Restaurant Restaurant { get; }
+        public string Name { get; }
 
-        public GetRestaurantCmd(Client client, Restaurant restaurant)
+        public GetRestaurantCmd(string name)
         {
-            Client = client;
-            Restaurant = restaurant;
+            Name = name;
         }
     }
 }

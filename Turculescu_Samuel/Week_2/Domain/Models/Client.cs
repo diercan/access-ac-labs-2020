@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace Domain.Models
@@ -13,9 +14,10 @@ namespace Domain.Models
         public string CardNumber { get; }
         public string ClientId { get; }
 
-        public Restaurant GoToRestaurant { get; set; }  // Restaurant selected by client
         public Cart Cart { get; set; }  // Each Client has a Cart with CartItems
-        public Order Order { get; set; }
+        //public Order Order { get; set; }
+
+        public List<Order> OrdersPlaced { get; } = new List<Order>();
 
         public Client(string firstName, string lastName, string email, string phone, string cardNumber, string clientId)
         {

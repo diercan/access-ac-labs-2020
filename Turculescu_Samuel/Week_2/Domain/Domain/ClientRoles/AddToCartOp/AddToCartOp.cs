@@ -30,7 +30,7 @@ namespace Domain.Domain.ClientRoles.AddToCartOp
             }
         }
 
-        public bool Verify(string sessionId)
+        public bool Verify(string ssessionId)
         {
             return true;
         }

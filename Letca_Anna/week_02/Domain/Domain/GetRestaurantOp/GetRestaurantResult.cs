@@ -14,11 +14,11 @@ namespace Domain.Domain.GetRestaurantOp
 
         public class RestaurantFound : IGetRestaurantResult
         {
-            public Restaurant Restaurant { get; }
+            public RestaurantAgg RestaurantAgg { get; }
 
-            public RestaurantFound(Restaurant restaurant)
+            public RestaurantFound(RestaurantAgg restaurant)
             {
-                Restaurant = restaurant;
+                RestaurantAgg = restaurant;
             }
         }
 
@@ -29,7 +29,6 @@ namespace Domain.Domain.GetRestaurantOp
 
             public RestaurantNotFound(string reason)
             {
-                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

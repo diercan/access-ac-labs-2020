@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infra\Infra.csproj" />
+    <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
   <!--End - Use these statements to enable codegen-->
+
 </Project>

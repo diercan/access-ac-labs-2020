@@ -11,7 +11,6 @@ namespace Domain.Models
         public string Email { get; }
         public string Phone { get; }
         public string EmployeeId { get; }
-
         public Restaurant Restaurant { get; }
 
         public Employee(string firstName, string lastName, string email, string phone, string employeeId, Restaurant restaurant)

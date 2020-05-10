@@ -219,3 +219,5 @@ Runtime/
 /EarlyPay.Database/EarlyPay.Database.jfm
 /EarlyPay.SuperAdmin.Web/wwwroot/*
 /EarlyPay.HealthChecks/healthchecksdb
+
+.idea/

@@ -7,11 +7,11 @@ namespace Domain.Domain.EmployeeRoles.GetOrdersOp
 {
     public struct GetOrdersCmd
     {
-        public Employee Employee { get; }
+        public Restaurant Restaurant { get; }
 
-        public GetOrdersCmd(Employee employee)
+        public GetOrdersCmd(Restaurant restaurant)
         {
-            Employee = employee;
+            Restaurant = restaurant;
         }
     }
 }

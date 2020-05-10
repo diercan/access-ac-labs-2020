@@ -8,7 +8,7 @@ namespace Domain.Domain
     public class Storage
     {
         private static Storage instance = null;
-        public static Dictionary<string,Restaurant> RestaurantCollection { get; } = new Dictionary<string, Restaurant>();
+        public static Dictionary<string,RestaurantAgg> RestaurantCollection { get; } = new Dictionary<string, RestaurantAgg>();
         public static Dictionary<string, Client> ClientCollection { get; } = new Dictionary<string, Client>();
         private Storage() { }
         

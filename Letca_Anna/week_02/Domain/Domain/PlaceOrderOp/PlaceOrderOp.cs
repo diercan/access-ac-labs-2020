@@ -22,7 +22,7 @@ namespace Domain.Domain.PlaceOrderOp
             if (!valid)
                 return Task.FromResult((IPlaceOrderResult)new OrderNotPlaced(validationMessage));
 
-            Op.Restaurant.AddToIncomingOrders(Op.Order);
+            //Op.Restaurant.AddToIncomingOrders(Op.Order);
             return Task.FromResult((IPlaceOrderResult)new OrderPlaced(Op.Restaurant, Op.Order));
         }
     }

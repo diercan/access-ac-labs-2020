@@ -14,17 +14,24 @@ namespace Domain.Domain.CreateEmployeeOp
     {
         public override Task<ICreateEmployeeResult> Work(CreateEmployeeCmd Op, Unit state)
         {
+            Employee newEmployee = new Employee(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.IdEmployee, Op.Restaurant);
             // Validate
-
-            return !Exists(Op.IdEmployee) ?
+            return !Exists(Op.Restaurant.EmployeesList, newEmployee) ?
                 Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated("Employee already is hired!")) :
-                Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(new Employee(Op.FirstName, Op.LastName, Op.Email, Op.Phone, Op.IdEmployee, Op.Restaurant)));
+                Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(newEmployee));
         }
 
 
-        public bool Exists(string idEmployee)
+        public bool Exists(List<Employee> employeesList, Employee employee)
         {
-            return true;
+            if (employeesList.Contains(employee))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -12,22 +12,29 @@ namespace Domain.Domain.ClientRoles.GetRestaurantOp
 {
     public class GetRestaurantOp : OpInterpreter<GetRestaurantCmd, GetRestaurantResult.IGetRestaurantResult, Unit>
     {
+        private List<Restaurant>.Enumerator r = Storage.RestaurantsList.GetEnumerator();    // r is enumerator for RestaurantsList
+
         public override Task<IGetRestaurantResult> Work(GetRestaurantCmd Op, Unit state)
         {
-            Op.Client.GoToRestaurant = Op.Restaurant;   // Link restaurant selected by client 
 
             // Validate
 
-            return !Opened(Op.Restaurant) ?
-                Task.FromResult<IGetRestaurantResult>(new RestaurantNotGotten("Restaurant is closed!")) : 
-                Task.FromResult<IGetRestaurantResult>(new RestaurantGotten(Op.Client.GoToRestaurant));
-
+            return !Exists(Op.Name) ?
+                Task.FromResult<IGetRestaurantResult>(new GetRestaurantNotSuccessful($"There is no restaurant with this name: {Op.Name}!")) : 
+                Task.FromResult<IGetRestaurantResult>(new GetRestaurantSuccessful(r.Current));
         }
 
         // Verify if restaurant selected is opened or not
-        public bool Opened(Restaurant restaurant)
+        public bool Exists(string restaurantName)
         {
-            return true;
+            while (r.MoveNext())
+            {
+                if(restaurantName == r.Current.Name)
+                {
+                    return true;
+                }
+            }
+            return false;            
         }
     }
 }

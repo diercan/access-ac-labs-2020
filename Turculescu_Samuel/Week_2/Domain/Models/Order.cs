@@ -26,7 +26,7 @@ namespace Domain.Models
         public PaymentStatus PaymentStatus { get; set; }
         public uint PreparationTimeInMinutes {get; set;}    // Preparation time for a MenuItem
 
-        public List<CartItem> OrderItems { get; set; }
+        public List<CartItem> OrderItems { get; set; } = new List<CartItem>();
 
         public Order(uint orderId, string clientId, uint tableNumber, OrderStatus orderStatus = OrderStatus.Processing, PaymentStatus paymentStatus = PaymentStatus.Processing)
         {
