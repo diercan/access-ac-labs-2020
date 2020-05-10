@@ -7,7 +7,7 @@ namespace Domain.Models
         public Menu Menu { get; }
         public string Name { get; }
         public double Price { get; }
-        public List<Ingredient> Ingredients { get; }
+        public List<Ingredient> Ingredients { get; } = new List<Ingredient>();
         public MenuItem(Menu menu, string name, double price, List<Ingredient> ingredients) {
             Menu = menu;
             Name = name;
