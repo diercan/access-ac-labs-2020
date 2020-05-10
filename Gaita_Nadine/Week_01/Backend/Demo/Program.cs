@@ -24,14 +24,14 @@ namespace Demo
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var expr =
-                from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
-                let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from menuResult1 in RestaurantDomain.CreateMenuAndAddToRestaurant(restaurant, "burgers", MenuType.Meat)
+                from restaurantResult1 in RestaurantDomain.CreateRestaurant("Homemade")
+                let restaurant1 = (restaurantResult1 as RestaurantCreated)?.Restaurant
+                from menuResult1 in RestaurantDomain.CreateMenuAndAddToRestaurant(restaurant1, "Paste", MenuType.Pasta)
                 let menu1 = (menuResult1 as MenuCreated)?.Menu
-                from ingredientsResult1 in RestaurantDomain.CreateIngredient(4, new List<string>() { "chifla", "angus", "bbq", "salata" })
+                from ingredientsResult1 in RestaurantDomain.CreateIngredient(3, new List<string>() { "smantana", "bacon", "ceapa" })
                 let ingredients1 = (ingredientsResult1 as IngredientCreated)?.Ingredients
-                from menuItemResult1 in RestaurantDomain.CreateMenuItemAndAddToMenu(menu1, "Burger Angus", 35, ingredients1)
-                select restaurantResult;
+                from menuItemResult1 in RestaurantDomain.CreateMenuItemAndAddToMenu(menu1, "Paste carbonara", 27, ingredients1)
+                select restaurantResult1;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
 

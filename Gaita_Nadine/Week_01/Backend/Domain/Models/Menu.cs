@@ -9,7 +9,8 @@ namespace Domain.Models
     {
         Vegan,
         Meat,
-        Beverages
+        Beverages,
+        Pasta
     }
 
     public class Menu
@@ -17,7 +18,7 @@ namespace Domain.Models
         public string Name { get; }
         public MenuType MenuType { get; }
 
-       // public List<MenuItem> MenuItems { get; }
+        public List<MenuItem> MenuItems { get; }
 
         public Menu(string name, MenuType menuType)
         {

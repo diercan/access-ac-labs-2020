@@ -19,14 +19,10 @@ namespace Domain.Domain.CreateMenuItemOp
                 return Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated("price cannot be negative"));
             }
 
-            return !Exists(Op.Name) ?
-            Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated("Menu item exists!")) :
-            Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(new MenuItem(Op.Menu, Op.Name, Op.Price, Op.Ingredients)));
-        }
+            MenuItem menuItem = new MenuItem(Op.Menu, Op.Name, Op.Price, Op.Ingredients);
+            Op.Menu.MenuItems.Add(menuItem);
 
-        public bool Exists(string name)
-        {
-            return true;
+            return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(menuItem));
         }
     }
  }
