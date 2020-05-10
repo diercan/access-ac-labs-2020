@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
+using static Domain.Domain.CreateMenuItemOp.CreateMenuItemAndAddToMenuResult;
 
 namespace Domain.Domain.CreateMenuItemOp
 {
-    public class CreateMenuItemOp : OpInterpreter<CreateMenuItemCmd, ICreateMenuItemResult, Unit>
+    public class CreateMenuItemAndAddToMenuOp : OpInterpreter<CreateMenuItemAndAddToMenuCmd, ICreateMenuItemResult, Unit>
     {
-        public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
+        public override Task<ICreateMenuItemResult> Work(CreateMenuItemAndAddToMenuCmd Op, Unit state)
         {
             //validate
             if(Op.Price < 0)

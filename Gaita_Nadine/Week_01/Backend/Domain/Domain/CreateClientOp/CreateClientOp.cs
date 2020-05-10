@@ -13,7 +13,7 @@ namespace Domain.Domain.CreateClientOp
     {
         public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
         {
-            return Task.FromResult((ICreateClientResult)new ClientCreated(new Client(Op.Name, Op.Email, Op.Uid)));
+            return Task.FromResult((ICreateClientResult)new ClientCreated(new Client(Op.Name, Op.Email, Op.Uid, Op.Password)));
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Domain.Domain.GetMenusOp
         public GetMenusCmd(Restaurant restaurant)
         {
             Restaurant = restaurant;
-            Menus = new List<Menu>();
         }
     }
 

@@ -9,11 +9,13 @@ namespace Domain.Domain.CreateClientOp
         public string Name { get; }
         public string Email { get; }
         public string Uid { get; }
-        public CreateClientCmd(string name, string email, string uid)
+        public string Password { get; }
+        public CreateClientCmd(string name, string email, string uid, string password)
         {
             Name = name;
             Email = email;
             Uid = uid;
+            Password = password;
         }
     }
 }

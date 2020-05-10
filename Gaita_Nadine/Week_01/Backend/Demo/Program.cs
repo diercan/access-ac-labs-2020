@@ -9,7 +9,7 @@ using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
-using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+using static Domain.Domain.CreateMenuOp.CreateMenuAndAddToRestaurantResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 using static Domain.Domain.CreateIngredientOp.CreateIngredientResult;
 
@@ -26,11 +26,11 @@ namespace Demo
             var expr =
                 from restaurantResult in RestaurantDomain.CreateRestaurant("mcdonalds")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from menuResult1 in RestaurantDomain.CreateMenu(restaurant, "burgers", MenuType.Meat)
-                let menu1= (menuResult1 as MenuCreated)?.Menu
+                from menuResult1 in RestaurantDomain.CreateMenuAndAddToRestaurant(restaurant, "burgers", MenuType.Meat)
+                let menu1 = (menuResult1 as MenuCreated)?.Menu
                 from ingredientsResult1 in RestaurantDomain.CreateIngredient(4, new List<string>() { "chifla", "angus", "bbq", "salata" })
-                let ingredients1 = (ingredientsResult1 as IngredientCreated)?.Ingredient
-                from menuItemResult1 in RestaurantDomain.CreateMenuItem(menu1, "Burger Angus", 35, ingredients1)
+                let ingredients1 = (ingredientsResult1 as IngredientCreated)?.Ingredients
+                from menuItemResult1 in RestaurantDomain.CreateMenuItemAndAddToMenu(menu1, "Burger Angus", 35, ingredients1)
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);

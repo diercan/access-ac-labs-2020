@@ -9,11 +9,14 @@ namespace Domain.Models
         public string Name { get; }
         public string Email { get; }
         public string Uid { get; }
-        public Client(string name, string email, string uid)
+        public string Password { get; }
+        public Cart Cart { get; } = new Cart();
+        public Client(string name, string email, string uid, string password)
         {
             Name = name;
             Email = email;
             Uid = uid;
+            Password = password;
         }
 
         public Client(string uid)

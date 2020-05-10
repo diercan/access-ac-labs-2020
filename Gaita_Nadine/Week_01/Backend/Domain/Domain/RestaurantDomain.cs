@@ -8,10 +8,10 @@ using Infra.Free;
 using LanguageExt.ClassInstances;
 using static IOExt;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
-using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+using static Domain.Domain.CreateMenuOp.CreateMenuAndAddToRestaurantResult;
 using static Domain.Domain.CreateIngredientOp.CreateIngredientResult;
 using Domain.Domain.CreateIngredientOp;
-using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
+using static Domain.Domain.CreateMenuItemOp.CreateMenuItemAndAddToMenuResult;
 using Domain.Domain.CreateMenuItemOp;
 using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
 using Domain.Domain.GetRestaurantOp;
@@ -30,11 +30,11 @@ namespace Domain.Domain
         public static IO<ICreateRestaurantResult> CreateRestaurant(string name) =>
             NewIO<CreateRestaurantCmd, ICreateRestaurantResult>(new CreateRestaurantCmd(name));
 
-        public static IO<ICreateMenuResult> CreateMenu(Restaurant restaurant, string menuName,MenuType menuType) => 
-            NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
+        public static IO<ICreateMenuResult> CreateMenuAndAddToRestaurant(Restaurant restaurant, string menuName,MenuType menuType) => 
+            NewIO<CreateMenuAndAddToRestaurantCmd, ICreateMenuResult>(new CreateMenuAndAddToRestaurantCmd(restaurant, menuName, menuType));
 
-        public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, string name, double price, List<Ingredient> ingredients) =>
-            NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name, price, ingredients));
+        public static IO<ICreateMenuItemResult> CreateMenuItemAndAddToMenu(Menu menu, string name, double price, List<Ingredient> ingredients) =>
+            NewIO<CreateMenuItemAndAddToMenuCmd, ICreateMenuItemResult>(new CreateMenuItemAndAddToMenuCmd(menu, name, price, ingredients));
 
         public static IO<ICreateIngredientResult> CreateIngredient(ushort noIngredients, List<string> ingredients) =>
             NewIO<CreateIngredientCmd, ICreateIngredientResult>(new CreateIngredientCmd(noIngredients, ingredients));
@@ -45,8 +45,8 @@ namespace Domain.Domain
         public static IO<IGetMenusResult> GetMenus(Restaurant restaurant) =>
             NewIO<GetMenusCmd, IGetMenusResult>(new GetMenusCmd(restaurant));
 
-        public static IO<ICreateClientResult> CreateClient(string name, string email, string uid) =>
-            NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, email, uid));
+        public static IO<ICreateClientResult> CreateClient(string name, string email, string uid, string password) =>
+            NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, email, uid, password));
         public static IO<IGetClientResult> GetClient(string uid) =>
            NewIO<GetClientCmd, IGetClientResult>(new GetClientCmd(uid));
     }
