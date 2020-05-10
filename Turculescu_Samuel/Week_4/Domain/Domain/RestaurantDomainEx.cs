@@ -13,6 +13,9 @@ using Domain.Domain.CreateClientOp;
 using Domain.Domain.CreateEmployeeOp;
 using Domain.Domain.GetClientOp;
 using Domain.Domain.GetEmployeeOp;
+using Domain.Domain.EmployeeRoles.CreateMenuOp;
+using System.Data.SqlTypes;
+using Domain.Domain.EmployeeRoles.CreateMenuItemOp;
 
 namespace Domain.Domain
 {
@@ -60,5 +63,18 @@ namespace Domain.Domain
                let agg = (getResult as GetEmployeeResult.EmployeeFound)?.Agg
                select agg;
 
+        // Create a Menu
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenuAndPersist(string name, int restaurantId)
+            => from menuCreated in RestaurantDomain.CreateMenu(name, restaurantId)
+               let agg = (menuCreated as CreateMenuResult.MenuCreated)?.Menu
+               from db in Database.AddOrUpdate(agg.Menu)
+               select menuCreated;
+
+        // Create a MenuItem
+        public static IO<CreateMenuItemResult.ICreateMenuItemResult> CreateMenuItemAndPersist(string name, string ingredients, string allergens, uint totalQuantity, double price, bool availability, int menuId)
+            => from menuItemCreated in RestaurantDomain.CreateMenuItem(name, ingredients, allergens, totalQuantity, price, availability, menuId)
+               let agg = (menuItemCreated as CreateMenuItemResult.MenuItemCreated)?.MenuItem
+               from db in Database.AddOrUpdate(agg.MenuItem)
+               select menuItemCreated;
     }
 }

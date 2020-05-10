@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Persistence.EfCore;
 
-namespace Persistence.EfCore.Context
+namespace Demo.Models
 {
     public partial class OrderAndPayContext : DbContext
     {
@@ -16,11 +15,11 @@ namespace Persistence.EfCore.Context
         {
         }
 
-        public virtual DbSet<Restaurant> Restaurant { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<MenuItem> MenuItem { get; set; }
+        public virtual DbSet<Restaurant> Restaurant { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,68 +32,44 @@ namespace Persistence.EfCore.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // RESTAURANT
-            modelBuilder.Entity<Restaurant>(entity =>
-            {
-                entity.Property(r => r.Name).HasMaxLength(500);
-
-                entity.Property(r => r.Address).HasMaxLength(500);                
-            });
-
-            // CLIENT
             modelBuilder.Entity<Client>(entity =>
-            {                          
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(800);                
-
-                entity.Property(e => e.Phone)
-                    .IsRequired()
-                    .HasMaxLength(10)
+            {
+                entity.Property(e => e.CardNumber)
+                    .HasMaxLength(16)
                     .IsFixedLength();
 
-                entity.Property(e => e.CardNumber)
-                   .IsRequired()
-                   .HasMaxLength(16)
-                   .IsFixedLength();
+                entity.Property(e => e.Email).HasMaxLength(800);
 
-                entity.Property(e => e.Username)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(128);
-            });
-
-            // EMPLOYEE
-            modelBuilder.Entity<Employee>(entity =>
-            {
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.LastName).HasMaxLength(50);
 
-                entity.Property(e => e.Email).HasMaxLength(800);
+                entity.Property(e => e.Password).HasMaxLength(128);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
-                    .IsFixedLength();                
-
-                entity.Property(e => e.Job).HasMaxLength(100);                    
+                    .IsFixedLength();
 
                 entity.Property(e => e.Username).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.Property(e => e.Email).HasMaxLength(800);
+
+                entity.Property(e => e.FirstName).HasMaxLength(50);
+
+                entity.Property(e => e.Job).HasMaxLength(100);
+
+                entity.Property(e => e.LastName).HasMaxLength(50);
 
                 entity.Property(e => e.Password).HasMaxLength(128);
 
-                entity.Property(e => e.RestaurantId);
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Username).HasMaxLength(50);
 
                 entity.HasOne(d => d.Restaurant)
                     .WithMany(p => p.Employee)
@@ -102,7 +77,6 @@ namespace Persistence.EfCore.Context
                     .HasConstraintName("FK_Employee_Restaurant");
             });
 
-            // MENU
             modelBuilder.Entity<Menu>(entity =>
             {
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -118,19 +92,18 @@ namespace Persistence.EfCore.Context
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Price).HasColumnType("money");
-            });
-
-            // MENU ITEM
-            modelBuilder.Entity<MenuItem>(entity =>
-            {
-                entity.Property(e => e.Name).HasMaxLength(50);
-
-                entity.Property(e => e.Price).HasColumnType("money");
 
                 entity.HasOne(d => d.Menu)
                     .WithMany(p => p.MenuItem)
                     .HasForeignKey(d => d.MenuId)
                     .HasConstraintName("FK_MenuItem_Menu");
+            });
+
+            modelBuilder.Entity<Restaurant>(entity =>
+            {
+                entity.Property(e => e.Address).HasMaxLength(500);
+
+                entity.Property(e => e.Name).HasMaxLength(500);
             });
 
             OnModelCreatingPartial(modelBuilder);
@@ -139,4 +112,3 @@ namespace Persistence.EfCore.Context
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
-

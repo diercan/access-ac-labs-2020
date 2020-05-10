@@ -21,7 +21,6 @@ using Persistence;
 using Persistence.Abstractions;
 using Persistence.EfCore;
 using Persistence.EfCore.Context;
-
 using Persistence.EfCore.Operations;
 using static Domain.Domain.EmployeeRoles.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
@@ -48,19 +47,18 @@ namespace Demo
             var interpreter = new LiveInterpreterAsync(serviceProvider);
 
             //Adding a Restaurant
-            /*var exprRestaurant =
-                from r in RestaurantDomainEx.GetRestaurant("Restaurant_2")
-                from restaurantResult in RestaurantDomain.CreateRestaurantAndPersist("Restaurant_2", "address")
+            var exprRestaurant =
+                from r in RestaurantDomainEx.GetRestaurant("Restaurant_3")
+                from restaurantResult in RestaurantDomainEx.CreateRestaurantAndPersist("Restaurant_3", "address")
                 let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                from menuResult in RestaurantDomain.CreateMenu(restaurant, "paste")
+                from menuResult in RestaurantDomainEx.CreateMenuAndPersist("Pasta", restaurant.Restaurant.Id)
                 let menu = (menuResult as MenuCreated)?.Menu
-                from menuItemResult in RestaurantDomain.CreateMenuItem(menu, "carbonara", 25, 100, "ingredients", "allergens", MenuItemState.Available)
-                from menuItemResult1 in RestaurantDomain.CreateMenuItem(menu, "carbonara", 25, 100, "ingredients", "allergens", MenuItemState.Available)
-                from menuItemResult2 in RestaurantDomain.CreateMenuItem(menu, "carbonara", 25, 100, "ingredients", "allergens", MenuItemState.Available)
-                let menuItem2 = (menuItemResult2 as MenuItemCreated)?.MenuItem
+                from menuItemResult1 in RestaurantDomainEx.CreateMenuItemAndPersist("Carbonara", "ingredients", "allergens", 100, 27.00, true, menu.Menu.Id)
+                from menuItemResult2 in RestaurantDomainEx.CreateMenuItemAndPersist("Spaghetti", "ingredients", "allergens", 150, 25.00, true, menu.Menu.Id)
+                from menuItemResult3 in RestaurantDomainEx.CreateMenuItemAndPersist("Macaroni", "ingredients", "allergens", 200, 21.00, true, menu.Menu.Id)
                 select restaurantResult;            
 
-            var resultRestaurant = await interpreter.Interpret(exprRestaurant, Unit.Default);*/
+            var resultRestaurant = await interpreter.Interpret(exprRestaurant, Unit.Default);
 
             //Adding a Client
             /*var exprClient =

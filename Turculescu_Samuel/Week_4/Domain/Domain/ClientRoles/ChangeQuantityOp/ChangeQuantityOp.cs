@@ -17,7 +17,7 @@ namespace Domain.Domain.ClientRoles.ChangeQuantityOp
         {
             Op.CartItem.Quantity = Op.NewQuantity;
             
-            return !Exists(Op.NewQuantity, Op.CartItem.MenuItem.Quantity) ?
+            return !Exists(Op.NewQuantity, Op.CartItem.MenuItem.MenuItem.TotalQuantity) ?
                 Task.FromResult<IChangeQuantityResult>(new QuantityNotChanged("Insufficient quantity!")) :
                 Task.FromResult<IChangeQuantityResult>(new QuantityChanged(Op.CartItem));
         }

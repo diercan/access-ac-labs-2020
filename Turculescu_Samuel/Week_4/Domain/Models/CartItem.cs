@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Text;
 
 namespace Domain.Models
@@ -10,9 +11,9 @@ namespace Domain.Models
         public string SpecialRequests { get; set; }
         public uint Quantity { get; set; }
         public double Price { get; }
-        public MenuItem MenuItem { get; }
+        public MenuItemAgg MenuItem { get; }
 
-        public CartItem(MenuItem menuItem, string name, string specialRequests, uint quantity, double price)
+        public CartItem(MenuItemAgg menuItem, string name, string specialRequests, uint quantity, double price)
         {
             MenuItem = menuItem;
             Name = name;

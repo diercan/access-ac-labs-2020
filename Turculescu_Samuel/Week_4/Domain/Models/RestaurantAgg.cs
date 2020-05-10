@@ -9,7 +9,7 @@ namespace Domain.Models
     {
         public Restaurant Restaurant { get; set; }
 
-        public List<Menu> Menus { get; set; } = new List<Menu>(); // Menu for restaurant
+        public List<MenuAgg> Menus { get; set; } = new List<MenuAgg>(); // Menu for restaurant
 
         public List<Order> OrdersList { get; set; } = new List<Order>(); // List with orders of restaurant
         public uint OrderId; // OrderId represent an unique number for each order

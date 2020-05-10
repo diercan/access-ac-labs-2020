@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Persistence.EfCore
+namespace Demo.Models
 {
     public partial class Restaurant
     {

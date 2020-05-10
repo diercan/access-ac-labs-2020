@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Persistence.EfCore
+namespace Demo.Models
 {
     public partial class Employee
     {
@@ -14,7 +13,7 @@ namespace Persistence.EfCore
         public string Job { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public int RestaurantId{ get; set; }
+        public int? RestaurantId { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
     }

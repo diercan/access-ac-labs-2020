@@ -12,8 +12,8 @@ namespace Domain.Domain.EmployeeRoles.CreateMenuItemOp
 
         public class MenuItemCreated : ICreateMenuItemResult
         {
-            public MenuItem MenuItem { get; }
-            public MenuItemCreated(MenuItem menuItem)
+            public MenuItemAgg MenuItem { get; }
+            public MenuItemCreated(MenuItemAgg menuItem)
             {
                 MenuItem = menuItem;    
             }

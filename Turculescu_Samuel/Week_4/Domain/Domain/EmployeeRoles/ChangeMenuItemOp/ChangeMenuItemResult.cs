@@ -16,8 +16,8 @@ namespace Domain.Domain.EmployeeRoles.ChangeMenuItemOp
 
         public class MenuItemChanged : IChangeMenuItemResult
         {
-            public MenuItem NewMenuItem { get; }
-            public MenuItemChanged(MenuItem newMenuItem)
+            public MenuItemAgg NewMenuItem { get; }
+            public MenuItemChanged(MenuItemAgg newMenuItem)
             {
                 NewMenuItem = newMenuItem;
             }

@@ -15,12 +15,12 @@ namespace Domain.Domain.ClientRoles.AddToCartOp
     {
         public override Task<IAddToCartResult> Work(AddToCartCmd Op, Unit state)
         {
-            CartItem newCartItem = new CartItem(Op.MenuItem, Op.MenuItem.Name, Op.SpecialRequests, Op.Quantity, Op.MenuItem.Price);
+            CartItem newCartItem = new CartItem(Op.MenuItem, Op.MenuItem.MenuItem.Name, Op.SpecialRequests, Op.Quantity, Op.MenuItem.MenuItem.Price);
             
             // Validate
             if(Verify(Op.SessionId))
             {
-                return !Exists(Op.Quantity, Op.MenuItem.Quantity) ?
+                return !Exists(Op.Quantity, Op.MenuItem.MenuItem.TotalQuantity) ?
                     Task.FromResult<IAddToCartResult>(new AddToCartNotSuccessful("Insuficient quantity!")) :
                     Task.FromResult<IAddToCartResult>(new AddToCartSuccessful(newCartItem)); 
             }

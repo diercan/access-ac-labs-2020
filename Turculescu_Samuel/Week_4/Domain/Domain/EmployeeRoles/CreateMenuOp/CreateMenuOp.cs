@@ -6,6 +6,7 @@ using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using LanguageExt.ClassInstances.Pred;
+using Persistence.EfCore;
 using static Domain.Domain.EmployeeRoles.CreateMenuOp.CreateMenuResult;
 
 namespace Domain.Domain.EmployeeRoles.CreateMenuOp
@@ -14,19 +15,19 @@ namespace Domain.Domain.EmployeeRoles.CreateMenuOp
     {
         public override Task<ICreateMenuResult> Work(CreateMenuCmd Op, Unit state)
         {
-            Menu newMenu = new Menu(Op.MenuName);
-            if (Exists(Op.Restaurant.Menus, newMenu))
+            MenuAgg newMenu = new MenuAgg(new Menu() { Name = Op.Name, RestaurantId = Op.RestaurantId });
+            /*if (Exists(Op.Restaurant.Menus, newMenu))
             {
                 return Task.FromResult<ICreateMenuResult>(new MenuNotCreated("This menu already exists!"));
             }
             else
             {
-                Op.Restaurant.Menus.Add(newMenu);
+                Op.Restaurant.Menus.Add(newMenu);*/
                 return Task.FromResult<ICreateMenuResult>(new MenuCreated(newMenu));
-            }
+            //}
         }
 
-        public bool Exists(List<Menu> Menus, Menu menu)
+        public bool Exists(List<MenuAgg> Menus, MenuAgg menu)
         {
             if (Menus.Contains(menu))
             {

@@ -26,7 +26,7 @@ namespace Domain.Domain.EmployeeRoles.ChangeMenuItemOp
             }            
         }
 
-        public bool ExistsChanges(MenuItem currentMenuItem, MenuItem newMenuItem)
+        public bool ExistsChanges(MenuItemAgg currentMenuItem, MenuItemAgg newMenuItem)
         {
             if (currentMenuItem != newMenuItem)
             {

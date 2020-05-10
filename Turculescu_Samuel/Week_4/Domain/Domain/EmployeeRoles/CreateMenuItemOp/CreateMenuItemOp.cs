@@ -6,6 +6,7 @@ using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using LanguageExt.ClassInstances.Pred;
+using Persistence.EfCore;
 using static Domain.Domain.EmployeeRoles.CreateMenuItemOp.CreateMenuItemResult;
 
 namespace Domain.Domain.EmployeeRoles.CreateMenuItemOp
@@ -14,20 +15,19 @@ namespace Domain.Domain.EmployeeRoles.CreateMenuItemOp
     {
         public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
         {
-            MenuItem newMenuItem = new MenuItem(Op.Name, Op.Price, Op.Quantity, Op.Ingredients, Op.Allergens, Op.MenuItemState); // Create a new MenuItem       
+            MenuItemAgg newMenuItem = new MenuItemAgg(new MenuItem() { Name = Op.Name, Ingredients = Op.Ingredients, Allergens = Op.Allergens, TotalQuantity = Op.TotalQuantity, Price = Op.Price, Availability = Op.Availability, MenuId = Op.MenuId }); // Create a new MenuItem       
 
-            if (Exists(Op.Menu, newMenuItem))
+            /*if (Exists(Op.Menu, newMenuItem))
             {
                 return Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated("This menu item already exists!"));
             }
             else
-            {
-                Op.Menu.MenuItems.Add(newMenuItem);
+            {*/
+                //Op.MenuAgg.MenuItems.Add(newMenuItem);
                 return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(newMenuItem));
-            }
         }
 
-        public bool Exists(Menu menu, MenuItem menuItem)
+        public bool Exists(MenuAgg menu, MenuItemAgg menuItem)
         {
             if (menu.MenuItems.Contains(menuItem))
             {

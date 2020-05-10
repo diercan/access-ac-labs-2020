@@ -1,29 +1,31 @@
 ﻿using Domain.Models;
+using Persistence.EfCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Text;
 
 namespace Domain.Domain.EmployeeRoles.CreateMenuItemOp
 {
     public struct CreateMenuItemCmd
     {
-        public Menu Menu { get; }
         public string Name { get; }
-        public double Price { get; }
-        public uint Quantity { get; }
         public string Ingredients { get; }
         public string Allergens { get; }
-        public MenuItemState MenuItemState { get; }
+        public uint TotalQuantity { get; }
+        public double Price { get; }
+        public bool Availability { get; }
+        public int MenuId { get; }
 
-        public CreateMenuItemCmd(Menu menu, string name, double price, uint quantity, string ingredients, string allergens, MenuItemState menuItemState)
-        {
-            Menu = menu;
+        public CreateMenuItemCmd(string name, string ingredients, string allergens, uint totalQuantity, double price, bool availability, int menuId)
+        {            
             Name = name;
-            Price = price;
-            Quantity = quantity;
             Ingredients = ingredients;
             Allergens = allergens;
-            MenuItemState = menuItemState;
+            TotalQuantity = totalQuantity;
+            Price = price;
+            Availability = availability;
+            MenuId = menuId;
         }
     }
 }

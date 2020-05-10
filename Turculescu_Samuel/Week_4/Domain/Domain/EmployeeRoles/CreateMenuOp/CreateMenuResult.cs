@@ -4,7 +4,6 @@ using System.Text;
 using CSharp.Choices.Attributes;
 using Domain.Models;
 using System.Threading.Tasks;
-using System.ComponentModel.Design.Serialization;
 
 namespace Domain.Domain.EmployeeRoles.CreateMenuOp
 {
@@ -15,9 +14,9 @@ namespace Domain.Domain.EmployeeRoles.CreateMenuOp
 
         public class MenuCreated : ICreateMenuResult
         {
-            public Menu Menu { get; }
+            public MenuAgg Menu { get; }
 
-            public MenuCreated(Menu menu)
+            public MenuCreated(MenuAgg menu)
             {
                 Menu = menu;
             }

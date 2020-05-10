@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain.Models;
 
 namespace Domain.Domain.EmployeeRoles.CreateMenuOp
 {
     public struct CreateMenuCmd
     {
-        public RestaurantAgg Restaurant { get; }
-        public string MenuName { get; }
+        public string Name { get; }
+        public int RestaurantId { get; }
 
-        public CreateMenuCmd(RestaurantAgg restaurant, string menuName)
+        public CreateMenuCmd(string name, int restaurantId)
         {
-            Restaurant = restaurant;
-            MenuName = menuName;           
+            Name = name;
+            RestaurantId = restaurantId;
         }
     }
 }

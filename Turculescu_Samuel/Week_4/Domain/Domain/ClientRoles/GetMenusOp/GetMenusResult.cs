@@ -14,9 +14,9 @@ namespace Domain.Domain.ClientRoles.GetMenusOp
 
         public class GetMenusSuccessful : IGetMenusResult
         {
-            public List<Menu> Menus { get; }
+            public List<MenuAgg> Menus { get; }
 
-            public GetMenusSuccessful(List<Menu> menus)
+            public GetMenusSuccessful(List<MenuAgg> menus)
             {
                 Menus = menus;
             }

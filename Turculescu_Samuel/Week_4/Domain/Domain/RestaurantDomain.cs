@@ -31,6 +31,7 @@ using Domain.Domain.EmployeeRoles.CreateMenuItemOp;
 using Domain.Queries;
 using Persistence;
 using Persistence.EfCore;
+using System.Data.SqlTypes;
 
 namespace Domain.Domain
 {
@@ -47,13 +48,13 @@ namespace Domain.Domain
         public static IO<GetEmployeeResult.IGetEmployeeResult> GetEmployee(Employee employee) =>
             NewIO<GetEmployeeCmd, GetEmployeeResult.IGetEmployeeResult>(new GetEmployeeCmd(employee));
 
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(RestaurantAgg restaurant, string menuName) =>
-            NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName));
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(string name, int restaurantId) =>
+            NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(name, restaurantId));
 
-        public static IO<CreateMenuItemResult.ICreateMenuItemResult> CreateMenuItem(Menu menu, string name, double price, uint quantity, string ingredients, string allergens, MenuItemState menuItemState) =>
-            NewIO<CreateMenuItemCmd, CreateMenuItemResult.ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name, price, quantity, ingredients, allergens, menuItemState));
+        public static IO<CreateMenuItemResult.ICreateMenuItemResult> CreateMenuItem(string name, string ingredients, string allergens, uint totalQuantity, double price, bool availability, int menuId) =>
+            NewIO<CreateMenuItemCmd, CreateMenuItemResult.ICreateMenuItemResult>(new CreateMenuItemCmd(name, ingredients, allergens, totalQuantity, price, availability, menuId));
 
-        public static IO<ChangeMenuItemResult.IChangeMenuItemResult> ChangeMenuItem(Menu menu, int menuItemId, MenuItem newMenuItem) =>
+        public static IO<ChangeMenuItemResult.IChangeMenuItemResult> ChangeMenuItem(MenuAgg menu, int menuItemId, MenuItemAgg newMenuItem) =>
             NewIO<ChangeMenuItemCmd, ChangeMenuItemResult.IChangeMenuItemResult>(new ChangeMenuItemCmd(menu, menuItemId, newMenuItem));
 
         public static IO<GetOrdersResult.IGetOrdersResult> GetOrders(RestaurantAgg restaurant) =>
@@ -81,7 +82,7 @@ namespace Domain.Domain
         public static IO<GetMenusResult.IGetMenusResult> GetMenu(RestaurantAgg restaurant) =>
             NewIO<GetMenusCmd, GetMenusResult.IGetMenusResult>(new GetMenusCmd(restaurant));
 
-        public static IO<AddToCartResult.IAddToCartResult> AddToCart(string sessionId, MenuItem menuItem, uint quantity, string specialRequests) =>
+        public static IO<AddToCartResult.IAddToCartResult> AddToCart(string sessionId, MenuItemAgg menuItem, uint quantity, string specialRequests) =>
             NewIO<AddToCartCmd, AddToCartResult.IAddToCartResult>(new AddToCartCmd(sessionId, menuItem, quantity, specialRequests));
 
         public static IO<ChangeQuantityResult.IChangeQuantityResult> ChangeQuantity(string sessionId, CartItem cartItem, uint newQuantity) =>
