@@ -18,7 +18,8 @@ namespace Infrastructure.Free
 
             var types = assembly.GetTypes()
                 .Where(p => typeof(IInterpreter).IsAssignableFrom(p))
-                .Where(p => !p.IsGenericType);
+                .Where(p => !p.IsGenericType)
+                ;
 
             types.ToList().ForEach(p =>
             {

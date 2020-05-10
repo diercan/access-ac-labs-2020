@@ -9,7 +9,6 @@ using LanguageExt.ClassInstances;
 using static IOExt;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 using Domain.Domain.CreateMenuItemOp;
-using Domain.Domain.GetOp;
 using Domain.Domain.CreateClientOp;
 
 namespace Domain.Domain
@@ -28,8 +27,5 @@ namespace Domain.Domain
 
         public static IO<CreateClientResult.ICreateClientResult> CreateClient(List<Client> clients, string name) =>
             NewIO<CreateClientCmd, CreateClientResult.ICreateClientResult>(new CreateClientCmd(clients, name));
-
-        public static IO<GetResultType<T>> Get<T>(List<T> items, Predicate<T> expession) =>
-            NewIO<GetCmd<T>, GetResultType<T>>(new GetCmd<T>(items, expession));
     }
 }

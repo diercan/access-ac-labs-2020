@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using Database.Operations;
 
 namespace Web
 {
@@ -33,8 +34,8 @@ namespace Web
         {
             services.AddControllers();
             services.AddOperations(typeof(Restaurant).Assembly);
-            services.AddOperations(typeof(RestaurantEntity).Assembly);
-            services.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
+            services.AddOperations(typeof(AddOrUpdateOp).Assembly);
+            services.AddDbContext<OrderAndPayContext>(ServiceLifetime.Scoped);
             services.AddSwaggerGen(x => x.SwaggerDoc("oap", new OpenApiInfo
             {
                 Title = "Order And Pay API",

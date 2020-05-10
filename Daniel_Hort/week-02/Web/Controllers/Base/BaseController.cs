@@ -1,5 +1,6 @@
 ﻿using System;
 using Database.Context;
+using Infrastructure.Free;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers.Base
@@ -8,11 +9,13 @@ namespace Web.Controllers.Base
     [Route("api/[controller]/[action]")]
     public class BaseController : Controller
     {
-        protected readonly OrderAndPayContext _context;
+        protected readonly OrderAndPayContext Context;
+        protected readonly LiveInterpreterAsync Interpreter;
 
-        public BaseController(OrderAndPayContext context)
+        public BaseController(OrderAndPayContext context, LiveInterpreterAsync interpreter)
         {
-            _context = context;
+            Context = context;
+            Interpreter = interpreter;
         }
     }
 }

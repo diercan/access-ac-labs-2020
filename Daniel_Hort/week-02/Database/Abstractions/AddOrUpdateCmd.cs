@@ -1,4 +1,4 @@
-﻿namespace Persistence.Abstractions
+﻿namespace Database.Abstractions
 {
     public class AddOrUpdateCmd
     {

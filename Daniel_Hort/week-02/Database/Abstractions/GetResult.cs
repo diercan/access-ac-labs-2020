@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Domain.GetOp
+namespace Database.Abstractions
 {
     [AsChoice]
     public static partial class GetResult
@@ -23,7 +23,7 @@ namespace Domain.Domain.GetOp
         public class NotFound <T> : GetResultType<T>
         {
             public NotFoundReason Reason { get; }
-            public NotFound(NotFoundReason reason) 
+            public NotFound(NotFoundReason reason)
             {
                 Reason = reason;
             }
