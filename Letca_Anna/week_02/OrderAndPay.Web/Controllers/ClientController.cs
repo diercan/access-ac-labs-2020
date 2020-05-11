@@ -3,8 +3,11 @@ using Domain.Domain.GetRestaurantOp;
 using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.AspNetCore.Mvc;
+using Persistence;
+using Persistence.Abstractions;
 using Persistence.EfCore;
 using System.Threading.Tasks;
+using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -27,7 +30,22 @@ namespace OrderAndPay.Web.Controllers
 
             return result.Match(
                 found => (IActionResult)new OkObjectResult(found.RestaurantAgg.Restaurant),
-                notFound => new NotFoundResult());
+                notFound => new NotFoundObjectResult(notFound.Reason));
+        }
+
+        [HttpPost("restaurant")]
+        public async Task<IActionResult> CreateRestaurant([FromBody] Restaurant restaurant)
+        {
+            var createRestaurantExpr = from entity in RestaurantDomain.CreateRestaurant(restaurant.Name)
+                                       let entityRes = (entity as RestaurantCreated)?.RestaurantAgg
+                                       from r in Database.AddOrUpdate<Restaurant>(entityRes.Restaurant)
+                                       select r;
+
+            var result = await _interpreter.Interpret(createRestaurantExpr, Unit.Default);
+
+            return result.Match(
+                succesful => (IActionResult)new OkObjectResult(restaurant),
+                failed => new NotFoundObjectResult(failed.Reason));
         }
     }
 }
