@@ -8,6 +8,9 @@ namespace Persistence.EfCore
     {
         public Restaurant()
         {
+            Employee = new HashSet<Employee>();
+            Menu = new HashSet<Menu>();
+            Order = new HashSet<Order>();
         }
 
         public Restaurant(String name)

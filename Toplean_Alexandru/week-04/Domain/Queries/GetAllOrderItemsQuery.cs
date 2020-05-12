@@ -7,12 +7,12 @@ using System.Text;
 
 namespace Domain.Queries
 {
-    public class GetAllMenuItemsQuery : Query<ICollection<MenuItem>>
+    internal class GetAllOrderItemsQuery : Query<ICollection<OrderItems>>
     {
-        public GetAllMenuItemsQuery(int id) : base(async (ctx) =>
+        public GetAllOrderItemsQuery(int id) : base(async (ctx) =>
         {
             return
-                ctx.Set<MenuItem>().Where(e => e.MenuId == id).ToHashSet();
+                ctx.Set<OrderItems>().Where(e => e.OrderId == id).ToHashSet();
         })
         { }
     }

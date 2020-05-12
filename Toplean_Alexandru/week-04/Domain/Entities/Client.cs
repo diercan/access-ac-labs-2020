@@ -8,6 +8,7 @@ namespace Persistence.EfCore
     {
         public Client()
         {
+            Order = new HashSet<Order>();
         }
 
         public Client(String name, String username, String password, String email, int? tableNumber)

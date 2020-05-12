@@ -18,7 +18,8 @@ namespace Domain.Domain.CreateOrderOp
 
             if (CommandIsValid)
             {
-                Order order = new Order(Op.ClientId, Op.RestaurantId, Op.TableNumber, Op.ItemNames, Op.ItemQuantities, Op.ItemComments, Op.TotalPrice, Op.Status, Op.PaymentStatus);
+                Order order = new Order(Op.ClientId, Op.RestaurantId, Op.TableNumber, Op.TotalPrice, Op.Status, Op.PaymentStatus);
+
                 //Op.Restaurant.Order.Add(order);
                 return Task.FromResult<ICreateOrderResult>(new OrderCreated(new OrderAgg(order))); // Order successfully created
             }

@@ -17,6 +17,8 @@ using static Domain.Domain.SelectClientOp.SelectClientResult;
 using static Domain.Domain.SelectMenuOp.SelectMenuResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
+using static Domain.Domain.CreateEntityOp.CreateEntityResult;
+using Persistence;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -164,23 +166,23 @@ namespace OrderAndPay.Web.Controllers
         }
 
         [HttpPost("CreateClient")]
-        public async Task<IActionResult> CreateClient(Client client)
+        public async Task<IActionResult> CreateClient(Client entity)
         {
-            var expr = from createClient in RestaurantDomain.CreateClient(client)
-                       let clientE = (createClient as ClientCreated)?.ClientAgg
-                       select createClient;
+            var expr = from createEntity in RestaurantDomain.CreateEntity(entity)
+                       let entityC = (createEntity as EntityCreated)?.Entity
+                       from db in Database.AddOrUpdateEntity(entityC)
+                       select createEntity;
 
             var result = await interpreter.Interpret(expr, Unit.Default);
             return await result.MatchAsync<IActionResult>(
                 async (created) =>
                 {
-                    return (IActionResult)Ok(created.ClientAgg.Client);
+                    return (IActionResult)Ok(created.Entity);
                 },
                 async (notCreated) =>
                 {
                     return NotFound();
-                }
-                );
+                });
         }
     }
 }

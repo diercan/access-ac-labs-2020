@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using Domain.Entities;
 
 namespace Persistence.EfCore
 {
@@ -10,6 +10,8 @@ namespace Persistence.EfCore
     {
         public Menu()
         {
+            MenuItem = new HashSet<MenuItem>();
+            OrderItems = new HashSet<OrderItems>();
         }
 
         public Menu(int restaurantID, String name, String menuType, bool isVisible, string hours)
@@ -20,6 +22,7 @@ namespace Persistence.EfCore
             Visibility = isVisible;
             Hours = hours;
             MenuItem = new HashSet<MenuItem>();
+            OrderItems = new HashSet<OrderItems>();
         }
 
         public int Id { get; set; }
@@ -34,5 +37,6 @@ namespace Persistence.EfCore
         public virtual Restaurant Restaurant { get; set; }
 
         public virtual ICollection<MenuItem> MenuItem { get; set; }
+        public virtual ICollection<OrderItems> OrderItems { get; set; }
     }
 }
