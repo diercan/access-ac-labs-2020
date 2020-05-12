@@ -4,7 +4,7 @@ using System.Text;
 using CSharp.Choices.Attributes;
 using System.Threading.Tasks;
 
-namespace Persistence.Abstractions
+namespace Database.Abstractions
 {
     [AsChoice]
     public static partial class DeleteResult

@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Abstractions
+namespace Database.Abstractions
 {
     public abstract class Query<TResult>
     {

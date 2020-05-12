@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Database.Abstractions;
 using Domain.Domain;
-using Domain.Domain.GetOp;
 using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 using Database.Context;
 using Database.Entities;
+using Database.Operations;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
-using static Domain.Domain.GetOp.GetResult;
 
 namespace Demo
 {
@@ -26,7 +26,7 @@ namespace Demo
 
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOperations(typeof(Restaurant).Assembly);
-            serviceCollection.AddOperations(typeof(RestaurantEntity).Assembly);
+            serviceCollection.AddOperations(typeof(AddOrUpdateOp).Assembly);
             serviceCollection.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -44,7 +44,17 @@ namespace Demo
                 select restaurantResult;
 
             var interpreter = new LiveInterpreterAsync(serviceProvider);
-            var result = await interpreter.Interpret(expr, Unit.Default);
+            var expr1 = Database.Database.Get<RestaurantEntity>(a => true);
+            var result = await interpreter.Interpret(expr1, Unit.Default);
+            result.Match(a =>
+            {
+                a.Items.ForEach(b => Console.WriteLine(b.Name));
+                return a;
+            }, a =>
+            {
+                Console.WriteLine(a.Reason);
+                return a;
+            });
         }
     }
 }

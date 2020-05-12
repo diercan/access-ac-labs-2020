@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Database.Abstractions;
 using Database.Context;
 using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Abstractions;
-using static Persistence.Abstractions.AddOrUpdateResult;
 using Exception = System.Exception;
 
 namespace Database.Operations
 {
-    public class AddOrUpdateOp : OpInterpreter<AddOrUpdateCmd, IAddOrUpdateResult, Unit>
+    public class AddOrUpdateOp : OpInterpreter<AddOrUpdateCmd, AddOrUpdateResult.IAddOrUpdateResult, Unit>
     {
         private readonly OrderAndPayContext _ctx;
 
@@ -21,7 +20,7 @@ namespace Database.Operations
         {
             _ctx = ctx;
         }
-        public override async Task<IAddOrUpdateResult> Work(AddOrUpdateCmd Op, Unit state)
+        public override async Task<AddOrUpdateResult.IAddOrUpdateResult> Work(AddOrUpdateCmd Op, Unit state)
         {
             try
             {
@@ -35,14 +34,14 @@ namespace Database.Operations
                         _ctx.Update(Op.Item);
                         break;
                     default:
-                        return new Failed($"Entity is in an incorrect state. Expected Detached or Unchanged. Got {entity.State.ToString()}");
+                        return new AddOrUpdateResult.Failed($"Entity is in an incorrect state. Expected Detached or Unchanged. Got {entity.State.ToString()}");
                 }
                 await _ctx.SaveChangesAsync();
-                return new Successful(entity.Entity);
+                return new AddOrUpdateResult.Successful(entity.Entity);
             }
             catch (Exception ex)
             {
-                return new Failed(ex.ToString());
+                return new AddOrUpdateResult.Failed(ex.ToString());
             }
         }
     }

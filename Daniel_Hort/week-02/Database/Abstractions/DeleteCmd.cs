@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Persistence.Abstractions
+namespace Database.Abstractions
 {
     public class DeleteCmd
     {

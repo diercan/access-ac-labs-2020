@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Database.Abstractions;
 using Database.Context;
 using Infrastructure.Free;
 using LanguageExt;
-using Persistence.Abstractions;
 
 namespace Database.Operations
 {
