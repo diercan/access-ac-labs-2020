@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Domain.CreateOrderItemOp
 {
-    internal class CreateOrderItemCmd
+    public class CreateOrderItemCmd
     {
         public OrderItems OrderItem { get; }
 

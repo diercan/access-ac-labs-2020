@@ -17,7 +17,6 @@ using static Domain.Domain.SelectClientOp.SelectClientResult;
 using static Domain.Domain.SelectMenuOp.SelectMenuResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
-using static Domain.Domain.CreateEntityOp.CreateEntityResult;
 using Persistence;
 
 namespace OrderAndPay.Web.Controllers
@@ -46,7 +45,6 @@ namespace OrderAndPay.Web.Controllers
             return await exprResult.MatchAsync<IActionResult>(
                 async (selected) =>
                 {
-                    await RestaurantDomain.PopulateRestaurantModel(selected.RestaurantAgg, RestaurantDomain.GetAllMenus, RestaurantDomain.GetAllMenuItems, interpreter);
                     return (IActionResult)Ok(JsonConvert.SerializeObject(selected.RestaurantAgg.Restaurant));
                 },
                  async (notSelected) => NotFound()
@@ -168,16 +166,16 @@ namespace OrderAndPay.Web.Controllers
         [HttpPost("CreateClient")]
         public async Task<IActionResult> CreateClient(Client entity)
         {
-            var expr = from createEntity in RestaurantDomain.CreateEntity(entity)
-                       let entityC = (createEntity as EntityCreated)?.Entity
-                       from db in Database.AddOrUpdateEntity(entityC)
+            var expr = from createEntity in RestaurantDomain.CreateClient(entity)
+                       let entityC = (createEntity as ClientCreated)?.ClientAgg
                        select createEntity;
 
             var result = await interpreter.Interpret(expr, Unit.Default);
             return await result.MatchAsync<IActionResult>(
                 async (created) =>
                 {
-                    return (IActionResult)Ok(created.Entity);
+                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.ClientAgg.Client), Unit.Default);
+                    return (IActionResult)Ok(created.ClientAgg.Client);
                 },
                 async (notCreated) =>
                 {

@@ -8,21 +8,37 @@ using System.Threading.Tasks;
 using static Domain.Domain.CreateClientOp.CreateClientResult;
 using Domain.Models;
 using Persistence.EfCore;
+using Domain.Queries;
+using Persistence;
 
 namespace Domain.Domain.CreateClientOp
 {
     public class CreateClientOp : OpInterpreter<CreateClientCmd, ICreateClientResult, Unit>
     {
-        //To Be Implemented
-        public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
+        private readonly LiveInterpreterAsync interpreter;
+
+        public CreateClientOp(LiveInterpreterAsync interpret)
+        {
+            interpreter = interpret;
+        }
+
+        public async override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
         {
             try
             {
-                return Task.FromResult<ICreateClientResult>(new ClientCreated(new ClientAgg(Op.Client)));
+                var query = await interpreter.Interpret(Database.Query<GetClientQuery, Client>(new GetClientQuery(Op.Client.Username)), Unit.Default);
+                if (query == null)
+                {
+                    return new ClientCreated(new ClientAgg(Op.Client));
+                }
+                else
+                {
+                    return new ClientNotCreated("There already is a client with this Username in the database");
+                }
             }
             catch (Exception exp)
             {
-                return Task.FromResult<ICreateClientResult>(new ClientNotCreated(exp.Message));
+                return new ClientNotCreated(exp.Message);
             }
         }
     }

@@ -14,19 +14,7 @@ namespace Domain.Domain.CreateOrderOp
     {
         public override Task<ICreateOrderResult> Work(CreateOrderCmd Op, Unit state)
         {
-            (bool CommandIsValid, String ErrorCode) = Op.IsValid();
-
-            if (CommandIsValid)
-            {
-                Order order = new Order(Op.ClientId, Op.RestaurantId, Op.TableNumber, Op.TotalPrice, Op.Status, Op.PaymentStatus);
-
-                //Op.Restaurant.Order.Add(order);
-                return Task.FromResult<ICreateOrderResult>(new OrderCreated(new OrderAgg(order))); // Order successfully created
-            }
-            else
-            {
-                return Task.FromResult<ICreateOrderResult>(new OrderNotCreated(ErrorCode));  // Order not created and the reason in Op.IsValid().Item2
-            }
+            return Task.FromResult<ICreateOrderResult>(new OrderCreated(new OrderAgg(Op.Order))); // Order successfully created
         }
     }
 }

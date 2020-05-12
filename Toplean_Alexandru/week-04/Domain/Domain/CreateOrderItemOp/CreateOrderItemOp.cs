@@ -9,7 +9,7 @@ using static Domain.Domain.CreateOrderItemOp.CreateOrderItemResult;
 
 namespace Domain.Domain.CreateOrderItemOp
 {
-    internal class CreateOrderItemOp : OpInterpreter<CreateOrderItemCmd, ICreateOrderItemResult, Unit>
+    public class CreateOrderItemOp : OpInterpreter<CreateOrderItemCmd, ICreateOrderItemResult, Unit>
     {
         public override Task<ICreateOrderItemResult> Work(CreateOrderItemCmd Op, Unit state)
         {

@@ -71,8 +71,8 @@ namespace Demo
                         {
                             selected.MenuAgg.Menu.Hours = "8-13";
 
-                            var updateRestaurantExprUnique = from updateRestauruant in RestaurantDomain.UpdateAndPersistEntity<IEntity>(selected.MenuAgg.Menu)
-                                                             let updatem = (updateRestauruant as EntityUpdated<IEntity>)?.Entity
+                            var updateRestaurantExprUnique = from updateRestauruant in RestaurantDomain.UpdateAndPersistMenu(selected.MenuAgg.Menu)
+                                                             let updatem = (updateRestauruant as MenuUpdated)?.Menu
                                                              select updateRestauruant;
                             var updateRestaurantFin = await interpreter.Interpret(updateRestaurantExprUnique, Unit.Default);
 

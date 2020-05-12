@@ -1,6 +1,8 @@
 ﻿using Domain.Models;
+using Domain.Queries;
 using Infrastructure.Free;
 using LanguageExt;
+using Persistence;
 using Persistence.EfCore;
 using System;
 using System.Collections.Generic;
@@ -12,17 +14,32 @@ namespace Domain.Domain.CreateMenuItemOp
 {
     public class CreateMenuItemOp : OpInterpreter<CreateMenuItemCmd, ICreateMenuItemResult, Unit>
     {
-        public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
+        private readonly LiveInterpreterAsync interpreter;
+
+        public CreateMenuItemOp(LiveInterpreterAsync interpreter)
+        {
+            this.interpreter = interpreter;
+        }
+
+        public async override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
         {
             try
             {
-                //MenuItem menuItem = new MenuItem(Op.MenuID, Op.Name, Op.Ingredients, Op.Alergens, Op.Price, Op.Image);
-                MenuItemAgg menuItemAgg = new MenuItemAgg(Op.MenuItem);
-                return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(menuItemAgg));  // Restaurant is valid
+                var query = await interpreter.Interpret(Database.Query<GetMenuItemQuery, MenuItem>(new GetMenuItemQuery(Op.MenuItem.Name, Op.MenuItem.MenuId)), Unit.Default);
+
+                if (query == null)
+                {
+                    MenuItemAgg menuItemAgg = new MenuItemAgg(Op.MenuItem);
+                    return new MenuItemCreated(menuItemAgg);  // Restaurant is valid
+                }
+                else
+                {
+                    return new MenuItemNotCreated("This menu item already exists");
+                }
             }
             catch (Exception exp)
             {
-                return Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated(exp.Message));  // Restaurant is not valid
+                return new MenuItemNotCreated(exp.Message);  // Restaurant is not valid
             }
         }
     }

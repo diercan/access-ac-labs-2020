@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Domain.Domain;
-using Domain.Domain.CreateEntityOp;
 using Domain.Domain.SelectRestaurantOp;
 using Domain.Domain.UpdateEntityOp;
 using Domain.Entities;
@@ -16,7 +15,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Persistence;
 using Persistence.EfCore;
-using static Domain.Domain.CreateEntityOp.CreateEntityResult;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
@@ -28,6 +26,7 @@ using static Domain.Domain.SelectClientOp.SelectClientResult;
 using static Domain.Domain.SelectMenuItemOp.SelectMenuItemResult;
 using static Domain.Domain.SelectMenuOp.SelectMenuResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
+using static Domain.Domain.UpdateClientOp.UpdateClientResult;
 using static Domain.Domain.UpdateEntityOp.UpdateEntityResult;
 
 namespace OrderAndPay.Web.Controllers
@@ -56,7 +55,6 @@ namespace OrderAndPay.Web.Controllers
             return await exprResult.MatchAsync<IActionResult>(
                 async (selected) =>
                 {
-                    await RestaurantDomain.PopulateRestaurantModel(selected.RestaurantAgg, RestaurantDomain.GetAllMenus, RestaurantDomain.GetAllMenuItems, interpreter);
                     return (IActionResult)Ok(JsonConvert.SerializeObject(selected.RestaurantAgg.Restaurant));
                 },
                  async (notSelected) => NotFound()
@@ -190,20 +188,20 @@ namespace OrderAndPay.Web.Controllers
         [HttpPost("CreateRestaurant")]
         public async Task<IActionResult> CreateRestaurant([Bind("Name")]Restaurant entity)
         {
-            var expr = from createEntity in RestaurantDomain.CreateEntity(entity)
-                       let entityC = (createEntity as EntityCreated)?.Entity
-                       from db in Database.AddOrUpdateEntity(entityC)
+            var expr = from createEntity in RestaurantDomain.CreateRestaurant(entity)
+                       let entityC = (createEntity as RestaurantCreated)?.RestaurantAgg
                        select createEntity;
 
             var result = await interpreter.Interpret(expr, Unit.Default);
             return await result.MatchAsync<IActionResult>(
                 async (created) =>
                 {
-                    return (IActionResult)Ok(created.Entity);
+                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.RestaurantAgg.Restaurant), Unit.Default);
+                    return (IActionResult)Ok(created.RestaurantAgg.Restaurant);
                 },
                 async (notCreated) =>
                 {
-                    return NotFound();
+                    return BadRequest();
                 });
         }
 
@@ -212,20 +210,21 @@ namespace OrderAndPay.Web.Controllers
         {
             entity.RestaurantId = RestaurantID;
 
-            var expr = from createEntity in RestaurantDomain.CreateEntity(entity)
-                       let entityC = (createEntity as EntityCreated)?.Entity
-                       from db in Database.AddOrUpdateEntity(entityC)
+            var expr = from createEntity in RestaurantDomain.CreateMenu(entity)
+                       let entityC = (createEntity as MenuCreated)?.Menu
+
                        select createEntity;
 
             var result = await interpreter.Interpret(expr, Unit.Default);
             return await result.MatchAsync<IActionResult>(
                 async (created) =>
                 {
-                    return (IActionResult)Ok(created.Entity);
+                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.Menu.Menu), Unit.Default);
+                    return (IActionResult)Ok(created.Menu.Menu);
                 },
                 async (notCreated) =>
                 {
-                    return NotFound();
+                    return BadRequest();
                 });
         }
 
@@ -233,20 +232,21 @@ namespace OrderAndPay.Web.Controllers
         public async Task<IActionResult> CreateMenuItem(int MenuID, [Bind("Name,Ingredients,Alergens,Price,Image")]MenuItem entity)
         {
             entity.MenuId = MenuID;
-            var expr = from createEntity in RestaurantDomain.CreateEntity(entity)
-                       let entityC = (createEntity as EntityCreated)?.Entity
-                       from db in Database.AddOrUpdateEntity(entityC)
+            var expr = from createEntity in RestaurantDomain.CreateMenuItem(entity)
+                       let entityC = (createEntity as MenuItemCreated)?.MenuItemAgg
+
                        select createEntity;
 
             var result = await interpreter.Interpret(expr, Unit.Default);
             return await result.MatchAsync<IActionResult>(
                 async (created) =>
                 {
-                    return (IActionResult)Ok(created.Entity);
+                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.MenuItemAgg.MenuItem), Unit.Default);
+                    return (IActionResult)Ok(created.MenuItemAgg.MenuItem);
                 },
                 async (notCreated) =>
                 {
-                    return NotFound();
+                    return BadRequest();
                 });
         }
 
@@ -257,8 +257,8 @@ namespace OrderAndPay.Web.Controllers
                        let client = (getClient as ClientSelected).ClientAgg
                        from requestPayment in RestaurantDomain.RequestPayment(client)
                        let newClient = (requestPayment as PaymentRequested)?.ClientAgg
-                       from updateClient in RestaurantDomain.UpdateAndPersistEntity<IEntity>(newClient.Client)
-                       let updated = (updateClient as EntityUpdated<IEntity>)?.Entity
+                       from updateClient in RestaurantDomain.UpdateAndPersistClient(newClient.Client)
+                       let updated = (updateClient as ClientUpdated)?.ClientAgg.Client
                        select updateClient;
 
             var updateRestaurantFin = await interpreter.Interpret(expr, Unit.Default);
@@ -270,7 +270,7 @@ namespace OrderAndPay.Web.Controllers
                 },
                 notUpdated =>
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
                 );
         }
@@ -291,7 +291,7 @@ namespace OrderAndPay.Web.Controllers
                 },
                 async (notDeleted) =>
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
 
                 );
