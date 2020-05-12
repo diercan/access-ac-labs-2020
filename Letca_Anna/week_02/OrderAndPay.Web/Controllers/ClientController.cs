@@ -38,7 +38,7 @@ namespace OrderAndPay.Web.Controllers
         {
             var createRestaurantExpr = from entity in RestaurantDomain.CreateRestaurant(restaurant.Name)
                                        let entityRes = (entity as RestaurantCreated)?.RestaurantAgg
-                                       from r in Database.AddOrUpdate<Restaurant>(entityRes.Restaurant)
+                                       from r in Database.AddOrUpdate(entityRes.Restaurant)
                                        select r;
 
             var result = await _interpreter.Interpret(createRestaurantExpr, Unit.Default);

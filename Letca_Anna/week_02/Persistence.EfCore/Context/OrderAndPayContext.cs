@@ -75,6 +75,10 @@ namespace Persistence.EfCore.Context
 
             modelBuilder.Entity<Restaurant>(entity =>
             {
+                entity.HasIndex(e => e.Name)
+                    .HasName("UQ__Restaura__737584F610F12BAE")
+                    .IsUnique();
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
