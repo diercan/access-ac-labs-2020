@@ -10,7 +10,7 @@ using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 
 namespace Domain.Domain.CreateOrderOp
 {
-    public class CreateOrderOp : OpInterpreter<CreateOrderCmd, ICreateOrderResult, Unit>
+    public partial class CreateOrderOp : OpInterpreter<CreateOrderCmd, ICreateOrderResult, Unit>
     {
         public override Task<ICreateOrderResult> Work(CreateOrderCmd Op, Unit state)
         {

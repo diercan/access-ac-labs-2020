@@ -45,5 +45,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Infra\Infra.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OpTests\" />
+  </ItemGroup>
   <!--End - Use these statements to enable codegen-->
 </Project>

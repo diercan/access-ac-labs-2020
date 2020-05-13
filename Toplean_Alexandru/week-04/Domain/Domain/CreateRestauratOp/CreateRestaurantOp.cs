@@ -25,18 +25,7 @@ namespace Domain.Domain.CreateRestauratOp
 
         public async override Task<ICreateRestaurantResult> Work(CreateRestaurantCmd Op, Unit state)
         {
-            var sth = Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(Op.Restaurant.Name));
-            var result = await interpreter.Interpret(sth, Unit.Default);
-
-            if (result == null)
-            {
-                Restaurant restaurant = Op.Restaurant;
-                return new RestaurantCreated(new RestaurantAgg(restaurant));  // Restaurant is valid
-            }
-            else
-            {
-                return new RestaurantNotCreated("Exists");  // Restaurant is valid
-            }
+            return new RestaurantCreated(new RestaurantAgg(Op.Restaurant));  // Restaurant is valid
         }
     }
 }

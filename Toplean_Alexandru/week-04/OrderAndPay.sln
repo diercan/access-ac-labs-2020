@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAndPay.Web", "OrderAndPay.Web\OrderAndPay.Web.csproj", "{78124540-B8F4-49DA-85E3-2DE1DA495BA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAndPay.Web", "OrderAndPay.Web\OrderAndPay.Web.csproj", "{78124540-B8F4-49DA-85E3-2DE1DA495BA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

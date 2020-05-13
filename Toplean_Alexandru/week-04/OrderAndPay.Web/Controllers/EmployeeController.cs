@@ -28,6 +28,7 @@ using static Domain.Domain.SelectMenuOp.SelectMenuResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using static Domain.Domain.UpdateClientOp.UpdateClientResult;
 using static Domain.Domain.UpdateEntityOp.UpdateEntityResult;
+using static Domain.Domain.UpdateMenuOp.UpdateMenuResult;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -188,66 +189,113 @@ namespace OrderAndPay.Web.Controllers
         [HttpPost("CreateRestaurant")]
         public async Task<IActionResult> CreateRestaurant([Bind("Name")]Restaurant entity)
         {
-            var expr = from createEntity in RestaurantDomain.CreateRestaurant(entity)
-                       let entityC = (createEntity as RestaurantCreated)?.RestaurantAgg
-                       select createEntity;
+            var checkIfExists = from selectRestaurant in RestaurantDomain.GetRestaurant(entity.Name)
+                                select selectRestaurant;
 
-            var result = await interpreter.Interpret(expr, Unit.Default);
+            var result = await interpreter.Interpret(checkIfExists, Unit.Default);
+
             return await result.MatchAsync<IActionResult>(
-                async (created) =>
-                {
-                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.RestaurantAgg.Restaurant), Unit.Default);
-                    return (IActionResult)Ok(created.RestaurantAgg.Restaurant);
-                },
-                async (notCreated) =>
+                async (exists) =>
                 {
                     return BadRequest();
-                });
+                },
+                async (inexistent) =>
+                {
+                    var expr = from createEntity in RestaurantDomain.CreateAndPersistRestaurant(entity)
+                               let entityC = (createEntity as RestaurantCreated)?.RestaurantAgg
+                               select createEntity;
+
+                    var result = await interpreter.Interpret(expr, Unit.Default);
+                    return await result.MatchAsync<IActionResult>(
+                        async (created) =>
+                        {
+                            return (IActionResult)Ok(created.RestaurantAgg.Restaurant);
+                        },
+                        async (notCreated) =>
+                        {
+                            return BadRequest();
+                        });
+                }
+                );
         }
 
-        [HttpPost("CreateMenu/{RestaurantID}")]
-        public async Task<IActionResult> CreateMenu(int RestaurantID, [Bind("Name,MenuType,Visibility,Hours")] Menu entity)
+        [HttpPost("{RestaurantName}/CreateMenu")]
+        public async Task<IActionResult> CreateMenu(String RestaurantName, [Bind("Name,MenuType,Visibility,Hours")] Menu entity)
         {
-            entity.RestaurantId = RestaurantID;
+            var checkIfExists = from getRestaurant in RestaurantDomain.GetRestaurant(RestaurantName)
+                                let restaurant = (getRestaurant as RestaurantSelected)?.RestaurantAgg.Restaurant
+                                from getMenu in RestaurantDomain.GetMenu(entity.Name, restaurant.Id)
+                                select getMenu;
+            var checkIfExistsResult = await interpreter.Interpret(checkIfExists, Unit.Default);
 
-            var expr = from createEntity in RestaurantDomain.CreateMenu(entity)
-                       let entityC = (createEntity as MenuCreated)?.Menu
-
-                       select createEntity;
-
-            var result = await interpreter.Interpret(expr, Unit.Default);
-            return await result.MatchAsync<IActionResult>(
-                async (created) =>
-                {
-                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.Menu.Menu), Unit.Default);
-                    return (IActionResult)Ok(created.Menu.Menu);
-                },
-                async (notCreated) =>
+            return await checkIfExistsResult.MatchAsync<IActionResult>(
+                async exists =>
                 {
                     return BadRequest();
-                });
+                },
+                async inexistent =>
+                {
+                    var expr = from getRestaurant in RestaurantDomain.GetRestaurant(RestaurantName)
+                               let restaurant = (getRestaurant as RestaurantSelected)?.RestaurantAgg.Restaurant
+                               from createEntity in RestaurantDomain.CreateAndPersistMenu(entity, restaurant)
+                               let entityC = (createEntity as MenuCreated)?.Menu
+                               select createEntity;
+
+                    var result = await interpreter.Interpret(expr, Unit.Default);
+                    return await result.MatchAsync<IActionResult>(
+                        async (created) =>
+                        {
+                            //await interpreter.Interpret(Database.AddOrUpdateEntity(created.Menu.Menu), Unit.Default);
+                            return (IActionResult)Ok(created.Menu.Menu);
+                        },
+                        async (notCreated) =>
+                        {
+                            return BadRequest();
+                        });
+                }
+                );
         }
 
-        [HttpPost("CreateMenuItem/{MenuID}")]
-        public async Task<IActionResult> CreateMenuItem(int MenuID, [Bind("Name,Ingredients,Alergens,Price,Image")]MenuItem entity)
+        [HttpPost("{RestaurantName}/{MenuName}/CreateMenuItem")]
+        public async Task<IActionResult> CreateMenuItem(String RestaurantName, String MenuName, [Bind("Name,Ingredients,Alergens,Price,Image")]MenuItem entity)
         {
-            entity.MenuId = MenuID;
-            var expr = from createEntity in RestaurantDomain.CreateMenuItem(entity)
-                       let entityC = (createEntity as MenuItemCreated)?.MenuItemAgg
+            var checkIfExistsExpr = from selectRestaurant in RestaurantDomain.GetRestaurant(RestaurantName)
+                                    let restaurant = (selectRestaurant as RestaurantSelected)?.RestaurantAgg.Restaurant
+                                    from selectMenu in RestaurantDomain.GetMenu(MenuName, restaurant.Id)
+                                    let menu = (selectMenu as MenuSelected)?.MenuAgg.Menu
+                                    from selectMenuItem in RestaurantDomain.GetMenuItem(entity.Name, menu.Id)
+                                    select selectMenuItem;
 
-                       select createEntity;
+            var checkIfExistsResult = await interpreter.Interpret(checkIfExistsExpr, Unit.Default);
 
-            var result = await interpreter.Interpret(expr, Unit.Default);
-            return await result.MatchAsync<IActionResult>(
-                async (created) =>
-                {
-                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.MenuItemAgg.MenuItem), Unit.Default);
-                    return (IActionResult)Ok(created.MenuItemAgg.MenuItem);
-                },
-                async (notCreated) =>
+            return await checkIfExistsResult.MatchAsync<IActionResult>(
+                async exists =>
                 {
                     return BadRequest();
-                });
+                },
+                async inexistent =>
+                {
+                    var expr = from selectRestaurant in RestaurantDomain.GetRestaurant(RestaurantName)
+                               let restaurant = (selectRestaurant as RestaurantSelected)?.RestaurantAgg.Restaurant
+                               from selectMenu in RestaurantDomain.GetMenu(MenuName, restaurant.Id)
+                               let menu = (selectMenu as MenuSelected)?.MenuAgg.Menu
+                               from createEntity in RestaurantDomain.CreateAndPersistMenuItem(menu, entity)
+                               let entityC = (createEntity as MenuItemCreated)?.MenuItemAgg
+                               select createEntity;
+
+                    var result = await interpreter.Interpret(expr, Unit.Default);
+                    return await result.MatchAsync<IActionResult>(
+                        async (created) =>
+                        {
+                            await interpreter.Interpret(Database.AddOrUpdateEntity(created.MenuItemAgg.MenuItem), Unit.Default);
+                            return (IActionResult)Ok(created.MenuItemAgg.MenuItem);
+                        },
+                        async (notCreated) =>
+                        {
+                            return BadRequest();
+                        });
+                }
+                );
         }
 
         [HttpPost("RequestPayment/{username}")]
@@ -269,6 +317,25 @@ namespace OrderAndPay.Web.Controllers
                     return (IActionResult)Ok(updated);
                 },
                 notUpdated =>
+                {
+                    return BadRequest();
+                }
+                );
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateMenu(Menu menu)
+        {
+            var expr = from updateMenu in RestaurantDomain.UpdateAndPersistMenu(menu)
+                       select updateMenu;
+            var result = await interpreter.Interpret(expr, Unit.Default);
+
+            return await result.MatchAsync<IActionResult>(
+                async updated =>
+                {
+                    return (IActionResult)Ok(updated.Menu);
+                },
+                async notUpdated =>
                 {
                     return BadRequest();
                 }

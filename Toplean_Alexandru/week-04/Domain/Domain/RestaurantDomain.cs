@@ -65,16 +65,11 @@ namespace Domain.Domain
         //public static IO<ICreateMenuResult> CreateMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
         //   NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(id, name, menuType, isVisible, hours, restaurant));
 
-        public static IO<ICreateMenuResult> CreateMenu(Menu menu) =>
-           NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(menu));
+        public static IO<ICreateMenuResult> CreateMenu(Menu menu, Restaurant restaurant) =>
+           NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(menu, restaurant));
 
-        //public static IO<ICreateMenuItemResult> CreateMenuItem(int menuid, string name, double price, String ingredients, String? alergens, byte[] image) =>
-        //   NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuid, name, price, ingredients, alergens, image));
-        public static IO<ICreateMenuItemResult> CreateMenuItem(MenuItem menuItem) =>
-           NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuItem));
-
-        //public static IO<ICreateClientResult> CreateClient(String name, String username, String password, String email) =>
-        //  NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, username, password, email));
+        public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, MenuItem menuItem) =>
+           NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menu, menuItem));
 
         public static IO<ICreateClientResult> CreateClient(Client client) =>
           NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(client));
@@ -94,14 +89,14 @@ namespace Domain.Domain
 
         //public static IO<ICreateMenuResult> CreateAndPersistMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
         //   from menuCreated in RestaurantDomain.CreateMenu(id, name, menuType, isVisible, hours, restaurant)
-        public static IO<ICreateMenuResult> CreateAndPersistMenu(Menu menu) =>
-           from menuCreated in RestaurantDomain.CreateMenu(menu)
+        public static IO<ICreateMenuResult> CreateAndPersistMenu(Menu menu, Restaurant restaurant) =>
+           from menuCreated in RestaurantDomain.CreateMenu(menu, restaurant)
            let menuAgg = (menuCreated as MenuCreated)?.Menu
            from dbContext in Database.AddOrUpdateEntity(menuAgg.Menu)
            select menuCreated;
 
-        public static IO<ICreateMenuItemResult> CreateAndPersistMenuItem(MenuItem menuItem) =>
-           from menuItemCreated in RestaurantDomain.CreateMenuItem(menuItem)
+        public static IO<ICreateMenuItemResult> CreateAndPersistMenuItem(Menu menu, MenuItem menuItem) =>
+           from menuItemCreated in RestaurantDomain.CreateMenuItem(menu, menuItem)
            let menuItemAgg = (menuItemCreated as MenuItemCreated)?.MenuItemAgg
            from dbContext in Database.AddOrUpdateEntity(menuItemAgg.MenuItem)
            select menuItemCreated;

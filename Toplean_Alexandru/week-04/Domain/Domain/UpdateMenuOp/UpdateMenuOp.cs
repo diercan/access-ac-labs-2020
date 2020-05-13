@@ -12,14 +12,7 @@ namespace Domain.Domain.UpdateMenuOp
     {
         public override Task<IUpdateMenuResult> Work(UpdateMenuCmd Op, Unit state)
         {
-            try
-            {
-                return Task.FromResult<IUpdateMenuResult>(new MenuUpdated(Op.Menu));
-            }
-            catch (Exception exp)
-            {
-                return Task.FromResult<IUpdateMenuResult>(new MenuNotUpdated(exp.Message));
-            }
+            return Task.FromResult<IUpdateMenuResult>(new MenuUpdated(Op.Menu));
         }
     }
 }

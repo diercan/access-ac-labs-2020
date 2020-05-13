@@ -166,21 +166,35 @@ namespace OrderAndPay.Web.Controllers
         [HttpPost("CreateClient")]
         public async Task<IActionResult> CreateClient(Client entity)
         {
-            var expr = from createEntity in RestaurantDomain.CreateClient(entity)
-                       let entityC = (createEntity as ClientCreated)?.ClientAgg
-                       select createEntity;
+            var checkClient = from selectClient in RestaurantDomain.GetClient(entity.Username)
+                              select selectClient;
 
-            var result = await interpreter.Interpret(expr, Unit.Default);
-            return await result.MatchAsync<IActionResult>(
-                async (created) =>
+            var checkClientResult = await interpreter.Interpret(checkClient, Unit.Default);
+
+            return await checkClientResult.MatchAsync<IActionResult>(
+                async (exists) =>
                 {
-                    await interpreter.Interpret(Database.AddOrUpdateEntity(created.ClientAgg.Client), Unit.Default);
-                    return (IActionResult)Ok(created.ClientAgg.Client);
+                    return BadRequest();
                 },
-                async (notCreated) =>
+                async (inexistent) =>
                 {
-                    return NotFound();
-                });
+                    var expr = from createEntity in RestaurantDomain.CreateClient(entity)
+                               let entityC = (createEntity as ClientCreated)?.ClientAgg
+                               select createEntity;
+
+                    var result = await interpreter.Interpret(expr, Unit.Default);
+                    return await result.MatchAsync<IActionResult>(
+                        async (created) =>
+                        {
+                            await interpreter.Interpret(Database.AddOrUpdateEntity(created.ClientAgg.Client), Unit.Default);
+                            return (IActionResult)Ok(created.ClientAgg.Client);
+                        },
+                        async (notCreated) =>
+                        {
+                            return BadRequest();
+                        });
+                }
+                );
         }
     }
 }
