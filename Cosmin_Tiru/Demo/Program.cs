@@ -39,7 +39,7 @@ namespace Demo
             serviceCollection.AddOperations(typeof(AddOrUpdateOp).Assembly);
             serviceCollection.AddTransient(typeof(IOp<,>), typeof(QueryOp<,>));
 
-            serviceCollection.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
+            //serviceCollection.AddDbContext<OrderAndPayContext>(ServiceLifetime.Singleton);
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
