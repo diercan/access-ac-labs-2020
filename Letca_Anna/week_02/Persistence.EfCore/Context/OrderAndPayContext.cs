@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Persistence.EfCore;
 
 namespace Persistence.EfCore.Context
 {
@@ -47,6 +46,10 @@ namespace Persistence.EfCore.Context
 
             modelBuilder.Entity<MenuItems>(entity =>
             {
+                entity.HasIndex(e => new { e.Name, e.MenuId })
+                    .HasName("UQ__MenuItem__6FEC69D570549D5F")
+                    .IsUnique();
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -62,6 +65,10 @@ namespace Persistence.EfCore.Context
 
             modelBuilder.Entity<Menus>(entity =>
             {
+                entity.HasIndex(e => new { e.Name, e.RestaurantId })
+                    .HasName("UQ__Menus__3B01D03FAAF28925")
+                    .IsUnique();
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
