@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Text;
 
 namespace Persistence.EfCore
 {
     public partial class MenuItem
     {
+        public MenuItem()
+        {
+            OrderItems = new HashSet<OrderItem>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Ingredients { get; set; }
@@ -17,6 +21,7 @@ namespace Persistence.EfCore
         public int MenuId { get; set; }
 
         public virtual Menu Menu { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }
 

@@ -12,18 +12,18 @@ namespace Domain.Domain.CreateEmployeeOp
         public string Email { get; }
         public string Phone { get; }
         public string Job { get; }
-        public string Username { get; }
+        public string EmployeeId { get; }
         public string Password { get; }
         public int RestaurantId { get; }
 
-        public CreateEmployeeCmd(string firstName, string lastName, string email, string phone,string job, string username, string password, int restaurantId)
+        public CreateEmployeeCmd(string firstName, string lastName, string email, string phone, string job, string employeeId, string password, int restaurantId)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Phone = phone;
             Job = job;
-            Username = username;
+            EmployeeId = employeeId;
             Password = password;
             RestaurantId = restaurantId;
         }

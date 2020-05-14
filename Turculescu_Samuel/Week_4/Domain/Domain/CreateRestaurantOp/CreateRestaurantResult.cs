@@ -19,17 +19,17 @@ namespace Domain.Domain.CreateRestaurantOp
             public RestaurantCreated(RestaurantAgg restaurant)
             {
                 Restaurant = restaurant;
-                App.RestaurantsList.Add(Restaurant.Restaurant);    // Add restaurant created in list with all restaurants from OrderAndPayApp
             }
         }
 
         public class RestaurantNotCreated : ICreateRestaurantResult
         {
             public string Reason { get; }
-
-            public RestaurantNotCreated(string reason)
+            public RestaurantAgg Restaurant { get; }
+            public RestaurantNotCreated(string reason, RestaurantAgg restaurant)
             {
                 Reason = reason;
+                Restaurant = restaurant;
             }
         }
     }

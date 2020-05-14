@@ -1,10 +1,9 @@
 Employee Roles:
 
-1. GetEmployee<GetEmployeeCmd, GetEmployeeResult>(string: employeeId)
-2. SetMenu<SetMenuCmd, SetMenuResult>(Restaurant: restaurant, string: menuName)
-3. AddMenuItem<AddMenuItemCmd, AddMenuItemResult>(Menu: menu, MenuItem: newMenuItem)
-3. ChangeMenuItem<ChangeMenuItemCmd, ChangeMenuItemResult>(Menu: menu, int: menuItemId, MenuItem: newMenuItem)
+1. CreateMenu<CreateMenuCmd, CreateMenuResult>(string: menuName, Restaurant: restaurant)
+2. CreateMenuItem<CreateMenuItemCmd, CreateMenuItemResult>(Menu: menu, string: name, string: ingredients, string: allergens, uint: totalQuantity, double: price, bool: availability)
+3. ChangeMenuItem<ChangeMenuItemCmd, ChangeMenuItemResult>(MenuItem: menuItem, MenuItem: newMenuItem)
 4. GetOrders<GetOrdersCmd, GetOrdersResult>(Restaurant: restaurant)
-5. SetOrderStatus<SetOrderStatusCmd, SetOrderStatusResult>(Order: order, OrderStatus: orderStatus, uint: preparationTimeInMinutes)
-6. CreatePaymentRequest<CreatePaymentRequestCmd, CreatePaymentRequestResult>(Order: order, PaymentStatus: newPaymentStatus)
+5. SetOrderStatus<SetOrderStatusCmd, SetOrderStatusResult>(Order: order, string: orderStatus, TimeSpan: preparationTime)
+6. CreatePaymentRequest<CreatePaymentRequestCmd, CreatePaymentRequestResult>(Order: order)
 7. CheckOrderPayment<CheckOrderPaymentCmd, CheckOrderPaymentResult>(Order: order)

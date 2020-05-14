@@ -7,8 +7,7 @@ namespace Domain.Models
 {
     public class MenuAgg
     {
-        public Menu Menu { get; }
-        public List<MenuItemAgg> MenuItems { get; set; } = new List<MenuItemAgg>();
+        public Menu Menu { get; set; }
 
         public MenuAgg(Menu menu)
         {

@@ -1,25 +1,25 @@
-﻿using System;
+﻿using Persistence.EfCore;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Text;
 
 namespace Domain.Models
 {
     public class CartItem
     {
-        public string Name { get; }
+        public string Name { get; set; }
         public string SpecialRequests { get; set; }
         public uint Quantity { get; set; }
-        public double Price { get; }
-        public MenuItemAgg MenuItem { get; }
+        public double Price { get; set; }
+        public MenuItem MenuItem { get; set; }
 
-        public CartItem(MenuItemAgg menuItem, string name, string specialRequests, uint quantity, double price)
+        public CartItem(string name, string specialRequests, uint quantity, double price, MenuItem menuItem)
         {
-            MenuItem = menuItem;
-            Name = name;
+            Name = name;   
             SpecialRequests = specialRequests;
             Quantity = quantity;
             Price = price;
+            MenuItem = menuItem;
         }
     }
 }

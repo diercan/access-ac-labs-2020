@@ -11,11 +11,11 @@ namespace Domain.Queries
 {
     public class FindClientQuery : Query<Client>
     {
-        public FindClientQuery(int clientId) : base(async (ctx) =>
+        public FindClientQuery(string clientId) : base(async (ctx) =>
         {
             return
                 await ctx.Set<Client>()
-                    .Where(c => c.Id.Equals(clientId))
+                    .Where(c => c.ClientId.Equals(clientId))
                     .FirstOrDefaultAsync();
         })
         { }
