@@ -28,6 +28,7 @@ namespace Domain.Domain.PlaceOrderOp
 
             public OrderNotPlaced(string  reason)
             {
+                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

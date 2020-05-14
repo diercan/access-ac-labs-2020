@@ -18,6 +18,7 @@ namespace Domain.Domain.GetOrderStatusOp
 
             public GetOrderStatus(string statusMessage)
             {
+                Console.WriteLine(statusMessage);
                 StatusMessage = statusMessage;
             }
         }

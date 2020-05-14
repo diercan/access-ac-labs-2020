@@ -18,6 +18,7 @@ namespace Domain.Domain.CheckOrderPaymentOp
 
             public CheckOrderPaymentStatus(string paymentStatus)
             {
+                Console.WriteLine(paymentStatus);
                 PaymentStatus = paymentStatus;
             }
         }

@@ -31,6 +31,7 @@ namespace Domain.Domain.GetMenusOp
 
             public GetMenusNotSuccessful(string reason)
             {
+                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

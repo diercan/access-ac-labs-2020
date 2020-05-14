@@ -53,47 +53,47 @@ namespace Demo
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var interpreter = new LiveInterpreterAsync(serviceProvider);
+            /*
+           //Adding a Restaurant
+                    var exprRestaurant =
+                        from restaurantResult in RestaurantDomainEx.CreateRestaurantAndPersist("Restaurant_7", "address")
+                        let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
 
-            //Adding a Restaurant
-                     var exprRestaurant =
-                         from restaurantResult in RestaurantDomainEx.CreateRestaurantAndPersist("Restaurant_6", "address")
-                         let restaurant = (restaurantResult as RestaurantCreated)?.Restaurant
-                         
-                         from menuResult1 in RestaurantDomainEx.CreateMenuAndPersist("Pasta", restaurant.Restaurant)
-                         let menu1 = (menuResult1 as MenuCreated)?.Menu
-                         from menuResult2 in RestaurantDomainEx.CreateMenuAndPersist("Pizza", restaurant.Restaurant)
-                         let menu2 = (menuResult2 as MenuCreated)?.Menu
+                        /*from menuResult1 in RestaurantDomainEx.CreateMenuAndPersist("Pasta", restaurant.Restaurant)
+                        let menu1 = (menuResult1 as MenuCreated)?.Menu
+                        from menuResult2 in RestaurantDomainEx.CreateMenuAndPersist("Pizza", restaurant.Restaurant)
+                        let menu2 = (menuResult2 as MenuCreated)?.Menu
 
-                         from menuItemResult1 in RestaurantDomainEx.CreateMenuItemAndPersist(menu1.Menu, "Carbonara", "ingredients", "allergens", 100, 27.00, true)
-                         let menuItem1 = (menuItemResult1 as MenuItemCreated)?.MenuItem
-                         from menuItemResult2 in RestaurantDomainEx.CreateMenuItemAndPersist(menu1.Menu, "Spaghetti", "ingredients", "allergens", 150, 25.00, true)
-                         let menuItem2 = (menuItemResult2 as MenuItemCreated)?.MenuItem
-                         from menuItemResult3 in RestaurantDomainEx.CreateMenuItemAndPersist(menu1.Menu, "Macaroni", "ingredients", "allergens", 200, 21.00, true)
-                         let menuItem3 = (menuItemResult3 as MenuItemCreated)?.MenuItem
-                         from menuItemResult4 in RestaurantDomainEx.CreateMenuItemAndPersist(menu2.Menu, "Pizza", "ingredients", "allergens", 1, 30.00, true)
-                         let menuItem4 = (menuItemResult4 as MenuItemCreated)?.MenuItem
+                        from menuItemResult1 in RestaurantDomainEx.CreateMenuItemAndPersist(menu1.Menu, "Carbonara", "ingredients", "allergens", 100, 27.00, true)
+                        let menuItem1 = (menuItemResult1 as MenuItemCreated)?.MenuItem
+                        from menuItemResult2 in RestaurantDomainEx.CreateMenuItemAndPersist(menu1.Menu, "Spaghetti", "ingredients", "allergens", 150, 25.00, true)
+                        let menuItem2 = (menuItemResult2 as MenuItemCreated)?.MenuItem
+                        from menuItemResult3 in RestaurantDomainEx.CreateMenuItemAndPersist(menu1.Menu, "Macaroni", "ingredients", "allergens", 200, 21.00, true)
+                        let menuItem3 = (menuItemResult3 as MenuItemCreated)?.MenuItem
+                        from menuItemResult4 in RestaurantDomainEx.CreateMenuItemAndPersist(menu2.Menu, "Pizza", "ingredients", "allergens", 1, 30.00, true)
+                        let menuItem4 = (menuItemResult4 as MenuItemCreated)?.MenuItem
 
-                         from clientResult in RestaurantDomainEx.CreateClientAndPersist("Fifth", "Client", "fifthclient@gmail.com", "07xxxxxxxx", "xxxxxxxxxxxxxxxx", "fifth.client", "client05")
-                         let client = (clientResult as ClientCreated)?.Client
-                         
-                         from cartItemResult1 in RestaurantDomain.AddToCart("sessionClient05", menuItem4.MenuItem, 1, "special requests")
-                         let cartItem1 = (cartItemResult1 as AddToCartSuccessful)?.CartItem
-                         from cartItemResult2 in RestaurantDomain.AddToCart("sessionClient05", menuItem2.MenuItem, 2, "special requests")
-                         let cartItem2 = (cartItemResult2 as AddToCartSuccessful)?.CartItem
-                         from cartItemResult3 in RestaurantDomain.AddToCart("sessionClient05", menuItem3.MenuItem, 3, "special requests")
-                         let cartItem3 = (cartItemResult3 as AddToCartSuccessful)?.CartItem
+                        from clientResult in RestaurantDomainEx.CreateClientAndPersist("Fifth", "Client", "fifthclient@gmail.com", "07xxxxxxxx", "xxxxxxxxxxxxxxxx", "fifth.client", "client05")
+                        let client = (clientResult as ClientCreated)?.Client
 
-                         from orderResult in RestaurantDomainEx.PlaceOrder(client.Client, restaurant.Restaurant, 140.00, 5)
-                         let order = (orderResult as OrderPlaced)?.Order
+                        from cartItemResult1 in RestaurantDomain.AddToCart("sessionClient05", menuItem4.MenuItem, 1, "special requests")
+                        let cartItem1 = (cartItemResult1 as AddToCartSuccessful)?.CartItem
+                        from cartItemResult2 in RestaurantDomain.AddToCart("sessionClient05", menuItem2.MenuItem, 2, "special requests")
+                        let cartItem2 = (cartItemResult2 as AddToCartSuccessful)?.CartItem
+                        from cartItemResult3 in RestaurantDomain.AddToCart("sessionClient05", menuItem3.MenuItem, 3, "special requests")
+                        let cartItem3 = (cartItemResult3 as AddToCartSuccessful)?.CartItem
 
-                         from orderItemResult1 in RestaurantDomainEx.CreateOrderItem(cartItem1, order.Order)
-                         //from orderItemResult2 in RestaurantDomainEx.CreateOrderItem(cartItem2, order.Order)
-                         //from orderItemResult3 in RestaurantDomainEx.CreateOrderItem(cartItem3, order.Order)
+                        from orderResult in RestaurantDomainEx.PlaceOrder(client.Client, restaurant.Restaurant, 140.00, 5)
+                        let order = (orderResult as OrderPlaced)?.Order
 
-                         select restaurantResult;            
+                        from orderItemResult1 in RestaurantDomainEx.CreateOrderItem(cartItem1, order.Order)
+                        //from orderItemResult2 in RestaurantDomainEx.CreateOrderItem(cartItem2, order.Order)
+                        //from orderItemResult3 in RestaurantDomainEx.CreateOrderItem(cartItem3, order.Order)
+
+            select restaurantResult;            
 
                      var resultRestaurant = await interpreter.Interpret(exprRestaurant, Unit.Default);
-            
+           
             
             //Adding a Client
             var exprClient =
@@ -111,18 +111,39 @@ namespace Demo
                   select employeeResult;
 
              var resultEmployee = await interpreter.Interpret(exprEmployee, Unit.Default);
-            
+            */
 
+            // Testing Queries
             var exprFindRestaurant =
-               from restaurantResult in RestaurantDomainEx.GetRestaurant("Restaurant_4")
-               from menuResult in RestaurantDomainEx.CreateMenuAndPersist("Pasta", restaurantResult.Restaurant)
-               let menu = (menuResult as MenuCreated)?.Menu
-              from menuItemResult1 in RestaurantDomainEx.CreateMenuItemAndPersist(menu.Menu, "Carbonara", "ingredients", "allergens", 100, 27.00, true)
-               from menuItemResult2 in RestaurantDomainEx.CreateMenuItemAndPersist(menu.Menu, "Spaghetti", "ingredients", "allergens", 150, 25.00, true)
-               from menuItemResult3 in RestaurantDomainEx.CreateMenuItemAndPersist(menu.Menu, "Macaroni", "ingredients", "allergens", 200, 21.00, true)
-              select restaurantResult;
-           var resultExpr = await interpreter.Interpret(exprFindRestaurant, Unit.Default);         
-                       
+               from restaurantResult in RestaurantDomainEx.GetRestaurant("Restaurant_1")
+               select restaurantResult;
+           var restaurant = await interpreter.Interpret(exprFindRestaurant, Unit.Default);
+
+            var exprFindClient =
+                from clientResult in RestaurantDomainEx.GetClient("second.client")
+                select clientResult;
+            var client = await interpreter.Interpret(exprFindClient, Unit.Default);
+
+            var exprFindEmployee =
+                from employeeResult in RestaurantDomainEx.GetEmployee(restaurant.Restaurant.Id, "waiter01")
+                select employeeResult;
+            var employee = await interpreter.Interpret(exprFindEmployee, Unit.Default);
+
+            var exprFindMenus =
+               from menusResult in RestaurantDomainEx.GetMenus(restaurant.Restaurant)
+               select menusResult;
+            var menus = await interpreter.Interpret(exprFindMenus, Unit.Default);
+
+            Console.WriteLine(restaurant.Restaurant.Name);
+            Console.WriteLine(client.Client.ClientId);
+            Console.WriteLine(employee.Employee.EmployeeId);
+            
+            foreach (Menu m in menus)
+            {
+                Console.WriteLine(m.Name);
+            }
+
+
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Domain.Domain.PayOrderOp
 
             public PayOrderStatus(string reason)
             {
+                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

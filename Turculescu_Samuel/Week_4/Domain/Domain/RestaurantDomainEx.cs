@@ -28,18 +28,8 @@ namespace Domain.Domain
         public static IO<CreateRestaurantResult.ICreateRestaurantResult> CreateRestaurantAndPersist(string name, string address)
             => from restaurantCreated in RestaurantDomain.CreateRestaurant(name, address)
                let agg = (restaurantCreated as CreateRestaurantResult.RestaurantCreated)?.Restaurant
-               from db in Database.AddOrUpdate(agg.Restaurant)
+               from db in Database.AddOrUpdate(agg.Restaurant)               
                select restaurantCreated;
-
-        /*from existingRestaurant in GetRestaurant(name)                                       // verify if exists this Restaurant in Database
-               let restaurant = existingRestaurant ??
-               /*(from restaurantCreated in RestaurantDomain.CreateRestaurant(name, address)
-               let agg = (restaurantCreated as CreateRestaurantResult.RestaurantCreated)?.Restaurant
-               select agg)
-               new RestaurantAgg(new Restaurant() { Name = name, Address = address })
-                from db in Database.AddOrUpdate(restaurant)
-                                        
-               select restaurant;*/
 
         // Get a Restaurant by name
         public static IO<RestaurantAgg> GetRestaurant(string name)
@@ -84,8 +74,10 @@ namespace Domain.Domain
                select menuCreated;
 
         //  Get Menus from a specific Restaurant
-        public static IO<List<Menu>> GetMenus(Restaurant restaurant)
-            => from menus in Database.Query<FindMenusQuery, List<Menu>>(new FindMenusQuery(restaurant))               
+        public static IO<ICollection<Menu>> GetMenus(Restaurant restaurant)
+            => from menus in Database.Query<FindMenusQuery, ICollection<Menu>>(new FindMenusQuery(restaurant))               
+               //from getMenus in RestaurantDomain.GetMenus(restaurant)
+               //let menu = (getMenus as GetMenusResult.GetMenusSuccessful)?.Menus
                select menus;
 
         // Create a MenuItem

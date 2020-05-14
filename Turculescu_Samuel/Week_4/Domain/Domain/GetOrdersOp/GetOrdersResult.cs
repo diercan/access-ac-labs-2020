@@ -30,6 +30,7 @@ namespace Domain.Domain.GetOrdersOp
 
             public GetOrdersResultNotSuccessful(string reason)
             {
+                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

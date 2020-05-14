@@ -28,6 +28,7 @@ namespace Domain.Domain.GetClientOp
 
             public ClientNotFound(string reason)
             {
+                Console.WriteLine(reason);
                 Reason = reason;
             }
         }

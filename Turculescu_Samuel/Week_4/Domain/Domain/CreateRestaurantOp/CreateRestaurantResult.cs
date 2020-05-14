@@ -25,11 +25,10 @@ namespace Domain.Domain.CreateRestaurantOp
         public class RestaurantNotCreated : ICreateRestaurantResult
         {
             public string Reason { get; }
-            public RestaurantAgg Restaurant { get; }
-            public RestaurantNotCreated(string reason, RestaurantAgg restaurant)
+
+            public RestaurantNotCreated(string reason)
             {
                 Reason = reason;
-                Restaurant = restaurant;
             }
         }
     }

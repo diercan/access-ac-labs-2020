@@ -28,6 +28,7 @@ namespace Domain.Domain.GetEmployeeOp
 
             public EmployeeNotFound(string reason)
             {
+                Console.WriteLine(reason);
                 Reason = reason;
             }
         }
