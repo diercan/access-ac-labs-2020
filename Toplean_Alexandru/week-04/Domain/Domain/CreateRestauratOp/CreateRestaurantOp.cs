@@ -16,13 +16,6 @@ namespace Domain.Domain.CreateRestauratOp
 {
     public class CreateRestaurantOp : OpInterpreter<CreateRestaurantCmd, CreateRestaurantResult.ICreateRestaurantResult, Unit>
     {
-        private readonly LiveInterpreterAsync interpreter;
-
-        public CreateRestaurantOp(LiveInterpreterAsync interpreter)
-        {
-            this.interpreter = interpreter;
-        }
-
         public async override Task<ICreateRestaurantResult> Work(CreateRestaurantCmd Op, Unit state)
         {
             return new RestaurantCreated(new RestaurantAgg(Op.Restaurant));  // Restaurant is valid

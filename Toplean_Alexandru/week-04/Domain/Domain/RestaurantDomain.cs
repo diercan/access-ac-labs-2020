@@ -234,8 +234,8 @@ namespace Domain.Domain
         public static IO<ISetOrderStatusResult> SetOrderStatus(ClientAgg clientAgg, CartStatus newStatus) =>
             NewIO<SetOrderStatusOp.SetOrderStatusCmd, ISetOrderStatusResult>(new SetOrderStatusOp.SetOrderStatusCmd(clientAgg, newStatus));
 
-        public static IO<IGetPaymentStatusResult> GetPaymentStatus(ClientAgg clientAgg) =>
-            NewIO<GetPaymentStatusOp.GetPaymentStatusCmd, IGetPaymentStatusResult>(new GetPaymentStatusOp.GetPaymentStatusCmd(clientAgg));
+        public static IO<IGetPaymentStatusResult> GetPaymentStatus(Order order) =>
+            NewIO<GetPaymentStatusOp.GetPaymentStatusCmd, IGetPaymentStatusResult>(new GetPaymentStatusOp.GetPaymentStatusCmd(order));
 
         public static IO<IRequestPaymentResult> RequestPayment(ClientAgg clientAgg) =>
             NewIO<RequestPaymentOp.RequestPaymentCmd, IRequestPaymentResult>(new RequestPaymentOp.RequestPaymentCmd(clientAgg));

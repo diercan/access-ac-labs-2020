@@ -33,5 +33,15 @@ namespace Domain.Domain.CreateOrderOp
                 Reason = error;
             }
         }
+
+        public class InvalidRequest : ICreateOrderResult
+        {
+            public CreateOrderCmd Cmd { get; }
+
+            public InvalidRequest(CreateOrderCmd cmd)
+            {
+                Cmd = cmd;
+            }
+        }
     }
 }

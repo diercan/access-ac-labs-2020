@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAndPay.Web", "OrderAndPay.Web\OrderAndPay.Web.csproj", "{78124540-B8F4-49DA-85E3-2DE1DA495BA4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAndPay.Tests", "OrderAndPay.Tests\OrderAndPay.Tests.csproj", "{B8591F9C-7FB9-4E6D-832A-F2E194462DCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{78124540-B8F4-49DA-85E3-2DE1DA495BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78124540-B8F4-49DA-85E3-2DE1DA495BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78124540-B8F4-49DA-85E3-2DE1DA495BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8591F9C-7FB9-4E6D-832A-F2E194462DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8591F9C-7FB9-4E6D-832A-F2E194462DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8591F9C-7FB9-4E6D-832A-F2E194462DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8591F9C-7FB9-4E6D-832A-F2E194462DCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

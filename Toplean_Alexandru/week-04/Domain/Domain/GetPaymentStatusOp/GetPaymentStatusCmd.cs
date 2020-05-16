@@ -1,4 +1,6 @@
 ﻿using Domain.Models;
+using Infra.Free;
+using Persistence.EfCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +10,21 @@ namespace Domain.Domain.GetPaymentStatusOp
 {
     public struct GetPaymentStatusCmd
     {
-        public ClientAgg ClientAgg { get; }
+        public Order Order { get; }
 
-        public GetPaymentStatusCmd(ClientAgg clientAgg)
+        public GetPaymentStatusCmd(Order order)
         {
-            ClientAgg = clientAgg;
+            Order = order;
+        }
+
+        public (bool, String) IsValid()
+        {
+            if (Order.TotalPrice < 0)
+            {
+                return (false, "Total price cannot be negative");
+            }
+
+            return (true, "");
         }
     }
 }
