@@ -21,6 +21,13 @@ namespace Infra.Persistence
         }
         public override async Task<IAddOrUpdateResult> Work(AddOrUpdateCmd Op, Unit state)
         {
+            var (valid, validationResults) = Op.Validate();
+            string validationMessage = "";
+            validationResults.ForEach(x => validationMessage += x.ErrorMessage);
+
+            if (!valid)
+                return new Failed(validationMessage);
+
             try
             {
                 var entity = _ctx.Entry(Op.Item);
