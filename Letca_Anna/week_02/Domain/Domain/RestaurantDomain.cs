@@ -30,6 +30,7 @@ using Persistence;
 using Domain.Queries;
 using Persistence.EfCore;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+using static Persistence.Abstractions.AddOrUpdateResult;
 
 namespace Domain.Domain
 {
@@ -53,15 +54,14 @@ namespace Domain.Domain
         public static IO<IGetRestaurantResult> GetRestaurant(Restaurant restaurant) =>
              NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(restaurant));
 
-        public static IO<ICreateMenuResult> CreateMenuAndPersist(RestaurantAgg restaurantAgg, string name, MenuType menuType)
-            => from menuCreated in CreateMenu(restaurantAgg, name, menuType)
-               let agg = (menuCreated as MenuCreated)?.Menu
-               from db in Database.AddOrUpdate(restaurantAgg.Menu)
-               select menuCreated;
+        public static IO<IAddOrUpdateResult> CreateMenuAndPersist(Menus menu, int restaurantId)
+            => from menuCreated in CreateMenu(menu, restaurantId)
+               let menuResult = (menuCreated as MenuCreated)?.Menu
+               from db in Database.AddOrUpdate(menuResult)
+               select db;
 
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(RestaurantAgg restaurant, string menuName,
-            MenuType menuType)
-            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Menus menu, int restaurantId)
+           => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(menu, restaurantId));
 
         public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
             NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(restaurant));

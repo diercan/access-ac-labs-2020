@@ -44,7 +44,7 @@ namespace Demo
             Storage storage = Storage.GetInstance();
 
 
-            var expr =
+            /*var expr =
                 from restaurantResult in RestaurantDomain.CreateRestaurantAndPersist("vinto")
                 let restaurant = (restaurantResult as RestaurantCreated)?.RestaurantAgg
                 from restaurantResult2 in RestaurantDomain.CreateRestaurantAndPersist("urban")
@@ -78,14 +78,14 @@ namespace Demo
                 input = Console.ReadLine(); 
                 switch (input)
                 {
-                    /*case "1": // login (suppose client is already created/registered)
+                    case "1": // login (suppose client is already created/registered)
                         var getClientExpr =
                                         from client in RestaurantDomain.GetClient("gucdg34u6trgfh")
                                         select client;
                         var interpretedClient = await interpreter.Interpret(getClientExpr, Unit.Default);
                         foundClient = (interpretedClient as ClientFound)?.Client;
                         var clientResponse = interpretedClient.Match<bool>(OnClientFound, OnClientNotFound);
-                        break;*/
+                        break;
                     case "2": //get restauraant
                         Console.WriteLine("Enter the restaurant's name...");
                         string restaurantName = Console.ReadLine();
@@ -104,7 +104,7 @@ namespace Demo
                         foundMenus = (interpretedMenu as MenuFound)?.Menus;
                         var menuResponse = interpretedMenu.Match<bool>(OnMenuFound, OnMenuNotFound); 
                         break;
-                    /*case "4": //add item to cart
+                    case "4": //add item to cart
                         Console.WriteLine("Enter the menuitem's name...");
                         string itemName = Console.ReadLine();
                         var getItemAndAddToCartExpr =
@@ -112,9 +112,9 @@ namespace Demo
                                         select item;
                         var interpretedItem = await interpreter.Interpret(getItemAndAddToCartExpr, Unit.Default);
                         var itemResponse = interpretedItem.Match<bool>(OnItemAdded, OnItemNotAdded);
-                        break;*/
+                        break;
                 }
-            } while (input != "0"); 
+            } while (input != "0"); */
         }
         private static bool OnItemNotAdded(ItemNotAddedToCart arg)
         {

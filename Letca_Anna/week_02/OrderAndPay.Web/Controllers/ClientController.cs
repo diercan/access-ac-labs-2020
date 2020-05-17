@@ -8,10 +8,11 @@ using Persistence.Abstractions;
 using Persistence.EfCore;
 using System.Threading.Tasks;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
 
 namespace OrderAndPay.Web.Controllers
 {
-    [Route("client")]
+    [Route("Client")]
     public class ClientController
     {
         public readonly LiveInterpreterAsync _interpreter;
@@ -33,7 +34,7 @@ namespace OrderAndPay.Web.Controllers
                 notFound => new NotFoundObjectResult(notFound.Reason));
         }
 
-        [HttpPost("restaurant")]
+        [HttpPost("createrestaurant")]
         public async Task<IActionResult> CreateRestaurant([FromBody] Restaurant restaurant)
         {
             var createRestaurantExpr = from entity in RestaurantDomain.CreateRestaurant(restaurant.Name)
