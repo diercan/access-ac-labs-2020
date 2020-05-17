@@ -31,6 +31,8 @@ using Domain.Queries;
 using Persistence.EfCore;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Persistence.Abstractions.AddOrUpdateResult;
+using Domain.Domain.GetSpecificMenu;
+using static Domain.Domain.GetSpecificMenu.GetSpecificMenuResult;
 
 namespace Domain.Domain
 {
@@ -66,15 +68,18 @@ namespace Domain.Domain
         public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
             NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(restaurant));
 
+        public static IO<IGetSpecificMenuResult> GetSpecificMenu(Restaurant restaurant, string menuName)
+           => NewIO<GetSpecificMenuCmd, IGetSpecificMenuResult>(new GetSpecificMenuCmd(restaurant, menuName));
 
 
-        public static IO<ICreateMenuItemResult> CreateMenuItemAndPersist(string name, decimal price, Menus menu)
-            => from createMenuItemResult in CreateMenuItem(name, price, menu)
-               from db in Database.AddOrUpdate(menu)
-               select createMenuItemResult;
+        public static IO<IAddOrUpdateResult> CreateMenuItemAndPersist(MenuItems menuItem, int? menuId)
+            => from createMenuItemResult in CreateMenuItem(menuItem, menuId)
+               let menuItemResult = (createMenuItemResult as MenuItemCreated)?.MenuItem
+               from db in Database.AddOrUpdate(menuItemResult)
+               select db;
 
-        public static IO<ICreateMenuItemResult> CreateMenuItem(string name, decimal price, Menus menu)
-            => NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(name, price, menu));
+        public static IO<ICreateMenuItemResult> CreateMenuItem(MenuItems menuItem, int? menuId)
+            => NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuItem, menuId));
 
         public static IO<IGetMenuItemResult> GetMenuItem(string name, Menu menu) =>
             NewIO<GetMenuItemCmd, IGetMenuItemResult>(new GetMenuItemCmd(name, menu));

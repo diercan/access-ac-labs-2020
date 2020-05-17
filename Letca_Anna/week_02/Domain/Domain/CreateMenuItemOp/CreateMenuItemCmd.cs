@@ -9,19 +9,23 @@ namespace Domain.Domain.CreateMenuItemOp
     
     public class CreateMenuItemCmd
     {
-        [Required(ErrorMessage = "Cannot add menu item into a NULL menu.")]
-        public Menus Menu { get; }
-
-        [StringLength(100, MinimumLength = 1)]
-        public string Name { get; }
         [Range(10, 100)]
         public decimal Price { get; }
 
-        public CreateMenuItemCmd(string name, decimal price, Menus menu)
+        [StringLength(100, MinimumLength = 1)]
+        public string Name { get; }
+
+        public MenuItems MenuItem { get; }
+
+        [Required(ErrorMessage = "ValidationError_CreateMenuItem:Cannot create item for a NULL menu.")]
+        public int? MenuId { get; }
+
+        public CreateMenuItemCmd(MenuItems menuItem, int? menuId)
         {
-            Name = name;
-            Price = price;
-            Menu = menu;
+            Name = menuItem.Name;
+            Price = menuItem.Price;
+            MenuId = menuId;
+            MenuItem = menuItem;
         }
 
         public (bool, List<ValidationResult>) Validate()

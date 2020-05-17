@@ -15,7 +15,7 @@ namespace Domain.Domain.CreateMenuOp
         [StringLength(100, MinimumLength=1)]
         public string Name { get; }
         public Menus Menu { get; }
-        [Required(ErrorMessage = "Cannot create menu for a NULL restaurant.")]
+        [Required(ErrorMessage = "ValidationError_CreateMenu: Cannot create menu for a NULL restaurant.")]
         public int? RestaurantId { get; }
 
         //public MenuType MenuType { get; }
