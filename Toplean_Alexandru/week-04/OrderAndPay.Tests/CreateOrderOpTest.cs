@@ -25,16 +25,16 @@ namespace OrderAndPay.Tests
             var result = await TestExpr(expr, path);
         }
 
-        //[Theory]
-        //[CarthesianProductOf(typeof(CreateOrderCmdInput), typeof(CreateOrderOp.OrderEffect))]
-        //public async Task CreateOrderTests(params object[] path)
-        //{
-        //    var cmd = new CreateOrderCmdInputGen().Get(path.OfType<CreateOrderCmdInput>().First());
+        [Theory]
+        [CarthesianProductOf(typeof(CreateOrderCmdInput), typeof(CreateOrderOp.OrderEffect))]
+        public async Task CreateOrderTests(params object[] path)
+        {
+            var cmd = new CreateOrderCmdInputGen().Get(path.OfType<CreateOrderCmdInput>().First());
 
-        //    var expr = from order in RestaurantDomain.CreateOrder(cmd.Order)
-        //               select order;
+            var expr = from order in RestaurantDomain.CreateOrder(cmd.Order)
+                       select order;
 
-        //    var result = await TestExpr(expr, path);
-        //}
+            var result = await TestExpr(expr, path);
+        }
     }
 }

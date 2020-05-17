@@ -150,29 +150,29 @@ namespace OrderAndPay.Web.Controllers
             return Ok(await interpreter.Interpret(getAllMenuItemsExpr, Unit.Default));
         }
 
-        [HttpGet("client/{username}/PaymentStatus")]
-        public async Task<IActionResult> GetPaymentStatus(String username)
-        {
-            var getPaymentExpr = from selectClient in RestaurantDomain.GetClient(username)
-                                 let client = (selectClient as ClientSelected)?.ClientAgg
-                                 from getPaymentStatus in RestaurantDomain.GetPaymentStatus(client)
-                                 let payment = (getPaymentStatus as PaymentStatusGot)?.Status
-                                 select getPaymentStatus;
+        //[HttpGet("client/{username}/PaymentStatus")]
+        //public async Task<IActionResult> GetPaymentStatus(String username)
+        //{
+        //    var getPaymentExpr = from selectClient in RestaurantDomain.GetClient(username)
+        //                         let client = (selectClient as ClientSelected)?.ClientAgg
+        //                         from getPaymentStatus in RestaurantDomain.GetPaymentStatus(client)
+        //                         let payment = (getPaymentStatus as PaymentStatusGot)?.Status
+        //                         select getPaymentStatus;
 
-            var result = await interpreter.Interpret(getPaymentExpr, Unit.Default);
+        //    var result = await interpreter.Interpret(getPaymentExpr, Unit.Default);
 
-            return await result.MatchAsync<IActionResult>(
-                async (paymentGot) =>
-                {
-                    return (IActionResult)Ok(paymentGot.Status);
-                },
+        //    return await result.MatchAsync<IActionResult>(
+        //        async (paymentGot) =>
+        //        {
+        //            return (IActionResult)Ok(paymentGot.Status);
+        //        },
 
-                async (paymentNotGot) =>
-                {
-                    return NotFound();
-                }
-                );
-        }
+        //        async (paymentNotGot) =>
+        //        {
+        //            return NotFound();
+        //        }
+        //        );
+        //}
 
         [HttpGet("orders/{restaurantName}/All")]
         public async Task<IActionResult> GetAllOrders(String restaurantName)
@@ -298,30 +298,30 @@ namespace OrderAndPay.Web.Controllers
                 );
         }
 
-        [HttpPost("RequestPayment/{username}")]
-        public async Task<IActionResult> RequestPayment(String username)
-        {
-            var expr = from getClient in RestaurantDomain.GetClient(username)
-                       let client = (getClient as ClientSelected).ClientAgg
-                       from requestPayment in RestaurantDomain.RequestPayment(client)
-                       let newClient = (requestPayment as PaymentRequested)?.ClientAgg
-                       from updateClient in RestaurantDomain.UpdateAndPersistClient(newClient.Client)
-                       let updated = (updateClient as ClientUpdated)?.ClientAgg.Client
-                       select updateClient;
+        //[HttpPost("RequestPayment/{username}")]
+        //public async Task<IActionResult> RequestPayment(String username)
+        //{
+        //    var expr = from getClient in RestaurantDomain.GetClient(username)
+        //               let client = (getClient as ClientSelected).ClientAgg
+        //               from requestPayment in RestaurantDomain.RequestPayment(client)
+        //               let newClient = (requestPayment as PaymentRequested)?.ClientAgg
+        //               from updateClient in RestaurantDomain.UpdateAndPersistClient(newClient.Client)
+        //               let updated = (updateClient as ClientUpdated)?.ClientAgg.Client
+        //               select updateClient;
 
-            var updateRestaurantFin = await interpreter.Interpret(expr, Unit.Default);
+        //    var updateRestaurantFin = await interpreter.Interpret(expr, Unit.Default);
 
-            return updateRestaurantFin.Match(
-                updated =>
-                {
-                    return (IActionResult)Ok(updated);
-                },
-                notUpdated =>
-                {
-                    return BadRequest();
-                }
-                );
-        }
+        //    return updateRestaurantFin.Match(
+        //        updated =>
+        //        {
+        //            return (IActionResult)Ok(updated);
+        //        },
+        //        notUpdated =>
+        //        {
+        //            return BadRequest();
+        //        }
+        //        );
+        //}
 
         [HttpPost]
         public async Task<IActionResult> UpdateMenu(Menu menu)

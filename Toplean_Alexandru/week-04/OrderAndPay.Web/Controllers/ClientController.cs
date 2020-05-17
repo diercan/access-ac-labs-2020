@@ -139,29 +139,29 @@ namespace OrderAndPay.Web.Controllers
             return Ok(await interpreter.Interpret(getAllMenuItemsExpr, Unit.Default));
         }
 
-        [HttpGet("client/{username}/PaymentStatus")]
-        public async Task<IActionResult> GetPaymentStatus(String username)
-        {
-            var getPaymentExpr = from selectClient in RestaurantDomain.GetClient(username)
-                                 let client = (selectClient as ClientSelected)?.ClientAgg
-                                 from getPaymentStatus in RestaurantDomain.GetPaymentStatus(client)
-                                 let payment = (getPaymentStatus as PaymentStatusGot)?.Status
-                                 select getPaymentStatus;
+        //[HttpGet("client/{username}/PaymentStatus")]
+        //public async Task<IActionResult> GetPaymentStatus(String username)
+        //{
+        //    var getPaymentExpr = from selectClient in RestaurantDomain.GetClient(username)
+        //                         let client = (selectClient as ClientSelected)?.ClientAgg
+        //                         from getPaymentStatus in RestaurantDomain.GetPaymentStatus(client)
+        //                         let payment = (getPaymentStatus as PaymentStatusGot)?.Status
+        //                         select getPaymentStatus;
 
-            var result = await interpreter.Interpret(getPaymentExpr, Unit.Default);
+        //    var result = await interpreter.Interpret(getPaymentExpr, Unit.Default);
 
-            return await result.MatchAsync<IActionResult>(
-                async (paymentGot) =>
-                {
-                    return (IActionResult)Ok(paymentGot.Status);
-                },
+        //    return await result.MatchAsync<IActionResult>(
+        //        async (paymentGot) =>
+        //        {
+        //            return (IActionResult)Ok(paymentGot.Status);
+        //        },
 
-                async (paymentNotGot) =>
-                {
-                    return NotFound();
-                }
-                );
-        }
+        //        async (paymentNotGot) =>
+        //        {
+        //            return NotFound();
+        //        }
+        //        );
+        //}
 
         [HttpPost("CreateClient")]
         public async Task<IActionResult> CreateClient(Client entity)

@@ -27,6 +27,7 @@ namespace Domain.Domain.CreateOrderOp
         {
             try
             {
+                await _ex.Effect(OrderEffect.Good, CreateOrder, Op.Order);
                 (bool CommandIsValid, string ErrorCode) = Op.IsValid();
 
                 if (CommandIsValid)
@@ -50,6 +51,11 @@ namespace Domain.Domain.CreateOrderOp
             {
                 return new InvalidRequest(Op);
             }
+        }
+
+        private async Task<HttpResponseMessage> CreateOrder(Order order)
+        {
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         private async Task<HttpResponseMessage> ExecutePayment(double totalPrice)
