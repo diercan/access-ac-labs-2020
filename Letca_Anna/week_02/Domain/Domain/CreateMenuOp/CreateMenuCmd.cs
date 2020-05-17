@@ -15,11 +15,12 @@ namespace Domain.Domain.CreateMenuOp
         [StringLength(100, MinimumLength=1)]
         public string Name { get; }
         public Menus Menu { get; }
-        public int RestaurantId { get; }
+        [Required(ErrorMessage = "Cannot create menu for a NULL restaurant.")]
+        public int? RestaurantId { get; }
 
         //public MenuType MenuType { get; }
 
-        public CreateMenuCmd(Menus menu, int restaurantId)
+        public CreateMenuCmd(Menus menu, int? restaurantId)
         {
             //RestaurantAgg = restaurant;
             Menu = menu;

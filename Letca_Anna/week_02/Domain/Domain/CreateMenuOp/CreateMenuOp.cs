@@ -23,7 +23,7 @@ namespace Domain.Domain.CreateMenuOp
                 return Task.FromResult((ICreateMenuResult)new MenuNotCreated(validationMessage));
 
             //Op.RestaurantAgg.Menu = new Menus() { Name = Op.Name, RestaurantId=Op.RestaurantAgg.Restaurant.Id };
-            Op.Menu.RestaurantId = Op.RestaurantId;
+            Op.Menu.RestaurantId = (int)Op.RestaurantId;
             return Task.FromResult((ICreateMenuResult)new MenuCreated(Op.Menu));
          }
     }

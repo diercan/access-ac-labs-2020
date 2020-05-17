@@ -54,13 +54,13 @@ namespace Domain.Domain
         public static IO<IGetRestaurantResult> GetRestaurant(Restaurant restaurant) =>
              NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(restaurant));
 
-        public static IO<IAddOrUpdateResult> CreateMenuAndPersist(Menus menu, int restaurantId)
+        public static IO<IAddOrUpdateResult> CreateMenuAndPersist(Menus menu, int? restaurantId)
             => from menuCreated in CreateMenu(menu, restaurantId)
                let menuResult = (menuCreated as MenuCreated)?.Menu
                from db in Database.AddOrUpdate(menuResult)
                select db;
 
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Menus menu, int restaurantId)
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Menus menu, int? restaurantId)
            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(menu, restaurantId));
 
         public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
