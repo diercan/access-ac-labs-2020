@@ -1,0 +1,83 @@
+﻿                    // Get all menus as an ICollection from the database. If  there are no menus it will return an emply HashSet
+                    //var menus = RestaurantDomain.GetAllMenus(persisted.Restaurant.Restaurant.Id); // Getting all the menus
+                    //var menusResult = await interpreter.Interpret(menus, Unit.Default); // Consuming the service
+                    //persisted.Restaurant.Menus = menusResult; // Populating the entity
+
+                    //var getMenuExpr = from getMenu in RestaurantDomain.GetMenu("Chicken", 1)
+                    //                  let menu = (getMenu as MenuSelected)?.MenuAgg
+                    //                  select getMenu;
+
+                    //var getMenuRes = await interpreter.Interpret(getMenuExpr, Unit.Default);
+                    //var getMenuFial = await getMenuRes.MatchAsync(
+                    //    async (got) => // Menus Got
+                    //    {
+                    //        return got;
+                    //    },
+                    //    async (notGot) => // Unexpected error
+                    //    {
+                    //        return notGot;
+                    //    }
+                    //    );
+
+
+
+
+
+                     // Expression for creating a new Menu item and adding it to a database
+                            //var createMenuItemExpr = from createMenuItem in RestaurantDomain.CreateAndPersistMenuItem(
+                            //    selected.MenuAgg.Menu.Id, "McPuisor", 10.99, "McPuisor;Cartofi prajiti;Coca cola 500ml;Sos la alegere", null, null)
+                            //                         let menuItem = (createMenuItem as MenuItemCreated)?.MenuItemAgg
+                            //                         select createMenuItem;
+
+                            //var createMenuItemRes = await interpreter.Interpret(createMenuItemExpr, Unit.Default);
+                            //var createMenuItemFinalResult = await createMenuItemRes.MatchAsync(
+                            //    async (created) => // Menu item was created
+                            //    {
+                            //        return created;
+                            //    },
+                            //    async (notCreated) => // Menu item not created
+                            //    {
+                            //        return notCreated;
+                            //    }
+                            //    );
+
+
+
+
+
+                    //var createMenuExpr = from createMenu in RestaurantDomain.CreateAndPersistMenu(persisted.Restaurant.Restaurant.Id, "Chicken", "Meat", false, null, persisted.Restaurant.Restaurant)
+                    //                     let menu = (createMenu as MenuCreated).Menu
+                    //                     select createMenu;
+                    //var createMenuResult = await interpreter.Interpret(createMenuExpr, Unit.Default);
+
+                    //var createMenuFinalResult = await createMenuResult.MatchAsync(
+                    //    async (menuCreated) =>
+                    //    {
+                    //        return menuCreated;
+                    //    },
+                    //    async (menuNotCreated) =>
+                    //    {
+                    //        return menuNotCreated;
+                    //    }
+                    //    );
+
+
+
+
+                     //var expr =
+            //           from restaurantResultAndPersist in RestaurantDomain.CreateAndPersist("McDonalds")
+            //           let restaurant = (restaurantResultAndPersist as RestaurantCreated)?.Restaurant
+            //           select restaurantResultAndPersist;
+
+            //var exprResult = await interpreter.Interpret(expr, Unit.Default);
+            //var finalExpr = await exprResult.MatchAsync(
+            //    async (persisted) =>
+            //    {
+            //        return persisted;
+            //    },
+            //    async (notPersisted) =>
+            //    {
+            //        return notPersisted;
+            //    }
+
+            //    );
