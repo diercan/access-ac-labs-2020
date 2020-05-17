@@ -49,6 +49,17 @@ namespace OrderAndPay.Web.Controllers
                 failed => new NotFoundObjectResult(failed.Reason));
         }
 
-        
+        [HttpGet("{restaurantname}/menus")]
+        public async Task<IActionResult> GetMenus(string restaurantname)
+        {
+            var getRestaurantExpr = from restaurant in RestaurantDomain.GetRestaurant(restaurantname)
+                                    select restaurant;
+
+            var result = await _interpreter.Interpret(getRestaurantExpr, Unit.Default);
+
+            return result.Match(
+                found => (IActionResult)new OkObjectResult(found.RestaurantAgg.Restaurant.Menus),
+                notFound => new NotFoundObjectResult(notFound.Reason));
+        }
     }
 }
