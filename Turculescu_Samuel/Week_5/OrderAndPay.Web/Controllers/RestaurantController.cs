@@ -11,26 +11,26 @@ using Microsoft.AspNetCore.Mvc;
 namespace OrderAndPay.Web.Controllers
 {
     [ApiController]
-    [Route("employee")]
-    public class EmployeeController : ControllerBase
+    [Route("restaurant")]
+    public class RestaurantController : ControllerBase
     {
         private readonly LiveInterpreterAsync _interpreter;
-                
-        public EmployeeController(LiveInterpreterAsync interpreter)
+
+        public RestaurantController(LiveInterpreterAsync interpreter)
         {
             _interpreter = interpreter;
         }
 
-        [HttpGet("restaurant/{name}")]
+        [HttpGet("{name}/employees")]
         public async Task<IActionResult> GetRestaurant(string name)
-        {            
+        {
             var getRestaurantExpr =
                from restaurantResult in RestaurantDomain.GetRestaurant(name)
                select restaurantResult;
             var restaurant = await _interpreter.Interpret(getRestaurantExpr, Unit.Default);
 
             return restaurant.Match(
-                found => (IActionResult)Ok(found.Agg.Restaurant),
+                found => (IActionResult)Ok(found.Agg.Restaurant.Employees),
                 notFound => NotFound());
         }
     }

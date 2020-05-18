@@ -27,6 +27,7 @@ using static Domain.Domain.CreateEmployeeOp.CreateEmployeeResult;
 using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
 using static Domain.Domain.PlaceOrderOp.PlaceOrderResult;
 using static Domain.Domain.ClientRoles.AddToCartOp.AddToCartResult;
+using Domain.Domain.GetMenusOp;
 
 namespace Demo
 {
@@ -104,7 +105,7 @@ namespace Demo
                 select clientResult;
 
             var resultClient = await interpreter.Interpret(exprClient, Unit.Default);
-            
+
 
             //Adding an Employee
             var exprEmployee =
@@ -113,9 +114,9 @@ namespace Demo
                   select employeeResult;
 
              var resultEmployee = await interpreter.Interpret(exprEmployee, Unit.Default);*/
-            
 
-            
+
+
 
             // Testing Queries
             var getRestaurantExpr =
@@ -169,6 +170,16 @@ namespace Demo
         }
 
         private static bool OnRestaurantFound(GetRestaurantResult.RestaurantFound arg)
+        {
+            return true;
+        }
+
+        private static bool OnMenuNotFound(GetMenusResult.GetMenusNotSuccessful arg)
+        {
+            return false;
+        }
+
+        private static bool OnMenuFound(GetMenusResult.GetMenusSuccessful arg)
         {
             return true;
         }
