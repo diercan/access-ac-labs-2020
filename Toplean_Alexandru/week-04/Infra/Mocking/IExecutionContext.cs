@@ -12,14 +12,19 @@ namespace EarlyPay.Primitives.Mocking
     {
         public static void Mock<TEnum, TResult>(this IMockableContext self, TEnum action, Func<TResult> mock)
             => self.AddMock(action, mock);
+
         public static void Mock<TEnum, TIn1, TResult>(this IMockableContext self, TEnum action, Func<TIn1, TResult> mock)
             => self.AddMock(action, mock);
+
         public static void Mock<TEnum, TIn1, TIn2, TResult>(this IMockableContext self, TEnum action, Func<TIn1, TIn2, TResult> mock)
             => self.AddMock(action, mock);
+
         public static void Mock<TEnum, TIn1, TIn2, TIn3, TResult>(this IMockableContext self, TEnum action, Func<TIn1, TIn2, TIn3, TResult> mock)
             => self.AddMock(action, mock);
+
         public static void Mock<TEnum, TIn1, TIn2, TIn3, TIn4, TResult>(this IMockableContext self, TEnum action, Func<TIn1, TIn2, TIn3, TIn4, TResult> mock)
             => self.AddMock(action, mock);
+
         public static void Mock<TEnum, TIn1, TIn2, TIn3, TIn4, TIn5, TResult>(this IMockableContext self, TEnum action, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TResult> mock)
             => self.AddMock(action, mock);
     }
@@ -44,14 +49,19 @@ namespace EarlyPay.Primitives.Mocking
     {
         public static TResult Effect<TEnum, TResult>(this IExecutionContext self, TEnum defaultEffect, Func<TResult> func)
             => self.FindEffect(defaultEffect, func, eff => eff());
+
         public static TResult Effect<TEnum, TIn1, TResult>(this IExecutionContext self, TEnum defaultEffect, Func<TIn1, TResult> func, TIn1 param1)
             => self.FindEffect(defaultEffect, func, eff => eff(param1));
+
         public static TResult Effect<TEnum, TIn1, TIn2, TResult>(this IExecutionContext self, TEnum defaultEffect, Func<TIn1, TIn2, TResult> func, TIn1 param1, TIn2 param2)
             => self.FindEffect(defaultEffect, func, eff => eff(param1, param2));
+
         public static TResult Effect<TEnum, TIn1, TIn2, TIn3, TResult>(this IExecutionContext self, TEnum defaultEffect, Func<TIn1, TIn2, TIn3, TResult> func, TIn1 param1, TIn2 param2, TIn3 param3)
             => self.FindEffect(defaultEffect, func, eff => eff(param1, param2, param3));
+
         public static TResult Effect<TEnum, TIn1, TIn2, TIn3, TIn4, TResult>(this IExecutionContext self, TEnum defaultEffect, Func<TIn1, TIn2, TIn3, TIn4, TResult> func, TIn1 param1, TIn2 param2, TIn3 param3, TIn4 param4)
             => self.FindEffect(defaultEffect, func, eff => eff(param1, param2, param3, param4));
+
         public static TResult Effect<TEnum, TIn1, TIn2, TIn3, TIn4, TIn5, TResult>(this IExecutionContext self, TEnum defaultEffect, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TResult> func, TIn1 param1, TIn2 param2, TIn3 param3, TIn4 param4, TIn5 param5)
             => self.FindEffect(defaultEffect, func, eff => eff(param1, param2, param3, param4, param5));
     }

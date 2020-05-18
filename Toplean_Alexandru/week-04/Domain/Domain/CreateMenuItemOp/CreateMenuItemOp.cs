@@ -1,6 +1,8 @@
 ﻿using Domain.Models;
+using Domain.Queries;
 using Infrastructure.Free;
 using LanguageExt;
+using Persistence;
 using Persistence.EfCore;
 using System;
 using System.Collections.Generic;
@@ -12,18 +14,11 @@ namespace Domain.Domain.CreateMenuItemOp
 {
     public class CreateMenuItemOp : OpInterpreter<CreateMenuItemCmd, ICreateMenuItemResult, Unit>
     {
-        public override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
+        public async override Task<ICreateMenuItemResult> Work(CreateMenuItemCmd Op, Unit state)
         {
-            try
-            {
-                //MenuItem menuItem = new MenuItem(Op.MenuID, Op.Name, Op.Ingredients, Op.Alergens, Op.Price, Op.Image);
-                MenuItemAgg menuItemAgg = new MenuItemAgg(Op.MenuItem);
-                return Task.FromResult<ICreateMenuItemResult>(new MenuItemCreated(menuItemAgg));  // Restaurant is valid
-            }
-            catch (Exception exp)
-            {
-                return Task.FromResult<ICreateMenuItemResult>(new MenuItemNotCreated(exp.Message));  // Restaurant is not valid
-            }
+            MenuItem menuItem = Op.MenuItem;
+            menuItem.MenuId = Op.Menu.Id;
+            return new MenuItemCreated(new MenuItemAgg(menuItem));  // MenuItem is valid
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
@@ -27,8 +28,13 @@ namespace Persistence.EfCore
         public int Id { get; set; }
         public int ClientId { get; set; }
         public int RestaurantId { get; set; }
+
+        [Range(0, Int32.MaxValue)]
         public int TableNumber { get; set; }
+
+        [Range(0, double.MaxValue)]
         public double TotalPrice { get; set; }
+
         public string Status { get; set; }
         public string PaymentStatus { get; set; }
 

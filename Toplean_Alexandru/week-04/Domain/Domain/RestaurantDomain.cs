@@ -43,12 +43,13 @@ using Domain.Domain.UpdateOrderOp;
 using static Domain.Domain.UpdateMenuOp.UpdateMenuResult;
 using Domain.Domain.UpdateMenuOp;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
-using static Domain.Domain.CreateEntityOp.CreateEntityResult;
 using static Domain.Domain.CreateOrderItemOp.CreateOrderItemResult;
 using Domain.Domain.CreateOrderItemOp;
 using static Domain.Domain.DeleteOrderOp.DeleteOrderResult;
 using static Domain.Domain.SelectOrderOp.SelectOrderResult;
 using Domain.Domain.SelectOrderOp;
+using Domain.Domain.UpdateClientOp;
+using static Domain.Domain.UpdateClientOp.UpdateClientResult;
 
 namespace Domain.Domain
 {
@@ -64,25 +65,17 @@ namespace Domain.Domain
         //public static IO<ICreateMenuResult> CreateMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
         //   NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(id, name, menuType, isVisible, hours, restaurant));
 
-        public static IO<ICreateMenuResult> CreateMenu(Menu menu) =>
-           NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(menu));
+        public static IO<ICreateMenuResult> CreateMenu(Menu menu, Restaurant restaurant) =>
+           NewIO<CreateMenuCmd, ICreateMenuResult>(new CreateMenuCmd(menu, restaurant));
 
-        //public static IO<ICreateMenuItemResult> CreateMenuItem(int menuid, string name, double price, String ingredients, String? alergens, byte[] image) =>
-        //   NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuid, name, price, ingredients, alergens, image));
-        public static IO<ICreateMenuItemResult> CreateMenuItem(MenuItem menuItem) =>
-           NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuItem));
-
-        //public static IO<ICreateClientResult> CreateClient(String name, String username, String password, String email) =>
-        //  NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(name, username, password, email));
+        public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, MenuItem menuItem) =>
+           NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menu, menuItem));
 
         public static IO<ICreateClientResult> CreateClient(Client client) =>
           NewIO<CreateClientCmd, ICreateClientResult>(new CreateClientCmd(client));
 
-        public static IO<ICreateOrderResult> CreateOrder(int clientId, int restaurantId, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status, String payment) =>
-          NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(clientId, restaurantId, tableNumber, itemNames, itemQuantities, itemComments, totalPrice, status, payment));
-
-        public static IO<ICreateEntityResult> CreateEntity(IEntity Entity) =>
-    NewIO<CreateEntityOp.CreateEntityCmd, ICreateEntityResult>(new CreateEntityOp.CreateEntityCmd(Entity));
+        public static IO<ICreateOrderResult> CreateOrder(Order order) =>
+          NewIO<CreateOrderCmd, ICreateOrderResult>(new CreateOrderCmd(order));
 
         public static IO<ICreateOrderItemResult> CreateOrderItem(OrderItems orderItem) =>
             NewIO<CreateOrderItemCmd, ICreateOrderItemResult>(new CreateOrderItemCmd(orderItem));
@@ -96,14 +89,14 @@ namespace Domain.Domain
 
         //public static IO<ICreateMenuResult> CreateAndPersistMenu(int id, string name, String menuType, bool isVisible, String hours, Restaurant restaurant) =>
         //   from menuCreated in RestaurantDomain.CreateMenu(id, name, menuType, isVisible, hours, restaurant)
-        public static IO<ICreateMenuResult> CreateAndPersistMenu(Menu menu) =>
-           from menuCreated in RestaurantDomain.CreateMenu(menu)
+        public static IO<ICreateMenuResult> CreateAndPersistMenu(Menu menu, Restaurant restaurant) =>
+           from menuCreated in RestaurantDomain.CreateMenu(menu, restaurant)
            let menuAgg = (menuCreated as MenuCreated)?.Menu
            from dbContext in Database.AddOrUpdateEntity(menuAgg.Menu)
            select menuCreated;
 
-        public static IO<ICreateMenuItemResult> CreateAndPersistMenuItem(MenuItem menuItem) =>
-           from menuItemCreated in RestaurantDomain.CreateMenuItem(menuItem)
+        public static IO<ICreateMenuItemResult> CreateAndPersistMenuItem(Menu menu, MenuItem menuItem) =>
+           from menuItemCreated in RestaurantDomain.CreateMenuItem(menu, menuItem)
            let menuItemAgg = (menuItemCreated as MenuItemCreated)?.MenuItemAgg
            from dbContext in Database.AddOrUpdateEntity(menuItemAgg.MenuItem)
            select menuItemCreated;
@@ -114,16 +107,11 @@ namespace Domain.Domain
            from dbContext in Database.AddOrUpdateEntity(clientAgg.Client)
            select clientCreated;
 
-        public static IO<ICreateOrderResult> CreateAndPersistOrder(int clientId, int restaurantId, int tableNumber, String itemNames, String itemQuantities, String itemComments, double totalPrice, String status, String payment) =>
-           from orderCreated in RestaurantDomain.CreateOrder(clientId, restaurantId, tableNumber, itemNames, itemQuantities, itemComments, totalPrice, status, payment)
+        public static IO<ICreateOrderResult> CreateAndPersistOrder(Order order) =>
+           from orderCreated in RestaurantDomain.CreateOrder(order)
            let orderAgg = (orderCreated as OrderCreated)?.OrderAgg
            from dbContext in Database.AddOrUpdateEntity(orderAgg.Order)
            select orderCreated;
-
-        public static IO<ICreateEntityResult> CreateAndPersistEntity(IEntity entity) =>
-        from createEntity in CreateEntity(entity)
-        from db in Database.AddOrUpdateEntity(entity)
-        select createEntity;
 
         public static IO<ICreateOrderItemResult> CreateAndPersistOrderItem(OrderItems orderItem) =>
             from createOrderItem in CreateOrderItem(orderItem)
@@ -209,21 +197,16 @@ namespace Domain.Domain
 
         //============================================= Updates ========================================================
 
-        public static IO<IUpdateEntityResult<T>> UpdateEntity<T>(T entity) where T : IEntity =>
-            NewIO<UpdateEntityCmd<T>, IUpdateEntityResult<T>>(new UpdateEntityCmd<T>(entity));
-
         public static IO<IUpdateOrderResult> UpdateOrder(Order order) =>
             NewIO<UpdateOrderCmd, IUpdateOrderResult>(new UpdateOrderCmd(order));
 
         public static IO<IUpdateMenuResult> UpdateMenu(Menu menu) =>
             NewIO<UpdateMenuCmd, IUpdateMenuResult>(new UpdateMenuCmd(menu));
 
-        //============================================= Update And Persist ========================================================
+        public static IO<IUpdateClientResult> UpdateClient(Client client) =>
+            NewIO<UpdateClientCmd, IUpdateClientResult>(new UpdateClientCmd(client));
 
-        public static IO<IUpdateEntityResult<T>> UpdateAndPersistEntity<T>(T entity) where T : IEntity =>
-            from updateEntity in UpdateEntity<T>(entity)
-            from db in Database.AddOrUpdateEntity(entity)
-            select updateEntity;
+        //============================================= Update And Persist ========================================================
 
         public static IO<IUpdateOrderResult> UpdateAndPersistOrder(Order order) =>
             from updateOrder in UpdateOrder(order)
@@ -234,6 +217,11 @@ namespace Domain.Domain
             from updateMenu in UpdateMenu(menu)
             from db in Database.AddOrUpdateEntity(menu)
             select updateMenu;
+
+        public static IO<IUpdateClientResult> UpdateAndPersistClient(Client client) =>
+            from updateClient in UpdateClient(client)
+            from db in Database.AddOrUpdateEntity(client)
+            select updateClient;
 
         //============================================= Others ===========================================================
 
@@ -246,8 +234,8 @@ namespace Domain.Domain
         public static IO<ISetOrderStatusResult> SetOrderStatus(ClientAgg clientAgg, CartStatus newStatus) =>
             NewIO<SetOrderStatusOp.SetOrderStatusCmd, ISetOrderStatusResult>(new SetOrderStatusOp.SetOrderStatusCmd(clientAgg, newStatus));
 
-        public static IO<IGetPaymentStatusResult> GetPaymentStatus(ClientAgg clientAgg) =>
-            NewIO<GetPaymentStatusOp.GetPaymentStatusCmd, IGetPaymentStatusResult>(new GetPaymentStatusOp.GetPaymentStatusCmd(clientAgg));
+        public static IO<IGetPaymentStatusResult> GetPaymentStatus(Order order) =>
+            NewIO<GetPaymentStatusOp.GetPaymentStatusCmd, IGetPaymentStatusResult>(new GetPaymentStatusOp.GetPaymentStatusCmd(order));
 
         public static IO<IRequestPaymentResult> RequestPayment(ClientAgg clientAgg) =>
             NewIO<RequestPaymentOp.RequestPaymentCmd, IRequestPaymentResult>(new RequestPaymentOp.RequestPaymentCmd(clientAgg));

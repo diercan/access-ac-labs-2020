@@ -1,6 +1,8 @@
 ﻿using Domain.Models;
+using EarlyPay.Primitives.Mocking;
 using Infrastructure.Free;
 using LanguageExt;
+using Persistence.EfCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,18 +11,26 @@ using static Domain.Domain.GetPaymentStatusOp.GetPaymentStatusResult;
 
 namespace Domain.Domain.GetPaymentStatusOp
 {
-    public class GetPaymentStatusOp : OpInterpreter<GetPaymentStatusCmd, IGetPaymentStatusResult, Unit>
+    public partial class GetPaymentStatusOp : OpInterpreter<GetPaymentStatusCmd, IGetPaymentStatusResult, Unit>
     {
-        public override Task<IGetPaymentStatusResult> Work(GetPaymentStatusCmd Op, Unit state)
+        public async override Task<IGetPaymentStatusResult> Work(GetPaymentStatusCmd Op, Unit state)
         {
-            if (Exists(Op.ClientAgg))
+            if (Exists(Op.Order))
             {
-                return Task.FromResult<IGetPaymentStatusResult>(new PaymentStatusGot(Op.ClientAgg.Cart.Payment));
+                var (CommandIsValid, ErrorMessage) = Op.IsValid();
+                if (CommandIsValid)
+                {
+                    return new PaymentStatusGot(Op.Order.PaymentStatus);
+                }
+                else
+                    return new NoPaymentStatusGot(ErrorMessage);
             }
             else
-                return Task.FromResult<IGetPaymentStatusResult>(new NoPaymentStatusGot("The session does not exist"));
+                return new NoPaymentStatusGot("The session does not exist");
         }
 
-        public bool Exists(ClientAgg client) => client != null;
+       
+
+        public bool Exists(Order client) => client != null;
     }
 }

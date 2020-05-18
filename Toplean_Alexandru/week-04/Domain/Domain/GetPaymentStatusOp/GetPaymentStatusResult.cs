@@ -14,9 +14,9 @@ namespace Domain.Domain.GetPaymentStatusOp
 
         public class PaymentStatusGot : IGetPaymentStatusResult
         {
-            public PaymentStatus Status { get; }
+            public String Status { get; }
 
-            public PaymentStatusGot(PaymentStatus status)
+            public PaymentStatusGot(String status)
             {
                 Status = status;
             }

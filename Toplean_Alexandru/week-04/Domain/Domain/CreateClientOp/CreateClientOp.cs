@@ -8,21 +8,24 @@ using System.Threading.Tasks;
 using static Domain.Domain.CreateClientOp.CreateClientResult;
 using Domain.Models;
 using Persistence.EfCore;
+using Domain.Queries;
+using Persistence;
 
 namespace Domain.Domain.CreateClientOp
 {
     public class CreateClientOp : OpInterpreter<CreateClientCmd, ICreateClientResult, Unit>
     {
-        //To Be Implemented
-        public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
+        private readonly LiveInterpreterAsync interpreter;
+
+        public async override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
         {
             try
             {
-                return Task.FromResult<ICreateClientResult>(new ClientCreated(new ClientAgg(Op.Client)));
+                return new ClientCreated(new ClientAgg(Op.Client));
             }
             catch (Exception exp)
             {
-                return Task.FromResult<ICreateClientResult>(new ClientNotCreated(exp.Message));
+                return new ClientNotCreated(exp.Message);
             }
         }
     }

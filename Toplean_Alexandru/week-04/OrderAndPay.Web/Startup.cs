@@ -16,6 +16,8 @@ using Microsoft.Extensions.Logging;
 using Persistence.EfCore.Context;
 using Newtonsoft.Json.Serialization;
 using Persistence.EfCore.Operations;
+using EarlyPay.Primitives.Mocking;
+using System.Threading;
 
 namespace OrderAndPay.Web
 {
@@ -36,7 +38,6 @@ namespace OrderAndPay.Web
             services.AddOperations(typeof(RestaurantAgg).Assembly);
             services.AddOperations(typeof(AddOrUpdateEntityOp).Assembly);
             services.AddTransient(typeof(IOp<,>), typeof(QueryOp<,>));
-
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,

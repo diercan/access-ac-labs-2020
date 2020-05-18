@@ -1,32 +1,85 @@
-﻿using Domain.Models;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using Domain.Models;
 using Infrastructure.Free;
 using LanguageExt;
 using Persistence.EfCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using EarlyPay.Primitives.Mocking;
+using Microsoft.Extensions.DependencyInjection;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 
 namespace Domain.Domain.CreateOrderOp
 {
-    public class CreateOrderOp : OpInterpreter<CreateOrderCmd, ICreateOrderResult, Unit>
+    public partial class CreateOrderOp : OpInterpreter<CreateOrderCmd, ICreateOrderResult, Unit>
     {
-        public override Task<ICreateOrderResult> Work(CreateOrderCmd Op, Unit state)
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IExecutionContext _ex;
+
+        public CreateOrderOp(IServiceProvider serviceProvider, IExecutionContext ex)
         {
-            (bool CommandIsValid, String ErrorCode) = Op.IsValid();
+            _serviceProvider = serviceProvider;
+            _ex = ex;
+        }
 
-            if (CommandIsValid)
+        public override async Task<ICreateOrderResult> Work(CreateOrderCmd Op, Unit state)
+        {
+            try
             {
-                Order order = new Order(Op.ClientId, Op.RestaurantId, Op.TableNumber, Op.TotalPrice, Op.Status, Op.PaymentStatus);
+                await _ex.Effect(OrderEffect.Good, CreateOrder, Op.Order);
+                (bool CommandIsValid, string ErrorCode) = Op.IsValid();
 
-                //Op.Restaurant.Order.Add(order);
-                return Task.FromResult<ICreateOrderResult>(new OrderCreated(new OrderAgg(order))); // Order successfully created
+                if (CommandIsValid)
+                {
+                    var httpResponseMessage = await _ex.Effect(PaymentEffect.Accepted, ExecutePayment, Op.Order.TotalPrice);
+
+                    switch (httpResponseMessage.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                            return new OrderCreated(new OrderAgg(Op.Order)); // Order successfully created
+                        default:
+                            return new OrderNotCreated(string.Empty);
+                    }
+                }
+                else
+                {
+                    return new InvalidRequest(Op);
+                }
             }
-            else
+            catch
             {
-                return Task.FromResult<ICreateOrderResult>(new OrderNotCreated(ErrorCode));  // Order not created and the reason in Op.IsValid().Item2
+                return new InvalidRequest(Op);
             }
         }
+
+        private async Task<HttpResponseMessage> CreateOrder(Order order)
+        {
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        private async Task<HttpResponseMessage> ExecutePayment(double totalPrice)
+        {
+            var paymentService = _serviceProvider.GetService<IPaymentService>();
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        public enum PaymentEffect
+        {
+            Accepted,
+            Rejected,
+            Exception
+        }
+
+        public enum OrderEffect
+        {
+            Good,
+            Invalid,
+            Exception
+        }
+    }
+
+    internal interface IPaymentService
+    {
     }
 }

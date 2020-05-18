@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.CreateClientOp
+namespace Domain.Domain.UpdateClientOp
 {
-    public struct CreateClientCmd
+    public class UpdateClientCmd
     {
         public Client Client { get; }
 
-        public CreateClientCmd(Client client)
+        public UpdateClientCmd(Client client)
         {
             Client = client;
         }
