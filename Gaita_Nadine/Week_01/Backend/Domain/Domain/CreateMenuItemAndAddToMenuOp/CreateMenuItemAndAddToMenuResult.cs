@@ -3,11 +3,12 @@ using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Domain.CreateMenuItemOp
 {
     [AsChoice]
-    public static partial class CreateMenuItemResult
+    public static partial class CreateMenuItemAndAddToMenuResult
     {
         public interface ICreateMenuItemResult { };
         public class MenuItemCreated : ICreateMenuItemResult

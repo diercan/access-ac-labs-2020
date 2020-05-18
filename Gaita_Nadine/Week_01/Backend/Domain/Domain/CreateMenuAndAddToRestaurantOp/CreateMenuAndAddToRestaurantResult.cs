@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Domain.Domain.CreateMenuOp
 {
     [AsChoice]
-    public static partial class CreateMenuResult
+    public static partial class CreateMenuAndAddToRestaurantResult
     {
         public interface ICreateMenuResult { }
 
