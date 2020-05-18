@@ -7,15 +7,17 @@ namespace Persistence.EfCore
     {
         public Restaurant()
         {
-            Employee = new HashSet<Employee>();
-            Menu = new HashSet<Menu>();
+            Employees = new HashSet<Employee>();
+            Menus = new HashSet<Menu>();
+            Orders = new HashSet<Order>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
 
-        public virtual ICollection<Employee> Employee { get; set; }
-        public virtual ICollection<Menu> Menu { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Menu> Menus { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

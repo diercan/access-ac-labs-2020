@@ -14,25 +14,28 @@ namespace Domain.Domain.CreateClientOp
     public class CreateClientOp : OpInterpreter<CreateClientCmd, CreateClientResult.ICreateClientResult, Unit>
     {
         public override Task<ICreateClientResult> Work(CreateClientCmd Op, Unit state)
-        {
-            ClientAgg newClient = new ClientAgg(new Client() { FirstName = Op.FirstName, LastName = Op.LastName, Email = Op.Email, Phone = Op.Phone, CardNumber = Op.CardNumber, Username = Op.Username, Password = Op.Password });
-
-            // Validate
-           // return !Exists(newClient) ?
-             //   Task.FromResult<ICreateClientResult>(new ClientNotCreated("Client already exists!")) :
+        {            
+            //if (Exists(Op.ClientId))
+            //{
+            //    return Task.FromResult<ICreateClientResult>(new ClientNotCreated("Client already exists!"));
+            //}
+            //else
+            //{
+                ClientAgg newClient = new ClientAgg(new Client() { FirstName = Op.FirstName, LastName = Op.LastName, Email = Op.Email, Phone = Op.Phone, CardNumber = Op.CardNumber, ClientId = Op.ClientId, Password = Op.Password });
                 return Task.FromResult<ICreateClientResult>(new ClientCreated(newClient));
+            //}                
         }
 
 
-        public bool Exists(ClientAgg client)
+        public bool Exists(string clientId)
         {
-            if(App.ClientsList.Contains(client.Client))
-            {
-                return true;
-            }
-            else 
+            if (RestaurantDomainEx.GetClient(clientId) is null)
             {
                 return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }

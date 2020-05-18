@@ -8,7 +8,7 @@ namespace Persistence.EfCore
     {
         public Menu()
         {
-            MenuItem = new HashSet<MenuItem>();
+            MenuItems = new HashSet<MenuItem>();
         }
 
         public int Id { get; set; }
@@ -16,7 +16,7 @@ namespace Persistence.EfCore
         public int RestaurantId { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
-        public virtual ICollection<MenuItem> MenuItem { get; set; }
+        public virtual ICollection<MenuItem> MenuItems { get; set; }
     }
 }
 

@@ -15,23 +15,29 @@ namespace Domain.Domain.CreateEmployeeOp
     {
         public override Task<ICreateEmployeeResult> Work(CreateEmployeeCmd Op, Unit state)
         {
-            EmployeeAgg newEmployee = new EmployeeAgg(new Employee { FirstName = Op.FirstName, LastName = Op.LastName, Email = Op.Email, Phone = Op.Phone, Job = Op.Job, Username = Op.Username, Password = Op.Password, RestaurantId = Op.RestaurantId });
             // Validate
-            //return !Exists(Op.Restaurant.EmployeesList, newEmployee) ?
-              //  Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated("Employee already is hired!")) :
+            //if (Exists(Op.RestaurantId, Op.EmployeeId))
+            //{
+            //    return Task.FromResult<ICreateEmployeeResult>(new EmployeeNotCreated("Employee already is hired!"));
+            //}
+            //else
+            //{
+                EmployeeAgg newEmployee = new EmployeeAgg(new Employee { FirstName = Op.FirstName, LastName = Op.LastName, Email = Op.Email, Phone = Op.Phone, Job = Op.Job, EmployeeId = Op.EmployeeId, Password = Op.Password, RestaurantId = Op.RestaurantId });
                 return Task.FromResult<ICreateEmployeeResult>(new EmployeeCreated(newEmployee));
+            //}
+            
         }
 
 
-        public bool Exists(List<EmployeeAgg> employeesList, EmployeeAgg employee)
+        public bool Exists(int restaurantId, string employeeId)
         {
-            if (employeesList.Contains(employee))
+            if (RestaurantDomainEx.GetEmployee(restaurantId, employeeId) is null)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
     }

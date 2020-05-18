@@ -1,0 +1,14 @@
+Additional Roles
+
+0a. Client Roles
+0b. Employee Roles
+
+1.  CreateRestaurant<CreateRestaurantCmd, CreateRestaurantResult>(string: name, string: address) 
+
+2a. CreateClient<CreateClientCmd,CreateClientResult>(string: firstName, string: lastName, string: email, string: phone, string: cardNumber, string: clientId, string: password)
+2b. GetClient<GetClientCmd, GetClientResult>(string: clientId)
+
+3a. CreateEmployee<CreateEmployeeCmd, CreateEmployeeResult>(string: firstName, string: lastName, string: email, string: phone, string: job, string: employeeId, string: password, int: restaurantId)
+3b. GetEmployee<GetEmployeeCmd, GetEmployeeResult>(string: employeeId)
+
+4. CreateOrderItem<CreateOrderItemCmd, CreateOrderItemResult>(CartItem: cartItem, Order: order)

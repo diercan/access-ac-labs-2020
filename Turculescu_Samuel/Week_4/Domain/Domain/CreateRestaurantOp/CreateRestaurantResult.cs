@@ -19,7 +19,6 @@ namespace Domain.Domain.CreateRestaurantOp
             public RestaurantCreated(RestaurantAgg restaurant)
             {
                 Restaurant = restaurant;
-                App.RestaurantsList.Add(Restaurant.Restaurant);    // Add restaurant created in list with all restaurants from OrderAndPayApp
             }
         }
 

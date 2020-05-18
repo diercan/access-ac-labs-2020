@@ -32,7 +32,7 @@ namespace Persistence.EfCore.Operations
                         _ctx.Add(Op.Item);
                         break;
                     case EntityState.Unchanged:
-                        _ctx.Update(Op.Item);
+                        _ctx.Attach(Op.Item);
                         break;
                     default:
                         return new Failed($"Entity is in an incorrect state. Expected Detached or Unchanged. Got {entity.State.ToString()}");
@@ -43,7 +43,7 @@ namespace Persistence.EfCore.Operations
             catch (Exception ex)
             {
                 return new Failed(ex.ToString());
-            }
+            }                   
         }
     }
 }

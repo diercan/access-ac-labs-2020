@@ -9,13 +9,6 @@ namespace Domain.Models
     {      
         public Client Client { get; set; }
 
-
-        public Cart Cart { get; set; }  // Each Client has a Cart with CartItems
-        //public Order Order { get; set; }
-
-        public List<Order> OrdersPlaced { get; } = new List<Order>();
-
-
         public ClientAgg(Client client)
         {
             Client = client;

@@ -11,11 +11,11 @@ namespace Domain.Queries
 {
     public class FindEmployeeQuery : Query<Employee>
     {
-        public FindEmployeeQuery(int restaurantId, int employeeId) : base(async (ctx) =>
+        public FindEmployeeQuery(int restaurantId, string employeeId) : base(async (ctx) =>
         {
             return
                 await ctx.Set<Employee>()
-                    .Where(c => c.RestaurantId.Equals(restaurantId) && c.Id.Equals(employeeId))
+                    .Where(c => c.RestaurantId.Equals(restaurantId) && c.EmployeeId.Equals(employeeId))
                     .FirstOrDefaultAsync();
         })
         { }
