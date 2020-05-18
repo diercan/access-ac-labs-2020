@@ -30,6 +30,9 @@ using Persistence;
 using Domain.Queries;
 using Persistence.EfCore;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
+using static Persistence.Abstractions.AddOrUpdateResult;
+using Domain.Domain.GetSpecificMenu;
+using static Domain.Domain.GetSpecificMenu.GetSpecificMenuResult;
 
 namespace Domain.Domain
 {
@@ -53,28 +56,30 @@ namespace Domain.Domain
         public static IO<IGetRestaurantResult> GetRestaurant(Restaurant restaurant) =>
              NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(restaurant));
 
-        public static IO<ICreateMenuResult> CreateMenuAndPersist(RestaurantAgg restaurantAgg, string name, MenuType menuType)
-            => from menuCreated in CreateMenu(restaurantAgg, name, menuType)
-               let agg = (menuCreated as MenuCreated)?.Menu
-               from db in Database.AddOrUpdate(restaurantAgg.Menu)
-               select menuCreated;
+        public static IO<IAddOrUpdateResult> CreateMenuAndPersist(Menus menu, int? restaurantId)
+            => from menuCreated in CreateMenu(menu, restaurantId)
+               let menuResult = (menuCreated as MenuCreated)?.Menu
+               from db in Database.AddOrUpdate(menuResult)
+               select db;
 
-        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(RestaurantAgg restaurant, string menuName,
-            MenuType menuType)
-            => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(restaurant, menuName, menuType));
+        public static IO<CreateMenuResult.ICreateMenuResult> CreateMenu(Menus menu, int? restaurantId)
+           => NewIO<CreateMenuCmd, CreateMenuResult.ICreateMenuResult>(new CreateMenuCmd(menu, restaurantId));
 
         public static IO<IGetMenuResult> GetMenu(Restaurant restaurant) =>
             NewIO<GetMenuCmd, IGetMenuResult>(new GetMenuCmd(restaurant));
 
+        public static IO<IGetSpecificMenuResult> GetSpecificMenu(Restaurant restaurant, string menuName)
+           => NewIO<GetSpecificMenuCmd, IGetSpecificMenuResult>(new GetSpecificMenuCmd(restaurant, menuName));
 
 
-        public static IO<ICreateMenuItemResult> CreateMenuItemAndPersist(string name, decimal price, Menus menu)
-            => from createMenuItemResult in CreateMenuItem(name, price, menu)
-               from db in Database.AddOrUpdate(menu)
-               select createMenuItemResult;
+        public static IO<IAddOrUpdateResult> CreateMenuItemAndPersist(MenuItems menuItem, int? menuId)
+            => from createMenuItemResult in CreateMenuItem(menuItem, menuId)
+               let menuItemResult = (createMenuItemResult as MenuItemCreated)?.MenuItem
+               from db in Database.AddOrUpdate(menuItemResult)
+               select db;
 
-        public static IO<ICreateMenuItemResult> CreateMenuItem(string name, decimal price, Menus menu)
-            => NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(name, price, menu));
+        public static IO<ICreateMenuItemResult> CreateMenuItem(MenuItems menuItem, int? menuId)
+            => NewIO<CreateMenuItemCmd, ICreateMenuItemResult>(new CreateMenuItemCmd(menuItem, menuId));
 
         public static IO<IGetMenuItemResult> GetMenuItem(string name, Menu menu) =>
             NewIO<GetMenuItemCmd, IGetMenuItemResult>(new GetMenuItemCmd(name, menu));

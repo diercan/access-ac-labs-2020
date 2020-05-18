@@ -22,9 +22,8 @@ namespace Domain.Domain.CreateMenuItemOp
             if (!valid)
                 return Task.FromResult((ICreateMenuItemResult)new MenuItemNotCreated(validationMessage));
 
-            MenuItems newItem = new MenuItems() { Name = Op.Name, Price = Op.Price, MenuId = Op.Menu.Id };
-            Op.Menu.MenuItems.Add(newItem);
-            return Task.FromResult((ICreateMenuItemResult)new MenuItemCreated(newItem)) ;
+            Op.MenuItem.MenuId = (int)Op.MenuId;
+            return Task.FromResult((ICreateMenuItemResult)new MenuItemCreated(Op.MenuItem)) ;
         }
     }
 }
