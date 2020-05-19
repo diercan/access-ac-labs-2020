@@ -1,0 +1,9 @@
+.menu-item-text {
+  color: red;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
