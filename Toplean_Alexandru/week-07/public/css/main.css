@@ -1,0 +1,45 @@
+.centerAlign {
+    text-align: center;
+}
+
+.upScale {
+    width: 100%;
+    transition: width 0.5s ease;
+
+}
+
+.noHyperLinks,
+.noHyperLinks:hover {
+    color: white;
+    text-decoration: none;
+
+}
+
+
+.upScale:hover {
+
+    width: 110%;
+
+}
+
+.topPadding {
+    padding-top: 30px;
+}
+
+.star {
+
+    background-image: url('/images/star.png');
+    background-size: 25px 24px;
+    min-width: 25px;
+    min-height: 24px;
+    display: inline-block;
+}
+
+.glow {
+
+    background-image: url('/images/starGlow.png');
+    background-size: 25px 24px;
+    min-width: 25px;
+    min-height: 24px;
+    display: inline-block;
+}
