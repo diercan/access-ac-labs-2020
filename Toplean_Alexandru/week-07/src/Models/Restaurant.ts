@@ -1,5 +1,14 @@
+import { Employee } from "./Employee";
+import { Menu } from "./Menu";
+import { Order } from "./Order";
+
 export type Restaurant = {
-  restaurantName: string;
+  id?: number;
+  name?: string;
   stars: number;
-  imageURL: string;
+  imageURL?: string;
+
+  menus: Menu[];
+  employees?: Employee[];
+  orders?: Order[];
 };

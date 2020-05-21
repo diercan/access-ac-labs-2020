@@ -1,8 +1,7 @@
 import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
-
 import React, { CSSProperties } from "react";
 import { Link, BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
-import Index from "../Pages/Index";
+import { Index } from "../Pages/Index";
 import Checkout from "../Pages/Checkout";
 import OrderHistory from "../Pages/OrderHistory";
 
@@ -10,8 +9,8 @@ import { DarkMode } from "./DarkMode";
 
 export const DrawNavbar = () => {
   return (
-    <header>
-      <BrowserRouter>
+    <React.Fragment>
+      <header>
         <Navbar bg="dark" expand="lg" variant="dark" style={{ color: "white" }}>
           <NavLink className="navbar-brand" to="/">
             Order And Pay
@@ -30,13 +29,7 @@ export const DrawNavbar = () => {
             <DarkMode />
           </Navbar.Collapse>
         </Navbar>
-
-        <Switch>
-          <Route exact path="/" component={Index}></Route>
-          <Route path="/checkout" component={Checkout}></Route>
-          <Route path="/orderHistory" component={OrderHistory}></Route>
-        </Switch>
-      </BrowserRouter>
-    </header>
+      </header>
+    </React.Fragment>
   );
 };

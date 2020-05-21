@@ -6,6 +6,5 @@ type StarClassProp = {
 };
 
 export const Star = (props: StarClassProp) => {
-  console.log(starr);
   return <span className={props.classType}></span>;
 };
