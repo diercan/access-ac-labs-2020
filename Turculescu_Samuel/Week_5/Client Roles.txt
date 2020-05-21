@@ -1,0 +1,10 @@
+Client Roles:
+
+1.  GetRestaurant<GetRestaurantCmd, GetRestaurantResult>(string: name)
+2.  GetMenus<GetMenusCmd, GetMenusResult>(Restaurant: restaurant)
+3.  AddToCart<AddToCartCmd, AddToCartResult>(string: sessionId, MenuItem: menuItem, uint: quantity, string: specialRequests) :
+							AddToCartSuccessful | AddToCartNotSuccessful | AddToCartInvalidRequest
+4.  ChangeQuantity<ChangeQuantityCmd, ChangeQuantityResult>(string: sessionId, OrderItem: orderItem, uint newQuantity)
+5.  PlaceOrder<PlaceOrderCmd, PlaceOrderResult>(string: sessionId, Client: client, Restaurant: restaurant, uint: tableNumber = 0)
+6.  PayOrder<PayOrderCmd, PayOrderResult>(Client: client, Order: order, uint: tip = 0)
+7.  GetOrderStatus<GetOrderStatusCmd, GetOrderStatusResult>(Order: order);
