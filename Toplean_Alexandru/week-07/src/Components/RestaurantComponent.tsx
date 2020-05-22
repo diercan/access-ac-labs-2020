@@ -3,7 +3,6 @@ import { Container, Row, Col, Card, NavLink } from "react-bootstrap";
 import { RatingStarSystem } from "./RatingSystem";
 import { Restaurant } from "../Models/Restaurant";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import { RestaurantView } from "../Views/RestaurantView";
 import { Index } from "../Pages/Index";
 
 type RestaurantProps = {

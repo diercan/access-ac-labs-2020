@@ -11,7 +11,9 @@ function GenerateRate(number: number) {
     if (index >= number) arr[index] = "star";
   });
 
-  const ret = arr.map((x) => <Star classType={x} />);
+  const ret = arr.map((x) => (
+    <Star classType={x} key={x.toString() + Math.random() * 100} />
+  ));
   return ret;
 }
 

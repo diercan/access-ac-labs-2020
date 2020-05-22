@@ -1,42 +1,23 @@
 import React, { Component, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import restaurantPic from "../images/caruso.jpg";
-
 import { RestaurantComponent } from "../Components/RestaurantComponent";
 
 import { Container, Row, Col } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { Restaurant } from "../Models/Restaurant";
 
-export const Index = () => {
-  const [restaurants, _] = useState([
-    {
-      id: 1,
-      name: "McDonalds",
-      stars: 5,
-      imageURL: restaurantPic,
-      menus: [
-        { id: 1, name: "Chicken", menuType: "Meat", specialMenu: false },
-        { id: 2, name: "Fish", menuType: "Meat", specialMenu: false },
-        { id: 3, name: "Drinks", menuType: "Drinks", specialMenu: false },
-      ],
-    },
-    {
-      id: 2,
-      name: "Caruso",
-      stars: 4,
-      imageURL: restaurantPic,
-      menus: [],
-    },
-    {
-      id: 3,
-      name: "Caruso",
-      stars: 3,
-      imageURL: restaurantPic,
-      menus: [],
-    },
-  ]);
+type IndexProps = {
+  restaurants: Restaurant[];
+  selectedRestaurant?: any;
+};
+
+export const Index = (props: IndexProps) => {
+  const restaurants = props.restaurants;
+
+  function selectRestaurant(restaurant: any) {
+    return props.selectedRestaurant(restaurant);
+  }
 
   return (
     <React.Fragment>
@@ -46,12 +27,10 @@ export const Index = () => {
       <Container>
         <Row>
           {restaurants.map((restaurantt) => (
-            <Col lg={4} className="topPadding">
+            <Col lg={4} className="topPadding" key={restaurantt.id}>
               <Link
-                to={{
-                  pathname: "/" + restaurantt.name,
-                  state: { restaurantt },
-                }}
+                onClick={(param) => selectRestaurant(restaurantt)}
+                to={"/restaurant/" + restaurantt.name}
               >
                 <RestaurantComponent restaurant={restaurantt} />
               </Link>
