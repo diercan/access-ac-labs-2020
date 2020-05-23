@@ -29,5 +29,15 @@ namespace OrderAndPay.Web.Controllers
         {
             return Ok(InMemoryRepository.CreateMenuItem(restaurantId, menuId, command));
         }
+
+        #region Error
+        [HttpGet("restaurants/{restaurantId}/menus/error")]
+        public async Task<IActionResult> GetMenusWithErrors(int restaurantId)
+        {
+            throw new Exception("Internal server error");
+        }
+
+
+        #endregion
     }
 }
