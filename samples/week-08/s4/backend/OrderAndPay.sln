@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DCA7D18C-C6EB-4C77-ACA2-B7BF017EE925}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAndPay.Web", "OrderAndPay.Web\OrderAndPay.Web.csproj", "{78124540-B8F4-49DA-85E3-2DE1DA495BA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78124540-B8F4-49DA-85E3-2DE1DA495BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78124540-B8F4-49DA-85E3-2DE1DA495BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78124540-B8F4-49DA-85E3-2DE1DA495BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78124540-B8F4-49DA-85E3-2DE1DA495BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3F86232-54CA-465D-A2B4-F651D8057D39}
+	EndGlobalSection
+EndGlobal
