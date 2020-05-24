@@ -27,7 +27,7 @@ export const ErrorReporter = () => {
     );
 
     return () => {
-      axiosClient.interceptors.request.eject(interceptor);
+      axiosClient.interceptors.response.eject(interceptor);
     };
   }, []);
 
