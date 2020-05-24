@@ -11,12 +11,9 @@ export const App = () => {
   return (
     <div className="container-fluid">
       <Header />
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/menu" component={MenuPage} />
-        <Route path="/current-order" component={CurrentOrderPage} />
-        <Route component={NotFoundPage} />
-      </Switch> 
+      <Route path="/" exact component={HomePage} />
+      <Route path="/menu" component={MenuPage} />
+      <Route path="/current-order" component={CurrentOrderPage} />
     </div>
   );
 };
