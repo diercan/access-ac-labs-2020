@@ -6,7 +6,7 @@ import { DrawNavbar } from "./Components/Navbar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { Index } from "./Pages/Index";
-import Checkout from "./Pages/Checkout";
+import { Checkout } from "./Pages/Checkout";
 import OrderHistory from "./Pages/OrderHistory";
 import { MainPage } from "./Components/MainPage";
 import "./css/darkMode.css";

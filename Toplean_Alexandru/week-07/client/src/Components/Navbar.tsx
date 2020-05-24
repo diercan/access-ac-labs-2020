@@ -2,7 +2,7 @@ import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
 import React, { CSSProperties } from "react";
 import { Link, BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import { Index } from "../Pages/Index";
-import Checkout from "../Pages/Checkout";
+import { Checkout } from "../Pages/Checkout";
 import OrderHistory from "../Pages/OrderHistory";
 
 import { DarkMode } from "./DarkMode";

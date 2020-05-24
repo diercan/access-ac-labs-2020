@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Index } from "../Pages/Index";
-import Checkout from "../Pages/Checkout";
+import { Checkout } from "../Pages/Checkout";
 import OrderHistory from "../Pages/OrderHistory";
 import { RestaurantVieww } from "../Views/RestaurantView";
 import restaurantPic from "../images/caruso.jpg";
@@ -131,7 +131,7 @@ export const MainPage = () => {
       </Route>
 
       <Route exact path="/checkout">
-        <Checkout menuItems={checkout} />
+        <Checkout menuItems={checkout} modifyMenuItems={setCheckoutItems} />
       </Route>
 
       <Route path="/orderHistory">
