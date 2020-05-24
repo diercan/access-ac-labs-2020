@@ -1,13 +1,13 @@
 import { Menu, MenuDetails } from "./menu";
 export const menus: Menu[] = [
-  { id: "1", name: "Main Corse" },
+  { id: "1", name: "Main Course" },
   { id: "2", name: "Drinks Menu" },
   { id: "3", name: "Dessert Menu" },
 ];
 
 export const menu: { [id: string]: MenuDetails } = {
   "1": {
-    name: "Main Corse",
+    name: "Main Course",
     id: "1",
     menuItems: [
       { id: "1", name: "Artichoke and Spinach Dip", price: 50 },
