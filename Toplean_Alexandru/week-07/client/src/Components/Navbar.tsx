@@ -3,7 +3,7 @@ import React, { CSSProperties } from "react";
 import { Link, BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import { Index } from "../Pages/Index";
 import { Checkout } from "../Pages/Checkout";
-import OrderHistory from "../Pages/OrderHistory";
+import { OrderHistory } from "../Pages/OrderHistory";
 
 import { DarkMode } from "./DarkMode";
 
@@ -24,6 +24,9 @@ export const DrawNavbar = () => {
 
               <NavLink className="nav-link" to="/orderHistory">
                 Order History
+              </NavLink>
+              <NavLink className="nav-link" to="/reviews">
+                Reviews
               </NavLink>
             </Nav>
             <DarkMode />

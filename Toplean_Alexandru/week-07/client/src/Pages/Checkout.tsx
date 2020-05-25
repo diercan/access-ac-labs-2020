@@ -25,7 +25,6 @@ export const Checkout = (props: CheckoutProps) => {
 
   const PlaceOrder = (e: any) => {
     e.preventDefault();
-    alert("it works");
   };
 
   const [valueToDelete, setValueToDelete] = useState("");
@@ -52,54 +51,56 @@ export const Checkout = (props: CheckoutProps) => {
               <h2> Checkout Items</h2>
             </Card.Header>
             <Card.Body>
-              <table style={{ width: "100%" }}>
-                <thead>
-                  <tr className="bottomBorder">
-                    <td>Menu Item</td>
-                    <td>Quantity</td>
-                    <td>Comments</td>
-                    <td>Price</td>
-                    <td>Options</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {props.menuItems.map((item) => (
-                    <tr
-                      key={item.name}
-                      style={{
-                        backgroundColor:
-                          counter++ % 2 == 1 ? "lightblue" : "white",
-                      }}
-                    >
-                      <td>{item.name}</td>
-                      <td>{item.quantity}</td>
-                      <td>{item.comments}</td>
-                      <td>{item.price} Lei</td>
-                      <td>
-                        <Form onSubmit={deleteItem}>
-                          <button
-                            type="submit"
-                            onClick={() => setValueToDelete(item.name)}
-                          >
-                            Remove Item?
-                          </button>
-                        </Form>
-                      </td>
+              {props.menuItems.length == 1 &&
+              props.menuItems[0].name.length == 0 ? (
+                <h3 className="centerAlign">
+                  <br />
+                  -No menu items currently selected-
+                </h3>
+              ) : (
+                <table style={{ width: "100%" }}>
+                  <thead>
+                    <tr className="bottomBorder">
+                      <td>Menu Item</td>
+                      <td>Quantity</td>
+                      <td>Comments</td>
+                      <td>Price</td>
+                      <td>Options</td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {props.menuItems
+                      .filter((item) => item.name.length > 0)
+                      .map((item) => (
+                        <tr
+                          key={item.name}
+                          style={{
+                            backgroundColor:
+                              counter++ % 2 == 1 ? "lightblue" : "white",
+                          }}
+                        >
+                          <td>{item.name}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.comments}</td>
+                          <td>{item.price} Lei</td>
+                          <td>
+                            <Form onSubmit={deleteItem}>
+                              <button
+                                type="submit"
+                                onClick={() => setValueToDelete(item.name)}
+                              >
+                                Remove Item?
+                              </button>
+                            </Form>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              )}
+
               <Row className="topPadding">
-                <Col md={{ span: 3, offset: 8 }}>
-                  <Form onSubmit={PlaceOrder}>
-                    <Button
-                      type="submit"
-                      style={{ backgroundColor: "#189AD3" }}
-                    >
-                      Place Order
-                    </Button>
-                  </Form>
-                </Col>
+                <Col md={{ span: 3, offset: 8 }}></Col>
               </Row>
             </Card.Body>
           </Card>
@@ -110,7 +111,7 @@ export const Checkout = (props: CheckoutProps) => {
               <h2>Please add your credentials to confirm checkout</h2>
             </Card.Header>
             <Card.Body>
-              <Form>
+              <Form onSubmit={PlaceOrder}>
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridEmail">
                     <Form.Label>First Name</Form.Label>
@@ -122,21 +123,18 @@ export const Checkout = (props: CheckoutProps) => {
                     <Form.Control type="text" placeholder="Doe" />
                   </Form.Group>
                 </Form.Row>
-
                 <Form.Group controlId="formGridAddress1">
                   <Form.Label>Table Number</Form.Label>
                   <Form.Control placeholder="1" />
                 </Form.Group>
-
                 <Form.Group id="formGridCheckbox">
                   <Form.Check
                     type="checkbox"
                     label="Agree to terms and conditions"
                   />
                 </Form.Group>
-
-                <Button variant="primary" type="submit">
-                  Submit
+                <Button type="submit" style={{ backgroundColor: "#189AD3" }}>
+                  Place Order
                 </Button>
               </Form>
             </Card.Body>

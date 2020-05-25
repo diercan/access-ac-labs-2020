@@ -28,12 +28,13 @@ export const Index = (props: IndexProps) => {
         <Row>
           {restaurants.map((restaurantt) => (
             <Col lg={4} className="topPadding" key={restaurantt.id}>
-              <Link
-                onClick={(param) => selectRestaurant(restaurantt)}
+              <NavLink
+                onClick={() => selectRestaurant(restaurantt)}
                 to={"/restaurant/" + restaurantt.name}
+                className="noHyperLinks"
               >
                 <RestaurantComponent restaurant={restaurantt} />
-              </Link>
+              </NavLink>
             </Col>
           ))}
         </Row>

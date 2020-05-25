@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { RatingStarSystem } from "./RatingSystem";
 import { MenuItemAlergens } from "./MenuItemComponents/Alergens";
+import { MenuItemIngredients } from "./MenuItemComponents/Ingredients";
 
 type MenuItemProps = {
   menuItem: MenuItem;
@@ -25,7 +26,7 @@ export const MenuItemComponent = (props: MenuItemProps) => {
 
   const addToCheckout = (e: any) => {
     e.preventDefault();
-    if (props.current[0].name.length == 0) {
+    if (props.current.length == 1 && props.current[0].name.length == 0) {
       props.setCurrent([
         {
           name: props.menuItem.name,
@@ -45,6 +46,7 @@ export const MenuItemComponent = (props: MenuItemProps) => {
         },
       ]);
     }
+    console.log(props.current);
   };
   var randomNumber = Math.random() * 1000;
   return (
@@ -69,11 +71,7 @@ export const MenuItemComponent = (props: MenuItemProps) => {
         <Card.Body>
           <Row>
             <Col lg={6}>
-              <ul style={{ padding: 20 }}>
-                {props.menuItem.ingredients.split(";").map((ingredient) => (
-                  <li key={ingredient}>{ingredient}</li>
-                ))}
-              </ul>
+              <MenuItemIngredients ingredients={props.menuItem.ingredients} />
             </Col>
             <Col lg={6}>
               <img src={props.menuItem.imageURL} width="100%" />

@@ -14,7 +14,7 @@ export const RestaurantComponent = (props: RestaurantProps) => {
     <Card className="upScale">
       <Card.Title
         style={{
-          backgroundColor: "lightgray",
+          backgroundColor: "#189AD3",
           marginBottom: "0px",
           padding: "10px",
         }}

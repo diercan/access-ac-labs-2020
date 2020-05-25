@@ -14,6 +14,7 @@ type OrderItemProps = {
   id: number;
   tableNumber: number;
   menuItems: any[];
+  completed: boolean;
 };
 
 function CustomAcordionHead({ children, eventKey }: any) {
@@ -44,7 +45,10 @@ export const OrderItem = (props: OrderItemProps) => {
                 <Card.Body>
                   <table style={{ width: "100%" }}>
                     <thead style={{ marginBottom: "110px" }}>
-                      <tr className="bottomBorder">
+                      <tr
+                        className="bottomBorder "
+                        style={{ color: "black !important" }}
+                      >
                         <td>Menu</td>
                         <td>Quantity</td>
                         <td>Comment</td>

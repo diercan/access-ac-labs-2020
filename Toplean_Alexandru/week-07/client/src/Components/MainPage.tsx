@@ -8,6 +8,7 @@ import restaurantPic from "../images/caruso.jpg";
 import mcChicken from "../images/mcChicken.jpg";
 import "../css/darkMode.css";
 import "../css/main.css";
+import { Reviews } from "../Pages/Reviews";
 
 export const MainPage = () => {
   const [checkout, setCheckoutItems] = useState([
@@ -136,6 +137,9 @@ export const MainPage = () => {
 
       <Route path="/orderHistory">
         <OrderHistory />
+      </Route>
+      <Route path="/reviews">
+        <Reviews />
       </Route>
 
       <Route path="/restaurant/:RestaurantName">

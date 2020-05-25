@@ -13,7 +13,7 @@ import { ViewOrders } from "../Pages/ViewOrders";
 import { Login } from "./Login";
 
 export const MainPage = () => {
-  const [employeeIsConnected, setEmployeeConnection] = useState(true);
+  const [employeeIsConnected, setEmployeeConnection] = useState(false);
 
   return (
     <React.Fragment>
@@ -23,7 +23,16 @@ export const MainPage = () => {
       />
 
       <Switch>
-        <Route exact path="/"></Route>
+        <Route exact path="/">
+          {employeeIsConnected ? (
+            <ViewOrders employeeIsConnected={employeeIsConnected} />
+          ) : (
+            <Login
+              employeeIsConnected={employeeIsConnected}
+              setEmployeeConnection={setEmployeeConnection}
+            />
+          )}
+        </Route>
 
         <Route exact path="/createMenu">
           <CreateMenu employeeIsConnected={employeeIsConnected} />

@@ -1,26 +1,19 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/main.css";
+import { Container, Row, Col } from "react-bootstrap";
 
-class OrderHistory extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <h2 className="centerAlign topPadding">OrderHistory </h2>
+export const OrderHistory = () => {
+  return (
+    <React.Fragment>
+      <h1 className="centerAlign topPadding">Order History </h1>
 
-        <table className="tableBorders">
-          <thead>
-            <tr>
-              <td>Restaurant</td>
-              <td>Menu(s)</td>
-              <td>Total Price</td>
-            </tr>
-          </thead>
-
-          <tbody></tbody>
-        </table>
-      </React.Fragment>
-    );
-  }
-}
+      <Container>
+        <Row>
+          <Col></Col>
+        </Row>
+      </Container>
+    </React.Fragment>
+  );
+};
 export default OrderHistory;
