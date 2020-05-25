@@ -1,8 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { MenuItem } from "../Models/MenuItemModel";
+import { MenuItem } from "../../../Models/MenuItemModel";
 import { Col, Row } from "react-bootstrap";
-import { MenuItemPreviewComponent } from "./MenuItemPreview";
+import { MenuItemPreviewComponent } from "../../../Components/MenuItemPreview";
 
 type MenuItemsListProps = {
     items: MenuItem[]
@@ -15,7 +15,6 @@ export const MenuItemsListComponent = (props: MenuItemsListProps) => {
                     <Col lg={4} md={6} sm={12}>
                         <MenuItemPreviewComponent item={item} />
                     </Col>
-
                 ))}
             </React.Fragment>
         </Row>

@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
-import { MenuItem } from "../Models/MenuItemModel";
+import { MenuItem } from "../../../Models/MenuItemModel";
 import { Row, Col, ButtonGroup, Button, FormControl } from "react-bootstrap";
 
 type DailyMenuProps = {
@@ -13,6 +13,7 @@ const ImageContainer = styled.img`
 `;
 
 export const DailyMenuComponent = (props: DailyMenuProps) => {
+    let formContent = '';
     return (
         <React.Fragment>
             <Row className="mt-5">
@@ -29,8 +30,9 @@ export const DailyMenuComponent = (props: DailyMenuProps) => {
                     <h5>Pret:</h5>
                     <p>{props.item.price} RON</p>
                     <ButtonGroup>
-                        <FormControl placeholder="Cantitate" aria-label="Qty" aria-describedby="basic-addon1" />
+                        <FormControl placeholder="Cantitate" aria-label="Qty" aria-describedby="basic-addon1"/>
                         <Button>Adauga</Button>
+                        <div>{formContent}</div>
                     </ButtonGroup>
                 </Col>
             </Row>

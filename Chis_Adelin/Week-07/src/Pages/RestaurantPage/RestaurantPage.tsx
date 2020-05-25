@@ -1,11 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styled from "styled-components";
-import { MenuItem } from "../Models/MenuItemModel";
-import { Container, Row, Col, ButtonGroup, Button, FormControl } from "react-bootstrap";
-import { MenuItemsListComponent } from "./MenuItemsList";
-import { DailyMenuComponent } from "./DailyMenu";
-import {MenuItems} from "../Data/MenuItems";
+import { MenuItem } from "../../Models/MenuItemModel";
+import { Container } from "react-bootstrap";
+import { MenuItemsListComponent } from "./Components/MenuItemsList";
+import { DailyMenuComponent } from "./Components/DailyMenu";
+import { MenuItems } from "../../Data/MenuItems";
 
 type RestaurantPageProps = {
     name: string;
