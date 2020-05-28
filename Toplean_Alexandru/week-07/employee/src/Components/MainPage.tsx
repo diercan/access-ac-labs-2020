@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
+import { CreateRestaurant } from "../Pages/CreateRestaurant";
+
 import restaurantPic from "../images/caruso.jpg";
 import mcChicken from "../images/mcChicken.jpg";
 import "../css/darkMode.css";
@@ -11,9 +13,10 @@ import { CreateMenu } from "../Pages/CreateMenu";
 import { CreateMenuItem } from "../Pages/CreateMenuItem";
 import { ViewOrders } from "../Pages/ViewOrders";
 import { Login } from "./Login";
+import { ControlPanel } from "../Pages/ControlPanel";
 
 export const MainPage = () => {
-  const [employeeIsConnected, setEmployeeConnection] = useState(false);
+  const [employeeIsConnected, setEmployeeConnection] = useState(true);
 
   return (
     <React.Fragment>
@@ -34,17 +37,23 @@ export const MainPage = () => {
           )}
         </Route>
 
-        <Route exact path="/createMenu">
-          <CreateMenu employeeIsConnected={employeeIsConnected} />
-        </Route>
-
-        <Route path="/createMenuItem">
+        <Route path=":restaurant/controlPanel">
           <CreateMenuItem employeeIsConnected={employeeIsConnected} />
         </Route>
 
         <Route path="/viewOrders">
           <ViewOrders employeeIsConnected={employeeIsConnected} />
         </Route>
+
+        <Route path="/createRestaurant">
+          <CreateRestaurant employeeIsConnected={employeeIsConnected} />
+        </Route>
+
+        <Route
+          path="/:restaurant/controlPanel"
+          component={ControlPanel}
+        ></Route>
+
         <Route path="/login">
           <Login
             employeeIsConnected={employeeIsConnected}

@@ -27,7 +27,7 @@ export const RestaurantComponent = (props: RestaurantProps) => {
         </Row>
       </Card.Title>
       <Card.Body style={{ padding: "0px", marginTop: "0px" }}>
-        <img src={props.restaurant.imageURL} width="100%" />
+        <img src={props.restaurant.image} width="100%" />
       </Card.Body>
     </Card>
   );

@@ -5,6 +5,5 @@ export type MenuItem = {
   ingredients: string;
   alergens?: string;
   price: number;
-  image?: Uint8Array;
-  imageURL?: string;
+  image?: string;
 };

@@ -23,12 +23,12 @@ export const DrawNavbar = (props: ConnectionProps) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <NavLink className="nav-link" to="/createMenu">
-                Create Menu
+              <NavLink className="nav-link" to="/createRestaurant">
+                Create Restaurant
               </NavLink>
 
-              <NavLink className="nav-link" to="/createMenuItem">
-                Create Menu Item
+              <NavLink className="nav-link" to="/McDonalds/controlPanel">
+                Control Panel
               </NavLink>
               <NavLink className="nav-link" to="/viewOrders">
                 View Orders

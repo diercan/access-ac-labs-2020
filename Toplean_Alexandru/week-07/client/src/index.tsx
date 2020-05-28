@@ -11,6 +11,7 @@ import OrderHistory from "./Pages/OrderHistory";
 import { MainPage } from "./Components/MainPage";
 import "./css/darkMode.css";
 import "./css/main.css";
+import { PageNotFound } from "./Pages/PageNotFound";
 const root = document.getElementById("root");
 const element = (
   <React.Fragment>

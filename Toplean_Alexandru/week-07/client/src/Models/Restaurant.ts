@@ -6,7 +6,7 @@ export type Restaurant = {
   id?: number;
   name?: string;
   stars: number;
-  imageURL?: string;
+  image?: any;
 
   menus: Menu[];
   employees?: Employee[];

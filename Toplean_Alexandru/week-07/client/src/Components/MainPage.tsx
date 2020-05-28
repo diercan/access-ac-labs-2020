@@ -9,6 +9,7 @@ import mcChicken from "../images/mcChicken.jpg";
 import "../css/darkMode.css";
 import "../css/main.css";
 import { Reviews } from "../Pages/Reviews";
+import { PageNotFound } from "../Pages/PageNotFound";
 
 export const MainPage = () => {
   const [checkout, setCheckoutItems] = useState([
@@ -123,32 +124,36 @@ export const MainPage = () => {
   ];
 
   return (
-    <div id="workspace">
-      <Route exact path="/">
-        <Index
-          restaurants={restaurants}
-          selectedRestaurant={setSelectedRestaurant}
-        />
-      </Route>
+    <section>
+      <Switch>
+        <Route exact path="/">
+          <Index
+            restaurants={restaurants}
+            selectedRestaurant={setSelectedRestaurant}
+          />
+        </Route>
 
-      <Route exact path="/checkout">
-        <Checkout menuItems={checkout} modifyMenuItems={setCheckoutItems} />
-      </Route>
+        <Route exact path="/checkout">
+          <Checkout menuItems={checkout} modifyMenuItems={setCheckoutItems} />
+        </Route>
 
-      <Route path="/orderHistory">
-        <OrderHistory />
-      </Route>
-      <Route path="/reviews">
-        <Reviews />
-      </Route>
+        <Route path="/orderHistory">
+          <OrderHistory />
+        </Route>
+        <Route path="/reviews">
+          <Reviews />
+        </Route>
 
-      <Route path="/restaurant/:RestaurantName">
-        <RestaurantVieww
-          restaurant={selectedRestaurant}
-          setOrder={setCheckoutItems}
-          currentOrders={checkout}
-        />
-      </Route>
-    </div>
+        <Route path="/restaurant/:RestaurantName">
+          <RestaurantVieww
+            restaurant={selectedRestaurant}
+            setOrder={setCheckoutItems}
+            currentOrders={checkout}
+          />
+        </Route>
+
+        <Route component={PageNotFound} />
+      </Switch>
+    </section>
   );
 };

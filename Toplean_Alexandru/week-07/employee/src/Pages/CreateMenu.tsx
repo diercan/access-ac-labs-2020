@@ -9,7 +9,7 @@ type CreateMenuProps = {
 export const CreateMenu = (props: CreateMenuProps) => {
   const [isSpecialMenu, setSpecialMenu] = useState(false);
 
-  if (props.employeeIsConnected == false) {
+  if (props.employeeIsConnected === false) {
     alert("You must be logged in to create a menu");
     return <Redirect to="/"></Redirect>;
   }

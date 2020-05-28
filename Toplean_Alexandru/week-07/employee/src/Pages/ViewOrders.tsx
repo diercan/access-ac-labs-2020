@@ -1,62 +1,15 @@
 import React from "react";
 import { Redirect } from "react-router";
 import { OrderItem } from "../Components/OrderItems";
-import { Container, Row, Col, Pagination } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 type ViewOrdersProps = {
   employeeIsConnected: boolean;
 };
 
-const orders = [
-  {
-    id: 1,
-    tableNumber: 4,
-    menuItems: [
-      {
-        name: "Pizza Pepperoni",
-        quantity: 2,
-        comment: "Doresc cu ulei de masline",
-      },
-      {
-        name: "Clatite cu Finetti",
-        quantity: 1,
-        comment: "Si banane",
-      },
-      {
-        name: "Inghetata din Ciocolata Belgiana",
-        quantity: 1,
-        comment: "-",
-      },
-    ],
-    completed: false,
-  },
-  {
-    id: 2,
-    tableNumber: 7,
-    menuItems: [
-      {
-        name: "Pizza Pepperoni",
-        quantity: 2,
-        comment: "Doresc cu ulei de masline",
-      },
-      {
-        name: "Clatite cu Finetti",
-        quantity: 1,
-        comment: "Si banane",
-      },
-      {
-        name: "Inghetata din Ciocolata Belgiana",
-        quantity: 1,
-        comment: "-",
-      },
-    ],
-    completed: false,
-  },
-];
-
 function generateUniqueTableNumber(arr: any): number {
   let randomNumber = Math.floor(Math.random() * 100);
-  if (arr.filter((item: any) => item.tableNumber == randomNumber).length == 0)
+  if (arr.filter((item: any) => item.tableNumber === randomNumber).length === 0)
     return randomNumber;
   else return generateUniqueTableNumber(arr);
 }
@@ -91,62 +44,16 @@ function generateOrders(nummberOfItems: number) {
       id: index,
       tableNumber: generateUniqueTableNumber(outArr),
       menuItems: generateRandomMenuItems(),
-      completed: Math.floor(Math.random() * 10) % 2 == 0,
+      completed: Math.floor(Math.random() * 10) % 2 === 0,
     });
   }
   return outArr;
 }
 
-const orderHistory = [
-  {
-    id: 1,
-    tableNumber: 4,
-    menuItems: [
-      {
-        name: "Pizza Pepperoni",
-        quantity: 3,
-        comment: "Doresc cu ulei de masline",
-      },
-      {
-        name: "Clatite cu Finetti",
-        quantity: 1,
-        comment: "Si banane",
-      },
-      {
-        name: "Inghetata din Ciocolata Belgiana",
-        quantity: 1,
-        comment: "-",
-      },
-    ],
-    completed: true,
-  },
-  {
-    id: 2,
-    tableNumber: 4,
-    menuItems: [
-      {
-        name: "Pizza Pepperoni",
-        quantity: 2,
-        comment: "Doresc cu ulei de masline",
-      },
-      {
-        name: "Clatite cu Finetti",
-        quantity: 1,
-        comment: "Si banane",
-      },
-      {
-        name: "Inghetata din Ciocolata Belgiana",
-        quantity: 1,
-        comment: "-",
-      },
-    ],
-    completed: true,
-  },
-];
 const generatedOrders = generateOrders(10);
 console.log(generatedOrders);
 export const ViewOrders = (props: ViewOrdersProps) => {
-  if (props.employeeIsConnected == false) {
+  if (props.employeeIsConnected === false) {
     alert("You must be logged in to view orders");
     return <Redirect to="/"></Redirect>;
   }
@@ -161,7 +68,7 @@ export const ViewOrders = (props: ViewOrdersProps) => {
         <Row>
           <Col>
             {generatedOrders
-              .filter((order: any) => order.completed == false)
+              .filter((order: any) => order.completed === false)
               .map((order: any) => (
                 <OrderItem
                   id={order.id}
@@ -180,7 +87,7 @@ export const ViewOrders = (props: ViewOrdersProps) => {
         <Row>
           <Col>
             {generatedOrders
-              .filter((order: any) => order.completed == true)
+              .filter((order: any) => order.completed === true)
               .map((order: any) => (
                 <OrderItem
                   id={order.id}

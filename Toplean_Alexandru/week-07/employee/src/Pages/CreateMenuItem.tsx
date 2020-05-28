@@ -7,7 +7,7 @@ type CreateMenuItemProps = {
 };
 
 export const CreateMenuItem = (props: CreateMenuItemProps) => {
-  if (props.employeeIsConnected == false) {
+  if (props.employeeIsConnected === false) {
     alert("You must be logged in to create a menu item");
     return <Redirect to="/"></Redirect>;
   }
