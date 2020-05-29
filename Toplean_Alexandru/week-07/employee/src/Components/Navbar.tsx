@@ -1,6 +1,6 @@
-import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
-import React, { CSSProperties, useState } from "react";
-import { Link, BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 import { DarkMode } from "./DarkMode";
 

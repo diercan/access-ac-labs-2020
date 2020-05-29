@@ -2,7 +2,6 @@ import React from "react";
 import {
   Accordion,
   Card,
-  Button,
   Container,
   Row,
   Col,
@@ -56,7 +55,7 @@ export const OrderItem = (props: OrderItemProps) => {
                     </thead>
                     <tbody>
                       {props.menuItems.map((menuItem) => (
-                        <tr>
+                        <tr key={`${menuItem.Id}_${menuItem.name}` as string}>
                           <td>{menuItem.name}</td>
                           <td>x{menuItem.quantity}</td>
                           <td>{menuItem.comment}</td>

@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { MenuItem } from "../../Models/MenuItem";
-import { updateMenuItem, createMenuItem } from "../services/employeeApi";
+import {
+  updateMenuItem,
+  createMenuItem,
+  getMenus,
+} from "../services/employeeApi";
 import { Menu } from "../../Models/Menu";
 import { handleError } from "../services/apiUtils";
 
 type EditMenuItemModal = {
+  currentRestaurant: string;
   setOpenEdit: any;
   setMenuItemToEdit: any;
   openEdit: boolean;
   item?: MenuItem;
+  setRefetch: any;
 };
 
 type AddMenuItemProps = {
@@ -22,14 +28,28 @@ type AddMenuItemProps = {
 
 export const EditMenuItemModal = (props: EditMenuItemModal) => {
   var menuItem = props.item as MenuItem;
-
+  const currentMenuId = menuItem.menuId as number;
   const [image, setImage] = useState<string>();
 
   const [name, setName] = useState<string>(menuItem.name);
-  const [menuId, setMenuId] = useState<number>(menuItem.menuID as number);
+  const [menuId, setMenuId] = useState<number>();
+
   const [ingredients, setIngredients] = useState<string>(menuItem.ingredients);
   const [alergens, setAlergens] = useState<string>(menuItem.alergens as string);
   const [price, setPrice] = useState<number>(menuItem.price);
+  const [menus, setMenus] = useState<Menu[]>();
+
+  useEffect(() => {
+    getMenus(props.currentRestaurant)
+      .then((response) => {
+        setMenus(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        alert("getMenusErrror");
+        console.log(handleError(error));
+      });
+  }, []);
 
   useEffect(() => {
     console.log(image);
@@ -37,17 +57,28 @@ export const EditMenuItemModal = (props: EditMenuItemModal) => {
 
   function overrideMenuItem() {
     let item = menuItem;
-    if (name != undefined) item.name = name as string;
-    if (ingredients != undefined) item.ingredients = ingredients as string;
-    if (alergens != undefined) item.alergens = alergens as string;
-    if (price != undefined) item.price = price as number;
-    if (image != undefined)
+    if (name !== undefined) item.name = name as string;
+    if (menuId !== undefined) item.menuId = menuId as number;
+    if (ingredients !== undefined) item.ingredients = ingredients as string;
+    if (alergens !== undefined) item.alergens = alergens as string;
+    if (price !== undefined) item.price = price as number;
+    if (image !== undefined)
       if ((image as string).length > 3) item.image = image as string;
 
-    updateMenuItem(item);
+    updateMenuItem(item)
+      .then((response) => {
+        console.log(response.data);
+        props.setRefetch();
+      })
+      .catch((error) => {
+        alert("error in EditMenuItemModal");
+        console.log(handleError(error));
+      });
   }
 
-  return (
+  return !menus ? (
+    <p>loading</p>
+  ) : (
     <React.Fragment>
       <Modal
         show={props.openEdit}
@@ -74,12 +105,25 @@ export const EditMenuItemModal = (props: EditMenuItemModal) => {
             </Form.Group>
             <Form.Group controlId="exampleForm.SelectCustom">
               <Form.Label>Menu</Form.Label>
-              <Form.Control as="select" custom>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <Form.Control
+                as="select"
+                custom
+                defaultValue={
+                  (menus.filter(
+                    (menu: any) => menu.Id === currentMenuId
+                  )[0] as any).Name
+                }
+                onChange={(e: any) => {
+                  setMenuId(
+                    (menus.filter(
+                      (menu: any) => menu.Name === e.target.value
+                    )[0] as any).Id
+                  );
+                }}
+              >
+                {(menus as Menu[]).map((menu: any) => (
+                  <option key={menu.Id as number}>{menu.Name}</option>
+                ))}
               </Form.Control>
             </Form.Group>
 
@@ -143,7 +187,7 @@ export const EditMenuItemModal = (props: EditMenuItemModal) => {
                   <hr />
                   <div className="centerAlign">
                     <h2 className="centerAlign">Image Preview</h2>
-                    <img src={menuItem.image} width="300px" />
+                    <img src={menuItem.image} alt="preview" width="300px" />
                   </div>
                 </React.Fragment>
               ) : null}
@@ -182,7 +226,7 @@ export const EditMenuItemModal = (props: EditMenuItemModal) => {
 export const AddMenuItemModal = (props: AddMenuItemProps) => {
   const [image, setImage] = useState<string>();
   const [name, setName] = useState<string>();
-  const [menuId, setMenuId] = useState<number>();
+  //const [menuId, setMenuId] = useState<number>();
   const [ingredients, setIngredients] = useState<string>();
   const [alergens, setAlergens] = useState<string>();
   const [price, setPrice] = useState<number>();
@@ -294,7 +338,7 @@ export const AddMenuItemModal = (props: AddMenuItemProps) => {
                 price: Number(price as number),
                 alergens: alergens as string,
                 image: image as string,
-                menuID: props.menu.id as number,
+                menuId: props.menu.id as number,
               })
                 .then((response) => props.setRefetch())
                 .catch((error) => {

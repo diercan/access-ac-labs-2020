@@ -3,13 +3,10 @@ import { Switch, Route } from "react-router-dom";
 
 import { CreateRestaurant } from "../Pages/CreateRestaurant";
 
-import restaurantPic from "../images/caruso.jpg";
-import mcChicken from "../images/mcChicken.jpg";
 import "../css/darkMode.css";
 import "../css/main.css";
 import { DrawNavbar } from "./Navbar";
-import { Button, Form } from "react-bootstrap";
-import { CreateMenu } from "../Pages/CreateMenu";
+
 import { CreateMenuItem } from "../Pages/CreateMenuItem";
 import { ViewOrders } from "../Pages/ViewOrders";
 import { Login } from "./Login";
@@ -28,7 +25,10 @@ export const MainPage = () => {
       <Switch>
         <Route exact path="/">
           {employeeIsConnected ? (
-            <ViewOrders employeeIsConnected={employeeIsConnected} />
+            <ViewOrders
+              employeeIsConnected={employeeIsConnected}
+              restaurant="McDonalds"
+            />
           ) : (
             <Login
               employeeIsConnected={employeeIsConnected}
@@ -42,7 +42,10 @@ export const MainPage = () => {
         </Route>
 
         <Route path="/viewOrders">
-          <ViewOrders employeeIsConnected={employeeIsConnected} />
+          <ViewOrders
+            employeeIsConnected={employeeIsConnected}
+            restaurant="McDonalds"
+          />
         </Route>
 
         <Route path="/createRestaurant">

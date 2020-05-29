@@ -1,10 +1,9 @@
 export type MenuItem = {
-  id?: number;
-  menuID?: number;
-  name: string;
-  ingredients: string;
-  alergens?: string;
-  price: number;
-  image?: Uint8Array;
-  imageURL?: string;
+  Id?: number;
+  MenuId?: number;
+  Name: string;
+  Ingredients: string;
+  Alergens?: string;
+  Price: number;
+  Image?: string;
 };

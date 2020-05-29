@@ -9,9 +9,10 @@ import {
 } from "../Components/Modals/EditMenuItemModal";
 import { Menu } from "../Models/Menu";
 import { useRefetch } from "../Components/services/useRefetch";
+import { deleteMenuItem } from "../Components/services/employeeApi";
 
 export const ViewMenuItems = (props: any) => {
-  const menu = props.match.params.menu;
+  //const menu = props.match.params.menu;
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>();
   const [currentMenu, setCurrentMenu] = useState<Menu>();
@@ -96,7 +97,17 @@ export const ViewMenuItems = (props: any) => {
                           Edit
                         </Button>
                         &ensp;
-                        <Button variant="danger">Delete</Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => {
+                            deleteMenuItem(
+                              menuItem.name,
+                              menuItem.menuId as number
+                            ).then((response) => setRefetch());
+                          }}
+                        >
+                          Delete
+                        </Button>
                       </td>
                     </tr>
                   ))}
@@ -108,7 +119,9 @@ export const ViewMenuItems = (props: any) => {
       </Row>
       {openEdit ? (
         <EditMenuItemModal
+          currentRestaurant={props.match.params.restaurant}
           setOpenEdit={setOpenEdit}
+          setRefetch={setRefetch}
           openEdit={openEdit}
           setMenuItemToEdit={setMenuItemToExit}
           item={menuItemToEdit}

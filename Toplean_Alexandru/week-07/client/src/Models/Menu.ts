@@ -1,11 +1,11 @@
 import { MenuItem } from "./MenuItem";
 export type Menu = {
-  id?: number;
-  restaurantId?: number;
-  name: string;
-  menuType: string;
-  specialMenu: boolean;
-  hours?: string;
+  Id: number;
+  RestaurantId?: number;
+  Name: string;
+  MenuType: string;
+  Visibility: boolean;
+  Hours?: string;
 
-  menuItems?: MenuItem[];
+  MenuItem: MenuItem[];
 };

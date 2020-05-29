@@ -126,11 +126,11 @@ export const MainPage = () => {
   return (
     <section>
       <Switch>
-        <Route exact path="/">
-          <Index
+        <Route exact path="/" component={Index}>
+          {/* <Index
             restaurants={restaurants}
             selectedRestaurant={setSelectedRestaurant}
-          />
+          /> */}
         </Route>
 
         <Route exact path="/checkout">
@@ -144,13 +144,10 @@ export const MainPage = () => {
           <Reviews />
         </Route>
 
-        <Route path="/restaurant/:RestaurantName">
-          <RestaurantVieww
-            restaurant={selectedRestaurant}
-            setOrder={setCheckoutItems}
-            currentOrders={checkout}
-          />
-        </Route>
+        <Route
+          path="/restaurant/:RestaurantName"
+          component={RestaurantVieww}
+        ></Route>
 
         <Route component={PageNotFound} />
       </Switch>

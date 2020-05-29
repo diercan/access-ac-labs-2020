@@ -1,5 +1,4 @@
 import { MenuItem } from "./../../Models/MenuItem";
-import { ActionSuccessful } from "./../ActionComponent";
 import { axiosClient } from "./axiosClient";
 import { handleError } from "./apiUtils";
 
@@ -23,6 +22,10 @@ export const getMenuItems = (restaurant: string, menu: string) => {
   return axiosClient.get(
     `employee/restaurant/${restaurant}/${menu}/allmenuitems`
   );
+};
+
+export const getOrders = (restaurant: string) => {
+  return axiosClient.get(`employee/orders/${restaurant}/all`);
 };
 
 export const updateMenuItem = (menuItem: MenuItem) => {
@@ -49,6 +52,12 @@ export const createMenuItem = (
   return axiosClient.post(
     `employee/${restaurant}/${menu}/createmenuitem`,
     menuItem
+  );
+};
+
+export const deleteMenuItem = (menuItemName: string, menuId: number) => {
+  return axiosClient.delete(
+    `employee/deletemenuitem/${menuItemName}/${menuId}`
   );
 };
 

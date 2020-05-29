@@ -4,11 +4,7 @@ import { Redirect } from "react-router";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 import { createRestaurant } from "../Components/services/employeeApi";
-import {
-  ActionSuccessful,
-  ActionFailed,
-  ActionComponent,
-} from "../Components/ActionComponent";
+import { ActionComponent } from "../Components/ActionComponent";
 
 type CreateRestaurantProps = {
   employeeIsConnected: boolean;
@@ -23,7 +19,7 @@ export const CreateRestaurant = (props: CreateRestaurantProps) => {
     console.log(image);
   }, [image]);
 
-  if (props.employeeIsConnected == false) {
+  if (props.employeeIsConnected === false) {
     alert("You must be logged in to create a restaurant");
     return <Redirect to="/"></Redirect>;
   }

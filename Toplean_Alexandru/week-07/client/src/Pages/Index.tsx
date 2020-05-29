@@ -6,7 +6,7 @@ import { RestaurantComponent } from "../Components/RestaurantComponent";
 import { Container, Row, Col } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { Restaurant } from "../Models/Restaurant";
-import { getRestaurants } from "../Components/services/employeeApi";
+import { getRestaurants } from "../Components/services/clientApi";
 
 type IndexProps = {
   restaurants: Restaurant[];
@@ -39,11 +39,9 @@ export const Index = (props: IndexProps) => {
     );
   }, []);
 
-  function selectRestaurant(restaurant: any) {
-    return props.selectedRestaurant(restaurant);
-  }
-
-  return (
+  return !restaurants ? (
+    <p>Loading...</p>
+  ) : (
     <React.Fragment>
       <h2 className="centerAlign topPadding">
         Please choose one of the following restaurants
@@ -53,7 +51,6 @@ export const Index = (props: IndexProps) => {
           {(restaurants as Restaurant[]).map((restaurantt) => (
             <Col lg={4} className="topPadding" key={restaurantt.id}>
               <NavLink
-                onClick={() => selectRestaurant(restaurantt)}
                 to={"/restaurant/" + restaurantt.name}
                 className="noHyperLinks"
               >

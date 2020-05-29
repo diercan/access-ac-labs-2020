@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Toast, Alert } from "react-bootstrap";
 
 type SuccessfulActionProps = {};
