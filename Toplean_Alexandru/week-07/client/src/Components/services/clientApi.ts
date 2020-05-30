@@ -20,6 +20,24 @@ export const getMenuItems = (restaurant: string, menu: string) => {
   );
 };
 
+export const getClient = (username: string, password: string) => {
+  return axiosClient.get(`client/login/${username}/${password}`);
+};
+
+export const createClient = (
+  name: string,
+  username: string,
+  password: string,
+  email: string
+) => {
+  return axiosClient.post(`client/createclient`, {
+    Name: name,
+    Username: username,
+    Password: password,
+    Email: email,
+  });
+};
+
 /* export const getMenu = (menuId: string) => {
   return axiosClient
     .get(`employee/restaurants/1/menus/${menuId}`)

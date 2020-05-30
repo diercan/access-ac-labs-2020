@@ -4,14 +4,20 @@ import { Index } from "../Pages/Index";
 import { Checkout } from "../Pages/Checkout";
 import OrderHistory from "../Pages/OrderHistory";
 import { RestaurantVieww } from "../Views/RestaurantView";
-import restaurantPic from "../images/caruso.jpg";
-import mcChicken from "../images/mcChicken.jpg";
 import "../css/darkMode.css";
 import "../css/main.css";
 import { Reviews } from "../Pages/Reviews";
 import { PageNotFound } from "../Pages/PageNotFound";
+import { Restaurant } from "../Models/Restaurant";
+import { Client } from "../Models/Client";
+import { Order } from "../Models/Order";
 
-export const MainPage = () => {
+type MainPageProps = {
+  connectedUser: Client;
+  order?: Order;
+};
+
+export const MainPage = (props: MainPageProps) => {
   const [checkout, setCheckoutItems] = useState([
     {
       name: "",
@@ -20,118 +26,12 @@ export const MainPage = () => {
       comments: "",
     },
   ]);
-  const [selectedRestaurant, setSelectedRestaurant] = useState({
-    id: 0,
-    name: "",
-    stars: 0,
-    imageURL: "",
-    menus: [],
-  });
-
-  const restaurants = [
-    {
-      id: 1,
-      name: "McDonalds",
-      stars: 5,
-      imageURL: restaurantPic,
-      menus: [
-        {
-          id: 1,
-          name: "Chicken",
-          menuType: "Meat",
-          specialMenu: false,
-          menuItems: [
-            {
-              id: 1,
-              name: "McChicken",
-              ingredients: "McChicken;Cartofi prajiti;Coca cola",
-              price: 15.99,
-              imageURL: mcChicken,
-            },
-            {
-              id: 2,
-              name: "McPuisor",
-              ingredients: "McPuisor;Cartofi prajiti;Coca cola",
-              price: 8.99,
-              imageURL: mcChicken,
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: "Fish",
-          menuType: "Meat",
-          specialMenu: false,
-          menuItems: [
-            {
-              id: 1,
-              name: "Fish fingers",
-              ingredients: "Fish Fingers;Cartofi prajiti;Coca cola",
-              price: 15.99,
-              imageURL: mcChicken,
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "Drinks",
-          menuType: "Drinks",
-          specialMenu: false,
-          menuItems: [],
-        },
-      ],
-      employees: [],
-      orders: [],
-    },
-    {
-      id: 2,
-      name: "Caruso",
-      stars: 4,
-      imageURL: restaurantPic,
-      menus: [
-        {
-          id: 1,
-          name: "Chicken",
-          menuType: "Meat",
-          specialMenu: false,
-          menuItems: [],
-        },
-        {
-          id: 2,
-          name: "Fish",
-          menuType: "Meat",
-          specialMenu: false,
-          menuItems: [],
-        },
-        {
-          id: 3,
-          name: "Drinks",
-          menuType: "Drinks",
-          specialMenu: false,
-          menuItems: [],
-        },
-      ],
-      employees: [],
-      orders: [],
-    },
-    {
-      id: 3,
-      name: "Caruso",
-      stars: 3,
-      imageURL: restaurantPic,
-      menus: [],
-    },
-  ];
+  const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant[]>();
 
   return (
     <section>
       <Switch>
-        <Route exact path="/" component={Index}>
-          {/* <Index
-            restaurants={restaurants}
-            selectedRestaurant={setSelectedRestaurant}
-          /> */}
-        </Route>
+        <Route exact path="/" component={Index} />
 
         <Route exact path="/checkout">
           <Checkout menuItems={checkout} modifyMenuItems={setCheckoutItems} />
@@ -146,8 +46,10 @@ export const MainPage = () => {
 
         <Route
           path="/restaurant/:RestaurantName"
-          component={RestaurantVieww}
-        ></Route>
+          component={({ match }: any) => (
+            <RestaurantVieww match={match} order={props.order} />
+          )}
+        />
 
         <Route component={PageNotFound} />
       </Switch>

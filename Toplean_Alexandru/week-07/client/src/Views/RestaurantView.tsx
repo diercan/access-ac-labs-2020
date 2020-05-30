@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import { Nav, NavDropdown, Col, Row, Container } from "react-bootstrap";
-import { MenuItemComponent } from "../Components/MenuItem";
+import { Nav } from "react-bootstrap";
 import { Restaurant } from "../Models/Restaurant";
-import MenuItemPic from "../images/mcChicken.jpg";
 
 import "../css/darkMode.css";
 import "../css/main.css";
@@ -12,39 +9,14 @@ import { getMenus } from "../Components/services/clientApi";
 import { handleError } from "../Components/services/apiUtils";
 import { MenuItem } from "../Models/MenuItem";
 import { DisplayMenu } from "../Components/DisplayMenu";
+import { Order } from "../Models/Order";
 
 type RestaurantProps = {
-  restaurant: Restaurant;
-  setOrder?: any;
-  currentOrders?: any;
+  match: any;
+  order?: Order;
 };
 
-type propString = {
-  someVal: any;
-  eventKey: string;
-};
-
-/* const DisplayMenuItem = (props: propString) => {
-  var filteredMenu = props.someVal.restaurant.menus.filter(
-    (menu: any) => menu.name == props.eventKey
-  );
-
-  return (
-    <Row style={{ padding: 0 }}>
-      {filteredMenu[0].menuItems.map((menuItemF: any) => (
-        <Col lg={4} key={menuItemF.name}>
-          <MenuItemComponent
-            current={props.someVal.currentOrders}
-            setCurrent={props.someVal.setOrder}
-            menuItem={menuItemF}
-          />
-        </Col>
-      ))}
-    </Row>
-  );
-}; */
-
-export const RestaurantVieww = (props: any) => {
+export const RestaurantVieww = (props: RestaurantProps) => {
   const [menusGot, setMenusGot] = useState(false);
   const [menus, setMenus] = useState<Menu[]>();
   const [selectedMenu, setSelectedMenu] = useState<Menu>();
@@ -100,9 +72,15 @@ export const RestaurantVieww = (props: any) => {
 
       <div id="menuItemSpot">
         {selectedMenu ? (
-          <DisplayMenu menuItems={selectedMenu.MenuItem as MenuItem[]} />
+          <DisplayMenu
+            menuItems={selectedMenu.MenuItem as MenuItem[]}
+            order={props.order}
+          />
         ) : (
-          <DisplayMenu menuItems={(menus[0] as Menu).MenuItem} />
+          <DisplayMenu
+            menuItems={(menus[0] as Menu).MenuItem}
+            order={props.order}
+          />
         )}
       </div>
     </section>

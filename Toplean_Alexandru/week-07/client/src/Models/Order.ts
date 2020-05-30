@@ -4,7 +4,7 @@ export type Order = {
   clientId?: number;
   restaurantId?: number;
   tableNumber: number;
-  totalProce: number;
+  totalPrice: number;
   status: string;
   paymentStatus: string;
 

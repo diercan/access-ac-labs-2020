@@ -7,5 +7,5 @@ export type Client = {
   email: string;
   tableNumber?: number;
   sessionId?: number;
-  orders: Order[];
+  order: Order[];
 };

@@ -7,26 +7,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { Restaurant } from "../Models/Restaurant";
 import { getRestaurants } from "../Components/services/clientApi";
+import { Order } from "../Models/Order";
 
-type IndexProps = {
-  restaurants: Restaurant[];
-  selectedRestaurant?: any;
-};
-
-export const Index = (props: IndexProps) => {
+export const Index = () => {
   //const restaurants = props.restaurants;
-
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([
-    {
-      id: 0,
-      name: "",
-      stars: 5,
-      image: "",
-      menus: [],
-      orders: [],
-      employees: [],
-    },
-  ]);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>();
   useEffect(() => {
     getRestaurants().then(
       (response) => {

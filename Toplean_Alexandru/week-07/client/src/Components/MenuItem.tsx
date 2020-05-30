@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import { MenuItem } from "../Models/MenuItem";
-import {
-  Card,
-  Row,
-  Col,
-  Accordion,
-  Button,
-  FormLabel,
-  Container,
-  Form,
-} from "react-bootstrap";
+import { Card, Row, Col, Accordion, Button, Form } from "react-bootstrap";
 import { RatingStarSystem } from "./RatingSystem";
 import { MenuItemAlergens } from "./MenuItemComponents/Alergens";
 import { MenuItemIngredients } from "./MenuItemComponents/Ingredients";
+import { Order } from "../Models/Order";
 
 type MenuItemProps = {
   menuItem: MenuItem;
+  order?: Order;
 };
 
 export const MenuItemComponent = (props: MenuItemProps) => {
@@ -47,7 +40,7 @@ export const MenuItemComponent = (props: MenuItemProps) => {
             <MenuItemIngredients ingredients={props.menuItem.Ingredients} />
           </Col>
           <Col lg={4}>
-            <img src={props.menuItem.Image} width="100%" />
+            <img src={props.menuItem.Image} alt="" width="100%" />
           </Col>
         </Row>
         <hr style={{ borderColor: "black" }} />
@@ -98,7 +91,10 @@ export const MenuItemComponent = (props: MenuItemProps) => {
                   </Accordion>
                 </Col>
                 <Col md={{ span: 6 }}>
-                  <Button style={{ backgroundColor: "#189AD3" }} type="submit">
+                  <Button
+                    style={{ backgroundColor: "#189AD3" }}
+                    onClick={() => {}}
+                  >
                     Add to Order
                   </Button>
                 </Col>

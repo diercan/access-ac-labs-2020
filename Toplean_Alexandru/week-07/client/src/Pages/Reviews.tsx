@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import "../css/main.css";
 import "../css/darkMode.css";
-import SmileyFace from "../images/icons8-smiling-50.png";
-import SadFace from "../images/icons8-sad-50.png";
-import NeutralFace from "../images/icons8-neutral-50.png";
-
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { ReviewComponent } from "../Components/ReviewComponent";
 

@@ -6,9 +6,11 @@ import { handleError } from "./services/apiUtils";
 import { useRefetch } from "./services/useRefetch";
 import { Container, Row, Col } from "react-bootstrap";
 import { MenuItemComponent } from "./MenuItem";
+import { Order } from "../Models/Order";
 
 type DisplayMenuProps = {
   menuItems: MenuItem[];
+  order?: Order;
 };
 
 export const DisplayMenu = (props: DisplayMenuProps) => {
@@ -18,7 +20,7 @@ export const DisplayMenu = (props: DisplayMenuProps) => {
         <Row>
           {props.menuItems.map((menuItem) => (
             <Col md={4}>
-              <MenuItemComponent menuItem={menuItem} />
+              <MenuItemComponent menuItem={menuItem} order={props.order} />
             </Col>
           ))}
         </Row>
