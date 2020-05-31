@@ -14,13 +14,18 @@ interface RestaurantPageProps
   extends RouteComponentProps<RestaurantPageResolverProps> {}
 
 function RestaurantPageResolver(props: RestaurantPageProps) {
-  const selectedRestaurant = restaurants.find((restaurant: Restaurant) => {
+  const selectedRestaurant = restaurants.find((restaurant) => {
     return restaurant.slug == props.match.params.slug;
   });
-  if(selectedRestaurant)
-    return <RestaurantPageComponent name={selectedRestaurant.name} dailyMenu={selectedRestaurant.dailyMenu}/> ;
-    // TODO: Redirect to landing page/or to notfound component and delete unused imports
-  else return <DailyMenuComponent item={DailyMenu}/>;
+  if (selectedRestaurant)
+    return (
+      <RestaurantPageComponent
+        name={selectedRestaurant.name}
+        dailyMenu={selectedRestaurant.dailyMenu}
+      />
+    );
+  // TODO: Redirect to landing page/or to notfound component and delete unused imports
+  else return <DailyMenuComponent item={DailyMenu} />;
 }
 
 export default RestaurantPageResolver;

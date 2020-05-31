@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
-import { DailyMenuComponent } from "./Pages/RestaurantPage/Components/DailyMenu";
-import { DailyMenu } from "./Data/DailyMenu";
 import RestaurantPageResolver from "./Pages/Resolvers/RestaurantPageResolver";
+import { LandingPageComponent } from "./Pages/LandingPage/LandingPage";
 
 // TODO: Remove Components from Routes and unused imports
 export const RoutesComponent = () => {
@@ -10,11 +9,11 @@ export const RoutesComponent = () => {
     <Router>
       <Switch>
         <Route path="/" exact>
-          <DailyMenuComponent item={DailyMenu} />
+          <LandingPageComponent />
         </Route>
         <Route path="/:slug" exact component={RestaurantPageResolver} />
         <Route>
-          <DailyMenuComponent item={DailyMenu} />
+          <LandingPageComponent />
         </Route>
       </Switch>
     </Router>
