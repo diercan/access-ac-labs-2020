@@ -18,6 +18,8 @@ using static Domain.Domain.SelectMenuOp.SelectMenuResult;
 using static Domain.Domain.SelectRestaurantOp.SelectRestaurantResult;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
 using Persistence;
+using static Domain.Domain.CreateOrderOp.CreateOrderResult;
+using Domain.Domain.CreateOrderOp;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -59,6 +61,44 @@ namespace OrderAndPay.Web.Controllers
                  async (notSelected) => NotFound()
 
                 );
+        }
+
+        [HttpGet("GetClientOrders/{clientId}")]
+        public async Task<IActionResult> GetClientOrders(int clientId)
+        {
+            var expr = from selectOrders in RestaurantDomain.GetAllClientOrders(clientId)
+                       select selectOrders;
+
+            return Ok(await interpreter.Interpret(expr, Unit.Default));
+        }
+
+        [HttpGet("GetMenuItemById/{menuItemId}")]
+        public async Task<IActionResult> GetMenu(int menuItemId)
+        {
+            var expr = from getMenuItem in RestaurantDomain.GetMenuItemById(menuItemId)
+                       select getMenuItem;
+
+            var exprResult = await interpreter.Interpret(expr, Unit.Default);
+            return await exprResult.MatchAsync<IActionResult>(
+                        async (selected) => // Menu Item was successfully selected
+                        {
+                            return (IActionResult)Ok(selected.MenuItemAgg.MenuItem);
+                        },
+                        async (notSelected) => // Menu Item not selected
+                        {
+                            return NotFound();
+                        }
+
+                        );
+        }
+
+        [HttpGet("GetAllMenuItemsByListId/{ids}")]
+        public async Task<IActionResult> GetAllMenuItemsByListId(string ids)
+        {
+            var expr = from getMenuItem in RestaurantDomain.GetAllMenuItemsFromIdList(ids.Split(';').Select(n => Convert.ToInt32(n)).ToArray())
+                       select getMenuItem;
+
+            return Ok(await interpreter.Interpret(expr, Unit.Default));
         }
 
         [HttpGet("restaurant/{restaurantName}/{menuName}")]
@@ -148,6 +188,16 @@ namespace OrderAndPay.Web.Controllers
             return Ok(await interpreter.Interpret(getAllMenuItemsExpr, Unit.Default));
         }
 
+        [HttpGet("Login/{username}/{password}")]
+        public async Task<IActionResult> Login(String username, String password)
+        {
+            var getAllMenuItemsExpr = from selectClient in RestaurantDomain.GetClient(username, password)
+                                      let client = (selectClient as ClientSelected)?.Client
+                                      select selectClient;
+
+            return Ok(await interpreter.Interpret(getAllMenuItemsExpr, Unit.Default));
+        }
+
         //[HttpGet("client/{username}/PaymentStatus")]
         //public async Task<IActionResult> GetPaymentStatus(String username)
         //{
@@ -203,6 +253,32 @@ namespace OrderAndPay.Web.Controllers
                             return BadRequest();
                         });
                 }
+                );
+        }
+
+        [HttpPost("CreateOrder")]
+        public async Task<IActionResult> CreateOrder(Order order)
+        {
+            var expr = from createOrder in RestaurantDomain.CreateAndPersistOrder(order)
+                       let orderE = (createOrder as OrderCreated)?.OrderAgg.Order
+                       select createOrder;
+
+            var result = await interpreter.Interpret(expr, Unit.Default);
+
+            return await result.MatchAsync<IActionResult>(
+               async created =>
+               {
+                   return (IActionResult)Ok(created.OrderAgg.Order);
+               },
+               async badReq =>
+               {
+                   return BadRequest();
+               }
+               ,
+               async notCreated =>
+               {
+                   return BadRequest();
+               }
                 );
         }
     }

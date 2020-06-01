@@ -19,6 +19,7 @@ using Persistence.EfCore;
 using static Domain.Domain.CreateMenuItemOp.CreateMenuItemResult;
 using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
+using static Domain.Domain.DeleteMenuItemOp.DeleteMenuItemResult;
 using static Domain.Domain.DeleteOrderOp.DeleteOrderResult;
 using static Domain.Domain.GetPaymentStatusOp.GetPaymentStatusResult;
 using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
@@ -181,7 +182,7 @@ namespace OrderAndPay.Web.Controllers
         {
             var expr = from selectRestaurant in RestaurantDomain.GetRestaurant(restaurantName)
                        let restaurant = (selectRestaurant as RestaurantSelected)?.RestaurantAgg
-                       from getAllOrders in RestaurantDomain.GetAllOrdersItems(restaurant.Restaurant.Id)
+                       from getAllOrders in RestaurantDomain.GetAllOrders(restaurant.Restaurant.Id)
 
                        select getAllOrders;
 
@@ -378,6 +379,28 @@ namespace OrderAndPay.Web.Controllers
                 async (deleted) =>
                 {
                     return (IActionResult)Ok(deleted.Order);
+                },
+                async (notDeleted) =>
+                {
+                    return BadRequest();
+                }
+
+                );
+        }
+
+        [HttpDelete("DeleteMenuItem/{menuItemName}/{menuID}")]
+        public async Task<IActionResult> DeteleOrder(string menuItemName, int menuID)
+        {
+            var expr = from deleteMenuItem in RestaurantDomain.DeleteMenuItemFromDB(menuItemName, menuID)
+                       let menuItem = (deleteMenuItem as MenuItemDeleted)?.MenuItem
+                       select deleteMenuItem;
+
+            var result = await interpreter.Interpret(expr, Unit.Default);
+            return await result.MatchAsync<IActionResult>(
+
+                async (deleted) =>
+                {
+                    return (IActionResult)Ok(deleted.MenuItem);
                 },
                 async (notDeleted) =>
                 {

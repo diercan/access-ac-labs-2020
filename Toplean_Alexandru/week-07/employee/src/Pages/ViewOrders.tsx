@@ -34,66 +34,69 @@ export const ViewOrders = (props: ViewOrdersProps) => {
   ) : (
     <React.Fragment>
       <Container>
-        {orders.filter((order) => order.Completed === false).length == 0 ? (
+        {/* {orders.filter((order) => order.Completed === false).length == 0 ? (
           <Row>
             <Col>
               <h4>No current orders</h4>
             </Col>
           </Row>
-        ) : (
-          <React.Fragment>
-            <Row>
-              <Col>
-                <h1 className="centerAlign">Create a new menu item!</h1>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                {(orders as any[])
-                  .filter((order: any) => order.completed === false)
-                  .map((order: any) => (
-                    <OrderItem
-                      key={order.id as string}
-                      id={order.id}
-                      tableNumber={order.tableNumber}
-                      menuItems={order.menuItems}
-                      completed={order.completed}
-                    />
-                  ))}
-              </Col>
-            </Row>
-          </React.Fragment>
-        )}
-        {orders.filter((order) => order.Completed === false).length == 0 ? (
+        ) : ( */}
+        <React.Fragment>
+          <Row>
+            <Col>
+              <h1 className="centerAlign">Create a new menu item!</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              {(orders as any[])
+                .filter((order: any) => order.completed == false)
+                .map((order: any) => (
+                  <OrderItem
+                    key={order.Id as string}
+                    id={order.Id}
+                    tableNumber={order.TableNumber}
+                    menuItems={order.MenuItems}
+                    completed={order.Completed}
+                  />
+                ))}
+              {() => {
+                debugger;
+              }}
+            </Col>
+          </Row>
+        </React.Fragment>
+        {/*   )} */}
+        {/* {orders.filter((order) => order.Completed == false).length == 0 ? (
           <Row>
             <Col>
               <h4>No Completed Orders currently recorded</h4>
             </Col>
           </Row>
-        ) : (
-          <React.Fragment>
-            <Row className="topPadding">
-              <Col>
-                <h1 className="centerAlign">Order History</h1>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                {(orders as any)
-                  .filter((order: any) => order.completed === true)
-                  .map((order: any) => (
-                    <OrderItem
-                      key={order.id as string}
-                      id={order.id}
-                      tableNumber={order.tableNumber}
-                      menuItems={order.menuItems}
-                      completed={order.completed}
-                    />
-                  ))}
-              </Col>
-            </Row>
-          </React.Fragment>
-        )}
+        ) : ( */}
+        <React.Fragment>
+          <Row className="topPadding">
+            <Col>
+              <h1 className="centerAlign">Order History</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              {(orders as any)
+                .filter((order: any) => order.completed === true)
+                .map((order: any) => (
+                  <OrderItem
+                    key={order.id as string}
+                    id={order.id}
+                    tableNumber={order.tableNumber}
+                    menuItems={order.menuItems}
+                    completed={order.completed}
+                  />
+                ))}
+            </Col>
+          </Row>
+        </React.Fragment>
+        {/*  )} */}
       </Container>
     </React.Fragment>
   );

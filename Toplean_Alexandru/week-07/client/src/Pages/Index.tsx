@@ -15,7 +15,6 @@ export const Index = () => {
   useEffect(() => {
     getRestaurants().then(
       (response) => {
-        console.log(response);
         if (response) setRestaurants(response.data);
       },
       (error) => {

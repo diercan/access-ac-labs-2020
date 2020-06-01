@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Menu } from "../Models/Menu";
 import { MenuItem } from "../Models/MenuItem";
 import { getMenuItems } from "./services/clientApi";
@@ -7,10 +7,14 @@ import { useRefetch } from "./services/useRefetch";
 import { Container, Row, Col } from "react-bootstrap";
 import { MenuItemComponent } from "./MenuItem";
 import { Order } from "../Models/Order";
+import { OrderItem } from "../Models/OrderItem";
+import { Client } from "../Models/Client";
 
 type DisplayMenuProps = {
   menuItems: MenuItem[];
   order?: Order;
+  orderItems: OrderItem[];
+  setOrderItems: any;
 };
 
 export const DisplayMenu = (props: DisplayMenuProps) => {
@@ -19,8 +23,13 @@ export const DisplayMenu = (props: DisplayMenuProps) => {
       <Container>
         <Row>
           {props.menuItems.map((menuItem) => (
-            <Col md={4}>
-              <MenuItemComponent menuItem={menuItem} order={props.order} />
+            <Col md={4} key={menuItem.Id?.toString()}>
+              <MenuItemComponent
+                menuItem={menuItem}
+                order={props.order}
+                orderItems={props.orderItems}
+                setOrderItems={props.setOrderItems}
+              />
             </Col>
           ))}
         </Row>

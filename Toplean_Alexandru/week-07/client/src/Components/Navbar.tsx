@@ -1,9 +1,11 @@
-import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavItem, NavDropdown, Badge } from "react-bootstrap";
 import React, { CSSProperties, useState, useEffect } from "react";
 import { Link, BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import { Index } from "../Pages/Index";
 import { Checkout } from "../Pages/Checkout";
 import { OrderHistory } from "../Pages/OrderHistory";
+
+import CartPicture from "../images/3551020411578889023.svg";
 
 import { DarkMode } from "./DarkMode";
 import { Client } from "../Models/Client";
@@ -17,11 +19,13 @@ type NavbarProps = {
   order?: Order;
   setOrder: any;
   currentRestaurant?: Restaurant;
+  numberOfCartItems: number;
 };
 
 export const DrawNavbar = (props: NavbarProps) => {
   const [openLogin, setOpenLogin] = useState(false);
   const [userIsConnected, setUserIsConnected] = useState(false);
+
   useEffect(() => {
     setUserIsConnected(true);
   }, [props.connectedUser]);
@@ -39,10 +43,12 @@ export const DrawNavbar = (props: NavbarProps) => {
               <NavLink className="nav-link" to="/checkout">
                 Checkout
               </NavLink>
+              {props.connectedUser ? (
+                <NavLink className="nav-link" to="/orderHistory">
+                  Order History
+                </NavLink>
+              ) : null}
 
-              <NavLink className="nav-link" to="/orderHistory">
-                Order History
-              </NavLink>
               <NavLink className="nav-link" to="/reviews">
                 Reviews
               </NavLink>
@@ -55,7 +61,25 @@ export const DrawNavbar = (props: NavbarProps) => {
               )
             ) : (
               <Nav>
+                <NavLink to="/checkout">
+                  <span className="cartImage">
+                    <Badge
+                      pill
+                      variant="success"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginLeft: "-12px",
+                      }}
+                    >
+                      {props.numberOfCartItems != 0
+                        ? props.numberOfCartItems
+                        : null}
+                    </Badge>
+                  </span>
+                </NavLink>
                 <NavLink
+                  style={{ marginLeft: "20px" }}
                   className="nav-link"
                   to="#"
                   onClick={() => setOpenLogin(true)}
@@ -72,6 +96,7 @@ export const DrawNavbar = (props: NavbarProps) => {
           setShow={setOpenLogin}
           setConnectedUser={props.setConnectedUser}
           show={openLogin}
+          order={props.order}
           setOrder={props.setOrder}
           currentRestaurant={props.currentRestaurant}
         />

@@ -15,7 +15,7 @@ namespace Domain.Domain.SelectClientOp
             try
             {
                 Op.CheckIfValid();
-                return Task.FromResult<ISelectClientResult>(new ClientSelected(new Models.ClientAgg(Op.Client)));
+                return Task.FromResult<ISelectClientResult>(new ClientSelected(Op.Client));
             }
             catch (Exception exp)
             {

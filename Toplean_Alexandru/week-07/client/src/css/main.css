@@ -65,6 +65,15 @@
 }
 
 
+
+.cartImage {
+    background-image: url('../images/3551020411578889023-128.png');
+    background-size: 40px 40px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-block;
+}
+
 .tableBorders {
     border: 1px solid black;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Index } from "../Pages/Index";
 import { Checkout } from "../Pages/Checkout";
@@ -11,30 +11,27 @@ import { PageNotFound } from "../Pages/PageNotFound";
 import { Restaurant } from "../Models/Restaurant";
 import { Client } from "../Models/Client";
 import { Order } from "../Models/Order";
+import { OrderItem } from "../Models/OrderItem";
 
 type MainPageProps = {
-  connectedUser: Client;
+  setCurrentRestaurant: any;
   order?: Order;
+  currentRestaurant?: Restaurant;
+  orderItems: OrderItem[];
+  setOrderItems: any;
 };
 
 export const MainPage = (props: MainPageProps) => {
-  const [checkout, setCheckoutItems] = useState([
-    {
-      name: "",
-      price: 0,
-      quantity: 0,
-      comments: "",
-    },
-  ]);
-  const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant[]>();
-
   return (
     <section>
       <Switch>
         <Route exact path="/" component={Index} />
 
         <Route exact path="/checkout">
-          <Checkout menuItems={checkout} modifyMenuItems={setCheckoutItems} />
+          <Checkout
+            setOrderItems={props.setOrderItems}
+            orderItems={props.orderItems}
+          />
         </Route>
 
         <Route path="/orderHistory">
@@ -45,9 +42,16 @@ export const MainPage = (props: MainPageProps) => {
         </Route>
 
         <Route
+          exact
           path="/restaurant/:RestaurantName"
-          component={({ match }: any) => (
-            <RestaurantVieww match={match} order={props.order} />
+          children={({ match }: any) => (
+            <RestaurantVieww
+              orderItems={props.orderItems}
+              setOrderItems={props.setOrderItems}
+              match={match}
+              order={props.order}
+              setCurrentRestaurant={props.setCurrentRestaurant}
+            />
           )}
         />
 

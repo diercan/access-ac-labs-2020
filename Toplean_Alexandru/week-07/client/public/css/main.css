@@ -59,3 +59,19 @@
     min-height: 24px;
     display: inline-block;
 }
+
+.minMenuSize {
+
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-block;
+
+}
+
+.cartImage {
+    background-image: url('/images/starGlow.png');
+    background-size: 25px 24px;
+    min-width: 25px;
+    min-height: 24px;
+    display: inline-block;
+}

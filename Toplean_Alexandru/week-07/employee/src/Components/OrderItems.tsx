@@ -31,16 +31,17 @@ function CustomAcordionHead({ children, eventKey }: any) {
 }
 
 export const OrderItem = (props: OrderItemProps) => {
+  alert("order");
   return (
     <Container className="topPadding">
       <Row>
         <Col>
           <Accordion defaultActiveKey="0">
             <Card>
-              <CustomAcordionHead eventKey={props.id.toString()}>
+              <CustomAcordionHead eventKey="asd">
                 Table No. {props.tableNumber}
               </CustomAcordionHead>
-              <Accordion.Collapse eventKey={props.id.toString()}>
+              <Accordion.Collapse eventKey="asd">
                 <Card.Body>
                   <table style={{ width: "100%" }}>
                     <thead style={{ marginBottom: "110px" }}>
@@ -53,7 +54,7 @@ export const OrderItem = (props: OrderItemProps) => {
                         <td>Comment</td>
                       </tr>
                     </thead>
-                    <tbody>
+                    {/* <tbody>
                       {props.menuItems.map((menuItem) => (
                         <tr key={`${menuItem.Id}_${menuItem.name}` as string}>
                           <td>{menuItem.name}</td>
@@ -61,7 +62,7 @@ export const OrderItem = (props: OrderItemProps) => {
                           <td>{menuItem.comment}</td>
                         </tr>
                       ))}
-                    </tbody>
+                    </tbody> */}
                   </table>
 
                   <Row className="topPadding">

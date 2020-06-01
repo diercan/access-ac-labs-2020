@@ -9,27 +9,12 @@ import "./css/main.css";
 import { Client } from "./Models/Client";
 import { Order } from "./Models/Order";
 import { Restaurant } from "./Models/Restaurant";
+import { OrderItem } from "./Models/OrderItem";
+import { FirstPage } from "./Pages/FirstPage";
 const root = document.getElementById("root");
 
-const App = () => {
-  const [connectedUser, setConnectedUser] = useState<Client>();
-  const [currentRestaurant, setCurrentRestaurant] = useState<Restaurant>();
-  const [order, setOrder] = useState<Order>();
-
-  return (
-    <React.Fragment>
-      <BrowserRouter>
-        <DrawNavbar
-          connectedUser={connectedUser}
-          setConnectedUser={setConnectedUser}
-          order={order}
-          setOrder={setOrder}
-          currentRestaurant={currentRestaurant}
-        />
-        <MainPage connectedUser={connectedUser as Client} order={order} />
-      </BrowserRouter>
-    </React.Fragment>
-  );
+const MainApp = () => {
+  return <FirstPage />;
 };
 
-ReactDOM.render(<App />, root);
+ReactDOM.render(<MainApp />, root);

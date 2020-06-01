@@ -37,10 +37,10 @@ namespace Domain.Domain.CreateOrderOp
     {
         public CreateOrderCmdInputGen()
         {
-            mappings.Add(CreateOrderCmdInput.ValidInput, () => new CreateOrderCmd(new Order(1, 1, 1, 10, "CREATED", "ACCEPTED")));
-            mappings.Add(CreateOrderCmdInput.InvalidClient, () => new CreateOrderCmd(new Order(-1, 1, 1, 10, "CREATED", "ACCEPTED")));
-            mappings.Add(CreateOrderCmdInput.InvalidAmount, () => new CreateOrderCmd(new Order(0, 1, 1, -10, "CREATED", "ACCEPTED")));
-            mappings.Add(CreateOrderCmdInput.InvalidRestaurant, () => new CreateOrderCmd(new Order(0, -1, 1, -10, "CREATED", "ACCEPTED")));
+            mappings.Add(CreateOrderCmdInput.ValidInput, () => new CreateOrderCmd(new Order(1, 1, 1, 10, "CREATED", "ACCEPTED", false)));
+            mappings.Add(CreateOrderCmdInput.InvalidClient, () => new CreateOrderCmd(new Order(-1, 1, 1, 10, "CREATED", "ACCEPTED", false)));
+            mappings.Add(CreateOrderCmdInput.InvalidAmount, () => new CreateOrderCmd(new Order(0, 1, 1, -10, "CREATED", "ACCEPTED", false)));
+            mappings.Add(CreateOrderCmdInput.InvalidRestaurant, () => new CreateOrderCmd(new Order(0, -1, 1, -10, "CREATED", "ACCEPTED", false)));
         }
     }
 

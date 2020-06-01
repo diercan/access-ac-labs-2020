@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MenuItem } from "../Models/MenuItem";
 import { Card, Row, Col, Accordion, Button, Form } from "react-bootstrap";
 import { RatingStarSystem } from "./RatingSystem";
 import { MenuItemAlergens } from "./MenuItemComponents/Alergens";
 import { MenuItemIngredients } from "./MenuItemComponents/Ingredients";
 import { Order } from "../Models/Order";
+import { OrderItem } from "../Models/OrderItem";
+import { useRefetch } from "./services/useRefetch";
+import { Client } from "../Models/Client";
 
 type MenuItemProps = {
   menuItem: MenuItem;
   order?: Order;
+  orderItems: OrderItem[];
+  setOrderItems: any;
+  connectedUser?: Client;
 };
 
 export const MenuItemComponent = (props: MenuItemProps) => {
   const [qty, setQty] = useState("");
   const [com, setCom] = useState("");
+
+  const addOrUpdateOrderItem = () => {
+    let orderItem = {
+      menuId: props.menuItem.MenuId as number,
+      orderId: props.order?.id as number,
+      menuItemId: props.menuItem.Id as number,
+      quantity: parseInt(qty),
+      comment: com,
+    };
+
+    props.setOrderItems([orderItem, ...props.orderItems]);
+  };
 
   var randomNumber = Math.random() * 1000;
   return (
@@ -93,7 +111,7 @@ export const MenuItemComponent = (props: MenuItemProps) => {
                 <Col md={{ span: 6 }}>
                   <Button
                     style={{ backgroundColor: "#189AD3" }}
-                    onClick={() => {}}
+                    onClick={() => addOrUpdateOrderItem()}
                   >
                     Add to Order
                   </Button>

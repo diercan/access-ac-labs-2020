@@ -52,6 +52,7 @@ using Domain.Domain.UpdateClientOp;
 using static Domain.Domain.UpdateClientOp.UpdateClientResult;
 using static Domain.Domain.UpdateMenuItemOp.UpdateMenuItemResult;
 using Domain.Domain.UpdateMenuItemOp;
+using static Domain.Domain.DeleteMenuItemOp.DeleteMenuItemResult;
 
 namespace Domain.Domain
 {
@@ -154,19 +155,33 @@ namespace Domain.Domain
             let agg = (getResult as MenuItemSelected)?.MenuItemAgg
             select getResult;
 
-        public static IO<ISelectClientResult> GetClient(String name) =>
-            from client in Database.Query<GetClientQuery, Client>(new GetClientQuery(name))
-            from getResult in RestaurantDomain.SelectClient(client)
-            let agg = (getResult as ClientSelected)?.ClientAgg
+        public static IO<ISelectMenuItemResult> GetMenuItemById(int menuItemId) =>
+            from menuItem in Database.Query<GetMenuItemByIdQuery, MenuItem>(new GetMenuItemByIdQuery(menuItemId))
+            from getResult in RestaurantDomain.SelectMenuItem(menuItem)
+            let agg = (getResult as MenuItemSelected)?.MenuItemAgg
             select getResult;
 
-        public static IO<ISelectOrderResult> GetOrder(int orderID) =>
-           from selectOrder in Database.Query<GetOrderQuery, Order>(new GetOrderQuery(orderID))
+        public static IO<ISelectClientResult> GetClient(String name, String password = null) =>
+            from client in Database.Query<GetClientQuery, Client>(new GetClientQuery(name, password))
+            from getResult in RestaurantDomain.SelectClient(client)
+            let agg = (getResult as ClientSelected)?.Client
+            select getResult;
+
+        public static IO<ISelectOrderResult> GetOrder(int restaurantId) =>
+           from selectOrder in Database.Query<GetOrderQuery, Order>(new GetOrderQuery(restaurantId))
            from getOrder in RestaurantDomain.SelectOrder(selectOrder)
            let order = (getOrder as OrderSelected)?.OrderAgg
            select getOrder;
 
         //===========================================Multiple Select Gets =============================================
+
+        public static IO<ICollection<Order>> GetAllOrders(int restaurantId) =>
+           from getAllOrders in Database.Query<GetAllOrdersQuery, ICollection<Order>>(new GetAllOrdersQuery(restaurantId))
+           select getAllOrders;
+
+        public static IO<ICollection<Order>> GetAllClientOrders(int clientId) =>
+            from getAllOrders in Database.Query<GetAllClientOrdersQuery, ICollection<Order>>(new GetAllClientOrdersQuery(clientId))
+            select getAllOrders;
 
         public static IO<ICollection<Menu>> GetAllMenus(int restaurantId) =>
             from getAllMenus in Database.Query<GetAllMenusQuery, ICollection<Menu>>(new GetAllMenusQuery(restaurantId))
@@ -176,13 +191,13 @@ namespace Domain.Domain
             from getAllMenuItems in Database.Query<GetAllMenuItemsQuery, ICollection<MenuItem>>(new GetAllMenuItemsQuery(menuId))
             select getAllMenuItems;
 
-        public static IO<ICollection<Order>> GetAllOrdersItems(int restaurantId) =>
-            from getAllOrders in Database.Query<GetAllOrdersQuery, ICollection<Order>>(new GetAllOrdersQuery(restaurantId))
-            select getAllOrders;
-
         public static IO<ICollection<OrderItems>> GetAllOrderItems(int orderId) =>
             from getAllOrderItems in Database.Query<GetAllOrderItemsQuery, ICollection<OrderItems>>(new GetAllOrderItemsQuery(orderId))
             select getAllOrderItems;
+
+        public static IO<ICollection<MenuItem>> GetAllMenuItemsFromIdList(int[] orderIds) =>
+            from getAllMenuItems in Database.Query<GetMenuItemsFromIdList, ICollection<MenuItem>>(new GetMenuItemsFromIdList(orderIds))
+            select getAllMenuItems;
 
         public static IO<ICollection<Restaurant>> GetAllRestaurants() =>
             from getAllRestaurants in Database.Query<GetAllRestaurantsQuery, ICollection<Restaurant>>(new GetAllRestaurantsQuery())
@@ -200,6 +215,17 @@ namespace Domain.Domain
             let orderToDelete = (deleteOrder as OrderDeleted)?.Order
             from db in Database.DeleteEntity(orderToDelete)
             select deleteOrder;
+
+        public static IO<IDeleteMenuItemResult> DeleteMenuItem(MenuItem menuItem) =>
+            NewIO<DeleteMenuItemOp.DeleteMenuItemCmd, IDeleteMenuItemResult>(new DeleteMenuItemOp.DeleteMenuItemCmd(menuItem));
+
+        public static IO<IDeleteMenuItemResult> DeleteMenuItemFromDB(string menuName, int menuID) =>
+            from getMenuItem in RestaurantDomain.GetMenuItem(menuName, menuID)
+            let menuItem = (getMenuItem as MenuItemSelected)?.MenuItemAgg.MenuItem
+            from deleteMenuItem in DeleteMenuItem(menuItem)
+            let menuItemToDelete = (deleteMenuItem as MenuItemDeleted)?.MenuItem
+            from db in Database.DeleteEntity(menuItemToDelete)
+            select deleteMenuItem;
 
         //============================================= Updates ========================================================
 

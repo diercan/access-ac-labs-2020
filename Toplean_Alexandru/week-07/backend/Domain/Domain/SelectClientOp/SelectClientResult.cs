@@ -1,5 +1,6 @@
 ﻿using CSharp.Choices.Attributes;
 using Domain.Models;
+using Persistence.EfCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,11 +15,11 @@ namespace Domain.Domain.SelectClientOp
 
         public class ClientSelected : ISelectClientResult
         {
-            public ClientAgg ClientAgg { get; }
+            public Client Client { get; }
 
-            public ClientSelected(ClientAgg client)
+            public ClientSelected(Client client)
             {
-                ClientAgg = client;
+                Client = client;
             }
         }
 

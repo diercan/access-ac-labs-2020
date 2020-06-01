@@ -4,12 +4,14 @@ import { NavLink } from "react-router-dom";
 import { getClient, createClient } from "../services/clientApi";
 import { handleError } from "../services/apiUtils";
 import { Restaurant } from "../../Models/Restaurant";
+import { Order } from "../../Models/Order";
 
 type LoginModalProps = {
   show: boolean;
   setShow: any;
   setConnectedUser: any;
   setOrder: any;
+  order?: Order;
   currentRestaurant?: Restaurant;
 };
 
@@ -24,17 +26,21 @@ export const LoginModal = (props: LoginModalProps) => {
       .then((response: any) => {
         if (response.data.reason == null) {
           props.setConnectedUser(response.data.client);
-          props.setOrder({
-            clientId: response.data.client.id,
-            restaurantId: props.currentRestaurant
-              ? props.currentRestaurant.id
-              : 0,
-            tableNumber: 0,
-            totalPrice: 0,
-            status: "Uninitialized",
-            paymentStatus: "Uninitialized",
-            orderItems: [],
-          });
+          if (!props.order) {
+            props.setOrder({
+              clientId: response.data.client.id,
+              restaurantId: props.currentRestaurant
+                ? props.currentRestaurant.id
+                : 0,
+              tableNumber: 0,
+              totalPrice: 0,
+              status: "Uninitialized",
+              paymentStatus: "Uninitialized",
+              orderItems: [],
+            });
+          } else {
+            props.order.clientId = response.data.client.id;
+          }
           handleClose();
         } else setConnectionError(true);
       })

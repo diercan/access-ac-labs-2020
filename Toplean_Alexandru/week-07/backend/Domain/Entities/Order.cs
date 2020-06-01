@@ -14,7 +14,7 @@ namespace Persistence.EfCore
             OrderItems = new HashSet<OrderItems>();
         }
 
-        public Order(int clientID, int restauranID, int tableNumber, double totalPrice, String status, String paymentStatus)
+        public Order(int clientID, int restauranID, int tableNumber, double totalPrice, String status, String paymentStatus, bool completed)
         {
             ClientId = clientID;
             RestaurantId = restauranID;
@@ -23,6 +23,7 @@ namespace Persistence.EfCore
             TotalPrice = totalPrice;
             Status = status;
             PaymentStatus = paymentStatus;
+            Completed = completed;
         }
 
         public int Id { get; set; }
@@ -37,6 +38,7 @@ namespace Persistence.EfCore
 
         public string Status { get; set; }
         public string PaymentStatus { get; set; }
+        public bool Completed { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

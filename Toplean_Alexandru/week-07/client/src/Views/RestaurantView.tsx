@@ -5,15 +5,21 @@ import { Restaurant } from "../Models/Restaurant";
 import "../css/darkMode.css";
 import "../css/main.css";
 import { Menu } from "../Models/Menu";
-import { getMenus } from "../Components/services/clientApi";
+import { getMenus, getRestaurant } from "../Components/services/clientApi";
 import { handleError } from "../Components/services/apiUtils";
 import { MenuItem } from "../Models/MenuItem";
 import { DisplayMenu } from "../Components/DisplayMenu";
 import { Order } from "../Models/Order";
+import { OrderItem } from "../Models/OrderItem";
+import { Client } from "../Models/Client";
 
 type RestaurantProps = {
   match: any;
   order?: Order;
+  orderItems: OrderItem[];
+  setOrderItems: any;
+  setCurrentRestaurant: any;
+  connectedUser?: Client;
 };
 
 export const RestaurantVieww = (props: RestaurantProps) => {
@@ -23,17 +29,17 @@ export const RestaurantVieww = (props: RestaurantProps) => {
   const [menuItems, getMenuItems] = useState<MenuItem[]>();
 
   useEffect(() => {
-    if (selectedMenu) {
-      console.log(selectedMenu);
-    }
-  }, [selectedMenu]);
+    getRestaurant(props.match.params.RestaurantName)
+      .then((response) => props.setCurrentRestaurant(response.data.Name))
+      .catch((error) => {
+        alert("getRestaurantError");
+        console.log(handleError(error));
+      });
 
-  useEffect(() => {
     getMenus(props.match.params.RestaurantName)
       .then((response) => {
         if (response) setMenus(response.data);
         setMenusGot(true);
-        console.log(response.data);
       })
       .catch((error) => {
         alert("getMenus Error");
@@ -75,11 +81,19 @@ export const RestaurantVieww = (props: RestaurantProps) => {
           <DisplayMenu
             menuItems={selectedMenu.MenuItem as MenuItem[]}
             order={props.order}
+            orderItems={props.orderItems}
+            //setNumberOfOrderItems={props.setNumberOfOrderItems}
+            setOrderItems={props.setOrderItems}
+            //numberOfOrderItems={props.numberOfOrderItems}
           />
         ) : (
           <DisplayMenu
             menuItems={(menus[0] as Menu).MenuItem}
             order={props.order}
+            orderItems={props.orderItems}
+            //setNumberOfOrderItems={props.setNumberOfOrderItems}
+            setOrderItems={props.setOrderItems}
+            //numberOfOrderItems={props.numberOfOrderItems}
           />
         )}
       </div>

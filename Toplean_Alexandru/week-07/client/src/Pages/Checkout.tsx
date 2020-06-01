@@ -1,37 +1,99 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/main.css";
 import { MenuItem } from "../Models/MenuItem";
 import { Form, Button } from "react-bootstrap";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { OrderItem } from "../Models/OrderItem";
+import {
+  getMenuItemById,
+  getMenuItemsById,
+} from "../Components/services/clientApi";
+import { handleError } from "../Components/services/apiUtils";
+import { useRefetch } from "../Components/services/useRefetch";
+
+type DisplayItem = {
+  name: string;
+  quantity: number;
+  comment?: string;
+  price: number;
+};
 
 type CheckoutProps = {
-  menuItems: {
-    name: string;
-    comments?: string;
-    quantity?: number;
-    price: number;
-  }[];
-  modifyMenuItems: any;
+  orderItems: OrderItem[];
+
+  setOrderItems: any;
 };
 
 export const Checkout = (props: CheckoutProps) => {
-  const deleteItem = (e: any) => {
-    e.preventDefault();
-    props.modifyMenuItems(
-      props.menuItems.filter((menuItem) => menuItem.name != valueToDelete)
-    );
-  };
+  //const [checkoutItems, setCheckoutItems] = useState<DisplayItem[]>([]);
+  var checkoutItems: any = [];
+  const [menuItems, setMenuItems] = useState<any[]>([]);
+  const [refetch, setRefetch] = useRefetch();
+  const [currentCheckout, setCurrentCheckout] = useState<any[]>();
+  const [valueToDelete, setValueToDelete] = useState<string>();
+
+  useEffect(() => {
+    if (props.orderItems.length > 0) {
+      const outstr = props.orderItems.map((item) => item.menuItemId).join(";");
+      getMenuItemsById(outstr)
+        .then((response) => {
+          setMenuItems(response.data);
+        })
+        .catch((error) => {
+          alert("getMenuItemsById error");
+          console.log(handleError(error));
+        });
+    }
+  }, [props.orderItems]);
+
+  useEffect(() => {
+    if (menuItems.length > 0) {
+      for (var order of props.orderItems) {
+        checkoutItems.push({
+          name: menuItems.filter(
+            (menuItem) => menuItem.id == order.menuItemId
+          )[0].name,
+          quantity: order.quantity,
+          price: menuItems.filter(
+            (menuItem) => menuItem.id == order.menuItemId
+          )[0].price,
+          comment: order.comment,
+        });
+      }
+    }
+    console.log(checkoutItems);
+    setCurrentCheckout(checkoutItems);
+  }, [menuItems, refetch]);
+
+  useEffect(() => {
+    // left here. TODO: Correctly remove an order item
+    if (valueToDelete) {
+      let itemToDelete = menuItems.filter(
+        (item) => item.name == valueToDelete
+      )[0];
+      if (menuItems) {
+        setCurrentCheckout(
+          menuItems.filter((items) => items.id != itemToDelete.id)
+        );
+        console.log(menuItems.filter((items) => items.id != itemToDelete.id));
+        setRefetch();
+      }
+    }
+  }, [valueToDelete]);
+
+  const submitCart = () => {};
 
   const PlaceOrder = (e: any) => {
     e.preventDefault();
   };
 
-  const [valueToDelete, setValueToDelete] = useState("");
   var counter = 0;
   var totalPrice = 0;
-  return (
+
+  return currentCheckout ? (
     <React.Fragment>
+      {console.log(currentCheckout)}
       <Container>
         <Row>
           <Col>
@@ -51,8 +113,7 @@ export const Checkout = (props: CheckoutProps) => {
               <h2> Checkout Items</h2>
             </Card.Header>
             <Card.Body>
-              {props.menuItems.length == 1 &&
-              props.menuItems[0].name.length == 0 ? (
+              {currentCheckout.length == 0 ? (
                 <h3 className="centerAlign">
                   <br />
                   -No menu items currently selected-
@@ -63,38 +124,34 @@ export const Checkout = (props: CheckoutProps) => {
                     <tr className="bottomBorder">
                       <td>Menu Item</td>
                       <td>Quantity</td>
-                      <td>Comments</td>
                       <td>Price</td>
+
+                      <td>Comments</td>
                       <td>Options</td>
                     </tr>
                   </thead>
                   <tbody>
-                    {props.menuItems
-                      .filter((item) => item.name.length > 0)
-                      .map((item) => (
-                        <tr
-                          key={item.name}
-                          style={{
-                            backgroundColor:
-                              counter++ % 2 == 1 ? "lightblue" : "white",
-                          }}
-                        >
-                          <td>{item.name}</td>
-                          <td>{item.quantity}</td>
-                          <td>{item.comments}</td>
-                          <td>{item.price} Lei</td>
-                          <td>
-                            <Form onSubmit={deleteItem}>
-                              <button
-                                type="submit"
-                                onClick={() => setValueToDelete(item.name)}
-                              >
-                                Remove Item?
-                              </button>
-                            </Form>
-                          </td>
-                        </tr>
-                      ))}
+                    {currentCheckout.map((item: any) => (
+                      <tr
+                        key={item.name}
+                        style={{
+                          backgroundColor:
+                            counter++ % 2 == 1 ? "lightblue" : "white",
+                        }}
+                      >
+                        <td>{item.name}</td>
+                        <td>{item.quantity}</td>
+                        <td>{item.price}</td>
+                        <td>{item.comment} Lei</td>
+                        <td>
+                          <Form>
+                            <button onClick={() => setValueToDelete(item.name)}>
+                              Remove Item?
+                            </button>
+                          </Form>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               )}
@@ -133,7 +190,10 @@ export const Checkout = (props: CheckoutProps) => {
                     label="Agree to terms and conditions"
                   />
                 </Form.Group>
-                <Button type="submit" style={{ backgroundColor: "#189AD3" }}>
+                <Button
+                  onClick={submitCart}
+                  style={{ backgroundColor: "#189AD3" }}
+                >
                   Place Order
                 </Button>
               </Form>
@@ -142,5 +202,7 @@ export const Checkout = (props: CheckoutProps) => {
         </Col>
       </Row>
     </React.Fragment>
+  ) : (
+    <p>Loading {checkoutItems.length}</p>
   );
 };
