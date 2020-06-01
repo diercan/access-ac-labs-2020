@@ -21,7 +21,7 @@ export const RestaurantSelectorComponent = (props: RestaurantSelectorProps) => {
   return (
     <Col lg={3} md={4} sm={6} className="mt-3 p-3">
       <Link to={props.slug}>
-        <Image src={props.image} alt={props.name} />
+        <Image src={props.image} alt = {props.name}/>
       </Link>
     </Col>
   );

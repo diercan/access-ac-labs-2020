@@ -10,6 +10,7 @@ type RestaurantSelectorProps = {
 export const RestaurantSelectorListComponent = (
   props: RestaurantSelectorProps
 ) => {
+  const test = "/logo192.png";
   return (
     <Container className="m-5 mx-auto">
       <h1 className="text-center m-5" id="link">
