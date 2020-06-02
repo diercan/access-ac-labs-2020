@@ -18,6 +18,14 @@ export const getMenu = (restaurant: string, menu: string) => {
   return axiosClient.get(`employee/restaurant/${restaurant}/${menu}`);
 };
 
+export const getMenuItemById = (id: number) => {
+  return axiosClient.get(`client/getmenuitembyid/${id}`);
+};
+
+export const getMenuItemsById = (ids: string) => {
+  return axiosClient.get(`/client/GetAllMenuItemsByListId/${ids}`);
+};
+
 export const getMenuItems = (restaurant: string, menu: string) => {
   return axiosClient.get(
     `employee/restaurant/${restaurant}/${menu}/allmenuitems`
@@ -25,7 +33,7 @@ export const getMenuItems = (restaurant: string, menu: string) => {
 };
 
 export const getOrders = (restaurant: string) => {
-  return axiosClient.get(`employee/orders/${restaurant}/all`);
+  return axiosClient.get(`employee/orders/${restaurant}/AllPopulated`);
 };
 
 export const updateMenuItem = (menuItem: MenuItem) => {

@@ -8,9 +8,14 @@ import { OrderItem } from "../Models/OrderItem";
 import {
   getMenuItemById,
   getMenuItemsById,
+  getRestaurants,
+  createOrder,
+  createOrderItem,
 } from "../Components/services/clientApi";
 import { handleError } from "../Components/services/apiUtils";
 import { useRefetch } from "../Components/services/useRefetch";
+import { Client } from "../Models/Client";
+import { Order } from "../Models/Order";
 
 type DisplayItem = {
   name: string;
@@ -21,8 +26,9 @@ type DisplayItem = {
 
 type CheckoutProps = {
   orderItems: OrderItem[];
-
   setOrderItems: any;
+  connectedUser?: Client;
+  order?: Order;
 };
 
 export const Checkout = (props: CheckoutProps) => {
@@ -32,7 +38,7 @@ export const Checkout = (props: CheckoutProps) => {
   const [refetch, setRefetch] = useRefetch();
   const [currentCheckout, setCurrentCheckout] = useState<any[]>();
   const [valueToDelete, setValueToDelete] = useState<string>();
-
+  const [tableNumber, setTableNumber] = useState<number>(0);
   useEffect(() => {
     if (props.orderItems.length > 0) {
       const outstr = props.orderItems.map((item) => item.menuItemId).join(";");
@@ -62,7 +68,6 @@ export const Checkout = (props: CheckoutProps) => {
         });
       }
     }
-    console.log(checkoutItems);
     setCurrentCheckout(checkoutItems);
   }, [menuItems, refetch]);
 
@@ -72,20 +77,61 @@ export const Checkout = (props: CheckoutProps) => {
       let itemToDelete = menuItems.filter(
         (item) => item.name == valueToDelete
       )[0];
-      if (menuItems) {
-        setCurrentCheckout(
-          menuItems.filter((items) => items.id != itemToDelete.id)
-        );
-        console.log(menuItems.filter((items) => items.id != itemToDelete.id));
-        setRefetch();
-      }
+
+      props.setOrderItems(
+        props.orderItems.filter(
+          (orderItem) => orderItem.menuItemId != itemToDelete.id
+        )
+      );
+
+      console.log(
+        props.orderItems.filter(
+          (orderItem) => orderItem.menuItemId != itemToDelete.id
+        )
+      );
+      setRefetch();
     }
   }, [valueToDelete]);
 
-  const submitCart = () => {};
+  const submitCart = () => {
+    if (props.connectedUser) {
+      if (props.order) {
+        if (tableNumber) {
+          let order = props.order;
+          order.tableNumber = tableNumber;
+          order.restaurantId = 1;
+          order.status = "Submitted";
 
-  const PlaceOrder = (e: any) => {
-    e.preventDefault();
+          createOrder(order)
+            .then((response) => {
+              console.log(response.data);
+              props.orderItems.forEach((orderItem) => {
+                createOrderItem({
+                  menuId: orderItem.menuId,
+                  orderId: response.data.orderId,
+                  menuItemId: orderItem.menuItemId,
+                  quantity: orderItem.quantity,
+                  comment: orderItem.comment,
+                })
+                  .then((itemResponse) => {
+                    console.log("success");
+                    console.log(itemResponse.data);
+                  })
+                  .catch((error) => {
+                    alert("createOrderItemError");
+                    console.log(handleError(error));
+                  });
+              });
+            })
+            .catch((error) => {
+              alert("CreateOrderError");
+              console.log(handleError(error));
+            });
+        }
+      } else alert("Something went wrong");
+    } else {
+      alert("You must be logged in to submit a cart");
+    }
   };
 
   var counter = 0;
@@ -93,7 +139,6 @@ export const Checkout = (props: CheckoutProps) => {
 
   return currentCheckout ? (
     <React.Fragment>
-      {console.log(currentCheckout)}
       <Container>
         <Row>
           <Col>
@@ -141,8 +186,8 @@ export const Checkout = (props: CheckoutProps) => {
                       >
                         <td>{item.name}</td>
                         <td>{item.quantity}</td>
-                        <td>{item.price}</td>
-                        <td>{item.comment} Lei</td>
+                        <td>{item.price} Lei</td>
+                        <td>{item.comment}</td>
                         <td>
                           <Form>
                             <button onClick={() => setValueToDelete(item.name)}>
@@ -155,7 +200,6 @@ export const Checkout = (props: CheckoutProps) => {
                   </tbody>
                 </table>
               )}
-
               <Row className="topPadding">
                 <Col md={{ span: 3, offset: 8 }}></Col>
               </Row>
@@ -168,21 +212,21 @@ export const Checkout = (props: CheckoutProps) => {
               <h2>Please add your credentials to confirm checkout</h2>
             </Card.Header>
             <Card.Body>
-              <Form onSubmit={PlaceOrder}>
+              <Form>
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridEmail">
-                    <Form.Label>First Name</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <Form.Control type="text" placeholder="John" />
-                  </Form.Group>
-
-                  <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text" placeholder="Doe" />
                   </Form.Group>
                 </Form.Row>
                 <Form.Group controlId="formGridAddress1">
                   <Form.Label>Table Number</Form.Label>
-                  <Form.Control placeholder="1" />
+                  <Form.Control
+                    placeholder="1"
+                    onChange={(e: any) =>
+                      setTableNumber(parseInt(e.target.value))
+                    }
+                  />
                 </Form.Group>
                 <Form.Group id="formGridCheckbox">
                   <Form.Check

@@ -53,31 +53,38 @@ export const DrawNavbar = (props: NavbarProps) => {
                 Reviews
               </NavLink>
             </Nav>
-            {props.connectedUser ? (
-              userIsConnected ? (
-                <p>{props.connectedUser.username}</p>
+
+            <Nav>
+              <NavLink to="/checkout">
+                <span className="cartImage">
+                  <Badge
+                    pill
+                    variant="success"
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      marginLeft: "-12px",
+                    }}
+                  >
+                    {props.numberOfCartItems != 0
+                      ? props.numberOfCartItems
+                      : null}
+                  </Badge>
+                </span>
+              </NavLink>
+              {props.connectedUser ? (
+                userIsConnected ? (
+                  <NavLink
+                    className="nav-link"
+                    to="#"
+                    style={{ marginLeft: "20px" }}
+                  >
+                    {props.connectedUser.username}
+                  </NavLink>
+                ) : (
+                  <p>no</p>
+                )
               ) : (
-                <p>no</p>
-              )
-            ) : (
-              <Nav>
-                <NavLink to="/checkout">
-                  <span className="cartImage">
-                    <Badge
-                      pill
-                      variant="success"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        marginLeft: "-12px",
-                      }}
-                    >
-                      {props.numberOfCartItems != 0
-                        ? props.numberOfCartItems
-                        : null}
-                    </Badge>
-                  </span>
-                </NavLink>
                 <NavLink
                   style={{ marginLeft: "20px" }}
                   className="nav-link"
@@ -86,8 +93,8 @@ export const DrawNavbar = (props: NavbarProps) => {
                 >
                   Login
                 </NavLink>
-              </Nav>
-            )}
+              )}
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
       </header>

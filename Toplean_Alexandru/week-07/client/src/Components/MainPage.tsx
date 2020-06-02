@@ -19,6 +19,7 @@ type MainPageProps = {
   currentRestaurant?: Restaurant;
   orderItems: OrderItem[];
   setOrderItems: any;
+  connectedUser?: Client;
 };
 
 export const MainPage = (props: MainPageProps) => {
@@ -31,6 +32,8 @@ export const MainPage = (props: MainPageProps) => {
           <Checkout
             setOrderItems={props.setOrderItems}
             orderItems={props.orderItems}
+            connectedUser={props.connectedUser}
+            order={props.order}
           />
         </Route>
 

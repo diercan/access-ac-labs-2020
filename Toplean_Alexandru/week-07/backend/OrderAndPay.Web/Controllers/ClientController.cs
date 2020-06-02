@@ -20,6 +20,7 @@ using static Domain.Domain.PopulateRestaurantOp.PopulateRestaurantResult;
 using Persistence;
 using static Domain.Domain.CreateOrderOp.CreateOrderResult;
 using Domain.Domain.CreateOrderOp;
+using static Domain.Domain.CreateOrderItemOp.CreateOrderItemResult;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -275,6 +276,28 @@ namespace OrderAndPay.Web.Controllers
                    return BadRequest();
                }
                ,
+               async notCreated =>
+               {
+                   return BadRequest();
+               }
+                );
+        }
+
+        [HttpPost("CreateOrderItem")]
+        public async Task<IActionResult> CreateOrderItem(OrderItems orderItem)
+        {
+            var expr = from createOrder in RestaurantDomain.CreateAndPersistOrderItem(orderItem)
+                       let orderE = (createOrder as OrderItemCreated)?.OrderItemAgg.OrderItem
+                       select createOrder;
+
+            var result = await interpreter.Interpret(expr, Unit.Default);
+
+            return await result.MatchAsync<IActionResult>(
+               async created =>
+               {
+                   return (IActionResult)Ok(created.OrderItemAgg.OrderItem);
+               },
+
                async notCreated =>
                {
                    return BadRequest();

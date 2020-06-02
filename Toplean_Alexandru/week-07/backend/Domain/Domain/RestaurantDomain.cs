@@ -53,6 +53,7 @@ using static Domain.Domain.UpdateClientOp.UpdateClientResult;
 using static Domain.Domain.UpdateMenuItemOp.UpdateMenuItemResult;
 using Domain.Domain.UpdateMenuItemOp;
 using static Domain.Domain.DeleteMenuItemOp.DeleteMenuItemResult;
+using static Domain.Domain.PopulateOrderOp.PopulateOrderResult;
 
 namespace Domain.Domain
 {
@@ -286,6 +287,9 @@ namespace Domain.Domain
 
         public static IO<IPopulateRestaurantResult> PopulateRestaurant(RestaurantAgg restaurantAgg, Func<int, IO<ICollection<Menu>>> getAllMenus, Func<int, IO<ICollection<MenuItem>>> getAllMenuItems, LiveInterpreterAsync interpreter) =>
             NewIO<PopulateRestaurantOp.PopulateRestaurantCmd, IPopulateRestaurantResult>(new PopulateRestaurantOp.PopulateRestaurantCmd(restaurantAgg, getAllMenus, getAllMenuItems, interpreter));
+
+        public static IO<IPopulateOrderResult> PopulateOrder(Restaurant restaurant, ICollection<Order> orders, Func<int, IO<ICollection<Order>>> getAllOrders, Func<int, IO<ICollection<OrderItems>>> getAllOrderItems, LiveInterpreterAsync interpreter) =>
+                    NewIO<PopulateOrderOp.PopulateOrderCmd, IPopulateOrderResult>(new PopulateOrderOp.PopulateOrderCmd(restaurant, orders, getAllOrders, getAllOrderItems, interpreter));
 
         [Obsolete("Please use the IO<> PopulateRestaurant Function! This class is deprecated")]
         public static async Task PopulateRestaurantModel(RestaurantAgg restaurantAgg, Func<int, IO<ICollection<Menu>>> getAllMenus, Func<int, IO<ICollection<MenuItem>>> getAllMenuItems, LiveInterpreterAsync interpreter)

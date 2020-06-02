@@ -7,6 +7,6 @@ export type Order = {
   totalProce: number;
   status: string;
   paymentStatus: string;
-  Completed: boolean;
+  completed: boolean;
   orderItems: OrderItem[];
 };

@@ -189,6 +189,17 @@ namespace OrderAndPay.Web.Controllers
             return (IActionResult)Ok(await interpreter.Interpret(expr, Unit.Default));
         }
 
+        [HttpGet("orders/{restaurantName}/AllPopulated")]
+        public async Task<IActionResult> GetAllOrdersPopulated(String restaurantName)
+        {
+            var expr = from selectRestaurant in RestaurantDomain.GetRestaurant(restaurantName)
+                       let restaurant = (selectRestaurant as RestaurantSelected)?.RestaurantAgg.Restaurant
+                       from getAllOrdersPopulated in RestaurantDomain.PopulateOrder(restaurant, null, RestaurantDomain.GetAllOrders, RestaurantDomain.GetAllOrderItems, interpreter)
+                       select getAllOrdersPopulated;
+
+            return (IActionResult)Ok(await interpreter.Interpret(expr, Unit.Default));
+        }
+
         [HttpPost("CreateRestaurant")]
         public async Task<IActionResult> CreateRestaurant([Bind("Name")]Restaurant entity)
         {

@@ -33,6 +33,7 @@ export const FirstPage = () => {
         />
         <MainPage
           order={order}
+          connectedUser={connectedUser}
           currentRestaurant={currentRestaurant}
           setCurrentRestaurant={setCurrentRestaurant}
           orderItems={orderItems}

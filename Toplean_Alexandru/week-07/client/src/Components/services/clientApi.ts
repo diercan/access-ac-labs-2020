@@ -2,6 +2,7 @@ import { Restaurant } from "./../../Models/Restaurant";
 import { axiosClient } from "./axiosClient";
 import { handleError } from "./apiUtils";
 import { Order } from "../../Models/Order";
+import { OrderItem } from "../../Models/OrderItem";
 
 /* export const getMenus = () => {
   return axiosClient.get("employee/restaurants/1/menus").catch(handleError);
@@ -39,6 +40,10 @@ export const getMenuItemsById = (ids: string) => {
 
 export const createOrder = (order: Order) => {
   return axiosClient.post(`client/Createorder`, order);
+};
+
+export const createOrderItem = (orderItem: OrderItem) => {
+  return axiosClient.post(`client/CreateOrderItem`, orderItem);
 };
 
 export const createClient = (

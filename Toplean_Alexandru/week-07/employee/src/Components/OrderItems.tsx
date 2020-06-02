@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   Card,
@@ -8,11 +8,18 @@ import {
   useAccordionToggle,
   Form,
 } from "react-bootstrap";
+import {
+  getMenuItemById,
+  getMenuItems,
+  getMenuItemsById,
+} from "./services/employeeApi";
+import { handleError } from "./services/apiUtils";
+import { MenuItem } from "../Models/MenuItem";
 
 type OrderItemProps = {
   id: number;
   tableNumber: number;
-  menuItems: any[];
+  orderItems: any[];
   completed: boolean;
 };
 
@@ -31,8 +38,19 @@ function CustomAcordionHead({ children, eventKey }: any) {
 }
 
 export const OrderItem = (props: OrderItemProps) => {
-  alert("order");
-  return (
+  const idStr = props.orderItems.map((item) => item.menuItemId).join(";");
+
+  const [menuItems, setMenuItems] = useState<MenuItem[]>();
+
+  useEffect(() => {
+    getMenuItemsById(idStr)
+      .then((response) => setMenuItems(response.data))
+      .catch((error) => {
+        alert("GetMenuItemsById Error");
+        console.log(handleError(error));
+      });
+  });
+  return menuItems ? (
     <Container className="topPadding">
       <Row>
         <Col>
@@ -54,15 +72,25 @@ export const OrderItem = (props: OrderItemProps) => {
                         <td>Comment</td>
                       </tr>
                     </thead>
-                    {/* <tbody>
-                      {props.menuItems.map((menuItem) => (
-                        <tr key={`${menuItem.Id}_${menuItem.name}` as string}>
-                          <td>{menuItem.name}</td>
-                          <td>x{menuItem.quantity}</td>
-                          <td>{menuItem.comment}</td>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                      </tr>
+                      {props.orderItems.map((orderItem) => (
+                        <tr key={`${orderItem.Id}_${orderItem.name}` as string}>
+                          <td>
+                            {
+                              menuItems.filter(
+                                (menuItem) =>
+                                  menuItem.id === orderItem.menuItemId
+                              )[0].name
+                            }
+                          </td>
+                          <td>x{orderItem.quantity}</td>
+                          <td>{orderItem.comment}</td>
                         </tr>
                       ))}
-                    </tbody> */}
+                    </tbody>
                   </table>
 
                   <Row className="topPadding">
@@ -71,7 +99,7 @@ export const OrderItem = (props: OrderItemProps) => {
                         <Form.Group controlId="formBasicCheckbox">
                           <Form.Check
                             type="checkbox"
-                            label="Mark as complete"
+                            label="Mark as complete!"
                           />
                         </Form.Group>
                       </Form>
@@ -84,5 +112,7 @@ export const OrderItem = (props: OrderItemProps) => {
         </Col>
       </Row>
     </Container>
+  ) : (
+    <p>Loading</p>
   );
 };
