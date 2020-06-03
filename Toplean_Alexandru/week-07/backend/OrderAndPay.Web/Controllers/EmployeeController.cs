@@ -32,6 +32,7 @@ using static Domain.Domain.UpdateClientOp.UpdateClientResult;
 using static Domain.Domain.UpdateEntityOp.UpdateEntityResult;
 using static Domain.Domain.UpdateMenuItemOp.UpdateMenuItemResult;
 using static Domain.Domain.UpdateMenuOp.UpdateMenuResult;
+using static Domain.Domain.UpdateOrderOp.UpdateOrderResult;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -369,6 +370,27 @@ namespace OrderAndPay.Web.Controllers
                 async updated =>
                 {
                     return (IActionResult)Ok(updated.MenuItem);
+                },
+                async notUpdated =>
+                {
+                    return BadRequest();
+                }
+                );
+        }
+
+        [HttpPost("UpdateOrder")]
+        public async Task<IActionResult> UpdateOrder(Order order)
+        {
+            var expr = from updateOrder in RestaurantDomain.UpdateAndPersistOrder(order)
+                       let item = (updateOrder as OrderUpdated)?.Order
+                       select updateOrder;
+
+            var result = await interpreter.Interpret(expr, Unit.Default);
+
+            return await result.MatchAsync<IActionResult>(
+                async updated =>
+                {
+                    return (IActionResult)Ok(updated.Order);
                 },
                 async notUpdated =>
                 {

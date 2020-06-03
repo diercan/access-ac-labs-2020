@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Domain.Domain.UpdateOrderOp
 {
-    public class UpdateOrderCmd
+    public struct UpdateOrderCmd
     {
         public Order Order { get; }
 

@@ -246,7 +246,7 @@ namespace Domain.Domain
 
         public static IO<IUpdateOrderResult> UpdateAndPersistOrder(Order order) =>
             from updateOrder in UpdateOrder(order)
-            from db in Database.AddOrUpdateEntity(order)
+            from db in Database.UpdateEntity(order)
             select updateOrder;
 
         public static IO<IUpdateMenuResult> UpdateAndPersistMenu(Menu menu) =>

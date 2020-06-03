@@ -15,7 +15,7 @@ namespace Domain.Domain.UpdateOrderOp
 
         public class OrderUpdated : IUpdateOrderResult
         {
-            private Order Order { get; }
+            public Order Order { get; }
 
             public OrderUpdated(Order order)
             {

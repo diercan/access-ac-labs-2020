@@ -8,13 +8,13 @@ using static Domain.Domain.UpdateOrderOp.UpdateOrderResult;
 
 namespace Domain.Domain.UpdateOrderOp
 {
-    internal class UpdateOrderOp : OpInterpreter<UpdateOrderOp, IUpdateOrderResult, Unit>
+    public class UpdateOrderOp : OpInterpreter<UpdateOrderCmd, IUpdateOrderResult, Unit>
     {
-        public override Task<IUpdateOrderResult> Work(UpdateOrderOp Op, Unit state)
+        public override Task<IUpdateOrderResult> Work(UpdateOrderCmd Op, Unit state)
         {
             try
             {
-                return Task.FromResult<IUpdateOrderResult>(new OrderUpdated(null));
+                return Task.FromResult<IUpdateOrderResult>(new OrderUpdated(Op.Order));
             }
             catch (Exception exp)
             {

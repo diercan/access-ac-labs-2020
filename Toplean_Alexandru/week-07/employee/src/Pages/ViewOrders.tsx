@@ -6,6 +6,7 @@ import { Order } from "../Models/Order";
 import { getOrders } from "../Components/services/employeeApi";
 import { handleError } from "../Components/services/apiUtils";
 import { ContentLoading } from "../Components/ContentLoadingComponent";
+import { useRefetch } from "../Components/services/useRefetch";
 
 type ViewOrdersProps = {
   employeeIsConnected: boolean;
@@ -14,6 +15,7 @@ type ViewOrdersProps = {
 
 export const ViewOrders = (props: ViewOrdersProps) => {
   const [orders, setOrders] = useState<Order[]>();
+  const [refetch, setRefetch] = useRefetch();
   useEffect(() => {
     getOrders(props.restaurant)
       .then((response) => {
@@ -24,7 +26,7 @@ export const ViewOrders = (props: ViewOrdersProps) => {
         alert("getOrdersError");
         console.log(handleError(error));
       });
-  }, []);
+  }, [refetch]);
   if (props.employeeIsConnected === false) {
     alert("You must be logged in to view orders");
     return <Redirect to="/"></Redirect>;
@@ -57,8 +59,10 @@ export const ViewOrders = (props: ViewOrdersProps) => {
                   )
                   .map((order: any) => (
                     <OrderItem
+                      setRefetch={setRefetch}
                       key={order.id as string}
                       id={order.id}
+                      order={order as Order}
                       tableNumber={order.tableNumber}
                       orderItems={order.orderItems}
                       completed={order.completed}
@@ -92,6 +96,8 @@ export const ViewOrders = (props: ViewOrdersProps) => {
                   <OrderItem
                     key={order.id as string}
                     id={order.id}
+                    order={order as Order}
+                    setRefetch={setRefetch}
                     tableNumber={order.tableNumber}
                     orderItems={order.orderItems}
                     completed={order.completed}

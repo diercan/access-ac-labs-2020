@@ -1,6 +1,7 @@
 import { MenuItem } from "./../../Models/MenuItem";
 import { axiosClient } from "./axiosClient";
 import { handleError } from "./apiUtils";
+import { Order } from "../../Models/Order";
 
 /* export const getMenus = () => {
   return axiosClient.get("employee/restaurants/1/menus").catch(handleError);
@@ -50,6 +51,10 @@ export const createRestaurant = (
     image: rImage,
     stars: rStars,
   });
+};
+
+export const updateOrder = (order: Order) => {
+  return axiosClient.post(`employee/UpdateOrder`, order);
 };
 
 export const createMenuItem = (

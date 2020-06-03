@@ -11,6 +11,7 @@ import { CreateMenuItem } from "../Pages/CreateMenuItem";
 import { ViewOrders } from "../Pages/ViewOrders";
 import { Login } from "./Login";
 import { ControlPanel } from "../Pages/ControlPanel";
+import { PageNotFound } from "../Pages/InexistentPage";
 
 export const MainPage = () => {
   const [employeeIsConnected, setEmployeeConnection] = useState(true);
@@ -63,6 +64,8 @@ export const MainPage = () => {
             setEmployeeConnection={setEmployeeConnection}
           />
         </Route>
+
+        <Route component={PageNotFound} />
       </Switch>
     </React.Fragment>
   );

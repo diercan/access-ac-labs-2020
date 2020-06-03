@@ -175,8 +175,7 @@ namespace Persistence.EfCore.Context
             modelBuilder.Entity<OrderItems>(entity =>
             {
                 entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.Comment).HasMaxLength(256);
 

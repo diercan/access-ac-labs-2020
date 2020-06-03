@@ -16,6 +16,7 @@ import { handleError } from "../Components/services/apiUtils";
 import { useRefetch } from "../Components/services/useRefetch";
 import { Client } from "../Models/Client";
 import { Order } from "../Models/Order";
+import { FeedbackToast } from "../Components/FeedbackToast";
 
 type DisplayItem = {
   name: string;
@@ -33,12 +34,16 @@ type CheckoutProps = {
 
 export const Checkout = (props: CheckoutProps) => {
   //const [checkoutItems, setCheckoutItems] = useState<DisplayItem[]>([]);
+  var orderFailed = false;
   var checkoutItems: any = [];
   const [menuItems, setMenuItems] = useState<any[]>([]);
   const [refetch, setRefetch] = useRefetch();
   const [currentCheckout, setCurrentCheckout] = useState<any[]>();
   const [valueToDelete, setValueToDelete] = useState<string>();
   const [tableNumber, setTableNumber] = useState<number>(0);
+  const [orderSuccessful, setOrderSuccessful] = useState<boolean>(false); //   true- Order Succeeded  false - Order Failed
+  const [toastShow, setToastShow] = useState(false);
+
   useEffect(() => {
     if (props.orderItems.length > 0) {
       const outstr = props.orderItems.map((item) => item.menuItemId).join(";");
@@ -98,6 +103,7 @@ export const Checkout = (props: CheckoutProps) => {
       if (props.order) {
         if (tableNumber) {
           let order = props.order;
+          console.log(order);
           order.tableNumber = tableNumber;
           order.restaurantId = 1;
           order.status = "Submitted";
@@ -106,13 +112,15 @@ export const Checkout = (props: CheckoutProps) => {
             .then((response) => {
               console.log(response.data);
               props.orderItems.forEach((orderItem) => {
-                createOrderItem({
+                let orderItemToSubmit = {
                   menuId: orderItem.menuId,
-                  orderId: response.data.orderId,
+                  orderId: response.data.id,
                   menuItemId: orderItem.menuItemId,
                   quantity: orderItem.quantity,
                   comment: orderItem.comment,
-                })
+                };
+                console.log(orderItemToSubmit);
+                createOrderItem(orderItemToSubmit)
                   .then((itemResponse) => {
                     console.log("success");
                     console.log(itemResponse.data);
@@ -120,6 +128,13 @@ export const Checkout = (props: CheckoutProps) => {
                   .catch((error) => {
                     alert("createOrderItemError");
                     console.log(handleError(error));
+                    orderFailed = true;
+                  })
+                  .finally(() => {
+                    orderFailed
+                      ? setOrderSuccessful(false)
+                      : setOrderSuccessful(true);
+                    setToastShow(true);
                   });
               });
             })
@@ -245,6 +260,26 @@ export const Checkout = (props: CheckoutProps) => {
           </Card>
         </Col>
       </Row>
+
+      {orderSuccessful ? (
+        <FeedbackToast
+          success={true}
+          message="Order was successfully placed"
+          title="Order status"
+          timeStamp="now"
+          show={toastShow}
+          setShow={setToastShow}
+        />
+      ) : (
+        <FeedbackToast
+          success={false}
+          message="Could not place the order"
+          title="Order status"
+          timeStamp="now"
+          show={toastShow}
+          setShow={setToastShow}
+        />
+      )}
     </React.Fragment>
   ) : (
     <p>Loading {checkoutItems.length}</p>

@@ -7,20 +7,20 @@ import {
   Col,
   useAccordionToggle,
   Form,
+  Button,
 } from "react-bootstrap";
-import {
-  getMenuItemById,
-  getMenuItems,
-  getMenuItemsById,
-} from "./services/employeeApi";
+import { getMenuItemsById, updateOrder } from "./services/employeeApi";
 import { handleError } from "./services/apiUtils";
 import { MenuItem } from "../Models/MenuItem";
+import { Order } from "../Models/Order";
 
 type OrderItemProps = {
+  order: Order;
   id: number;
   tableNumber: number;
   orderItems: any[];
   completed: boolean;
+  setRefetch: any;
 };
 
 function CustomAcordionHead({ children, eventKey }: any) {
@@ -39,9 +39,19 @@ function CustomAcordionHead({ children, eventKey }: any) {
 
 export const OrderItem = (props: OrderItemProps) => {
   const idStr = props.orderItems.map((item) => item.menuItemId).join(";");
-
   const [menuItems, setMenuItems] = useState<MenuItem[]>();
-
+  const completeOrder = () => {
+    let order = props.order;
+    order.completed = true;
+    updateOrder(order)
+      .then((response) => {
+        props.setRefetch();
+      })
+      .catch((error) => {
+        alert("error");
+        handleError(error);
+      });
+  };
   useEffect(() => {
     getMenuItemsById(idStr)
       .then((response) => setMenuItems(response.data))
@@ -49,7 +59,7 @@ export const OrderItem = (props: OrderItemProps) => {
         alert("GetMenuItemsById Error");
         console.log(handleError(error));
       });
-  });
+  }, []);
   return menuItems ? (
     <Container className="topPadding">
       <Row>
@@ -77,7 +87,7 @@ export const OrderItem = (props: OrderItemProps) => {
                         <td></td>
                       </tr>
                       {props.orderItems.map((orderItem) => (
-                        <tr key={`${orderItem.Id}_${orderItem.name}` as string}>
+                        <tr key={`${orderItem.id}_${orderItem.name}` as string}>
                           <td>
                             {
                               menuItems.filter(
@@ -92,19 +102,19 @@ export const OrderItem = (props: OrderItemProps) => {
                       ))}
                     </tbody>
                   </table>
-
-                  <Row className="topPadding">
-                    <Col lg={{ offset: 8 }}>
-                      <Form>
-                        <Form.Group controlId="formBasicCheckbox">
-                          <Form.Check
-                            type="checkbox"
-                            label="Mark as complete!"
-                          />
-                        </Form.Group>
-                      </Form>
-                    </Col>
-                  </Row>
+                  {props.completed == false ? (
+                    <Row className="topPadding">
+                      <Col lg={{ offset: 8 }}>
+                        <Form>
+                          <Form.Group controlId="formBasicCheckbox">
+                            <Button onClick={completeOrder}>
+                              Mark as Complete
+                            </Button>
+                          </Form.Group>
+                        </Form>
+                      </Col>
+                    </Row>
+                  ) : null}
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
