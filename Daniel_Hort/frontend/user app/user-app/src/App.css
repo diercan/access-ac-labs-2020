@@ -1,38 +1,85 @@
-.App {
-  text-align: center;
+html, body{
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.red-nav{
+  background-color: #FF5733;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.red-nav * {
+  color: white;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.red-nav .nav-link:hover, .nav-link.active{
+  color: black;
+}
+.bg-red{
+  background-color: #FF5733;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn.btn-primary, .btn.btn-primary:hover, .btn.btn-primary:focus{
+  background-color: #FF5733;
+  border: 1px solid black;
+  outline: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.articles-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+}
+
+.buffer{
+  height: 4rem;
+}
+
+.justify-self-start{
+  justify-self: start;
+}
+.justify-self-end{
+  justify-self: end;
+}
+.d-grid{
+  display: grid;
+}
+
+input[type="number"]{
+  max-width: 5rem;
+}
+
+#restaurantList div.list-group-item{
+  display: grid;
+  grid-template-columns: auto 80px;
+}
+#orderList div.list-group-item{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+}
+
+#mapContainer{
+  width: 100%;
+  height: 50vh;
+}
+#restaurantList{
+  margin-top: 2rem;
+}
+#orderList{
+
+}
+#scanContainer{
+  width: 100vw;
+  height: 100vh;
+  background-color: lightgrey;
+  z-index: 0;
+  display: grid;
+  grid-template-rows: auto 100px 70px;
+  grid-template-columns: 100%;
+}
+
+@media screen and (min-width: 1200px){
+  .articles-container{
+    grid-template-columns: 1fr 1fr;
   }
 }

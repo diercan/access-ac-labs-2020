@@ -1,7 +1,8 @@
 [
   {
     "id": "1",
-    "name": "Napoleon",
+    "name": "Pizza Napoleon",
+    "address": "Aleea Studenților 5, Timișoara",
     "location": {
       "x": 5.35353,
       "y": 23.45647
@@ -9,7 +10,8 @@
   },
   {
     "id": "2",
-    "name": "Shaorma City",
+    "name": "Little Hanoi Bistro",
+    "address": "Strada Johann Wolfgang von Goethe 2, Timișoara",
     "location": {
       "x": 0,
       "y": 0
