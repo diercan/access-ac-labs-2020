@@ -5,6 +5,7 @@ import { RestaurantPageComponent } from "../RestaurantPage/RestaurantPage";
 import { DailyMenuComponent } from "../RestaurantPage/Components/DailyMenu";
 import { DailyMenu } from "../../Data/DailyMenu";
 import { GetRestaurants } from "../../Services/RestaurantsService";
+import { LandingPageComponent } from "../LandingPage/LandingPage";
 
 type RestaurantPageResolverProps = {
   slug: string;
@@ -31,8 +32,7 @@ function RestaurantPageResolver(props: RestaurantPageProps) {
         dailyMenu={selectedRestaurant.dailyMenu}
       />
     );
-  // TODO: Redirect to landing page/or to notfound component and delete unused imports
-  else return <DailyMenuComponent item={DailyMenu} />;
+  else return <LandingPageComponent/>;
 }
 
 export default RestaurantPageResolver;

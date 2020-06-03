@@ -6,6 +6,7 @@ import { MenuItemsListComponent } from "./Components/MenuItemsList";
 import { DailyMenuComponent } from "./Components/DailyMenu";
 import { MenuItems } from "../../Data/MenuItems";
 import { GetMenuItems } from "../../Services/MenuItemsService";
+import { LoadingComponent } from "../../Components/LoadingComponent";
 
 type RestaurantPageProps = {
   name: string;
@@ -26,5 +27,5 @@ export const RestaurantPageComponent = (props: RestaurantPageProps) => {
         <MenuItemsListComponent items={MenuItems} />
       </Container>
     );
-  else return <div>Loading...</div>;
+  else return <LoadingComponent/>;
 };

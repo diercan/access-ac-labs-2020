@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Container } from "react-bootstrap";
 import { RestaurantSelectorComponent } from "./RestaurantSelectorPreview";
 import { Restaurant } from "../../../Models/RestaurantModel";
+import img from "../../../assets/img/logo-napoleon.png";
 
 type RestaurantSelectorProps = {
   restaurants: Restaurant[];
@@ -10,7 +11,6 @@ type RestaurantSelectorProps = {
 export const RestaurantSelectorListComponent = (
   props: RestaurantSelectorProps
 ) => {
-  const test = "/logo192.png";
   return (
     <Container className="m-5 mx-auto">
       <h1 className="text-center m-5" id="link">
@@ -21,7 +21,7 @@ export const RestaurantSelectorListComponent = (
           <RestaurantSelectorComponent
             name={restaurant.name}
             slug={restaurant.slug}
-            image={restaurant.logo}
+            image={img}
           />
         ))}
       </Row>

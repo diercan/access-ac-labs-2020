@@ -3,6 +3,8 @@ import { HeaderBannerComponent } from "./Components/HeaderBanner";
 import { RestaurantSelectorListComponent } from "./Components/RestaurantSelectorList";
 import { GetRestaurants } from "../../Services/RestaurantsService";
 import { Restaurant } from "../../Models/RestaurantModel";
+import { Button } from "react-bootstrap";
+import { LoadingComponent } from "../../Components/LoadingComponent";
 
 export const LandingPageComponent = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>();
@@ -11,6 +13,7 @@ export const LandingPageComponent = () => {
       if (response) setRestaurants(response.data);
     });
   }, []);
+
   if(restaurants)
   return (
     <React.Fragment>
@@ -19,5 +22,5 @@ export const LandingPageComponent = () => {
     </React.Fragment>
   );
   else 
-  return <p>Loading...</p>;
+  return <LoadingComponent />;
 };
