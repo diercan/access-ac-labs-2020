@@ -1,10 +1,11 @@
 import { axiosClient } from "./axiosClient";
 import { MenuItem } from "../Models/MenuItemModel";
+import {handleError} from "./apiUtils";
 
 
 export const PostMenuItem = (MenuItem : MenuItem, Quantity: number) =>
 {
-    return axiosClient.post("order", {MenuItem, Quantity}).then(response => {console.log(response)});
+    return axiosClient.post("order", {MenuItem, Quantity});
 }
 export const GetOrderStatus = () =>
 {
@@ -12,5 +13,7 @@ export const GetOrderStatus = () =>
 }
 export const FinishOrder = () =>
 {
-    return axiosClient.post("order/finish").then(response => {console.log(response)}, (error) => { console.log(error) });
+    return axiosClient.get("order/finish")
+        .then(response => {console.log(response)}, (error) => { console.log(error) })
+        .catch(handleError);
 }

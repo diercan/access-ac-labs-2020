@@ -21,7 +21,7 @@ export const RestaurantSelectorListComponent = (
           <RestaurantSelectorComponent
             name={restaurant.name}
             slug={restaurant.slug}
-            image={img}
+            image={restaurant.logo}
           />
         ))}
       </Row>

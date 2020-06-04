@@ -18,10 +18,12 @@ const Image = styled.img`
 `;
 
 export const RestaurantSelectorComponent = (props: RestaurantSelectorProps) => {
+    // const img = '../../../assets/img/' + props.image; // props.image = logo-napoleon.png
+    // require('../../../assets/img/logo-napoleon.png') is working fine
   return (
     <Col lg={3} md={4} sm={6} className="mt-3 p-3">
       <Link to={props.slug}>
-        <Image src={props.image} alt = {props.name}/>
+        <Image src={require('../../../assets/img/logo-napoleon.png')} alt = {props.name}/>
       </Link>
     </Col>
   );
