@@ -137,5 +137,15 @@ namespace OrderAndPay.Web.Controllers
                 found => (IActionResult)Ok(found.OrderItems),
                 notFound => NotFound());
         }
+
+        [HttpPost("{employeeId}/restaurant/{restaurantName}/menus/{menuId:int}/items")]
+        public async Task<IActionResult> PostMenuItem(string name, string ingredients, string allergens, uint totalQuantity, decimal price, bool availability, int menuId)
+        {
+            var getMenu =
+                from menuResult in RestaurantDomainEx.GetMenu(menuId)
+                select menuResult;
+            var menuAgg = await _interpreter.Interpret(getMenu, Unit.Default);
+            return Ok(RestaurantDomain.CreateMenuItem(menuAgg.Menu, name, ingredients, allergens, totalQuantity, price, availability));
+        }
     }
 }

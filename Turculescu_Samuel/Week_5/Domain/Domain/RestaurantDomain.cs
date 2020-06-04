@@ -62,6 +62,8 @@ using static Domain.Domain.GetMenuItemsOp.GetMenuItemsResult;
 using Domain.Domain.GetMenuItemsOp;
 using static Domain.Domain.GetOrderItemsOp.GetOrderItemsResult;
 using Domain.Domain.GetOrderItemsOp;
+using static Domain.Domain.GetRestaurantsOp.GetRestaurantsResult;
+using Domain.Domain.GetRestaurantsOp;
 
 namespace Domain.Domain
 {
@@ -85,6 +87,16 @@ namespace Domain.Domain
             => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
                from getResult in RestaurantDomain.GetRestaurant(restaurant)
                let agg = (getResult as GetRestaurantResult.RestaurantFound)?.Agg
+               select getResult;
+
+        // GET ALL RESTAURANTS
+        public static IO<IGetRestaurantsResult> GetRestaurants(List<Restaurant> restaurants) =>
+             NewIO<GetRestaurantsCmd, GetRestaurantsResult.IGetRestaurantsResult>(new GetRestaurantsCmd(restaurants));
+
+        public static IO<IGetRestaurantsResult> GetRestaurants()
+            => from restaurants in Database.Query<FindRestaurantsQuery, List<Restaurant>>(new FindRestaurantsQuery())
+               from getResult in RestaurantDomain.GetRestaurants(restaurants)
+               let agg = (getResult as GetRestaurantsResult.RestaurantsFound)?.Restaurants
                select getResult;
 
         // CREATE CLIENT

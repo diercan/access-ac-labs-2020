@@ -59,22 +59,47 @@ namespace Demo
             
            //Adding a Restaurant
                     var exprRestaurant =
-                        from restaurantResult in RestaurantDomain.GetRestaurant("Restaurant_3")                        
-                        let restaurant = (restaurantResult as RestaurantFound).Agg
-                        from menuResult1 in RestaurantDomain.CreateMenuAndPersist("Pasta1", restaurant.Restaurant)
+                        from restaurantResult in RestaurantDomain.CreateRestaurantAndPersist("Piata 9", "Strada Rozelor, nr.35")                        
+                        let restaurant = (restaurantResult as RestaurantCreated).Restaurant
+                        from menuResult1 in RestaurantDomain.CreateMenuAndPersist("Menu of the day", restaurant.Restaurant)
                         let menu1 = (menuResult1 as MenuCreated)?.Menu
-                        from menuResult2 in RestaurantDomain.CreateMenuAndPersist("Pizza1", restaurant.Restaurant)
+                        from menuResult2 in RestaurantDomain.CreateMenuAndPersist("Breakfast", restaurant.Restaurant)
                         let menu2 = (menuResult2 as MenuCreated)?.Menu
-
-                        from menuItemResult1 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Carbonara", "ingredients", "allergens", 100, 27.50m, true)
+                        from menuResult3 in RestaurantDomain.CreateMenuAndPersist("Soup", restaurant.Restaurant)
+                        let menu3 = (menuResult3 as MenuCreated)?.Menu
+                        from menuResult4 in RestaurantDomain.CreateMenuAndPersist("MainCourse", restaurant.Restaurant)
+                        let menu4 = (menuResult4 as MenuCreated)?.Menu
+                        from menuResult5 in RestaurantDomain.CreateMenuAndPersist("Pasta", restaurant.Restaurant)
+                        let menu5 = (menuResult5 as MenuCreated)?.Menu
+                        from menuResult6 in RestaurantDomain.CreateMenuAndPersist("Pizza", restaurant.Restaurant)
+                        let menu6 = (menuResult6 as MenuCreated)?.Menu
+                        from menuResult7 in RestaurantDomain.CreateMenuAndPersist("Desserts", restaurant.Restaurant)
+                        let menu7 = (menuResult7 as MenuCreated)?.Menu
+                        from menuResult8 in RestaurantDomain.CreateMenuAndPersist("Drinks", restaurant.Restaurant)
+                        let menu8 = (menuResult8 as MenuCreated)?.Menu
+                        from menuItemResult1 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Menu of the day", "ingredients", "allergens", 100, 15.99m, true)
                         let menuItem1 = (menuItemResult1 as MenuItemCreated)?.MenuItem
-                        from menuItemResult2 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Spaghetti", "ingredients", "allergens", 150, 25.50m, true)
+                        from menuItemResult2 in RestaurantDomain.CreateMenuItemAndPersist(menu2.Menu, "Breakfast 1", "ingredients", "allergens", 150, 12.00m, true)
                         let menuItem2 = (menuItemResult2 as MenuItemCreated)?.MenuItem
-                        from menuItemResult3 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Macaroni", "ingredients", "allergens", 200, 20.50m, true)
+                        from menuItemResult3 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Chicken Soup", "ingredients", "allergens", 200, 16.00m, true)
                         let menuItem3 = (menuItemResult3 as MenuItemCreated)?.MenuItem
-                        from menuItemResult4 in RestaurantDomain.CreateMenuItemAndPersist(menu2.Menu, "Pizza", "ingredients", "allergens", 100, 30.50m, true)
+                        from menuItemResult4 in RestaurantDomain.CreateMenuItemAndPersist(menu2.Menu, "Beef Soup", "ingredients", "allergens", 100, 17.00m, true)
                         let menuItem4 = (menuItemResult4 as MenuItemCreated)?.MenuItem
-
+                        from menuItemResult5 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Chicken Schnitzel", "ingredients", "allergens", 100, 20.00m, true)
+                        let menuItem5 = (menuItemResult5 as MenuItemCreated)?.MenuItem
+                        from menuItemResult6 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Carbonara", "ingredients", "allergens", 150, 19.00m, true)
+                        let menuItem6 = (menuItemResult6 as MenuItemCreated)?.MenuItem
+                        from menuItemResult7 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Spaghetti Bolognese", "ingredients", "allergens", 200, 18.00m, true)
+                        let menuItem7 = (menuItemResult7 as MenuItemCreated)?.MenuItem
+                        from menuItemResult8 in RestaurantDomain.CreateMenuItemAndPersist(menu2.Menu, "Lasagna", "ingredients", "allergens", 100, 27.00m, true)
+                        let menuItem8 = (menuItemResult8 as MenuItemCreated)?.MenuItem
+                        from menuItemResult9 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Quatro Stagioni", "ingredients", "allergens", 100, 25.00m, true)
+                        let menuItem9 = (menuItemResult9 as MenuItemCreated)?.MenuItem
+                        from menuItemResult10 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Cheesecake", "ingredients", "allergens", 150, 30.00m, true)
+                        let menuItem10 = (menuItemResult10 as MenuItemCreated)?.MenuItem
+                        from menuItemResult11 in RestaurantDomain.CreateMenuItemAndPersist(menu1.Menu, "Coca-Cola", "ingredients", "allergens", 200, 5.00m, true)
+                        let menuItem11 = (menuItemResult11 as MenuItemCreated)?.MenuItem
+                        
                         /* from clientResult in RestaurantDomainEx.CreateClientAndPersist("Fifth", "Client", "fifthclient@gmail.com", "07xxxxxxxx", "xxxxxxxxxxxxxxxx", "fifth.client", "client05")
                          let client = (clientResult as ClientCreated)?.Client*/
                          from client in RestaurantDomainEx.GetClient("first.client")

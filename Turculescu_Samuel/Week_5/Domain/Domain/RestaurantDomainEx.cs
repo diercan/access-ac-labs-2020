@@ -34,6 +34,7 @@ using Domain.Domain.CheckOrderPaymentOp;
 using Domain.Domain.PayOrderOp;
 using Domain.Domain.GetOrderItemsOp;
 using Domain.Domain.GetMenuItemsOp;
+using Domain.Domain.GetRestaurantsOp;
 
 namespace Domain.Domain
 {
@@ -51,6 +52,13 @@ namespace Domain.Domain
             => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
                from getResult in RestaurantDomain.GetRestaurant(restaurant)
                let agg = (getResult as GetRestaurantResult.RestaurantFound)?.Agg
+               select agg;
+
+        // Get all Restaurants
+        public static IO<List<Restaurant>> GetRestaurants()
+            => from restaurants in Database.Query<FindRestaurantsQuery, List<Restaurant>>(new FindRestaurantsQuery())
+               from getResult in RestaurantDomain.GetRestaurants(restaurants)
+               let agg = (getResult as GetRestaurantsResult.RestaurantsFound)?.Restaurants
                select agg;
 
         // Create a Client

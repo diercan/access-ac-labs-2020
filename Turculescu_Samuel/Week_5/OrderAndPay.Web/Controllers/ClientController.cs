@@ -15,7 +15,9 @@ using Domain.Domain.GetMenuItemOp;
 using Domain.Domain.GetMenuItemsOp;
 using Domain.Domain.GetOrdersOp;
 using Domain.Domain.GetOrderItemsOp;
+using Domain.Domain.GetRestaurantsOp;
 using Newtonsoft.Json;
+using Persistence.EfCore.Context;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -43,7 +45,20 @@ namespace OrderAndPay.Web.Controllers
                 notFound => NotFound());
         }
 
-        [HttpGet("{clientId}/restaurants/{restaurantName}")]
+        [HttpGet("{clientId}/restaurants")]
+        public async Task<IActionResult> GetRestaurants()
+        {
+            var getRestaurantsExpr =
+               from restaurantResult in RestaurantDomain.GetRestaurants()
+               select restaurantResult;
+            var restaurants = await _interpreter.Interpret(getRestaurantsExpr, Unit.Default);
+
+            return restaurants.Match(
+                found => (IActionResult)Ok(found.Restaurants),
+                notFound => NotFound());
+        }
+
+        [HttpGet("{clientId}/restaurant/{restaurantName}")]
         public async Task<IActionResult> GetRestaurant(string restaurantName)
         {
             var getRestaurantExpr =
@@ -56,7 +71,7 @@ namespace OrderAndPay.Web.Controllers
                 notFound => NotFound());
         }
 
-        [HttpGet("{clientId}/restaurants/{restaurantName}/menus")]
+        [HttpGet("{clientId}/restaurant/{restaurantName}/menus")]
         public async Task<IActionResult> GetMenus(string restaurantName)
         {
             var getRestaurantExpr =
@@ -84,7 +99,7 @@ namespace OrderAndPay.Web.Controllers
             notFound => NotFound());
         }
 
-        [HttpGet("{clientId}/restaurants/{name}/menus/{menuId:int}")]
+        [HttpGet("{clientId}/restaurant/{name}/menus/{menuId:int}")]
         public async Task<IActionResult> GetMenuItems(int menuId)
         {
             var getMenuExpr =
@@ -141,6 +156,6 @@ namespace OrderAndPay.Web.Controllers
             return orderItems.Match(
                 found => (IActionResult)Ok(found.OrderItems),
                 notFound => NotFound());
-        }
+        }        
     }
 }
