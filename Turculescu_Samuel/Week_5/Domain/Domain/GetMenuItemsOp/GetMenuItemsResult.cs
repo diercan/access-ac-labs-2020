@@ -8,29 +8,28 @@ using System.Collections.ObjectModel;
 using Persistence.EfCore;
 using System.Linq;
 
-namespace Domain.Domain.GetMenusOp
+namespace Domain.Domain.GetMenuItemsOp
 {
     [AsChoice]
-    public static partial class GetMenusResult
+    public static partial class GetMenuItemsResult
     {
-        public interface IGetMenusResult { }
+        public interface IGetMenuItemsResult { }
 
-        public class GetMenusSuccessful : IGetMenusResult
-        {            
-            public List<Menu> Menus; 
+        public class MenuItemsFound: IGetMenuItemsResult
+        {
+            public List<MenuItem> MenuItems { get; }
 
-            public GetMenusSuccessful(List<Menu> menus)
+            public MenuItemsFound(List<MenuItem> menuItems)
             {
-                Menus = menus;
-
+                MenuItems = menuItems;
             }
         }
 
-        public class GetMenusNotSuccessful : IGetMenusResult
+        public class MenuItemsNotFound : IGetMenuItemsResult
         {
             public string Reason { get; }
 
-            public GetMenusNotSuccessful(string reason)
+            public MenuItemsNotFound(string reason)
             {
                 Console.WriteLine(reason);
                 Reason = reason;

@@ -25,24 +25,38 @@ namespace OrderAndPay.Web
             Configuration = configuration;
         }
 
+        private readonly string MyAllowSpecificOrigins = "localhost";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOperations(typeof(RestaurantAgg).Assembly);
-            /*services.AddOperations(typeof(ClientAgg).Assembly);
+            services.AddOperations(typeof(ClientAgg).Assembly);
             services.AddOperations(typeof(EmployeeAgg).Assembly);
             services.AddOperations(typeof(MenuAgg).Assembly);
             services.AddOperations(typeof(MenuItemAgg).Assembly);
             services.AddOperations(typeof(OrderAgg).Assembly);
-            services.AddOperations(typeof(OrderItemAgg).Assembly);*/ 
+            services.AddOperations(typeof(OrderItemAgg).Assembly);
             services.AddOperations(typeof(AddOrUpdateOp).Assembly);
             services.AddTransient(typeof(IOp<,>), typeof(QueryOp<,>));
 
             services.AddDbContext<OrderAndPayContext>(ServiceLifetime.Scoped);
 
             services.AddControllers();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +66,8 @@ namespace OrderAndPay.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             //app.UseHttpsRedirection();
 

@@ -20,7 +20,7 @@ namespace Domain.Domain.GetMenusOp
                 return Task.FromResult<IGetMenusResult>(new GetMenusNotSuccessful("Restaurant does not have a menu yet!"));
             }
             else
-            {
+            {               
                 return Task.FromResult<IGetMenusResult>(new GetMenusSuccessful(Op.Menus));
             }
             

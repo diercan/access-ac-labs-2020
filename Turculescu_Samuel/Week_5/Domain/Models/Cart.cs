@@ -13,7 +13,7 @@ namespace Domain.Models
             CartItems = new List<CartItem>();
         }
 
-        public double GetTotalPrice()       // get Total Price from Cart 
+        /*public double GetTotalPrice()       // get Total Price from Cart 
         {
             double totalPrice = 0;
             List<CartItem>.Enumerator e = CartItems.GetEnumerator();            
@@ -24,6 +24,6 @@ namespace Domain.Models
             }
 
             return totalPrice;
-        }
+        }*/
     }
 }

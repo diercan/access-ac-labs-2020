@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Persistence.EfCore
 {
@@ -15,6 +17,7 @@ namespace Persistence.EfCore
         public string EmployeeId { get; set; }
         public string Password { get; set; }
         public int RestaurantId{ get; set; }
+
 
         public virtual Restaurant Restaurant { get; set; }
     }

@@ -10,13 +10,13 @@ using System.Text;
 
 namespace Domain.Queries
 {
-    class FindMenusQuery : Query<List<Menu>>
+    class FindClientOrdersQuery : Query<List<Order>>
     {
-        public FindMenusQuery(Restaurant restaurant) : base(async (ctx) =>
+        public FindClientOrdersQuery(int clientId) : base(async (ctx) =>
         {
             return
-                await ctx.Set<Menu>()
-                    .Where(m => m.RestaurantId.Equals(restaurant.Id))
+                 await ctx.Set<Order>()
+                    .Where(o => o.ClientId.Equals(clientId))
                     .ToListAsync();
         })
         { }

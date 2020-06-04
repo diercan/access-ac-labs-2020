@@ -14,10 +14,10 @@ namespace Domain.Domain.CreateMenuItemOp
         public string Ingredients { get; }
         public string Allergens { get; }
         public uint TotalQuantity { get; }
-        public double Price { get; }
+        public decimal Price { get; }
         public bool Availability { get; }        
 
-        public CreateMenuItemCmd(Menu menu, string name, string ingredients, string allergens, uint totalQuantity, double price, bool availability)
+        public CreateMenuItemCmd(Menu menu, string name, string ingredients, string allergens, uint totalQuantity, decimal price, bool availability)
         {
             Menu = menu;
             Name = name;

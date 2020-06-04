@@ -129,15 +129,18 @@ namespace Persistence.EfCore.Context
             // MENU ITEM
             modelBuilder.Entity<MenuItem>(entity =>
             {
-                entity.Property(e => e.Allergens);
+                /*entity.Property(e => e.Allergens);
 
-                entity.Property(e => e.Ingredients);
+                entity.Property(e => e.Ingredients);*/
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(50);
 
+                entity.Property(e => e.TotalQuantity)
+                    .HasColumnType("numeric(18, 0)");
+
                 entity.Property(e => e.Price)
-                    .HasColumnType("money");
+                    .HasColumnType("decimal(10, 2)");
 
                 entity.HasOne(d => d.Menu)
                     .WithMany(p => p.MenuItems)
@@ -152,9 +155,12 @@ namespace Persistence.EfCore.Context
                 .HasMaxLength(50);
 
                 entity.Property(e => e.SpecialRequests);
-  
+
+                entity.Property(e => e.Quantity)
+                    .HasColumnType("numeric(18, 0)");
+
                 entity.Property(e => e.Price)
-                    .HasColumnType("money");
+                    .HasColumnType("decimal(10, 2)");
 
                 entity.HasOne(d => d.MenuItem)
                     .WithMany(p => p.OrderItems)
@@ -170,11 +176,14 @@ namespace Persistence.EfCore.Context
             // ORDER
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.Property(e => e.TableNumber)
+                    .HasColumnType("numeric(4, 0)");
+
                 entity.Property(e => e.DateTimePlaced)
                     .HasColumnType("smalldatetime");
 
                 entity.Property(e => e.TotalPrice)
-                    .HasColumnType("money");
+                    .HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.OrderStatus)
                     .HasMaxLength(50);

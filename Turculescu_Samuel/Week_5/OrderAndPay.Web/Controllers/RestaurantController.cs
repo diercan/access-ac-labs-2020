@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Domain.GetRestaurantOp;
 using Domain.Domain;
 using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.AspNetCore.Mvc;
+using Persistence.EfCore;
+using System.Net.Http;
+using System.Net;
+using Domain.Domain.GetMenusOp;
+using Newtonsoft.Json;
+using Domain.Domain.GetRestaurantOp;
+using Persistence.EfCore.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -21,17 +28,29 @@ namespace OrderAndPay.Web.Controllers
             _interpreter = interpreter;
         }
 
-        [HttpGet("{name}/employees")]
-        public async Task<IActionResult> GetRestaurant(string name)
+        [HttpGet("{name}/menus")]
+        public async Task<IActionResult> GetMenus(string name)
         {
             var getRestaurantExpr =
-               from restaurantResult in RestaurantDomain.GetRestaurant(name)
-               select restaurantResult;
+              from restaurantResult in RestaurantDomain.GetRestaurant(name)
+              select restaurantResult;
             var restaurant = await _interpreter.Interpret(getRestaurantExpr, Unit.Default);
 
-            return restaurant.Match(
-                found => (IActionResult)Ok(found.Agg.Restaurant.Employees),
-                notFound => NotFound());
+
+            return await restaurant.MatchAsync<IActionResult>(
+                 async (selected) =>
+                 {
+                     var getMenusExpr =
+                         from menusRestaurant in RestaurantDomainEx.GetMenus(selected.Agg.Restaurant)
+                         select menusRestaurant;
+
+                     var menus = await _interpreter.Interpret(getMenusExpr, Unit.Default);
+
+                     return (IActionResult)Ok(JsonConvert.SerializeObject(menus));
+                 },
+                  async (notSelected) => NotFound()
+
+                 );
         }
     }
 }
