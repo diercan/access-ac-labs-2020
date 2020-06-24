@@ -25,7 +25,7 @@ namespace OrderAndPay.Web
         {
             Configuration = configuration;
         }
-
+        private readonly string MyAllowSpecificOrigins = "localhost";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -39,6 +39,13 @@ namespace OrderAndPay.Web
             services.AddTransient(typeof(IOp<,>), typeof(QueryOp<,>));
             services.AddDbContext<OrderAndPayContext>(ServiceLifetime.Scoped);
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins, builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +57,7 @@ namespace OrderAndPay.Web
             }
 
             //app.UseHttpsRedirection();
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseRouting();
 
             app.UseAuthorization();

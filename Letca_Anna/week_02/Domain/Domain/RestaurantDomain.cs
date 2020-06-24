@@ -33,6 +33,8 @@ using static Domain.Domain.CreateMenuOp.CreateMenuResult;
 using static Persistence.Abstractions.AddOrUpdateResult;
 using Domain.Domain.GetSpecificMenu;
 using static Domain.Domain.GetSpecificMenu.GetSpecificMenuResult;
+using static Domain.Domain.GetAllRestaurantsOp.GetAllRestaurantsResult;
+using Domain.Domain.GetAllRestaurantsOp;
 
 namespace Domain.Domain
 {
@@ -52,6 +54,9 @@ namespace Domain.Domain
                from getResult in RestaurantDomain.GetRestaurant(restaurant)
                let agg = (getResult as GetRestaurantResult.RestaurantFound)?.RestaurantAgg
                select getResult;
+
+        public static IO<IGetAllRestaurantsResult> GetAllRestaurants(List<Restaurant> restaurants)
+            => NewIO<GetAllRestaurantsCmd, IGetAllRestaurantsResult>(new GetAllRestaurantsCmd(restaurants));
 
         public static IO<IGetRestaurantResult> GetRestaurant(Restaurant restaurant) =>
              NewIO<GetRestaurantCmd, IGetRestaurantResult>(new GetRestaurantCmd(restaurant));

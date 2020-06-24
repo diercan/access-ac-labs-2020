@@ -1,14 +1,17 @@
 ﻿using Domain.Domain;
 using Domain.Domain.GetRestaurantOp;
+using Domain.Queries;
 using Infrastructure.Free;
 using LanguageExt;
 using Microsoft.AspNetCore.Mvc;
 using Persistence;
 using Persistence.Abstractions;
 using Persistence.EfCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static Domain.Domain.CreateRestauratOp.CreateRestaurantResult;
 using static Domain.Domain.GetRestaurantOp.GetRestaurantResult;
+using static Domain.Domain.GetAllRestaurantsOp.GetAllRestaurantsResult;
 
 namespace OrderAndPay.Web.Controllers
 {
@@ -19,6 +22,20 @@ namespace OrderAndPay.Web.Controllers
         public ClientController(LiveInterpreterAsync interpreter)
         {
             _interpreter = interpreter;
+        }
+
+        [HttpGet("restaurants")]
+        public async Task<IActionResult> GetAllRestaurants()
+        {
+            var getAllRestaurantsExpr = from restaurants in Database.Query<GetAllRestaurantsQuery, List<Restaurant>>(new GetAllRestaurantsQuery())
+                                        from restarauntsResult in RestaurantDomain.GetAllRestaurants(restaurants)
+                                        select restarauntsResult;
+
+            var result = await _interpreter.Interpret(getAllRestaurantsExpr, Unit.Default);
+
+            return result.Match(
+                found => (IActionResult)new OkObjectResult(found.Restaurants),
+                notFound => new NotFoundObjectResult(notFound.Reason));
         }
 
         [HttpGet("restaurant/{name}")]
