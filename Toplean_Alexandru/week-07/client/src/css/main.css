@@ -1,0 +1,83 @@
+.centerAlign {
+    text-align: center;
+}
+
+.upScale {
+    width: 100%;
+    transition: width 0.5s ease;
+
+}
+
+.noHyperLinks,
+.noHyperLinks:hover {
+    color: white;
+    text-decoration: none;
+
+}
+
+.blueBackground {
+    background-color: #189AD3;
+}
+
+.blackLine {
+    border-color: black;
+}
+
+.upScale:hover {
+
+    width: 105%;
+
+}
+
+.noPadding {
+    padding: 0px;
+}
+
+.noMargins {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.topPadding {
+    padding-top: 30px;
+}
+
+.topMargin {
+    margin-top: 20px;
+}
+
+.star {
+
+    background-image: url('/images/star.png');
+    background-size: 25px 24px;
+    min-width: 25px;
+    min-height: 24px;
+    display: inline-block;
+}
+
+.glow {
+
+    background-image: url('/images/starGlow.png');
+    background-size: 25px 24px;
+    min-width: 25px;
+    min-height: 24px;
+    display: inline-block;
+}
+
+
+
+.cartImage {
+    background-image: url('../images/3551020411578889023-128.png');
+    background-size: 40px 40px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-block;
+}
+
+.tableBorders {
+    border: 1px solid black;
+}
+
+.bottomBorder {
+    border-bottom: 1px solid black;
+}
