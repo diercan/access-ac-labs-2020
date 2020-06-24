@@ -10,10 +10,10 @@ namespace Domain.Domain.PlaceOrderOp
     {
         public Client Client { get; }
         public Restaurant Restaurant { get; }
-        public double TotalPrice { get; }
+        public decimal TotalPrice { get; }
         public uint TableNumber { get; }
 
-        public PlaceOrderCmd(Client client, Restaurant restaurant, double totalPrice, uint tableNumber = 0)
+        public PlaceOrderCmd(Client client, Restaurant restaurant, decimal totalPrice, uint tableNumber = 0)
         {
             Client = client;
             Restaurant = restaurant;

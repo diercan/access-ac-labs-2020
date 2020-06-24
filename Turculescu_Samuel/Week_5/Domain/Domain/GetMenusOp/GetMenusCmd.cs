@@ -9,11 +9,11 @@ namespace Domain.Domain.GetMenusOp
 {
     public struct GetMenusCmd
     {
-        public List<Menu> Menus { get; }
+        public List<Menu> Menus{ get; }
 
         public GetMenusCmd(List<Menu> menus)
         {
-            Menus = menus;            
+            Menus = menus;    
         }
     }
 }

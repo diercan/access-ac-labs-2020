@@ -1,0 +1,11 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP (1000) [Id]
+      ,[FirstName]
+      ,[LastName]
+      ,[Email]
+      ,[Phone]
+      ,[Job]
+      ,[EmployeeId]
+      ,[Password]
+      ,[RestaurantId]
+  FROM [OrderAndPay].[dbo].[Employee]

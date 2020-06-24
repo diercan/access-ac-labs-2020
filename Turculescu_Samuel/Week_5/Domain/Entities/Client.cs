@@ -8,7 +8,7 @@ namespace Persistence.EfCore
     {
        public Client()
         {
-            PlacedOrders = new HashSet<Order>();
+            PlacedOrders = new List<Order>();
         }
 
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace Persistence.EfCore
         public string Password { get; set; }
 
         //public virtual ICollection<OrderItem> Cart { get; set; }
-        public virtual ICollection<Order> PlacedOrders { get; set; }
+        public virtual List<Order> PlacedOrders { get; set; }
     }
 }

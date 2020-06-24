@@ -15,7 +15,7 @@ namespace Domain.Queries
         public FindMenusQuery(Restaurant restaurant) : base(async (ctx) =>
         {
             return
-                 await ctx.Set<Menu>()
+                await ctx.Set<Menu>()
                     .Where(m => m.RestaurantId.Equals(restaurant.Id))
                     .ToListAsync();
         })

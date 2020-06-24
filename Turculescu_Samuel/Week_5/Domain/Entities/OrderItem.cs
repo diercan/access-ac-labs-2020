@@ -12,7 +12,7 @@ namespace Persistence.EfCore
         public int OrderId { get; set; }
         public uint Quantity { get; set; }
         public string SpecialRequests { get; set; }      
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public virtual MenuItem MenuItem { get; set; }
         public virtual Order Order { get; set; }

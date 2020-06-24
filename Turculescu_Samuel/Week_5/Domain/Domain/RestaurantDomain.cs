@@ -58,6 +58,12 @@ using static Domain.Domain.SetOrderStatusOp.SetOrderStatusResult;
 using static Domain.Domain.CheckOrderPaymentOp.CheckOrderPaymentResult;
 using static Domain.Domain.CreatePaymentRequestOp.CreatePaymentRequestResult;
 using static Domain.Domain.PayOrderOp.PayOrderResult;
+using static Domain.Domain.GetMenuItemsOp.GetMenuItemsResult;
+using Domain.Domain.GetMenuItemsOp;
+using static Domain.Domain.GetOrderItemsOp.GetOrderItemsResult;
+using Domain.Domain.GetOrderItemsOp;
+using static Domain.Domain.GetRestaurantsOp.GetRestaurantsResult;
+using Domain.Domain.GetRestaurantsOp;
 
 namespace Domain.Domain
 {
@@ -81,6 +87,16 @@ namespace Domain.Domain
             => from restaurant in Database.Query<FindRestaurantQuery, Restaurant>(new FindRestaurantQuery(name))
                from getResult in RestaurantDomain.GetRestaurant(restaurant)
                let agg = (getResult as GetRestaurantResult.RestaurantFound)?.Agg
+               select getResult;
+
+        // GET ALL RESTAURANTS
+        public static IO<IGetRestaurantsResult> GetRestaurants(List<Restaurant> restaurants) =>
+             NewIO<GetRestaurantsCmd, GetRestaurantsResult.IGetRestaurantsResult>(new GetRestaurantsCmd(restaurants));
+
+        public static IO<IGetRestaurantsResult> GetRestaurants()
+            => from restaurants in Database.Query<FindRestaurantsQuery, List<Restaurant>>(new FindRestaurantsQuery())
+               from getResult in RestaurantDomain.GetRestaurants(restaurants)
+               let agg = (getResult as GetRestaurantsResult.RestaurantsFound)?.Restaurants
                select getResult;
 
         // CREATE CLIENT
@@ -154,10 +170,10 @@ namespace Domain.Domain
                select getResult;
 
         // CREATE MENU ITEM
-        public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, string name, string ingredients, string allergens, uint totalQuantity, double price, bool availability) =>
+        public static IO<ICreateMenuItemResult> CreateMenuItem(Menu menu, string name, string ingredients, string allergens, uint totalQuantity, decimal price, bool availability) =>
             NewIO<CreateMenuItemCmd, CreateMenuItemResult.ICreateMenuItemResult>(new CreateMenuItemCmd(menu, name, ingredients, allergens, totalQuantity, price, availability));
-
-        public static IO<ICreateMenuItemResult> CreateMenuItemAndPersist(Menu menu, string name, string ingredients, string allergens, uint totalQuantity, double price, bool availability)
+            
+        public static IO<ICreateMenuItemResult> CreateMenuItemAndPersist(Menu menu, string name, string ingredients, string allergens, uint totalQuantity, decimal price, bool availability)
             => from menuItemCreated in RestaurantDomain.CreateMenuItem(menu, name, ingredients, allergens, totalQuantity, price, availability)
                let agg = (menuItemCreated as CreateMenuItemResult.MenuItemCreated)?.MenuItem
                from db in Database.AddOrUpdate(agg.MenuItem)
@@ -171,6 +187,16 @@ namespace Domain.Domain
             => from menuItem in Database.Query<FindMenuItemQuery, MenuItem>(new FindMenuItemQuery(menuItemId))
                from getResult in RestaurantDomain.GetMenuItem(menuItem)
                let agg = (getResult as GetMenuItemResult.MenuItemFound)?.Agg
+               select getResult;
+
+        // GET MENU ITEMS
+        public static IO<IGetMenuItemsResult> GetMenuItems(List<MenuItem> menuItems) =>
+            NewIO<GetMenuItemsCmd, GetMenuItemsResult.IGetMenuItemsResult>(new GetMenuItemsCmd(menuItems));
+
+        public static IO<IGetMenuItemsResult> GetMenuItems(Menu menu)
+            => from menuItems in Database.Query<FindMenuItemsQuery, List<MenuItem>>(new FindMenuItemsQuery(menu))
+               from getResult in RestaurantDomain.GetMenuItems(menuItems)
+               let agg = (getResult as GetMenuItemsResult.MenuItemsFound)?.MenuItems
                select getResult;
 
         // CHANGE MENU ITEM
@@ -188,10 +214,10 @@ namespace Domain.Domain
             NewIO<AddToCartCmd, AddToCartResult.IAddToCartResult>(new AddToCartCmd(sessionId, menuItem, quantity, specialRequests));
 
         // PLACE ORDER => ORDER
-        public static IO<IPlaceOrderResult> PlaceOrder(Client client, Restaurant restaurant, double totalPrice, uint tableNumber) =>
+        public static IO<IPlaceOrderResult> PlaceOrder(Client client, Restaurant restaurant, decimal totalPrice, uint tableNumber) =>
             NewIO<PlaceOrderCmd, PlaceOrderResult.IPlaceOrderResult>(new PlaceOrderCmd(client, restaurant, totalPrice, tableNumber));
 
-        public static IO<IPlaceOrderResult> PlaceOrderAndPersist(Client client, Restaurant restaurant, double totalPrice, uint tableNumber)
+        public static IO<IPlaceOrderResult> PlaceOrderAndPersist(Client client, Restaurant restaurant, decimal totalPrice, uint tableNumber)
             => from orderCreated in RestaurantDomain.PlaceOrder(client, restaurant, totalPrice, tableNumber)
                let agg = (orderCreated as PlaceOrderResult.OrderPlaced)?.Order
                from db in Database.AddOrUpdate(agg.Order)
@@ -227,6 +253,16 @@ namespace Domain.Domain
                let agg = (getResult as GetOrderItemResult.OrderItemFound)?.Agg
                select getResult;
 
+        //GET ORDER ITEMS
+        public static IO<IGetOrderItemsResult> GetOrderItems(List<OrderItem> orderItems) =>
+            NewIO<GetOrderItemsCmd, GetOrderItemsResult.IGetOrderItemsResult>(new GetOrderItemsCmd(orderItems));
+
+        public static IO<IGetOrderItemsResult> GetOrderItems(Order order)
+            => from orderItems in Database.Query<FindOrderItemsQuery, List<OrderItem>>(new FindOrderItemsQuery(order))
+               from getResult in RestaurantDomain.GetOrderItems(orderItems)
+               let agg = (getResult as GetOrderItemsResult.OrderItemsFound)?.OrderItems
+               select getResult;
+
         // CHANGE QUANTITY
         public static IO<IChangeQuantityResult> ChangeQuantity(string sessionId, OrderItem orderItem, uint newQuantity) =>
             NewIO<ChangeQuantityCmd, ChangeQuantityResult.IChangeQuantityResult>(new ChangeQuantityCmd(sessionId, orderItem, newQuantity));
@@ -241,8 +277,14 @@ namespace Domain.Domain
         public static IO<IGetOrdersResult> GetOrders(List<Order> orders) =>
             NewIO<GetOrdersCmd, GetOrdersResult.IGetOrdersResult>(new GetOrdersCmd(orders));
 
-        public static IO<IGetOrdersResult> GetOrders(Restaurant restaurant)
+        public static IO<IGetOrdersResult> GetRestaurantOrders(Restaurant restaurant)
         => from orders in Database.Query<FindOrdersQuery, List<Order>>(new FindOrdersQuery(restaurant))
+           from getResult in RestaurantDomain.GetOrders(orders)
+           let agg = (getResult as GetOrdersResult.GetOrdersSuccessful)?.Orders
+           select getResult;
+
+        public static IO<IGetOrdersResult> GetOrders(int clientId)
+        => from orders in Database.Query<FindClientOrdersQuery, List<Order>>(new FindClientOrdersQuery(clientId))
            from getResult in RestaurantDomain.GetOrders(orders)
            let agg = (getResult as GetOrdersResult.GetOrdersSuccessful)?.Orders
            select getResult;

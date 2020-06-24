@@ -17,7 +17,7 @@ namespace Domain.Domain.GetMenusOp
 
         public class GetMenusSuccessful : IGetMenusResult
         {            
-            public List<Menu> Menus { get; }
+            public List<Menu> Menus; 
 
             public GetMenusSuccessful(List<Menu> menus)
             {
